@@ -19,6 +19,3 @@ ignore-mixin-members=yes
 
 [REPORTS]
 output-format=colorized
-
-[PYTEST]
-# Allow fixtures and test names commonly used in pytest

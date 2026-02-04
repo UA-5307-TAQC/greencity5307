@@ -71,15 +71,15 @@ Linting and pre-commit hooks
 This repository includes:
 - `.pylintrc` — basic pylint configuration
 - `.pre-commit-config.yaml` — pre-commit configuration to run formatting and lint checks on commit
-- A GitHub Actions workflow at `.github/workflows/pr-check.yaml` that runs linting and pytest on pull requests
+- A GitHub Actions workflow at `.github/workflows/ci.yaml` that runs linting and pytest on pull requests
 
 Set up pre-commit locally (one-time):
 
 ```powershell
-pip install pre-commit
 pre-commit install
-pre-commit migrate-config
 ```
+
+Run pre-commit checks on all files (useful before pushing):
 ```powershell
 pre-commit run --all-files
 ```
@@ -87,15 +87,13 @@ pre-commit run --all-files
 Run pylint locally:
 
 ```powershell
-pip install pylint
 pylint .
 ```
 
 GitHub pull request checks
 
-A workflow `pr-check.yaml` runs on pull requests to:
+A workflow `ci.yaml` runs on pull requests to:
 - install dependencies
-- run `pre-commit` checks
 - run `pylint` across the repository (results will be reported in the job log)
 - run `pytest` to execute tests
 
@@ -127,7 +125,7 @@ Repository layout
 - `pytest.ini` - Pytest configuration.
 - `.pylintrc` - Pylint configuration.
 - `.pre-commit-config.yaml` - Pre-commit config.
-- `.github/workflows/pr-check.yaml` - GitHub Actions PR checks.
+- `.github/workflows/ci.yaml` - GitHub Actions PR checks.
 
 Contributing
 
