@@ -125,7 +125,7 @@ Repository layout
 - `pytest.ini` - Pytest configuration.
 - `.pylintrc` - Pylint configuration.
 - `.pre-commit-config.yaml` - Pre-commit config.
-- `.github/workflows/ci.yaml` - GitHub Actions PR checks.
+- `.github/workflows/ci.yml` - GitHub Actions PR checks.
 
 Contributing
 
