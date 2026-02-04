@@ -71,7 +71,7 @@ Linting and pre-commit hooks
 This repository includes:
 - `.pylintrc` — basic pylint configuration
 - `.pre-commit-config.yaml` — pre-commit configuration to run formatting and lint checks on commit
-- A GitHub Actions workflow at `.github/workflows/ci.yaml` that runs linting and pytest on pull requests
+- A GitHub Actions workflow at `.github/workflows/ci.yml` that runs linting and pytest on pull requests
 
 Set up pre-commit locally (one-time):
 
