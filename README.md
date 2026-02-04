@@ -143,8 +143,3 @@ Notes & next steps (suggested improvements)
 License
 
 No license specified. Add a license file (e.g., MIT) if you intend to make this project public.
-
-If you want, I can also:
-
-- Add a short example test and fixtures in `tests/` to demonstrate usage.
-- Create a CI workflow for GitHub Actions that runs pytest and uploads Allure results.
