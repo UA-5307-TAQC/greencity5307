@@ -7,6 +7,7 @@ Contents
 - Project description
 - Quick start (setup & run)
 - Test and reporting workflows
+- Linting and pre-commit hooks
 - Repository structure
 - Notes & next steps
 
@@ -15,16 +16,17 @@ Project goals
 - Provide a reproducible pytest test scaffolding for UI and API tests.
 - Use webdriver-manager for browser drivers and `requests` for API calls.
 - Integrate with Allure for test reporting.
+- Provide linting and CI checks to keep code quality consistent.
 
 Prerequisites
 
 - Python 3.10+ (3.12 recommended)
-- Git (optional)
+- Git
 - (Optional) Allure CLI for serving reports locally
 
 Dependencies
 
-All project Python dependencies are listed in `requirements.txt`. Install them into a virtual environment (recommended).
+All project Python dependencies are listed in `requirements.txt`. Install them into a virtual environment (recommended). The requirements include development tools such as `pylint` and `pre-commit`.
 
 Quick start (Windows PowerShell)
 
@@ -64,6 +66,37 @@ Quick start (Windows PowerShell)
    pytest tests/ui/test_example.py::test_name -q
    ```
 
+Linting and pre-commit hooks
+
+This repository includes:
+- `.pylintrc` — basic pylint configuration
+- `.pre-commit-config.yaml` — pre-commit configuration to run formatting and lint checks on commit
+- A GitHub Actions workflow at `.github/workflows/ci.yml` that runs linting and pytest on pull requests
+
+Set up pre-commit locally (one-time):
+
+```powershell
+pre-commit install
+```
+
+Run pre-commit checks on all files (useful before pushing):
+```powershell
+pre-commit run --all-files
+```
+
+Run pylint locally:
+
+```powershell
+pylint .
+```
+
+GitHub pull request checks
+
+A workflow `ci.yaml` runs on pull requests to:
+- install dependencies
+- run `pylint` across the repository (results will be reported in the job log)
+- run `pytest` to execute tests
+
 Allure reporting (optional)
 
 Generate an Allure result directory and serve the report (requires Allure CLI installed separately):
@@ -88,11 +121,25 @@ Repository layout
 - `data/` - Test data, configuration helpers (e.g. `config.py`).
 - `utils/` - Utility modules (logging, helpers).
 - `tests/` - Test suites organized by `api/` and `ui/` subfolders.
-- `requirements.txt` - Pinned Python dependencies.
+- `requirements.txt` - Pinned Python dependencies (includes dev tools).
 - `pytest.ini` - Pytest configuration.
+- `.pylintrc` - Pylint configuration.
+- `.pre-commit-config.yaml` - Pre-commit config.
+- `.github/workflows/ci.yml` - GitHub Actions PR checks.
 
 Contributing
 
 - Open an issue to discuss new features or bugs.
 - Create feature branches and submit pull requests against `main`.
 - Keep tests green and add unit/integration tests for new behavior.
+
+Notes & next steps (suggested improvements)
+
+- Add a `README`-level example test demonstrating both API and UI flows.
+- Add CI workflow enhancements: cache pip dependencies, upload Allure artifacts, and annotate pylint failures.
+- Add a basic `conftest.py` fixture set for browser/session management and for API client setup.
+- Add a `Makefile` or `invoke` tasks to simplify common commands.
+
+License
+
+No license specified. Add a license file (e.g., MIT) if you intend to make this project public.
