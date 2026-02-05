@@ -18,13 +18,15 @@ This playbook defines **Test Automation & Quality Control (TAQC) standards** for
 ### UI Testing
 
 * **Tool**: Selenium WebDriver
-* **Language**: Java
+* **Language**: Python 3.10+
+* **Test Framework**: pytest
+* **Driver Management**: `webdriver-manager`
 * **Pattern**: Page Object Model (POM)
 * **Waits**: Explicit waits only
 
 ### API Testing
 
-* REST Assured
+* **Tool**: `requests` (Python HTTP client for API testing)
 * Contract-first mindset (request/response validation)
 
 ### Reporting
@@ -63,7 +65,7 @@ Flakiness (%) = (Unstable test runs / Total runs) * 100
 
 Flaky tests must be:
 
-* Marked with `@Flaky`
+* Marked with `@pytest.mark.flaky` (requires `pytest-flaky` plugin)
 * Linked to a BUG issue
 
 ---
@@ -99,22 +101,15 @@ CI pipeline **warns** if:
 
 ### Labels (Mandatory)
 
-```java
-@Epic("GreenCity")
-@Feature("Authentication")
-@Story("User Login")
-```
+```python
+import allure
 
-### Severity
 
-```java
-@Severity(SeverityLevel.CRITICAL)
-```
-
-### Links
-
-```java
-@Link(name = "BUG-123", type = "issue")
+@allure.epic("GreenCity")
+@allure.feature("Authentication")
+@allure.story("User Login")
+def test_user_login():
+    ...
 ```
 
 ---
@@ -146,7 +141,7 @@ CI pipeline **warns** if:
 
 Every automated test MUST:
 
-* Have clear objective
+* Have a clear objective
 * Be deterministic
 * Be isolated
 * Have Allure metadata
@@ -156,7 +151,7 @@ Every automated test MUST:
 
 ## 🚫 Anti-Patterns
 
-❌ Thread.sleep
+❌ Fixed sleep/wait statements (e.g., time.sleep)
 ❌ Hardcoded test data
 ❌ Multiple assertions without context
 ❌ UI tests for API logic
@@ -171,14 +166,6 @@ A feature is DONE only if:
 * Tests are green in CI
 * Allure report is generated
 * No critical quality risks remain
-
----
-
-## 📎 Useful Links
-
-* GitHub Issues Templates
-* CI Pipeline
-* Allure Reports
 
 ---
 
