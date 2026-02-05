@@ -1,0 +1,69 @@
+name: 🧪 Test Case (ISTQB, TAQC)
+description: Test case specification for manual or automated testing
+title: "[TC] "
+labels: ["test-case", "taqc"]
+body:
+  - type: input
+    id: tc_id
+    attributes:
+      label: Test Case ID
+      placeholder: "TC-AUTH-001"
+    validations:
+      required: true
+
+  - type: textarea
+    id: objective
+    attributes:
+      label: Test Objective
+    validations:
+      required: true
+
+  - type: textarea
+    id: preconditions
+    attributes:
+      label: Preconditions
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Test Steps
+      placeholder: |
+        Step | Action | Test Data | Expected Result
+
+  - type: dropdown
+    id: automation
+    attributes:
+      label: Automation Status
+      options:
+        - Manual
+        - Automated
+        - Candidate for automation
+
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Automation Stack
+      options:
+        - Selenium
+        - REST API
+        - Selenium + API
+
+  - type: input
+    id: coverage
+    attributes:
+      label: Coverage Contribution (%)
+      placeholder: "e.g. 5"
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - High
+        - Medium
+        - Low
+
+  - type: input
+    id: traceability
+    attributes:
+      label: Requirement / Feature / Bug reference

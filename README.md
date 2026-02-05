@@ -1,5 +1,7 @@
 # greencity5307
 
+[PLAYBOOK](docs/PLAYBOOK.md)
+
 A lightweight pytest-based test automation scaffold for the "greencity5307" project. This repository contains a small, opinionated test framework organized around page/components/services abstractions and utilities for running API and UI tests with pytest.
 
 Contents
