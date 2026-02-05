@@ -2,7 +2,7 @@ name: PR Lint and Tests
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ opened, synchronize, reopened ]
 
 jobs:
   lint:
@@ -45,3 +45,5 @@ jobs:
       - name: Run tests
         run: |
           pytest
+        env:
+          BASE_UI_URL: ${{ secrets.BASE_UI_URL }}

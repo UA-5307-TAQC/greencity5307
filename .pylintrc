@@ -8,6 +8,14 @@ ignore=
     .env
 
 
+ignore-paths=
+    ^tests/ui/.*,
+    ^tests/api/.*
+
+[MESSAGES CONTROL]
+disable=
+    cyclic-import
+
 [FORMAT]
 max-line-length=100
 
