@@ -8,6 +8,8 @@ from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
+from data.config import Config
+
 
 @fixture(params=["chrome"], scope="function")
 def driver(request):
@@ -17,7 +19,7 @@ def driver(request):
     - Set `HEADLESS` env var to `1` or `true` to enable headless mode.
     """
     browser = request.param
-    headless_flag = False
+    headless_flag = Config.HEADLESS
 
     drv = None
     match browser:
@@ -41,7 +43,7 @@ def driver(request):
             service = ChromeService(ChromeDriverManager().install())
             drv = webdriver.Chrome(service=service, options=opts)
 
-    drv.get("https://www.greencity.cx.ua/#/greenCity")
+    drv.get(Config.BASE_UI_URL)
 
     yield drv
 
