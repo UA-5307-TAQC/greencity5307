@@ -44,9 +44,9 @@ body:
     attributes:
       label: Automation Stack
       options:
-        - Selenium
-        - REST API
-        - Selenium + API
+        - UI (Selenium)
+        - API
+        - UI + API
 
   - type: input
     id: coverage
