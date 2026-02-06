@@ -1,0 +1,53 @@
+name: ✨ Feature (QA / TAQC)
+description: Feature definition with quality & automation expectations
+title: "[FEATURE] "
+labels: ["feature", "taqc"]
+body:
+  - type: textarea
+    id: overview
+    attributes:
+      label: Feature Overview
+    validations:
+      required: true
+
+  - type: textarea
+    id: user_story
+    attributes:
+      label: User Story
+      placeholder: "As a [role], I want [feature], so that [value]"
+
+  - type: checkboxes
+    id: quality_requirements
+    attributes:
+      label: Quality Requirements
+      options:
+        - label: Functional
+        - label: Performance
+        - label: Security
+        - label: Accessibility
+        - label: Compatibility
+
+  - type: dropdown
+    id: automation_level
+    attributes:
+      label: Automation Level
+      options:
+        - API
+        - UI (Selenium)
+        - API + UI
+        - Not planned
+
+  - type: textarea
+    id: test_strategy
+    attributes:
+      label: Test Strategy
+      description: Test levels, risks, environments
+
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria (Testable)
+      options:
+        - label: Covered by automated tests
+        - label: CI execution added
+        - label: No critical quality risks

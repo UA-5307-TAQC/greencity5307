@@ -1,0 +1,104 @@
+name: 🐞 Bug (ISTQB, TAQC)
+description: Defect report aligned with ISTQB & SoftServe QA standards
+title: "[BUG] "
+labels: ["bug", "taqc"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Clear and concise description of the defect
+    validations:
+      required: true
+
+  - type: dropdown
+    id: quality_attribute
+    attributes:
+      label: Violated Quality Attribute
+      options:
+        - Functional
+        - Reliability
+        - Usability
+        - Performance
+        - Security
+        - Compatibility
+
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - DEV
+        - QA
+        - STAGE
+        - PROD
+
+  - type: dropdown
+    id: execution
+    attributes:
+      label: Detection Method
+      options:
+        - Manual testing
+        - Automated test
+        - CI pipeline
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      placeholder: |
+        1. Step one
+        2. Step two
+        3. Step three
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Result
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Result
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity (ISTQB)
+      options:
+        - Critical
+        - Major
+        - Minor
+        - Trivial
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - High
+        - Medium
+        - Low
+
+  - type: input
+    id: mttr
+    attributes:
+      label: MTTR (hours)
+      placeholder: "e.g. 6"
+
+  - type: input
+    id: flakiness
+    attributes:
+      label: Flakiness Rate (% if automated)
+      placeholder: "e.g. 12"
+
+  - type: input
+    id: related_tests
+    attributes:
+      label: Related Test Case(s) / CI Job

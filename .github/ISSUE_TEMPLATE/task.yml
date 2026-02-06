@@ -1,0 +1,54 @@
+name: 🧩 TAQC Task
+description: QA / Test Automation task (SoftServe TAQC standard)
+title: "[TAQC][TASK] "
+labels: ["taqc", "task"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Task Description
+      description: What needs to be done and why?
+    validations:
+      required: true
+
+  - type: dropdown
+    id: test_level
+    attributes:
+      label: Test Level
+      options:
+        - Unit
+        - Integration
+        - System
+        - E2E
+
+  - type: dropdown
+    id: stack
+    attributes:
+      label: Automation Stack
+      options:
+        - Selenium (UI)
+        - REST API
+        - Selenium + API
+        - Not applicable
+
+  - type: input
+    id: coverage
+    attributes:
+      label: Expected Test Coverage (%)
+      placeholder: "e.g. 75"
+
+  - type: input
+    id: ci
+    attributes:
+      label: CI Pipeline / Job
+      placeholder: "e.g. GitHub Actions – regression-ui"
+
+  - type: checkboxes
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      options:
+        - label: Tests implemented or updated
+        - label: Tests are stable (no flaky behavior)
+        - label: Integrated into CI
+        - label: Documentation updated
