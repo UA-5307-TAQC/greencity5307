@@ -1,4 +1,6 @@
 """Base page class for all page objects."""
+from telnetlib import EC
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -22,3 +24,18 @@ class BasePage:
     def get_title(self) -> str:
         """Get the title of the current page."""
         return self.driver.title
+
+    def find(self, locator):
+        """Find single element with wait"""
+        return self.wait.until(
+            EC.visibility_of_element_located(locator)
+        )
+
+    def find_all(self, locator):
+        """Find list of elements"""
+        return self.wait.until(
+            EC.presence_of_all_elements_located(locator)
+        )
+
+    def click(self, locator):
+        self.find(locator).click()
