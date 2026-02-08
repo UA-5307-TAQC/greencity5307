@@ -1,24 +1,20 @@
 """
 habit card component
 """
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from components.base_component import BaseComponent
-from utils.types import Locators
 
-
-class HabitCardComponent(BaseComponent):
+class HabitCardComponent:
     """Responsible for one difficult habit on the list"""
 
-    title: Locators = (By.CSS_SELECTOR, ".description .second-row")
-
-    checkbox: Locators = (By.XPATH, ".//div/div[2]/button")
-
-    edit_icon: Locators = (By.XPATH, ".//div/div[1]/div[1]/button")
+    title = (By.CSS_SELECTOR, ".description .second-row")
+    checkbox = (By.CSS_SELECTOR, "//*[@id='mat-tab-content-8-0']/div/div/div/div[2]/app-one-habit[1]/div/div[2]/button")
+    edit_icon = (By.XPATH, "//*[@id='mat-tab-content-8-0']/div/div/div/div[2]/app-one-habit[1]/div/div[1]/div[1]/button")
 
     def __init__(self, root: WebElement):
-        super().__init__(root)
+        self.root = root
 
     def get_title(self) -> str:
         """get title"""

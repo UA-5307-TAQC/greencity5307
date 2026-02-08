@@ -10,6 +10,8 @@ from utils.types import Locators
 class OneHabitPage(BasePage):
     """ OneHabitPage"""
 
+    Header = HeaderComponent # need to rewrite
+
     #Button
     back_to_my_habits_button: Locators = (By.CSS_SELECTOR, ".button-arrow div")
 
@@ -40,13 +42,8 @@ class OneHabitPage(BasePage):
     custom_item_input: Locators = (By.CSS_SELECTOR, ".add-field")
     custom_item_add: Locators = (By.CSS_SELECTOR, ".add-item-form .add-btn")
 
-    cancel_button: Locators = (By.XPATH,
-                               "//app-habit-edit-to-do-list//button[contains(text(), 'Cancel')]"
-                               )
-
-    save_button: Locators = (By.XPATH,
-                            "//app-habit-edit-to-do-list//button[contains(text(), 'Save')]"
-                            )
+    cancel_button: Locators = (By.XPATH, "//app-habit-edit-to-do-list//button[contains(text(), 'Cancel')]")
+    save_button = (By.XPATH, "//app-habit-edit-to-do-list//button[contains(text(), 'Save')]")
 
     ##Invite friends
     invite_friends_icon: Locators = (By.CSS_SELECTOR, ".icon-plus-grey")
@@ -59,6 +56,7 @@ class OneHabitPage(BasePage):
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
+        self.header = HeaderComponent(driver)
 
     def get_tags_text(self) -> list[str]:
         """
