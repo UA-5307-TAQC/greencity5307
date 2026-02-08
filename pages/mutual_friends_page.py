@@ -1,0 +1,28 @@
+from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
+from pages.base_page import BasePage
+from components.mutual_friends_component import MutualFriendsComponent
+
+
+class MutualFriendsPage(BasePage):
+    """
+    Page that shows mutual friends page.
+    """
+
+    root = (By.ID, "mat-tab-content-6-4")
+    page_title = (By.CLASS_NAME, "friends-list ng-star-inserted")
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)
+
+
+        try:
+            root_element = self.driver.find_element(*self.root)
+            self.friends_list = MutualFriendsComponent(root_element)
+        except:
+
+            self.friends_list = None
+
+    def get_title_text(self) -> str:
+        """Get page title."""
+        return self.driver.find_element(*self.page_title).text
