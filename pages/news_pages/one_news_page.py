@@ -17,6 +17,8 @@ class OneNewsPage(BasePage):
     author_locator: Locators = (By.CSS_SELECTOR,
                                 ".news-info > .news-info-author")
     main_text_locator: Locators = (By.CLASS_NAME, ".ql-editor")
+    comments_section_locator: Locators = (By.TAG_NAME,
+                                          "app-comments-container")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
@@ -30,6 +32,8 @@ class OneNewsPage(BasePage):
             *self.author_locator)
         self.main_text: WebElement = self.driver.find_element(
             *self.main_text_locator)
+        self.comments_section: WebElement = self.driver.find_element(
+            *self.comments_section_locator)
 
     def get_tag(self) -> str:
         """Gets tag text of the news page."""
