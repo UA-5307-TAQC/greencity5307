@@ -1,17 +1,20 @@
 """Mutual Friends component."""
 
-from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.by import By
+
 from components.base_component import BaseComponent
+
 
 class MutualFriendsComponent(BaseComponent):
     """
     Component for Mutual Friends Page
     """
 
-    empty_message = (By.CSS_SELECTOR, "#mat-tab-content-9-4 > div > div.img-absent.ng-star-inserted > h3")
-    friends_card = (By.CSS_SELECTOR, "#mat-tab-content-9-4 > div > div.friends-list.ng-star-inserted")
-
+    empty_message = (By.CSS_SELECTOR,
+                     "#mat-tab-content-9-4 > div > div.img-absent.ng-star-inserted > h3")
+    friends_card = (By.CSS_SELECTOR,
+                    "#mat-tab-content-9-4 > div > div.friends-list.ng-star-inserted")
 
     def is_empty_state_displayed(self) -> bool:
         """Check if the empty message is displayed."""

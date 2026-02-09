@@ -1,7 +1,9 @@
 """Update habit components."""
 
 from selenium.webdriver.common.by import By
+
 from components.base_component import BaseComponent
+
 
 class HabitBasicInfoComponent(BaseComponent):
     """

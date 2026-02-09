@@ -1,13 +1,15 @@
 """This file is for update habit progress page."""
 
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.common.exceptions import NoSuchElementException
 
-from pages.base_page import BasePage
 from components.update_habit_components import HabitBasicInfoComponent, HabitProgressComponent
+from pages.base_page import BasePage
+
 
 class UpdateHabitPage(BasePage):
+    """Page object for the update habit progress page."""
     form_root = (By.TAG_NAME, "form")
 
     progress_root = (By.CSS_SELECTOR, ".duration")
@@ -27,4 +29,5 @@ class UpdateHabitPage(BasePage):
             self.progress = None
 
     def save_changes(self):
+        """Click the save button to save changes."""
         self.driver.find_element(*self.save_button).click()

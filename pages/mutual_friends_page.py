@@ -1,7 +1,9 @@
+"""Page that shows mutual friends page."""
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from pages.base_page import BasePage
+
 from components.mutual_friends_component import MutualFriendsComponent
+from pages.base_page import BasePage
 
 
 class MutualFriendsPage(BasePage):
@@ -14,14 +16,8 @@ class MutualFriendsPage(BasePage):
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-
-
-        try:
-            root_element = self.driver.find_element(*self.root)
-            self.friends_list = MutualFriendsComponent(root_element)
-        except:
-
-            self.friends_list = None
+        root_element = self.driver.find_element(*self.root)
+        self.friends_list = MutualFriendsComponent(root_element)
 
     def get_title_text(self) -> str:
         """Get page title."""
