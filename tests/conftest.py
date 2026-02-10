@@ -1,4 +1,5 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
+
 from pytest import fixture
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -9,6 +10,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.firefox import GeckoDriverManager
 
 from data.config import Config
+
 
 
 @fixture(params=["chrome"], scope="function")
