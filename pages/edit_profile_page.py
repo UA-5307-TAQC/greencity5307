@@ -8,6 +8,7 @@ from pages.base_page import BasePage
 from components.personal_info_component import PersonalInfoComponent
 from components.social_networks_component import SocialNetworksComponent
 from components.profile_privacy_component import ProfilePrivacyComponent
+from components.email_preferences_component import EmailPreferencesComponent
 from utils.types import Locators
 
 
@@ -25,6 +26,7 @@ class ProfileEditPage(BasePage):
         self.personal_info: PersonalInfoComponent = PersonalInfoComponent(page_root)
         self.social_networks: SocialNetworksComponent = SocialNetworksComponent(page_root)
         self.profile_privacy: ProfilePrivacyComponent = ProfilePrivacyComponent(page_root)
+        self.email_preferences: EmailPreferencesComponent = EmailPreferencesComponent(page_root)
 
     def get_page_header(self) -> str:
         """Return page title text."""
@@ -41,3 +43,7 @@ class ProfileEditPage(BasePage):
     def get_profile_privacy_component(self) -> ProfilePrivacyComponent:
         """Return ProfilePrivacyComponent instance."""
         return self.profile_privacy
+
+    def get_email_preferences_component(self) -> EmailPreferencesComponent:
+        """Return EmailPreferencesComponent instance."""
+        return self.email_preferences
