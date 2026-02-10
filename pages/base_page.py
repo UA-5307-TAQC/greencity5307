@@ -1,5 +1,4 @@
 """Base page class for all page objects."""
-from telnetlib import EC
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
