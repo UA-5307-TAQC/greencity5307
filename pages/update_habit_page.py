@@ -10,6 +10,8 @@ from components.update_habit_components import HabitBasicInfoComponent, HabitPro
 from utils.types import Locators
 
 class UpdateHabitPage(BasePage):
+    """Page object for the Update Habit page."""
+
     form_root_locator: Locators = (By.TAG_NAME, "form")
 
     progress_root_locator: Locators = (By.CSS_SELECTOR, ".duration")
@@ -29,4 +31,5 @@ class UpdateHabitPage(BasePage):
             self.progress = None
 
     def save_changes(self):
+        """This function is used to save the changes to the page."""
         self.driver.find_element(*self.save_button_locator).click()

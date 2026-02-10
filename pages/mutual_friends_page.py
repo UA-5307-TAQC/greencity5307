@@ -1,3 +1,5 @@
+"""This module contains the MutualFriendsPage class and its methods."""
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.base_page import BasePage
@@ -21,7 +23,7 @@ class MutualFriendsPage(BasePage):
         try:
             root_element = self.driver.find_element(*self.root_locator)
             self.friends_list = MutualFriendsComponent(root_element)
-        except:
+        except Exception as e:
 
             self.friends_list = None
 

@@ -1,4 +1,5 @@
 """Update habit components."""
+
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from components.base_component import BaseComponent
@@ -36,7 +37,7 @@ class HabitBasicInfoComponent(BaseComponent):
         Set difficulty level.
         """
         stars = self.find_elements(self.difficulty_stars)
-        if not (1 <= level <= len(stars)):
+        if level < 1 or level > len(stars):
             raise ValueError(f"Difficulty {level} unavailable. Maximum: {len(stars)}")
 
         stars[level - 1].click()
