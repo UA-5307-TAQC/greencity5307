@@ -42,7 +42,6 @@ def driver(request):
             opts.add_argument("--window-size=1920,1080")
             service = ChromeService(ChromeDriverManager().install())
             drv = webdriver.Chrome(service=service, options=opts)
-
     drv.get(Config.BASE_UI_URL)
 
     yield drv
