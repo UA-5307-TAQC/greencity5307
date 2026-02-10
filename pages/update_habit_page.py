@@ -7,24 +7,26 @@ from selenium.common.exceptions import NoSuchElementException
 from pages.base_page import BasePage
 from components.update_habit_components import HabitBasicInfoComponent, HabitProgressComponent
 
+from utils.types import Locators
+
 class UpdateHabitPage(BasePage):
-    form_root = (By.TAG_NAME, "form")
+    form_root_locator: Locators = (By.TAG_NAME, "form")
 
-    progress_root = (By.CSS_SELECTOR, ".duration")
+    progress_root_locator: Locators = (By.CSS_SELECTOR, ".duration")
 
-    save_button = (By.CLASS_NAME, "button[type='submit']")
+    save_button_locator: Locators = (By.CSS_SELECTOR, "button[type='submit']")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
 
-        form_element = self.driver.find_element(*self.form_root)
+        form_element = self.driver.find_element(*self.form_root_locator)
         self.basic_info = HabitBasicInfoComponent(form_element)
 
         try:
-            progress_element = self.driver.find_element(*self.progress_root)
+            progress_element = self.driver.find_element(*self.progress_root_locator)
             self.progress = HabitProgressComponent(progress_element)
         except NoSuchElementException:
             self.progress = None
 
     def save_changes(self):
-        self.driver.find_element(*self.save_button).click()
+        self.driver.find_element(*self.save_button_locator).click()

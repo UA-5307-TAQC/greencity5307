@@ -1,5 +1,5 @@
 """Update habit components."""
-
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from components.base_component import BaseComponent
 
@@ -8,12 +8,12 @@ class HabitBasicInfoComponent(BaseComponent):
     Component that edit main information.
     """
 
-    title_field = (By.CSS_SELECTOR, "formcontrolname='title'")
+    title_field = (By.CSS_SELECTOR, "[formcontrolname='title']")
 
     description_field = (By.CSS_SELECTOR, "[formcontrolname='description']")
 
     difficulty_stars = (By.CSS_SELECTOR, "#complexityList")
-    tags = (By.CLASS_NAME, "tag-button ng-star-inserted")
+    tags = (By.CSS_SELECTOR, ".tag-button.ng-star-inserted")
 
     def set_title(self, title: str):
         """Set new title."""
@@ -36,11 +36,10 @@ class HabitBasicInfoComponent(BaseComponent):
         Set difficulty level.
         """
         stars = self.find_elements(self.difficulty_stars)
+        if not (1 <= level <= len(stars)):
+            raise ValueError(f"Difficulty {level} unavailable. Maximum: {len(stars)}")
 
-        if 1 <= level <= len(stars):
-            stars[level - 1].click()
-        else:
-            print(f"Error: difficulty {level} unavailable. Maximum: {len(stars)}")
+        stars[level - 1].click()
 
     def select_tag(self, tag_name: str):
         """
@@ -48,15 +47,12 @@ class HabitBasicInfoComponent(BaseComponent):
         """
         tags = self.find_elements(self.tags)
 
-        tag_found = False
         for tag in tags:
             if tag.text.strip() == tag_name:
                 tag.click()
-                tag_found = True
-                break
+                return True
 
-        if not tag_found:
-            print(f"Tag '{tag_name}' hasn\'t been found.")
+        raise NoSuchElementException(f"Tag '{tag_name}' hasn\'t been found.")
 
 
 class HabitProgressComponent(BaseComponent):

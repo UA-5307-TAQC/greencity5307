@@ -9,8 +9,8 @@ class MutualFriendsComponent(BaseComponent):
     Component for Mutual Friends Page
     """
 
-    empty_message = (By.CSS_SELECTOR, "#mat-tab-content-9-4 > div > div.img-absent.ng-star-inserted > h3")
-    friends_card = (By.CSS_SELECTOR, "#mat-tab-content-9-4 > div > div.friends-list.ng-star-inserted")
+    empty_message = (By.CSS_SELECTOR, "div > div.img-absent.ng-star-inserted > h3")
+    friends_card = (By.CSS_SELECTOR, "div > div.friends-list.ng-star-inserted")
 
 
     def is_empty_state_displayed(self) -> bool:
@@ -29,7 +29,7 @@ class MutualFriendsComponent(BaseComponent):
             return ""
 
     def get_friends_count(self) -> int:
-        """Return number of founded friends."""
+        """Return the number of friends found."""
         if self.is_empty_state_displayed():
             return 0
 
