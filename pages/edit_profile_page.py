@@ -7,6 +7,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from pages.base_page import BasePage
 from components.personal_info_component import PersonalInfoComponent
 from components.social_networks_component import SocialNetworksComponent
+from components.profile_privacy_component import ProfilePrivacyComponent
 from utils.types import Locators
 
 
@@ -23,6 +24,7 @@ class ProfileEditPage(BasePage):
 
         self.personal_info: PersonalInfoComponent = PersonalInfoComponent(page_root)
         self.social_networks: SocialNetworksComponent = SocialNetworksComponent(page_root)
+        self.profile_privacy: ProfilePrivacyComponent = ProfilePrivacyComponent(page_root)
 
     def get_page_header(self) -> str:
         """Return page title text."""
@@ -35,3 +37,7 @@ class ProfileEditPage(BasePage):
     def get_social_networks_component(self) -> SocialNetworksComponent:
         """Return SocialNetworksComponent instance."""
         return self.social_networks
+
+    def get_profile_privacy_component(self) -> ProfilePrivacyComponent:
+        """Return ProfilePrivacyComponent instance."""
+        return self.profile_privacy
