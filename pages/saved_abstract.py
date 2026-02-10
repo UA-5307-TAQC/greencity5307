@@ -11,7 +11,7 @@ class SavedAbstract(BasePage):
     """Page object for the saved_abstract page."""
 
     main_header_locator: Locators = (By.CSS_SELECTOR, ".top-header>.main-header")
-    main_footer_locator: Locators = (By.XPATH, "///app-footer")
+    main_footer_locator: Locators = (By.XPATH, "//app-footer")
 
     section_heading= (By.XPATH, "//*[@id='main-content']/div/app-saved-section/div/p")
     tabs = (By.CSS_SELECTOR, ".tabs")

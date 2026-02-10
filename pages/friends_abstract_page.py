@@ -29,4 +29,5 @@ class FriendsAbstractPage(BasePage):
         self.find(self.search_input).send_keys(text)
 
     def is_page_loaded(self):
-        return self.is_visible(self.friend_tabs)
+        return self.find(self.friend_tabs).is_displayed()
+

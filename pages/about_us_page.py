@@ -39,4 +39,4 @@ class AboutUsPage(BasePage):
         return len(self.find_all(self.vision_cards))
 
     def is_page_loaded(self):
-        return self.is_visible(self.vision_cards)
+        return self.driver.find_element(*self.vision_cards).is_displayed()

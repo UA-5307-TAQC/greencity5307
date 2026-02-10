@@ -30,15 +30,15 @@ class CreateUpdateEcoNewsPage(BasePage):
         self.main_header = self.driver.find_element(*self.main_header_locator)
         self.main_footer = self.driver.find_element(*self.main_footer_locator)
 
-    def fill_form(self, title_text, tags, source_text, image_path, content_text):
+    def fill_form(self, title_text, tags_list, source_text, image_path, content_text):
         """Fills the form with the given parameters."""
         self.find(self.title).send_keys(title_text)
-        self.find(self.tags).send_keys(tags)
+        self.find(self.tags).send_keys(tags_list)
         self.find(self.source).send_keys(source_text)
         self.find(self.picture).send_keys(image_path)
         self.find(self.content).send_keys(content_text)
 
     def submit_form(self):
-        """Submits the form with the given parameters."""
+        """Submits the form by clicking the submit button."""
         self.click(self.submit)
 
