@@ -4,10 +4,11 @@ habit card component
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
+from components.base_component import BaseComponent
 from utils.types import Locators
 
 
-class HabitCardComponent:
+class HabitCardComponent(BaseComponent):
     """Responsible for one difficult habit on the list"""
 
     title: Locators = (By.CSS_SELECTOR, ".description .second-row")
@@ -17,7 +18,7 @@ class HabitCardComponent:
     edit_icon: Locators = (By.XPATH, ".//div/div[1]/div[1]/button")
 
     def __init__(self, root: WebElement):
-        self.root = root
+        super().__init__(root)
 
     def get_title(self) -> str:
         """get title"""

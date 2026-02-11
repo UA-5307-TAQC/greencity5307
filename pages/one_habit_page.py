@@ -59,8 +59,6 @@ class OneHabitPage(BasePage):
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-        # Header = HeaderComponent  # need to rewrite
-        self.header = HeaderComponent(driver)
 
     def get_tags_text(self) -> list[str]:
         """
