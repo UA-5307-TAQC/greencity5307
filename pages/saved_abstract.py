@@ -26,6 +26,5 @@ class SavedAbstract(BasePage):
 
     def get_section_heading(self):
         return self.find(self.section_heading).text
-
     def is_loaded(self):
         return self.find_all(self.tabs)[0].is_displayed()
