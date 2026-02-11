@@ -54,7 +54,9 @@ class OneHabitPage(BasePage):
     #Del, Add, Edit  Habit buttons
     delete_habit_button: Locators = (By.XPATH, "//button[normalize-space()='Delete']")
     add_habit_button: Locators = (By.XPATH, "//button[normalize-space()='Add Habit']")
-    edit_habit_button: Locators = (By.XPATH, "//button[normalize-space()='Edit Habit']")
+    edit_habit_button: Locators = (By.XPATH,
+                                   "//button[normalize-space()='Edit Habit']"
+                                    )
 
 
     def get_tags_text(self) -> list[str]:
