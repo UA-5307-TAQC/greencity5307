@@ -1,12 +1,12 @@
-""" Habit components """
+""" Habit users page """
 from selenium.webdriver.common.by import By
 
-from components.base_component import BaseComponent
+from pages.friend_abstract_page import FriendAbstractPage
 from utils.types import Locators
 
 
-class MyHabitUsersPage(BaseComponent): # FriendAbstract required
-    """ Habit user components """
+class MyHabitUsersPage(FriendAbstractPage):
+    """ Habit users page """
     stars: Locators = (By.CSS_SELECTOR, ".habit-header .stars")
     tags: Locators = (By.CSS_SELECTOR, ".habit-info .tags")
     all_titles: Locators = (By.XPATH, "//app-habits-gallery-view//h2")
