@@ -15,7 +15,9 @@ class PlacesSearchbarComponent(BaseComponent):
     searchbar_locator: Locators = (By.CSS_SELECTOR,
                                    ".form-control.search-write")
     choose_location_locator: Locators = (By.CSS_SELECTOR,
-                                         ".mat-mdc-input-element.choose-location-input.cdk-text-field-autofill-monitored")
+                                         ".mat-mdc-input-element"
+                                         ".choose-location-input"
+                                         ".cdk-text-field-autofill-monitored")
 
     def __init__(self, root: WebElement):
         super().__init__(root)

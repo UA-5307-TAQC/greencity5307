@@ -8,11 +8,12 @@ from utils.types import Locators
 
 
 class CommentsSectionComponent(BaseComponent):
-    """Comments form component class."""
+    """Comments section component class."""
     comments_count_locator: Locators = (By.ID, "#total-count")
     comments_form_locator: Locators = (By.CSS_SELECTOR,
-                                       ".main-wrapper.wrapper-comment.ng-untouched.ng-pristine.ng-submitted.ng-invalid")
-
+                                       ".main-wrapper.wrapper-comment"
+                                       ".ng-untouched.ng-pristine.ng-submitted"
+                                       ".ng-invalid")
 
     def __init__(self, root: WebElement):
         super().__init__(root)

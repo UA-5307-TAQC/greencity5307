@@ -21,6 +21,7 @@ class PlacesPage(BasePage):
 
     def open_add_place_modal(self) -> "AddPlaceModalComponent":
         """Open add place modal component."""
+        # pylint: disable=import-outside-toplevel
         from components.places_components.add_place_modal_component import \
             AddPlaceModalComponent
         self.add_place_button.click()

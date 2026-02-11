@@ -21,7 +21,11 @@ class CommentComponent(BaseComponent):
     likes_count_locator: Locators = (By.CSS_SELECTOR,
                                      ".comment-likes > .like-amount")
     dislike_button_locator: Locators = (By.XPATH,
-                                        "//div[contains(concat(' ', normalize-space(@class), ' '), ' comment-likes ')]/img[@alt='like']")
+                                        "//div[contains(concat("
+                                        "' ', "
+                                        "normalize-space(@class), ' '), "
+                                        "' comment-likes '"
+                                        ")]/img[@alt='like']")
 
     def __init__(self, root: WebElement):
         super().__init__(root)

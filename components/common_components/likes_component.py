@@ -9,7 +9,7 @@ from utils.types import Locators
 class LikesComponent(BaseComponent):
     """Likes component class"""
     like_button_locator: Locators = (By.XPATH,
-                                     "//img[contains(@class, '_like') \ "
+                                     "//img[contains(@class, '_like')"
                                      "and contains(@class, 'ng-star-inserted']")
     likes_count_locator: Locators = (By.CSS_SELECTOR,
                                      ".like_wr > .numerosity_likes")
