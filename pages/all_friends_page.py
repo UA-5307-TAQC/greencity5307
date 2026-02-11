@@ -3,12 +3,12 @@ which represents the Friend page with All friends tab."""
 
 from selenium.webdriver.common.by import By
 
-from pages.friend_page_abstract import FriendPageAbstract
 from components.friend_card_component import FriendCardComponent
+from pages.friend_abstract_page import FriendAbstractPage
 from utils.types import Locators
 
 
-class AllFriendsPage(FriendPageAbstract):
+class AllFriendsPage(FriendAbstractPage):
     """Class for the all friends tab of Friend page."""
     cards_root_locator: Locators = (By.CLASS_NAME, "friend-item-wrapper")
     default_text_locator: Locators = (By.XPATH, ".//h3[@class='no-friends']")
