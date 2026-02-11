@@ -5,7 +5,7 @@ from components.base_component import BaseComponent
 from utils.types import Locators
 
 
-class MyHabitUsersComponents(BaseComponent):#FriendAbstract required
+class MyHabitUsersComponents(BaseComponent): # FriendAbstract required
     """ Habit user components """
     stars: Locators = (By.CSS_SELECTOR, ".habit-header .stars")
     tags: Locators = (By.CSS_SELECTOR, ".habit-info .tags")

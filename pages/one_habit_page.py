@@ -3,8 +3,7 @@
 
 from selenium.webdriver.common.by import By
 
-from components.header_component import HeaderComponent
-from pages.base_page import BasePage, WebDriver
+from pages.base_page import BasePage
 from utils.types import Locators
 
 class OneHabitPage(BasePage):
@@ -57,10 +56,6 @@ class OneHabitPage(BasePage):
     add_habit_button: Locators = (By.XPATH, "//button[normalize-space()='Add Habit']")
     edit_habit_button: Locators = (By.XPATH, "//button[normalize-space()='Edit Habit']")
 
-    def __init__(self, driver: WebDriver):
-        super().__init__(driver)
-        # Header = HeaderComponent  # need to rewrite
-        self.header = HeaderComponent(driver)
 
     def get_tags_text(self) -> list[str]:
         """
