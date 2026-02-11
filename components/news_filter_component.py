@@ -1,6 +1,4 @@
-"""
-Component for Tag filter block (News, Events, Education, etc.).
-"""
+""" Component for News filter block."""
 from typing import List
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
