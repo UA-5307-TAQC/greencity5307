@@ -16,3 +16,11 @@ class BaseComponent:
     def is_enabled(self) -> bool:
         """Check if the component is enabled."""
         return self.root.is_enabled()
+
+    def click(self):
+        """Click on the element specified by the locator."""
+        self.root.click()
+
+    def get_text(self) -> str:
+        """Get text from the element specified by the locator."""
+        return self.root.text.strip()
