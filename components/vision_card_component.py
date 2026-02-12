@@ -1,5 +1,5 @@
 """This module contains the Vision Card Component class,
- which represents the vision card from the About As Page on a web page."""
+ which represents the vision card from the About Us Page on a web page."""
 
 from selenium.webdriver.common.by import By
 
