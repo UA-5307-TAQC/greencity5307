@@ -14,4 +14,4 @@ class Config: # pylint: disable=too-few-public-methods
 
     BASE_UI_URL = os.getenv("BASE_UI_URL")
     DEFAULT_TIMEOUT = int(os.getenv("DEFAULT_TIMEOUT", "10"))
-    HEADLESS = os.getenv("HEADLESS", "True") != "False"
+    HEADLESS = os.getenv("HEADLESS", "true").lower() in ("1", "true", "True")

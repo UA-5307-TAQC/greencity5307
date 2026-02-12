@@ -4,8 +4,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from components.base_component import BaseComponent
 from utils.types import Locators
+from components.base_component import BaseComponent
 
 
 class CalendarComponent(BaseComponent):
