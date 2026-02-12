@@ -7,6 +7,7 @@ from components.chip_set_component import ChipSetComponent
 from components.event_type_component import EventTypeComponent
 from components.quill_editor_component import QuillEditorComponent
 from components.data_time_component import DateTimeComponent
+from components.location_component import LocationComponent
 
 from utils.types import Locators
 
@@ -40,3 +41,9 @@ class CreateEventPage(BasePage):
             "div.date-time"
         )
         self.date_time = DateTimeComponent(date_time_root)
+
+        date_location_root = self.driver.find_element(
+            By.CSS_SELECTOR,
+            "div.date-location-container"
+        )
+        self.date_location = LocationComponent(date_location_root)
