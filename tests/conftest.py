@@ -40,6 +40,7 @@ def driver(request):
     else:
         raise ValueError(f"Unsupported browser: {browser}")
 
+    drv.implicitly_wait(Config.DEFAULT_TIMEOUT)
     drv.get(Config.BASE_UI_URL)
 
     yield drv

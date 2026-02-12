@@ -2,8 +2,8 @@
 
 from selenium.webdriver.common.by import By
 
-from components.base_component import BaseComponent
 from utils.types import Locators
+from components.base_component import BaseComponent
 
 
 class ChangeViewComponent(BaseComponent):
