@@ -1,0 +1,35 @@
+"""This module contains the AboutUsPage class,which represents the about_us page of a website."""
+from selenium.webdriver.common.by import By
+
+from pages.base_page import BasePage
+from utils.types import Locators
+
+
+class AboutUsPage(BasePage):
+    """Page object for the about_us page."""
+
+    section_header_one: Locators = (By.XPATH, "//*[@id='main-content']/div[1]/div/h2")
+    section_description_one: Locators = (By.XPATH, "//*[@id='main-content']/div[1]/div/p")
+    section_button_form_habit_one: Locators = (By.XPATH,
+                                               "//*[@id='main-content']/div[1]/div/button")
+
+    section_header_two: Locators = (By.XPATH, "//*[@id='main-content']/div[2]/div/div/h2")
+    section_description_two: Locators = (By.XPATH, "//*[@id='main-content']/div[2]/div/div/p")
+    section_button_form_habit_two: Locators = (By.XPATH,
+                                               "//*[@id='main-content']/div[2]/div/div/button")
+
+    vision_section_header: Locators = (By.XPATH, "//*[@id='main-content']/div[3]/div/h2")
+
+    vision_cards: Locators = (By.CSS_SELECTOR, ".container > .vision-card")
+
+    def click_section_button_form_habit_one(self):
+        """Clicks the section button form habit."""
+        self.click(self.section_button_form_habit_one)
+
+    def get_vision_cards_count(self):
+        """Gets the number of vision cards present in the section."""
+        return len(self.find_all(self.vision_cards))
+
+    def is_page_loaded(self):
+        """Checks if the page is loaded."""
+        return self.driver.find_element(*self.vision_cards).is_displayed()

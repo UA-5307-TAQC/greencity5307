@@ -1,4 +1,5 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
+
 from pytest import fixture
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -42,7 +43,7 @@ def driver(request):
             opts.add_argument("--window-size=1920,1080")
             service = ChromeService(ChromeDriverManager().install())
             drv = webdriver.Chrome(service=service, options=opts)
-    drv.implicitly_wait(10)
+    drv.implicitly_wait(Config.DEFAULT_TIMEOUT)
     drv.get(Config.BASE_UI_URL)
 
     yield drv
