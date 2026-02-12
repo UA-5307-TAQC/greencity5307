@@ -19,6 +19,7 @@ def driver(request):
     browser = request.param
     headless_flag = Config.HEADLESS
 
+<<<<<<< HEAD
 
     if browser == "firefox":
         opts = FirefoxOptions()
@@ -40,6 +41,30 @@ def driver(request):
     else:
         raise ValueError(f"Unsupported browser: {browser}")
 
+=======
+    drv = None
+    match browser:
+        case "firefox":
+            opts = FirefoxOptions()
+            if headless_flag:
+                opts.headless = True
+            service = FirefoxService(GeckoDriverManager().install())
+            drv = webdriver.Firefox(service=service, options=opts)
+        case "chrome":
+            opts = ChromeOptions()
+            if headless_flag:
+                # use new headless mode when available
+                try:
+                    opts.add_argument("--headless=new")
+                except TypeError:
+                    opts.add_argument("--headless")
+            opts.add_argument("--no-sandbox")
+            opts.add_argument("--disable-gpu")
+            opts.add_argument("--window-size=1920,1080")
+            service = ChromeService(ChromeDriverManager().install())
+            drv = webdriver.Chrome(service=service, options=opts)
+    drv.implicitly_wait(10)
+>>>>>>> malangi1
     drv.get(Config.BASE_UI_URL)
 
     yield drv
