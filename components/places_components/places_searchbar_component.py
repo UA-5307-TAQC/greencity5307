@@ -37,4 +37,4 @@ class PlacesSearchbarComponent(BaseComponent):
 
     def choose_location_method(self, value: str):
         """Choose location."""
-        self.searchbar.send_keys(value, Keys.ENTER)
+        self.choose_location.send_keys(value, Keys.ENTER)
