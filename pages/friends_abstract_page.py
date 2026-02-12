@@ -10,9 +10,6 @@ from utils.types import Locators
 class FriendsAbstractPage(BasePage):
     """Page object for the friends_abstract page."""
 
-    main_header_locator: Locators = (By.CSS_SELECTOR, ".top-header>.main-header")
-    main_footer_locator: Locators = (By.XPATH, "//app-footer")
-
     back_to_profile_button = (By.CSS_SELECTOR, ".button-link")
     search_input = (By.CSS_SELECTOR, ".search")
     friend_tabs = (By.CSS_SELECTOR, ".friend-tabs")

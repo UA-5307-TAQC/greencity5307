@@ -11,9 +11,6 @@ from utils.types import Locators
 class CreateUpdateEcoNewsPage(BasePage):
     """Page object for the create_update_eco_news page."""
 
-    main_header_locator: Locators = (By.CSS_SELECTOR, ".top-header>.main-header")
-    main_footer_locator: Locators = (By.XPATH, "//app-footer")
-
     section_header = (By.XPATH, "//*[@id='main-content']/div/div[1]/h2")
     section_description = (By.XPATH, "//*[@id='main-content']/div/div[1]/div/p")
     title = (By.XPATH, "//*[@id='main-content']/div/div[2]/form/div[1]/div[1]")

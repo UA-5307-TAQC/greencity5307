@@ -10,16 +10,11 @@ from utils.types import Locators
 class SavedAbstract(BasePage):
     """Page object for the saved_abstract page."""
 
-    main_header_locator: Locators = (By.CSS_SELECTOR, ".top-header>.main-header")
-    main_footer_locator: Locators = (By.XPATH, "//app-footer")
-
-    section_heading= (By.XPATH, "//*[@id='main-content']/div/app-saved-section/div/p")
-    tabs = (By.CSS_SELECTOR, ".tabs")
+    section_heading= (By.CSS_SELECTOR, "div > .main-header")
+    tabs = (By.CSS_SELECTOR, "div>.tabs")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-        self.main_header = self.driver.find_element(*self.main_header_locator)
-        self.main_footer = self.driver.find_element(*self.main_footer_locator)
 
     def open_tab(self, index: int):
         self.find_all(self.tabs)[index].click()

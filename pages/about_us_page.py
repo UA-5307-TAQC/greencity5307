@@ -9,9 +9,6 @@ from utils.types import Locators
 class AboutUsPage(BasePage):
     """Page object for the about_us page."""
 
-    main_header_locator: Locators = (By.CSS_SELECTOR, ".top-header>.main-header")
-    main_footer_locator: Locators = (By.XPATH, "//app-footer")
-
     section_header_one = (By.XPATH, "//*[@id='main-content']/div[1]/div/h2")
     section_description_one = (By.XPATH, "//*[@id='main-content']/div[1]/div/p")
     section_button_form_habit_one = (By.XPATH, "//*[@id='main-content']/div[1]/div/button")
@@ -22,7 +19,7 @@ class AboutUsPage(BasePage):
 
     vision_section_header = (By.XPATH, "//*[@id='main-content']/div[3]/div/h2")
 
-    vision_cards = (By.CSS_SELECTOR, ".vision-gallery")
+    vision_cards = (By.CSS_SELECTOR, ".container > .vision-card")
 
 
     def __init__(self, driver: WebDriver):
