@@ -8,7 +8,6 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from data.config import Config
 
 
-
 @fixture(params=["chrome"], scope="function")
 def driver(request):
     """
@@ -19,27 +18,21 @@ def driver(request):
     browser = request.param
     headless_flag = Config.HEADLESS
 
-
-    if browser == "firefox":
-        opts = FirefoxOptions()
-        if headless_flag:
-            opts.add_argument("-headless")
-        drv = webdriver.Firefox(options=opts)
-
-    elif browser == "chrome":
-        opts = ChromeOptions()
-        if headless_flag:
-            opts.add_argument("--headless=new")
-
-        opts.add_argument("--no-sandbox")
-        opts.add_argument("--disable-gpu")
-        opts.add_argument("--window-size=1920,1080")
-
-        drv = webdriver.Chrome(options=opts)
-
-    else:
-        raise ValueError(f"Unsupported browser: {browser}")
-
+    drv = None
+    match browser:
+        case "firefox":
+            opts = FirefoxOptions()
+            if headless_flag:
+                opts.headless = True
+            drv = webdriver.Firefox(options=opts)
+        case "chrome":
+            opts = ChromeOptions()
+            if headless_flag:
+                opts.add_argument("--headless=new")
+            opts.add_argument("--no-sandbox")
+            opts.add_argument("--disable-gpu")
+            opts.add_argument("--window-size=1920,1080")
+            drv = webdriver.Chrome(options=opts)
     drv.implicitly_wait(Config.DEFAULT_TIMEOUT)
     drv.get(Config.BASE_UI_URL)
 
