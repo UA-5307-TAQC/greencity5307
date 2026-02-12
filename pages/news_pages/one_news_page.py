@@ -16,7 +16,7 @@ class OneNewsPage(BasePage):
                                        ".news-info > .news-info-date")
     author_locator: Locators = (By.CSS_SELECTOR,
                                 ".news-info > .news-info-author")
-    main_text_locator: Locators = (By.CLASS_NAME, ".ql-editor")
+    main_text_locator: Locators = (By.CSS_SELECTOR, ".ql-editor")
     comments_section_locator: Locators = (By.TAG_NAME,
                                           "app-comments-container")
 

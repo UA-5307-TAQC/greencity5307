@@ -7,12 +7,12 @@ from pages.base_page import BasePage
 from utils.types import Locators
 
 
-class MyEvents(BasePage):
+class MyEventsPage(BasePage):
     """Page object for the My Events page."""
-    add_event_button_locator: Locators = (By.ID, "#create-button-event")
+    add_event_button_locator: Locators = (By.ID, "create-button-event")
     favorites_toggle_locator: Locators = (By.CSS_SELECTOR,
                                          ".buttons-wrapper>.favourites")
-    online_checkbox_locator: Locators = (By.ID, "#mat-mdc-checkbox-23-input")
+    online_checkbox_locator: Locators = (By.ID, "mat-mdc-checkbox-23-input")
     offline_checkbox_locator: Locators = (By.ID, "mat-mdc-checkbox-24-input")
 
     def __init__(self, driver: WebDriver):
