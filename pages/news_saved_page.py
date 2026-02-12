@@ -25,13 +25,13 @@ class NewsPage(BasePage):
         self.change_view = ChangeViewComponent(view_root)
 
     def get_news_filter_component(self) -> NewsFilterComponent:
-        """Retue NewsFilterComponent instance."""
+        """Return NewsFilterComponent instance."""
         return self.tag_filter
 
     def get_news_list_component(self) -> NewsListComponent:
-        """Reture NewsListComponent instance."""
+        """Return NewsListComponent instance."""
         return self.news_list
 
     def get_change_view_component(self) -> ChangeViewComponent:
-        """Retur ChangeViewComponent instance."""
+        """Return ChangeViewComponent instance."""
         return self.change_view

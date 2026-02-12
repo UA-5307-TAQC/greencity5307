@@ -16,21 +16,21 @@ class LocationComponent(BaseComponent):
     )
 
     def set_place(self, value: bool = True):
-        """Set online checkbox place."""
+        """Set the 'Place' checkbox to the given value."""
         checkbox = self.root.find_element(*self.checkbox_place)
         if checkbox.is_selected() != value:
             checkbox.click()
 
     def set_online(self, value: bool = True):
-        """Set online checkbox place."""
+        """Set the 'Online' checkbox to the given value."""
         checkbox = self.root.find_element(*self.checkbox_online)
         if checkbox.is_selected() != value:
             checkbox.click()
 
     def is_place(self) -> bool:
-        """Check if place checkbox is place."""
+        """Return True if the 'Place' checkbox is selected."""
         return self.root.find_element(*self.checkbox_place).is_selected()
 
     def is_online(self) -> bool:
-        """Check if online checkbox is place."""
+        """Return True if the 'Online' checkbox is selected."""
         return self.root.find_element(*self.checkbox_online).is_selected()

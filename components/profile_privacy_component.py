@@ -29,9 +29,9 @@ class ProfilePrivacyComponent(BaseComponent):
         """Set a new value for a setting by index (0-based)."""
         mat_selects = self.root.find_elements(*self.mat_select_locator)
         select = mat_selects[index]
-        select.click()  # відкриваємо список опцій
+        select.click()  # open the list of options
 
-        # чекаємо поки з'являться опції
+        # wait until options appear
         options = WebDriverWait(self.root.parent, 5).until(
             EC.presence_of_all_elements_located(self.mat_option_locator)
         )
