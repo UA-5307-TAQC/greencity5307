@@ -2,41 +2,45 @@
 
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
+
 from components.base_component import BaseComponent
+from utils.types import Locators
+
 
 class HabitBasicInfoComponent(BaseComponent):
     """
     Component that edit main information.
     """
 
-    title_field = (By.CSS_SELECTOR, "[formcontrolname='title']")
+    title_field: Locators = (By.CSS_SELECTOR, "[formcontrolname='title']")
 
-    description_field = (By.CSS_SELECTOR, "[formcontrolname='description']")
+    description_field: Locators = (By.CSS_SELECTOR, "[formcontrolname='description']")
 
-    difficulty_stars = (By.CSS_SELECTOR, "#complexityList")
-    tags = (By.CSS_SELECTOR, ".tag-button.ng-star-inserted")
+    difficulty_stars: Locators = (By.CSS_SELECTOR, "#complexityList")
+    tags: Locators = (By.CSS_SELECTOR, ".tag-button.ng-star-inserted")
 
     def set_title(self, title: str):
         """Set new title."""
-        self.input_text(self.title_field, title)
+        self.root.find_element(*self.title_field).send_keys(title)
 
     def get_title_value(self) -> str:
         """Get title value."""
-        return self.find_element(self.title_field).get_attribute("value")
+        return self.root.find_element(*self.title_field).get_attribute("value")
 
     def set_description(self, description: str):
         """Set description."""
-        self.input_text(self.description_field, description)
+
+        self.root.find_element(*self.description_field).send_keys(description)
 
     def get_description_value(self) -> str:
         """Get current description value."""
-        return self.find_element(self.description_field).get_attribute("value")
+        return self.root.find_element(*self.description_field).get_attribute("value")
 
     def set_difficulty(self, level: int):
         """
         Set difficulty level.
         """
-        stars = self.find_elements(self.difficulty_stars)
+        stars = self.root.find_elements(*self.difficulty_stars)
         if level < 1 or level > len(stars):
             raise ValueError(f"Difficulty {level} unavailable. Maximum: {len(stars)}")
 
@@ -46,7 +50,7 @@ class HabitBasicInfoComponent(BaseComponent):
         """
         Select tag by his name.
         """
-        tags = self.find_elements(self.tags)
+        tags = self.root.find_elements(*self.tags)
 
         for tag in tags:
             if tag.text.strip() == tag_name:
@@ -66,10 +70,10 @@ class HabitProgressComponent(BaseComponent):
 
     def is_progress_available(self):
         """Check if progress bar is available."""
-        elements = self.find_elements(self.progress_block)
+        elements = self.root.find_elements(*self.progress_block)
         return len(elements) > 0 and elements[0].is_displayed()
 
     def is_calendar_visible(self) -> bool:
         """Check if calendar block is visible"""
-        elements = self.find_elements(self.calendar_block)
+        elements = self.root.find_elements(*self.calendar_block)
         return len(elements) > 0 and elements[0].is_displayed()
