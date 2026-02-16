@@ -89,5 +89,6 @@ jobs:
           message: |
             📊 **Allure Test Report for PR-${{ github.event.number }}**
             Ви можете переглянути звіт за посиланням:
-            https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name || split(github.repository, '/')[1] }}/pr-${{ github.event.number }}/
+            https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.number }}/
           comment_tag: allure-report-link
+
