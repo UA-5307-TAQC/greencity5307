@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,6 +17,8 @@ class HeaderComponent(BaseComponent):
     new_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/news']")
     event_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/events']")
 
+
+    @allure.step("Clicking the news link in the header")
     def click_new_link(self) -> "EcoNewsPage":
         """Click the news link in the header and return an instance of the EcoNewsPage."""
         from pages.eco_news_page import EcoNewsPage  # pylint: disable=import-outside-toplevel
@@ -23,7 +26,7 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.new_link_locator)
         ).click()
         return EcoNewsPage(self.root.parent)
-
+    @allure.step("Clicking the event link in the header")
     def click_event_link(self) -> "EventPage":
         """Click the event link in the header and return an instance of the EventPage."""
         from pages.event_page import EventPage  # pylint: disable=import-outside-toplevel
