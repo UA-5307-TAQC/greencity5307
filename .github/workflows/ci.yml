@@ -1,8 +1,15 @@
 name: PR Lint and Tests
 
 on:
+  push:
+    branches: [ main ]
   pull_request:
-    types: [ opened, synchronize, reopened ]
+    branches: [ main ]
+
+permissions:
+  pull-requests: write
+  checks: write
+  contents: write
 
 jobs:
   lint:
@@ -47,3 +54,40 @@ jobs:
           pytest
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
+
+      - name: Get Allure history
+        uses: actions/checkout@v4
+        if: always()
+        continue-on-error: true
+        with:
+          ref: gh-pages
+          path: gh-pages
+
+      - name: Allure Report action from marketplace
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
+        with:
+          allure_results: allure-results
+          gh_pages: gh-pages
+          allure_report: allure-report
+          allure_history: allure-history
+          subfolder: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'main' }}
+
+      - name: Deploy report to Github Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: allure-history
+
+      - name: Post link to Allure Report
+        if: always() && github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          message: |
+            📊 **Allure Test Report for PR-${{ github.event.number }}**
+            Ви можете переглянути звіт за посиланням:
+            https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name || split(github.repository, '/')[1] }}/pr-${{ github.event.number }}/
+          comment_tag: allure-report-link

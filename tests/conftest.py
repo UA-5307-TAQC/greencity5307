@@ -1,5 +1,5 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
-
+import allure
 from pytest import fixture
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -8,7 +8,6 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 from data.config import Config
 
-
 @fixture(params=["chrome"], scope="function")
 def driver(request):
     """
@@ -16,6 +15,7 @@ def driver(request):
     - Param values: "chrome" or "firefox"
     - Set `HEADLESS` env var to `1` or `true` to enable headless mode.
     """
+    allure.dynamic.parameter("browser", request.param)
     browser = request.param
     headless_flag = Config.HEADLESS
 

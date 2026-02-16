@@ -1,8 +1,10 @@
+import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from pages.main_page import MainPage
 
 
+@allure.title("Smoke test for the main page")
 def test_example_smoke(driver: WebDriver):
     """A simple smoke test that always passes."""
     main_page = MainPage(driver)
