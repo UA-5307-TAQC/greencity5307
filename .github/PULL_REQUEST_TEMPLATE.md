@@ -1,82 +1,101 @@
 <!--
-Please fill out this template to help reviewers quickly understand your change.
-Remove any sections that are not relevant.
+Updated pull request template for an automated testing repository.
+Please fill all required fields before requesting a review.
 -->
 
 # Pull Request
 
 ## Summary
-
 Briefly describe the change and why it was made.
-
 - What: (short description)
-- Why: (context / motivation / issue)
+- Why: (context / motivation / related issue)
 
-## Related issue / ticket
+## Link to issue / task (required)
+Provide a direct link to the issue or task this branch addresses. Example:
+- Issue / Task: https://github.com/<org>/<repo>/issues/123
 
-Link to the issue or task number if applicable: e.g. Fixes #123
+Note: PRs without a valid issue/task link may be closed without review.
+
+## Link to Allure results for this PR (required)
+Provide a URL to the Allure report or CI artifact that contains the test results for this PR. Examples:
+- Allure server: https://allure.example.com/reports/<project>/pr-123
+- CI artifact: https://github.com/<org>/<repo>/actions/runs/<run-id>/artifacts
+
+If CI produces `allure-results` as an artifact, include a direct link to the artifact or to the published Allure report.
 
 ## Type of change
-
 - [ ] Bug fix
-- [ ] New feature
-- [ ] Refactor / code cleanup
-- [ ] Tests added or updated
-- [ ] Documentation changes
-- [ ] CI / build changes
+- [ ] New test(s)
+- [ ] Test refactor / cleanup
+- [ ] CI / pipeline change
+- [ ] Documentation
+- [ ] Other: ________
 
-## Checklist for authors (before requesting review)
+## Environment & Configuration
+- Browsers to run tests on (must be listed in PR): e.g. Chrome, Firefox
+- Optional runtime flags: e.g. BROWSER=chrome, HEADLESS=true
 
-- [ ] I ran the test suite locally: `pytest -q`
-- [ ] I ran linting: `pylint .` (or the project's linter configuration)
-- [ ] I formatted code where needed: `black .` (if the project uses black)
-- [ ] I updated or added relevant documentation
-- [ ] I added tests for new behavior (unit / integration)
-- [ ] No sensitive data or credentials are included in this PR
-
-## How to test / reproduce
-
-Provide step-by-step instructions so reviewers can verify the change locally.
-Include commands and any required environment setup. Example:
-
-1. Create and activate virtual environment
-    - `python -m venv .venv` ; `.\.venv\Scripts\Activate.ps1` (Windows PowerShell)
+## How to run tests locally (PowerShell)
+1. Create and activate a virtual environment
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
 2. Install dependencies
-    - `pip install -r requirements.txt`
-3. Run tests
-    - `pytest tests/path_to_test.py::test_name -q`
-4. Optional: lint
-    - `pylint .`
+```powershell
+pip install -r requirements.txt
+```
+3. Run the full test suite
+```powershell
+pytest -q
+```
+4. Run a single test
+```powershell
+pytest tests/path/to/test_module.py::test_name -q
+```
+5. Generate Allure results locally
+```powershell
+pytest --alluredir=allure-results
+# then (if you have allure CLI installed):
+allure serve allure-results
+```
+6. Example of selecting browser via environment variable
+```powershell
+$env:BROWSER = 'chrome'; pytest -q
+# or for Firefox
+$env:BROWSER = 'firefox'; pytest -q
+```
 
-If the change involves browser automation, include which browsers/configs to test (e.g. Chrome, Firefox).
-
-## Files changed (high level)
-
-List the main files changed and a short note about the change. Example:
-
-- `pages/create_habit_page.py` - added X
-- `components/header_component.py` - fixed Y
-
-## Screenshots / recordings
-
-If the change affects UI, attach screenshots or short recordings showing before/after.
+## CI / Allure guidance for PR authors
+- Ensure CI run for the PR produces `allure-results` and that a link to the report or artifact is added to the "Allure results" field above.
+- If your CI publishes Allure to a server, paste the public URL.
+- If CI attaches `allure-results` as an artifact, paste the artifact link (GitHub Actions / GitLab CI artifact URL).
 
 ## Notes for reviewers
+- Test intent: does the test verify the intended behavior?
+- Reliability: are waits, locators, and assertions robust (minimize flakiness)?
+- CI: did the pipeline run, and are Allure results available?
+- Security: no secrets, tokens, or credentials are included in the PR.
 
-Anything special to pay attention to (performance, edge cases, risky parts).
+## Author checklist (before requesting review)
+- [ ] I added a link to the issue/task (required)
+- [ ] I added a link to the Allure results for this PR (required)
+- [ ] I ran tests locally: `pytest -q`
+- [ ] I ran linting: `pylint .` (or the project's configured linter)
+- [ ] I updated documentation if needed (tests, configs, or setup)
+- [ ] No secrets or credentials are included in this PR
+- [ ] If browser tests were added, I listed which browsers to run on
 
 ## Reviewer checklist
+- [ ] Issue/task matches the changes in the PR
+- [ ] Allure results are present and show passed/failed tests
+- [ ] Tests are meaningful and do not duplicate existing coverage
+- [ ] CI is green or there is an explained reason for failures
 
-- [ ] Code follows project style and conventions
-- [ ] Tests cover new or changed behavior
-- [ ] No obvious security issues
-- [ ] All CI checks pass (if configured)
-
-## Merge strategy / post-merge steps
-
-- Preferred merge method: `Squash and merge` / `Rebase and merge` / `Create a merge commit`
-- If applicable, update changelog or release notes
-- If this change requires DB migrations or infrastructure changes, mention how they will be applied
+## Files changed (high level)
+List the main files changed and a short note about the change. Example:
+- `tests/...` - added/changed tests
+- `components/...` - updated helpers/selectors
 
 ---
-Thank you for the contribution! Please ensure the checklist is completed before requesting a review.
+Thank you for your contribution! Please ensure required fields (issue link and Allure results) are provided before requesting a review.
