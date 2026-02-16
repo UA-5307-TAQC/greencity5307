@@ -38,3 +38,7 @@ class BasePage:
     def click(self, locator):
         """Click on the element specified by the locator."""
         self.find(locator).click()
+
+    def is_visible(self, locator: Locators) -> bool:
+        """Check if the element specified by the locator is visible."""
+        return self.find(locator).is_displayed()
