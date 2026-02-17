@@ -49,15 +49,6 @@ class HeaderComponent(BaseComponent):
         ).click()
         return EventPage(self.root.parent)
 
-    # @allure.step("Clicking signin button in the header")
-    # def click_sign_in_link(self) -> SignInComponent:
-    #     """Click the Sign-in link in the header and return an instance of the SignInComponent."""
-    #     WebDriverWait(self.root.parent, 10).until(
-    #         EC.element_to_be_clickable(self.sign_in_link_locator)
-    #     ).click()
-    #     return SignInComponent(self.root.parent)
-
-
     def click_sign_in_link(self) -> SignInComponent:
         """Click the Sign-in link and return the SignInComponent modal."""
         driver = self.root.parent

@@ -1,6 +1,7 @@
 """
 Habit page
 """
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,6 +23,7 @@ class MyHabitPage(MySpaceAbstractPage):
             EC.visibility_of_any_elements_located(self.habit_cards_list)
         )
 
+    @allure.step("Get habit card component")
     def get_habit_card(self) -> UserHabitCardComponent:
         """Get the habit cards list"""
         element = self.find(self.habit_card_for_test)

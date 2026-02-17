@@ -1,5 +1,5 @@
 """ OneHabitPage elements"""
-
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -68,11 +68,13 @@ class OneHabitPage(BasePage):
         elements = self.driver.find_elements(*self.tags_list)
         return [element.text.strip() for element in elements]
 
+    @allure.step("Click To-Do List edit button")
     def press_to_do_list_edit_button(self):
         """start edit to do list"""
         self.click(self.to_do_list_edit_button)
         return self
 
+    @allure.step("Enter and add item '{message}' to the list")
     def add_element_into_list(self, message: str):
         """write element in list and add it"""
         self.find(self.custom_item_input).send_keys(message)
@@ -84,6 +86,7 @@ class OneHabitPage(BasePage):
         )
         return self
 
+    @allure.step("Save changes")
     def save_element(self):
         """save element"""
         self.click(self.save_button)
@@ -92,6 +95,7 @@ class OneHabitPage(BasePage):
         )
         return self
 
+    @allure.step("Get added elements list")
     def check_added_element(self):
         """check added element"""
         saved_items = self.wait.until(EC.presence_of_all_elements_located(self.list_items_loc))
