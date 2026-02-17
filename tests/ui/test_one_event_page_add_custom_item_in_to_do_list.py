@@ -21,9 +21,9 @@ def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
         EC.invisibility_of_element_located((By.TAG_NAME, "app-auth-modal"))
     )
 
-    base_page = BasePage(driver)
-
-    base_page.header.click_my_space()
+    # base_page = BasePage(driver)
+    #
+    # base_page.header.click_my_space()
 
     page = MyHabitPage(driver)
 
@@ -32,7 +32,7 @@ def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
     )
 
     habit_card = page.get_habit_card()
-    habit_card.edit_habit()
+    habit_card.click_edit_habit()
 
     #prob top test useless
     one_habit_page = OneHabitPage(driver)

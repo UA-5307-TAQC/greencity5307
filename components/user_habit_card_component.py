@@ -1,6 +1,7 @@
 """
 user habit card component
 """
+import allure
 from selenium.webdriver.common.by import By
 
 from components.base_component import BaseComponent
@@ -21,10 +22,12 @@ class UserHabitCardComponent(BaseComponent):
         """Get the title of the habit card"""
         return self.root.find_element(*self.title).text
 
-    def complete_habit(self):
-        """Complete the habit card"""
+    @allure.step("Clicking the checkbox to mark the habit as complete")
+    def click_complete_habit(self):
+        """Click the checkbox to mark the habit as complete"""
         self.root.find_element(*self.checkbox).click()
 
-    def edit_habit(self):
-        """Edit the habit card"""
+    @allure.step("Clicking the edit icon on the habit card")
+    def click_edit_habit(self):
+        """Click the edit icon on the habit card"""
         self.root.find_element(*self.edit_icon).click()

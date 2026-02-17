@@ -1,6 +1,5 @@
 """ OneHabitPage elements"""
 
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -77,7 +76,9 @@ class OneHabitPage(BasePage):
     def add_element_into_list(self, message: str):
         """write element in list and add it"""
         self.find(self.custom_item_input).send_keys(message)
-        self.click(self.custom_item_add)
+        WebDriverWait(self.driver, 5).until(
+            EC.element_to_be_clickable(self.custom_item_add)
+        ).click()
         WebDriverWait(self.driver, 5).until(
             EC.text_to_be_present_in_element(self.list_items_loc, message)
         )
