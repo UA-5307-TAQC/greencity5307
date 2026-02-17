@@ -56,7 +56,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest
+          pytest -v
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
 
