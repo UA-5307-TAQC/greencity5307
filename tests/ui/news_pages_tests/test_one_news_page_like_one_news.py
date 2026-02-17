@@ -21,7 +21,7 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     main_page = MainPage(driver)
     # sign in
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in()
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
     # wait to navigate to MyProfile page after sign in
     WebDriverWait(driver, 10).until(
         EC.url_changes(Config.BASE_UI_URL)
