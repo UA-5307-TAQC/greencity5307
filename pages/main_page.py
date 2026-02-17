@@ -11,7 +11,22 @@ from utils.types import Locators
 class MainPage(BasePage):
     """Page object for the main page."""
     there_are_locator: Locators = (By.CSS_SELECTOR, "#stats > h2")
+    eco_news_locator: Locators = (By.CSS_SELECTOR, "li:nth-child(1) > a")
+    change_language_block: Locators = (By.CSS_SELECTOR, ' ul > li:nth-child(1) > span')
+    language_option_locator: Locators = (By.CSS_SELECTOR, 'ul> li:nth-child(2) > span')
 
-    def __init__(self, driver: WebDriver):
-        super().__init__(driver)
-        self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
+    @property
+    def there_are(self) -> WebElement:
+        return self.driver.find_element(*self.there_are_locator)
+
+    @property
+    def eco_news(self) -> WebElement:
+        return self.driver.find_element(*self.eco_news_locator)
+
+    @property
+    def change_language_button(self) -> WebElement:
+        return self.driver.find_element(*self.change_language_block)
+
+    @property
+    def language_option_en(self) -> WebElement:
+        return self.driver.find_element(*self.language_option_locator)
