@@ -1,1 +1,0 @@
-[{"uid":"33fc42e4f71b6d0f","name":"test_nothing","time":{"start":1771319168345,"stop":1771319168345,"duration":0},"status":"passed","severity":"normal"},{"uid":"f6036ecd827f8f25","name":"Smoke test for the main page","time":{"start":1771319180308,"stop":1771319180916,"duration":608},"status":"passed","severity":"normal"}]
