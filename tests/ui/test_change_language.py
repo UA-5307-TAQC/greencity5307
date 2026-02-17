@@ -10,10 +10,10 @@ def test_change_language(driver: WebDriver):
     """Change language test for main page."""
     main_page = MainPage(driver)
 
-    assert main_page.is_header_text_correct("Еко Новини"), "Текст не змінився на 'Еко Новини' після перемикання"
+    assert main_page.header.get_new_link_text() == "Еко Новини", "Text of news link in header is not 'Еко Новини' by default"
 
     main_page.switch_language()
-    assert main_page.is_header_text_correct("Eco News"), "Текст не змінився на 'Eco News' після перемикання"
+    assert main_page.header.get_new_link_text() == "Eco News", "Text of news link in header is not 'Eco News' after switching language"
 
     main_page.switch_language()
-    assert main_page.is_header_text_correct("Еко Новини"), "Текст не змінився на 'Еко Новини' після перемикання"
+    assert main_page.header.get_new_link_text() == "Еко Новини", "Text of news link in header is not 'Еко Новини' after switching language back"

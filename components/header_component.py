@@ -31,6 +31,11 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.new_link_locator)
         ).click()
         return EcoNewsPage(self.root.parent)
+    def get_new_link_text(self) -> str:
+        """Get the text of the news link in the header."""
+        return WebDriverWait(self.root.parent, 10).until(
+            EC.visibility_of_element_located(self.new_link_locator)
+        ).text
 
     @allure.step("Clicking the event link in the header")
     def click_event_link(self) -> "EventPage":
