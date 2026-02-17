@@ -10,25 +10,10 @@ def test_change_language(driver: WebDriver):
     """Change language test for main page."""
     main_page = MainPage(driver)
 
-    WebDriverWait(driver, 10).until(
-        expected_conditions.text_to_be_present_in_element(main_page.eco_news_locator, "Еко Новини"),
-        message="Текст не змінився на 'Еко Новини' після перемикання"
-    )
-    assert main_page.eco_news.text == "Еко Новини"
+    assert main_page.is_header_text_correct("Еко Новини"), "Текст не змінився на 'Еко Новини' після перемикання"
 
-    main_page.change_language_button.click()
-    main_page.other_language_option.click()
-    WebDriverWait(driver, 5).until(
-        expected_conditions.text_to_be_present_in_element(main_page.eco_news_locator, "Eco News"),
-        message="Текст не змінився на 'Eco News' після перемикання"
-    )
-    assert main_page.eco_news.text == "Eco News"
+    main_page.switch_language()
+    assert main_page.is_header_text_correct("Eco News"), "Текст не змінився на 'Eco News' після перемикання"
 
-    main_page.change_language_button.click()
-    main_page.other_language_option.click()
-
-    WebDriverWait(driver, 5).until(
-        expected_conditions.text_to_be_present_in_element(main_page.eco_news_locator, "Еко Новини"),
-        message="Текст не змінився на 'Еко Новини' №2 після перемикання"
-    )
-    assert main_page.eco_news.text == "Еко Новини"
+    main_page.switch_language()
+    assert main_page.is_header_text_correct("Еко Новини"), "Текст не змінився на 'Еко Новини' після перемикання"

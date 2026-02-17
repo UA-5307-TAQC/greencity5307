@@ -15,22 +15,16 @@ class MainPage(BasePage):
     change_language_block_locator: Locators = (By.CSS_SELECTOR, ' ul > li:nth-child(1) > span')
     other_language_option_locator: Locators = (By.CSS_SELECTOR, 'ul> li:nth-child(2) > span')
 
+    def switch_language(self):
+        """Function to switch the language of the main page."""
+        self.driver.find_element(*self.change_language_block_locator).click()
+        self.driver.find_element(*self.other_language_option_locator).click()
+
+    def is_header_text_correct(self, expected_text: str) -> bool:
+        """Function to check the text present in the main page."""
+        return self.verify_text_present(self.eco_news_locator, expected_text)
+
     @property
     def there_are(self) -> WebElement:
         """Function to find there_are_locator on the main page."""
         return self.driver.find_element(*self.there_are_locator)
-
-    @property
-    def eco_news(self) -> WebElement:
-        """Function to find eco_news_locator on the main page."""
-        return self.driver.find_element(*self.eco_news_locator)
-
-    @property
-    def change_language_button(self) -> WebElement:
-        """Function to find change_language_button on the main page."""
-        return self.driver.find_element(*self.change_language_block_locator)
-
-    @property
-    def other_language_option(self) -> WebElement:
-        """Function to find language_option_locator on the main page."""
-        return self.driver.find_element(*self.other_language_option_locator)
