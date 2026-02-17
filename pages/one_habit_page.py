@@ -2,6 +2,8 @@
 
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 from utils.types import Locators
@@ -32,7 +34,8 @@ class OneHabitPage(BasePage):
 
     #To-do list
     to_do_list_edit_button: Locators = (By.CSS_SELECTOR, "app-habit-edit-to-do-list > div > a")
-    list_container: Locators = (By.CSS_SELECTOR, "div.list-container.ng-star-inserted")
+    list_container: Locators = (By.CSS_SELECTOR, ".to-do-list-container > .list-container")
+    list_items_loc = (By.CSS_SELECTOR, ".list-container li.list-item span")
 
     ##After press edit_button
     del_button: Locators = (By.CSS_SELECTOR, ".del-btn")
@@ -65,3 +68,30 @@ class OneHabitPage(BasePage):
         """
         elements = self.driver.find_elements(*self.tags_list)
         return [element.text.strip() for element in elements]
+
+    def press_to_do_list_edit_button(self):
+        """start edit to do list"""
+        self.click(self.to_do_list_edit_button)
+        return self
+
+    def add_element_into_list(self, message: str):
+        """write element in list and add it"""
+        self.find(self.custom_item_input).send_keys(message)
+        self.click(self.custom_item_add)
+        WebDriverWait(self.driver, 5).until(
+            EC.text_to_be_present_in_element(self.list_items_loc, message)
+        )
+        return self
+
+    def save_element(self):
+        """save element"""
+        self.click(self.save_button)
+        WebDriverWait(self.driver, 10).until(
+            EC.invisibility_of_element_located(self.save_button)
+        )
+        return self
+
+    def check_added_element(self):
+        """check added element"""
+        saved_items = self.wait.until(EC.presence_of_all_elements_located(self.list_items_loc))
+        return [item.text.strip() for item in saved_items]

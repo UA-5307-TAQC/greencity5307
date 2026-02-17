@@ -9,6 +9,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
+from components.common_components.auth_components.signin_component import SignInComponent
 from utils.types import Locators
 
 
@@ -16,6 +17,35 @@ class HeaderComponent(BaseComponent):
     """Component class for the header section of a web page."""
     new_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/news']")
     event_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/events']")
+    sign_in_link_locator: Locators = (By.CSS_SELECTOR,
+                                      " .header_navigation-menu-right-list > .header_sign-in-link"
+                                      )
+    my_space_link_locator: Locators = (By.XPATH, "//app-header//ul/li[5]/a")
+
+
+    def click_sign_in_link(self) -> SignInComponent:
+        """Click the Sign-in link and return the SignInComponent modal."""
+        driver = self.root.parent
+
+        sign_in_link = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable(self.sign_in_link_locator)
+        )
+        sign_in_link.click()
+
+        modal_locator = (By.TAG_NAME, "app-auth-modal")
+
+        modal_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(modal_locator)
+        )
+
+        return SignInComponent(modal_element)
+
+    def click_my_space(self):
+        """Click the space in the header and return an instance of the MySpaceAbstractPage."""
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.my_space_link_locator)
+        ).click()
+
 
 
     @allure.step("Clicking the news link in the header")
@@ -26,6 +56,7 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.new_link_locator)
         ).click()
         return EcoNewsPage(self.root.parent)
+
     @allure.step("Clicking the event link in the header")
     def click_event_link(self) -> "EventPage":
         """Click the event link in the header and return an instance of the EventPage."""

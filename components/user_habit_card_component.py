@@ -2,6 +2,7 @@
 user habit card component
 """
 from selenium.webdriver.common.by import By
+
 from components.base_component import BaseComponent
 from utils.types import Locators
 
@@ -11,6 +12,19 @@ class UserHabitCardComponent(BaseComponent):
 
     title: Locators = (By.CSS_SELECTOR, ".description .second-row")
 
-    checkbox: Locators = (By.XPATH, ".//div/div[2]/button")
+    checkbox: Locators = (By.CSS_SELECTOR, "div.third-row > button")
 
-    edit_icon: Locators = (By.XPATH, ".//div/div[1]/div[1]/button")
+    edit_icon: Locators = (By.CSS_SELECTOR, "button.edit")
+
+
+    def get_title_text(self) -> str:
+        """Get the title of the habit card"""
+        return self.root.find_element(*self.title).text
+
+    def complete_habit(self):
+        """Complete the habit card"""
+        self.root.find_element(*self.checkbox).click()
+
+    def edit_habit(self):
+        """Edit the habit card"""
+        self.root.find_element(*self.edit_icon).click()
