@@ -4,6 +4,8 @@ and methods for interacting with the main page elements."""
 from typing import Tuple
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -14,8 +16,13 @@ from pages.eco_news_page import EcoNewsPage
 class MainPage(BasePage):
     """Page object for the main page."""
     Locators = Tuple[str, str]
+    there_are_locator: Locators = (By.CSS_SELECTOR, "#stats > h2")
     header_locator: Locators = (By.CSS_SELECTOR, "#stats > h1")
     main_header_locator: Locators = (By.CSS_SELECTOR, ".cont >.main-header")
+
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)
+        self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
 
     def sign_in(self) -> "SignInComponent":
         """Click the Sign-in link in the header and return an instance of the SignInComponent."""
