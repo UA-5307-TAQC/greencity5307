@@ -1,4 +1,4 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"A simple smoke test that always passes.","11688","Smoke test for the main page","tests.ui","Tue Feb 17 11:06:56 UTC 2026","passed","Tue Feb 17 11:07:08 UTC 2026","","test_smoke","",""
-"Test like one news page like one news","13709","Test like one news on one news page","tests.ui.news_pages_tests","Tue Feb 17 11:06:41 UTC 2026","broken","Tue Feb 17 11:06:55 UTC 2026","","test_one_news_page_like_one_news","",""
-"A test that does nothing and always passes.","1","test_nothing","tests","Tue Feb 17 11:06:32 UTC 2026","passed","Tue Feb 17 11:06:32 UTC 2026","","test_stub","",""
+"A test that does nothing and always passes.","0","test_nothing","tests","Tue Feb 17 11:10:20 UTC 2026","passed","Tue Feb 17 11:10:20 UTC 2026","","test_stub","",""
+"Test like one news page like one news","5633","Test like one news on one news page","tests.ui.news_pages_tests","Tue Feb 17 11:10:28 UTC 2026","failed","Tue Feb 17 11:10:34 UTC 2026","","test_one_news_page_like_one_news","",""
+"A simple smoke test that always passes.","11941","Smoke test for the main page","tests.ui","Tue Feb 17 11:10:35 UTC 2026","passed","Tue Feb 17 11:10:47 UTC 2026","","test_smoke","",""
