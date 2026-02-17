@@ -30,6 +30,7 @@ def driver(request):
             opts = ChromeOptions()
             if headless_flag:
                 opts.add_argument("--headless=new")
+            opts.add_argument("--lang=uk-UA")
             opts.add_argument("--no-sandbox")
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
