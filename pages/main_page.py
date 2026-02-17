@@ -4,7 +4,7 @@ and methods for interacting with the main page elements."""
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from pages.base_page import BasePage, WebDriver
+from pages.base_page import BasePage
 from utils.types import Locators
 
 
@@ -17,16 +17,20 @@ class MainPage(BasePage):
 
     @property
     def there_are(self) -> WebElement:
+        """Function to find there_are_locator on the main page."""
         return self.driver.find_element(*self.there_are_locator)
 
     @property
     def eco_news(self) -> WebElement:
+        """Function to find eco_news_locator on the main page."""
         return self.driver.find_element(*self.eco_news_locator)
 
     @property
     def change_language_button(self) -> WebElement:
+        """Function to find change_language_button on the main page."""
         return self.driver.find_element(*self.change_language_block)
 
     @property
     def language_option_en(self) -> WebElement:
+        """Function to find language_option_locator on the main page."""
         return self.driver.find_element(*self.language_option_locator)
