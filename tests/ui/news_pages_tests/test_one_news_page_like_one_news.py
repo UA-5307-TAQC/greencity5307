@@ -27,7 +27,6 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     # get random number to get random news_card
     num = random.randint(0, len(news_page.news_cards) - 1)
     one_news_page = news_page.news_cards[num].navigate_to_one_news_page(driver)
-    time.sleep(5)
     # get count of likes
     likes_count = one_news_page.likes.get_likes_count()
     # Check if news are already liked
