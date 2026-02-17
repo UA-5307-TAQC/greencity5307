@@ -1,8 +1,3 @@
-<!--
-Updated pull request template for an automated testing repository.
-Please fill all required fields before requesting a review.
--->
-
 # Pull Request
 
 ## Summary
@@ -12,14 +7,14 @@ Briefly describe the change and why it was made.
 
 ## Link to issue / task (required)
 Provide a direct link to the issue or task this branch addresses. Example:
-- Issue / Task: https://github.com/<org>/<repo>/issues/123
+- Issue / Task / TestCase: https://github.com/UA-5307-TAQC/greencity5307/issues/{id}
 
-Note: PRs without a valid issue/task link may be closed without review.
+Note: PRs without a valid issue/task/testcase link may be closed without review.
 
 ## Link to Allure results for this PR (required)
 Provide a URL to the Allure report or CI artifact that contains the test results for this PR. Examples:
-- Allure server: https://allure.example.com/reports/<project>/pr-123
-- CI artifact: https://github.com/<org>/<repo>/actions/runs/<run-id>/artifacts
+- Allure server: https://ua-5307-taqc.github.io/greencity5307/pr-{pr-id}
+- CI artifact: https://github.com/UA-5307-TAQC/greencity5307/actions?query=branch%3A{branch-name}
 
 If CI produces `allure-results` as an artifact, include a direct link to the artifact or to the published Allure report.
 
@@ -55,8 +50,6 @@ pytest tests/path/to/test_module.py::test_name -q
 ```
 5. Generate Allure results locally
 ```powershell
-pytest --alluredir=allure-results
-# then (if you have allure CLI installed):
 allure serve allure-results
 ```
 6. Example of selecting browser via environment variable
@@ -66,11 +59,6 @@ $env:BROWSER = 'chrome'; pytest -q
 $env:BROWSER = 'firefox'; pytest -q
 ```
 
-## CI / Allure guidance for PR authors
-- Ensure CI run for the PR produces `allure-results` and that a link to the report or artifact is added to the "Allure results" field above.
-- If your CI publishes Allure to a server, paste the public URL.
-- If CI attaches `allure-results` as an artifact, paste the artifact link (GitHub Actions / GitLab CI artifact URL).
-
 ## Notes for reviewers
 - Test intent: does the test verify the intended behavior?
 - Reliability: are waits, locators, and assertions robust (minimize flakiness)?
@@ -78,7 +66,7 @@ $env:BROWSER = 'firefox'; pytest -q
 - Security: no secrets, tokens, or credentials are included in the PR.
 
 ## Author checklist (before requesting review)
-- [ ] I added a link to the issue/task (required)
+- [ ] I added a link to the issue/task/testcase (required)
 - [ ] I added a link to the Allure results for this PR (required)
 - [ ] I ran tests locally: `pytest -q`
 - [ ] I ran linting: `pylint .` (or the project's configured linter)
@@ -87,7 +75,7 @@ $env:BROWSER = 'firefox'; pytest -q
 - [ ] If browser tests were added, I listed which browsers to run on
 
 ## Reviewer checklist
-- [ ] Issue/task matches the changes in the PR
+- [ ] Issue/task/testcase matches the changes in the PR
 - [ ] Allure results are present and show passed/failed tests
 - [ ] Tests are meaningful and do not duplicate existing coverage
 - [ ] CI is green or there is an explained reason for failures
