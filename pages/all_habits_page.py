@@ -24,6 +24,7 @@ class AllHabitPage(BasePage):
     habit_cards_locator: Locators = (By.CSS_SELECTOR, "app-habits-gallery-view > div,\
      app-habits-list-view > div")
     breadcrumbs_container_locator: Locators = (By.CLASS_NAME, "breadcrumbs-container")
+    create_habit_button_locator: Locators = (By.CSS_SELECTOR, "div.habit-header > button")
 
 
     def __init__(self, driver: WebDriver):
@@ -33,7 +34,9 @@ class AllHabitPage(BasePage):
 
     def get_create_habit_button(self) -> CreateHabitButtonComponent:
         """Returns the Create Habit button component."""
-        return CreateHabitButtonComponent(self.driver)
+
+        create_habit_button = self.driver.find_element(*self.create_habit_button_locator)
+        return CreateHabitButtonComponent(create_habit_button)
 
 
     def get_filters(self) -> HabitFilterComponent:
