@@ -7,14 +7,14 @@ Briefly describe the change and why it was made.
 
 ## Link to issue / task (required)
 Provide a direct link to the issue or task this branch addresses. Example:
-- Issue / Task / TestCase : https://github.com/UA-5307-TAQC/greencity5307/issues/{id}
+- Issue / Task / TestCase: https://github.com/UA-5307-TAQC/greencity5307/issues/{id}
 
 Note: PRs without a valid issue/task/testcase link may be closed without review.
 
 ## Link to Allure results for this PR (required)
 Provide a URL to the Allure report or CI artifact that contains the test results for this PR. Examples:
-- Allure server: https://ua-5307-taqc.github.io/greencity5307/{pr-id}
-- CI artifact: https://github.com/UA-5307-TAQC/greencity5307/actions?query=branch%{branch-name}
+- Allure server: https://ua-5307-taqc.github.io/greencity5307/pr-{pr-id}
+- CI artifact: https://github.com/UA-5307-TAQC/greencity5307/actions?query=branch%3A{branch-name}
 
 If CI produces `allure-results` as an artifact, include a direct link to the artifact or to the published Allure report.
 
