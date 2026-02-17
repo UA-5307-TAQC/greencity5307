@@ -1,10 +1,10 @@
 """This module contains tests for creating eco news with valid data"""
-import tempfile
+#import tempfile
 import pytest
 import allure
-from PIL import Image
+#from PIL import Image
 
-from components.common_components.auth_components.singin_component import SignInComponent
+from components.common_components.auth_components.signin_modal_component import SignInComponent
 from pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
 from pages.eco_news_page import EcoNewsPage
 from pages.main_page import MainPage
@@ -46,11 +46,11 @@ def test_open_create_update_eco_news_page(driver):
     tags = ("Events", "News")
     source = "https://saving-planet.org/"
     content = "Eco content " * 30
-    with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
-        temp_file_path = tmp.name
+    #with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
+    #    temp_file_path = tmp.name
         # Generate a tiny 1x1 pixel image
-        image = Image.new('RGB', (10, 10), color='red')
-        image.save(temp_file_path)
+    #    image = Image.new('RGB', (10, 10), color='red')
+    #    image.save(temp_file_path)
 
     form.fill_form(
         title=title,

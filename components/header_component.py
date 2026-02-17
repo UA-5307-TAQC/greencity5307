@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from components.base_component import BaseComponent
-from components.common_components.auth_components.singin_component import SignInComponent
+from components.common_components.auth_components.signin_modal_component import SignInComponent
 
 
 class HeaderComponent(BaseComponent):

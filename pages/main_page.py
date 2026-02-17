@@ -9,7 +9,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from components.common_components.auth_components.singin_component import SignInComponent
+from components.common_components.auth_components.signin_modal_component import SignInComponent
 from pages.base_page import BasePage
 from pages.eco_news_page import EcoNewsPage
 
