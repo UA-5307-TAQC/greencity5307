@@ -5,40 +5,27 @@ from __future__ import annotations
 
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from components.base_component import BaseComponent
-from components.common_components.auth_components.signin_component import SignInComponent
+from components.common_components.auth_components.signin_modal_component \
+    import SignInComponent
 from utils.types import Locators
 
 
 class HeaderComponent(BaseComponent):
     """Component class for the header section of a web page."""
     new_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/news']")
+    # event_link_locator: Locators = (By.XPATH,
+    #                                 ".//a[@href='#/greenCity/events']")
+    # sign_in_link_locator: Locators = (By.CSS_SELECTOR,
+    #                                   ".header_navigation-menu-right-list > .header_sign-in-link")
     event_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
                                       " .header_navigation-menu-right-list > .header_sign-in-link"
                                       )
     my_space_link_locator: Locators = (By.XPATH, "//app-header//ul/li[5]/a")
-
-
-    def click_sign_in_link(self) -> SignInComponent:
-        """Click the Sign-in link and return the SignInComponent modal."""
-        driver = self.root.parent
-
-        sign_in_link = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable(self.sign_in_link_locator)
-        )
-        sign_in_link.click()
-
-        modal_locator = (By.TAG_NAME, "app-auth-modal")
-
-        modal_element = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located(modal_locator)
-        )
-
-        return SignInComponent(modal_element)
 
     def click_my_space(self):
         """Click the space in the header and return an instance of the MySpaceAbstractPage."""
@@ -65,3 +52,28 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.event_link_locator)
         ).click()
         return EventPage(self.root.parent)
+
+    # @allure.step("Clicking signin button in the header")
+    # def click_sign_in_link(self) -> SignInComponent:
+    #     """Click the Sign-in link in the header and return an instance of the SignInComponent."""
+    #     WebDriverWait(self.root.parent, 10).until(
+    #         EC.element_to_be_clickable(self.sign_in_link_locator)
+    #     ).click()
+    #     return SignInComponent(self.root.parent)
+
+
+    def click_sign_in_link(self) -> SignInComponent:
+        """Click the Sign-in link and return the SignInComponent modal."""
+        driver = self.root.parent
+
+        WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable(self.sign_in_link_locator)
+        ).click()
+
+        modal_locator = (By.TAG_NAME, "app-auth-modal")
+
+        modal_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(modal_locator)
+        )
+
+        return SignInComponent(modal_element)
