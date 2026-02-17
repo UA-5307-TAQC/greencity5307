@@ -16,8 +16,8 @@ class BasePage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
-        header_root = self.driver.find_element(*self.header_root_locator)
-        self.header: HeaderComponent = HeaderComponent(header_root)
+        self.header: HeaderComponent = HeaderComponent(
+            self.driver.find_element(*self.header_root_locator))
 
     def navigate_to(self, url: str):
         """Navigate to the specified URL."""

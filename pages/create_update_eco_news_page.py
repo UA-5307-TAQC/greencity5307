@@ -1,7 +1,7 @@
 """This module contains the CreateUpdateEcoNewsPage class,
 which represents the create_update_eco_news page of a website."""
-from selenium.webdriver.common.by import By
 
+from selenium.webdriver.common.by import By
 from components.create_update_eco_news_component import CreateUpdateNewsTitleComponent, \
     CreateUpdateEcoNewsFormComponent
 from pages.base_page import BasePage
@@ -17,22 +17,17 @@ class CreateUpdateEcoNewsPage(BasePage):
     preview_button: Locators = (By.XPATH, "//button[contains(text(),'Preview')]")
     submit_button: Locators = (By.XPATH, "//button[contains(text(),'Submit')]")
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.title_component = CreateUpdateNewsTitleComponent(self.find(self.page_title_locator))
-        self.form = CreateUpdateEcoNewsFormComponent(self.find(self.form_locator))
-
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
         return self.is_visible(self.page_title_locator)
 
     def get_title_component(self) -> CreateUpdateNewsTitleComponent:
         """Get the title of the page."""
-        return self.title_component
+        return CreateUpdateNewsTitleComponent(self.find(self.page_title_locator))
 
     def get_form(self) -> CreateUpdateEcoNewsFormComponent:
         """Get the form of the page."""
-        return self.form
+        return CreateUpdateEcoNewsFormComponent(self.find(self.form_locator))
 
     def click_submit(self):
         """Click the submit button."""
