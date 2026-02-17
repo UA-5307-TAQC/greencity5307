@@ -21,12 +21,20 @@ class HeaderComponent(BaseComponent):
                                     ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
+    my_space_link_locator: Locators = (By.XPATH, "//app-header//ul/li[5]/a")
+
+    def click_my_space(self):
+        """Click the space in the header and return an instance of the MySpaceAbstractPage."""
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.my_space_link_locator)
+        ).click()
+
+
 
     @allure.step("Clicking the news link in the header")
     def click_new_link(self) -> "EcoNewsPage":
         """Click the news link in the header and return an instance of the EcoNewsPage."""
-        from pages.eco_news_page import \
-            EcoNewsPage  # pylint: disable=import-outside-toplevel
+        from pages.eco_news_page import EcoNewsPage  # pylint: disable=import-outside-toplevel
         WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.new_link_locator)
         ).click()
@@ -35,17 +43,24 @@ class HeaderComponent(BaseComponent):
     @allure.step("Clicking the event link in the header")
     def click_event_link(self) -> "EventPage":
         """Click the event link in the header and return an instance of the EventPage."""
-        from pages.event_page import \
-            EventPage  # pylint: disable=import-outside-toplevel
+        from pages.event_page import EventPage  # pylint: disable=import-outside-toplevel
         WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.event_link_locator)
         ).click()
         return EventPage(self.root.parent)
 
-    @allure.step("Clicking signin button in the header")
     def click_sign_in_link(self) -> SignInComponent:
-        """Click the sign in link in the header and return an instance of the SignInComponent."""
-        WebDriverWait(self.root.parent, 10).until(
+        """Click the Sign-in link and return the SignInComponent modal."""
+        driver = self.root.parent
+
+        WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable(self.sign_in_link_locator)
         ).click()
-        return SignInComponent(self.root.parent)
+
+        modal_locator = (By.TAG_NAME, "app-auth-modal")
+
+        modal_element = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(modal_locator)
+        )
+
+        return SignInComponent(modal_element)

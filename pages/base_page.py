@@ -14,6 +14,7 @@ class BasePage:
     header_root_locator: Locators = (By.XPATH, "//header[@role='banner']")
 
     def __init__(self, driver: WebDriver):
+        """Initialize the component"""
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
         header_root = self.driver.find_element(*self.header_root_locator)
@@ -31,7 +32,7 @@ class BasePage:
         """Find single element with wait"""
         return self.wait.until(EC.visibility_of_element_located(locator))
 
-    def find_all(self, locator):
+    def find_all(self, locator) -> list:
         """Find list of elements"""
         return self.wait.until(EC.presence_of_all_elements_located(locator))
 
