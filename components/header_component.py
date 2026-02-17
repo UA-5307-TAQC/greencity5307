@@ -50,7 +50,7 @@ class HeaderComponent(BaseComponent):
         Switch language to the given language code.
         :param lang_code: 'ua' or 'en'
         """
-        WebDriverWait(self.root.parent, 10).until(
+        WebDriverWait(self.root.parent, 4).until(
             EC.element_to_be_clickable(self.language_switcher)
         ).click()
 
@@ -59,11 +59,11 @@ class HeaderComponent(BaseComponent):
         else:
             target_locator = self.language_option_ua
 
-        WebDriverWait(self.root.parent, 10).until(
+        WebDriverWait(self.root.parent, 4).until(
             EC.element_to_be_clickable(target_locator)
         ).click()
 
-        WebDriverWait(self.root.parent, 3).until(
+        WebDriverWait(self.root.parent, 4).until(
             EC.invisibility_of_element_located(target_locator)
         )
 
