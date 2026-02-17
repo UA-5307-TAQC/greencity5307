@@ -17,7 +17,7 @@ def test_change_language(driver: WebDriver):
     assert main_page.eco_news.text == "Еко Новини"
 
     main_page.change_language_button.click()
-    main_page.language_option_en.click()
+    main_page.other_language_option.click()
     WebDriverWait(driver, 5).until(
         expected_conditions.text_to_be_present_in_element(main_page.eco_news_locator, "Eco News"),
         message="Текст не змінився на 'Eco News' після перемикання"
@@ -25,7 +25,7 @@ def test_change_language(driver: WebDriver):
     assert main_page.eco_news.text == "Eco News"
 
     main_page.change_language_button.click()
-    main_page.language_option_en.click()
+    main_page.other_language_option.click()
 
     WebDriverWait(driver, 5).until(
         expected_conditions.text_to_be_present_in_element(main_page.eco_news_locator, "Еко Новини"),
