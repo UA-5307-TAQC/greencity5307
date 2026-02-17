@@ -1,6 +1,6 @@
 """This module contains the CreateHabitButtonComponent class."""
 
-from selenium.webdriver.remote.webelement import WebElement
+
 from components.base_component import BaseComponent
 
 

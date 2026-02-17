@@ -1,6 +1,9 @@
-"""This module contains the MutualHabits class,which represents the event page of a website.
- It inherits from the BasePage class and provides specific locators and methods
-for interacting with the event page elements."""
+"""Page object for the MutualHabitsPage.
+
+This module defines the MutualHabitsPage class, which represents the
+Mutual Habits page of the application and provides specific locators
+and methods for interacting with its elements.
+"""
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver

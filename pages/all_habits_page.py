@@ -48,7 +48,8 @@ class AllHabitPage(BasePage):
 
     def get_breadcrumbs(self) -> BreadCrumbsComponent:
         """Returns the Breadcrumbs component."""
-        return BreadCrumbsComponent(self.driver)
+        root = self.driver.find_element(*self.breadcrumbs_container_locator)
+        return BreadCrumbsComponent(root)
 
     def get_all_habit_cards(self) -> List[HabitCardComponent]:
         """Returns a list of habit cards."""
