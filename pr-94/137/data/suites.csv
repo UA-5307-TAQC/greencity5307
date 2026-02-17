@@ -1,4 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"A test that does nothing and always passes.","0","test_nothing","tests","Tue Feb 17 11:14:47 UTC 2026","passed","Tue Feb 17 11:14:47 UTC 2026","","test_stub","",""
-"A simple smoke test that always passes.","12008","Smoke test for the main page","tests.ui","Tue Feb 17 11:15:02 UTC 2026","passed","Tue Feb 17 11:15:14 UTC 2026","","test_smoke","",""
-"Test like one news page like one news","4785","Test like one news on one news page","tests.ui.news_pages_tests","Tue Feb 17 11:14:56 UTC 2026","passed","Tue Feb 17 11:15:01 UTC 2026","","test_one_news_page_like_one_news","",""
