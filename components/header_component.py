@@ -17,14 +17,10 @@ from utils.types import Locators
 class HeaderComponent(BaseComponent):
     """Component class for the header section of a web page."""
     new_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/news']")
-    # event_link_locator: Locators = (By.XPATH,
-    #                                 ".//a[@href='#/greenCity/events']")
-    # sign_in_link_locator: Locators = (By.CSS_SELECTOR,
-    #                                   ".header_navigation-menu-right-list > .header_sign-in-link")
-    event_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/events']")
+    event_link_locator: Locators = (By.XPATH,
+                                    ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
-                                      " .header_navigation-menu-right-list > .header_sign-in-link"
-                                      )
+                                      ".header_navigation-menu-right-list > .header_sign-in-link")
     my_space_link_locator: Locators = (By.XPATH, "//app-header//ul/li[5]/a")
 
     def click_my_space(self):
