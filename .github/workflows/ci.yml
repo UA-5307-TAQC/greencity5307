@@ -59,6 +59,8 @@ jobs:
           pytest -v
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
+          USER_EMAIL: ${{ secrets.USER_EMAIL }}
+          USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 
       - name: Get Allure history
         uses: actions/checkout@v4

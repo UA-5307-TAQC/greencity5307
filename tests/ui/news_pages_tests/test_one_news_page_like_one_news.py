@@ -3,7 +3,6 @@ import random
 
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from components.common_components.auth_components.signin_modal_component import \
@@ -21,11 +20,7 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     main_page = MainPage(driver)
     # sign in
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in()
-    # wait to navigate to MyProfile page after sign in
-    WebDriverWait(driver, 10).until(
-        EC.url_changes(Config.BASE_UI_URL)
-    )
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
     # link to news page
     news_page: EcoNewsPage = main_page.header.click_new_link()
     # get random number to get random news_card
@@ -44,7 +39,6 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     # Get updated count of likes
     updated_likes_count = one_news_page.likes.get_likes_count()
     # Check correct like count change
-    print(likes_count, updated_likes_count)
     if liked:
         assert updated_likes_count == likes_count - 1
     else:

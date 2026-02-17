@@ -13,7 +13,7 @@ class LikesComponent(BaseComponent):
     likes_count_locator: Locators = (By.CSS_SELECTOR,
                                      ".like_wr > .numerosity_likes")
 
-    liked_img_src = "assets/img/comments/like.png"
+    __liked_img_src = "assets/img/comments/like.png"
 
     def __init__(self, root: WebElement):
         super().__init__(root)
@@ -28,7 +28,7 @@ class LikesComponent(BaseComponent):
     @allure.step("Check if object is liked")
     def check_like_status(self) -> bool:
         """Check if object is liked"""
-        return self.like_button.get_attribute('src') == self.liked_img_src
+        return self.like_button.get_attribute('src') == self.__liked_img_src
 
     @allure.step("Get likes count")
     def get_likes_count(self) -> int:

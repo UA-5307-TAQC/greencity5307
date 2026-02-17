@@ -20,7 +20,7 @@ class HeaderComponent(BaseComponent):
     event_link_locator: Locators = (By.XPATH,
                                     ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
-                                      " .header_navigation-menu-right-list > .header_sign-in-link")
+                                      ".header_navigation-menu-right-list > .header_sign-in-link")
 
     @allure.step("Clicking the news link in the header")
     def click_new_link(self) -> "EcoNewsPage":
@@ -44,7 +44,7 @@ class HeaderComponent(BaseComponent):
 
     @allure.step("Clicking signin button in the header")
     def click_sign_in_link(self) -> SignInComponent:
-        """Click the sign in link in the header and return an instance of the SignInPage."""
+        """Click the sign in link in the header and return an instance of the SignInComponent."""
         WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.sign_in_link_locator)
         ).click()
