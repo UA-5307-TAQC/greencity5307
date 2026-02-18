@@ -21,7 +21,6 @@ class HeaderComponent(BaseComponent):
                                     ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
-    eco_news_locator: Locators = (By.CSS_SELECTOR, "li.nav-left-list:first-child")
     language_switcher: Locators = (By.CSS_SELECTOR,
                                    "ul.header_lang-switcher-wrp")
     language_option_ua: Locators = (By.XPATH, "//li[contains(@aria-label, 'Uk')]")
@@ -37,6 +36,14 @@ class HeaderComponent(BaseComponent):
         ).click()
         return EcoNewsPage(self.root.parent)
 
+    @allure.step("Wait for text '{expected_text}' to appear")
+    def wait_for_text(self, expected_text: str):
+        """Wait till text appears."""
+        WebDriverWait(self.root.parent, 10).until(
+            EC.text_to_be_present_in_element(self.new_link_locator, expected_text),
+            message=f"Text never changed to '{expected_text}'!"
+        )
+
     @allure.step("Getting text of the news link")
     def get_new_link_text(self) -> str:
         """Get the text of the news link in the header."""
@@ -50,7 +57,7 @@ class HeaderComponent(BaseComponent):
         Switch language to the given language code.
         :param lang_code: 'ua' or 'en'
         """
-        WebDriverWait(self.root.parent, 4).until(
+        WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.language_switcher)
         ).click()
 
@@ -59,11 +66,11 @@ class HeaderComponent(BaseComponent):
         else:
             target_locator = self.language_option_ua
 
-        WebDriverWait(self.root.parent, 4).until(
+        WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(target_locator)
         ).click()
 
-        WebDriverWait(self.root.parent, 4).until(
+        WebDriverWait(self.root.parent, 10).until(
             EC.invisibility_of_element_located(target_locator)
         )
 
