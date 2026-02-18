@@ -1,4 +1,5 @@
 """Base page class for all page objects."""
+from typing import Any
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -6,18 +7,21 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from components.header_component import HeaderComponent
-from utils.types import Locators
+from pagefactory.page_factory import BaseFactory
 
 
-class BasePage:
+class BasePage(BaseFactory[Any]):
     """Base page class for all page objects."""
-    header_root_locator: Locators = (By.XPATH, "//header[@role='banner']")
 
-    def __init__(self, driver: WebDriver):
-        self.driver = driver
+    locators = {
+        "header": (By.XPATH, "//header[@role='banner']", HeaderComponent)
+    }
+
+    header: HeaderComponent
+
+    def __init__(self, driver: WebDriver) -> None:
+        super().__init__(driver, root=driver)
         self.wait = WebDriverWait(driver, 10)
-        header_root = self.driver.find_element(*self.header_root_locator)
-        self.header: HeaderComponent = HeaderComponent(header_root)
 
     def navigate_to(self, url: str):
         """Navigate to the specified URL."""

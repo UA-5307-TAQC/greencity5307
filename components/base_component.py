@@ -1,13 +1,17 @@
 """Base component class for web elements using Selenium WebDriver."""
+from typing import Any
 
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
+from pagefactory.page_factory import BaseFactory
 
-class BaseComponent:
+
+class BaseComponent(BaseFactory[Any]):
     """Base component class for web elements using Selenium WebDriver."""
 
-    def __init__(self, root: WebElement):
-        self.root = root
+    def __init__(self, driver: WebDriver, root: WebElement) -> None:
+        super().__init__(driver, root=root)
 
     def is_displayed(self) -> bool:
         """Check if the component is displayed."""
