@@ -1,7 +1,10 @@
+"""This module provides a Singleton logger configuration."""
+
 import logging
 import sys
 
 class Logger:
+    """Singleton class for logger configuration."""
     _instance = None
 
     def __new__(cls):
@@ -11,6 +14,8 @@ class Logger:
         return cls._instance
 
     def _configure_logger(self):
+        """Configures the logger format, level and handler."""
+        # pylint: disable=attribute-defined-outside-init
         self.logger = logging.getLogger('GreenCityLogger')
 
         self.logger.setLevel(logging.DEBUG)
@@ -23,6 +28,7 @@ class Logger:
             self.logger.addHandler(console_handler)
 
     def get_logger(self):
+        """Returns the configured logger instance."""
         return self.logger
 
 logger = Logger().get_logger()
