@@ -12,6 +12,7 @@ from components.base_component import BaseComponent
 from components.common_components.auth_components.signin_modal_component \
     import SignInComponent
 from utils.types import Locators
+from utils.logger import logger
 
 
 class HeaderComponent(BaseComponent):
@@ -27,10 +28,19 @@ class HeaderComponent(BaseComponent):
         """Click the news link in the header and return an instance of the EcoNewsPage."""
         from pages.eco_news_page import \
             EcoNewsPage  # pylint: disable=import-outside-toplevel
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.new_link_locator)
-        ).click()
-        return EcoNewsPage(self.root.parent)
+
+        logger.info(f"Clicking the news link in the header.")
+
+        try:
+            WebDriverWait(self.root.parent, 10).until(
+                EC.element_to_be_clickable(self.new_link_locator)
+            ).click()
+            logger.info(f"Successfully clicked the news link in the header.")
+            return EcoNewsPage(self.root.parent)
+
+        except Exception as e:
+            logger.error(f"Failed to click the news link in the header.")
+            raise e
 
     @allure.step("Clicking the event link in the header")
     def click_event_link(self) -> "EventPage":
