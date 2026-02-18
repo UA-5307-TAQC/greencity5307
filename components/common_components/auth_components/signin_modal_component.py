@@ -24,9 +24,11 @@ class SignInComponent(BaseComponent):
     def get_email(self):
         """Get email input value"""
         return self.root.find_element(*self.email_locator)
+
     def get_password(self):
         """Get password input value"""
         return self.root.find_element(*self.password_locator)
+
     def get_sign_in_button(self):
         """Get sign in button"""
         return self.root.find_element(*self.sign_in_button_locator)

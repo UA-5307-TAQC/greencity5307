@@ -36,3 +36,9 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.sign_in_link_locator)
         ).click()
         return SignInComponent(self.root.parent)
+
+    def click_event_link(self):
+        """Click the event link in the header."""
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.event_link_locator)
+        ).click()

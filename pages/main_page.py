@@ -3,6 +3,7 @@ It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 from typing import Tuple
 
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -28,6 +29,7 @@ class MainPage(BasePage):
         """Click the Sign-in link in the header and return an instance of the SignInComponent."""
         return self.header.click_sign_in_link()
 
+    @allure.step("Navigating to the Eco News page")
     def go_to_eco_news(self) -> "EcoNewsPage":
         """Navigate to the Eco News page."""
         self.header.click_new_link()

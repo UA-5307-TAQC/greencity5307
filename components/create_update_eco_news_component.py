@@ -1,6 +1,7 @@
 """Create/Update eco news components."""
 from typing import Tuple
 
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webelement import WebElement
@@ -62,10 +63,19 @@ class CreateUpdateEcoNewsTagsComponent(BaseComponent):
     tag_button = "//*[@id='main-content']/div/div[2]/form/div[1]/div[2]/div/app-tags-select"
     selected_tag_button = ".//button[contains(@class, 'global-tag-clicked')]"
 
+    @allure.step("Select multiple tags")
     def select_tag(self, tag_name: str):
         """Select a tag by name."""
-        locator = (By.XPATH, self.tag_button.format(tag_name))
-        self.root.find_element(*locator).click()
+        container = self.root.find_element(By.XPATH, self.tag_button)
+
+        for button in container.find_elements(By.TAG_NAME, "button"):
+            if button.text.strip().lower() == tag_name.strip().lower():
+                button.click()
+                return
+
+        raise ValueError(
+            f"Tag with name '{tag_name}' not found in eco news tags component."
+        )
 
     def select_multiple_tags(self, *tags):
         """Select multiple tags."""
@@ -107,6 +117,13 @@ class CreateUpdateEcoNewsFormComponent(BaseComponent):
         element.clear()
         element.send_keys(title)
 
+    def get_title(self) -> str:
+        """Get title."""
+        element = WebDriverWait(self.root, 10).until(
+            EC.visibility_of_element_located(self.title_input)
+        )
+        return element.get_attribute("value")
+
     def enter_source(self, source: str):
         """Enter source."""
         element = WebDriverWait(self.root, 10).until(
@@ -114,6 +131,13 @@ class CreateUpdateEcoNewsFormComponent(BaseComponent):
         )
         element.clear()
         element.send_keys(source)
+
+    def get_source(self) -> str:
+        """Get source."""
+        element = WebDriverWait(self.root, 10).until(
+            EC.visibility_of_element_located(self.source_input)
+        )
+        return element.get_attribute("value")
 
     def enter_content(self, content: str):
         """Enter content."""
@@ -123,6 +147,14 @@ class CreateUpdateEcoNewsFormComponent(BaseComponent):
         element.clear()
         element.send_keys(content)
 
+    def get_content(self) -> str:
+        """Get content."""
+        element = WebDriverWait(self.root, 10).until(
+            EC.visibility_of_element_located(self.content_input)
+        )
+        return element.text.strip()
+
+    @allure.step("Fill eco news form")
     # pylint: disable=too-many-positional-arguments
     def fill_form(self, title: str, tags: tuple, source: str, content: str):
         """Fill the entire form."""

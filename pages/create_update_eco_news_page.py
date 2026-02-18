@@ -1,6 +1,6 @@
 """This module contains the CreateUpdateEcoNewsPage class,
 which represents the create_update_eco_news page of a website."""
-
+import allure
 from selenium.webdriver.common.by import By
 from components.create_update_eco_news_component import CreateUpdateNewsTitleComponent, \
     CreateUpdateEcoNewsFormComponent
@@ -25,10 +25,12 @@ class CreateUpdateEcoNewsPage(BasePage):
         """Get the title of the page."""
         return CreateUpdateNewsTitleComponent(self.find(self.page_title_locator))
 
+    @allure.step("Getting the form component")
     def get_form(self) -> CreateUpdateEcoNewsFormComponent:
         """Get the form of the page."""
         return CreateUpdateEcoNewsFormComponent(self.find(self.form_locator))
 
+    @allure.step("Clicking the submit button")
     def click_submit(self):
         """Click the submit button."""
         self.click(self.submit_button)
