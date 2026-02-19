@@ -16,11 +16,14 @@ from utils.types import Locators
 
 class HeaderComponent(BaseComponent):
     """Component class for the header section of a web page."""
+    logo_link_locator: Locators = (By.CSS_SELECTOR, ".header_logo")
     new_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/news']")
     event_link_locator: Locators = (By.XPATH,
                                     ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
+    my_space_link_locator: Locators = (By.CSS_SELECTOR, "a[href='#/greenCity/profile']")
+    _user_name_locator: Locators = (By.CSS_SELECTOR, ".body-2.user-name")
 
     @allure.step("Clicking the news link in the header")
     def click_new_link(self) -> "EcoNewsPage":
@@ -49,3 +52,29 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.sign_in_link_locator)
         ).click()
         return SignInComponent(self.root.parent)
+
+    @allure.step("Clicking 'My Space' link button in the header")
+    def click_my_space_link(self):
+        """Click the 'My Space' link in the header and
+        return an instance of the MySpaceAbstractPage."""
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.my_space_link_locator)
+        ).click()
+        from pages.my_habit_page import MyHabitPage  # pylint: disable=import-outside-toplevel
+        return MyHabitPage(self.root.parent)
+
+    @allure.step("Clicking the logo link in the header")
+    def click_logo(self):
+        """Click the logo in the header and return an instance of the MainPage."""
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.logo_link_locator)
+        ).click()
+        from pages.main_page import MainPage  # pylint: disable=import-outside-toplevel
+        return MainPage(self.root.parent)
+
+    def get_signed_in_user_name(self) -> str | bool:
+        """Get the username of the signed-in user from the header."""
+        username_element = WebDriverWait(self.root.parent, 5).until(
+            EC.visibility_of_element_located(self._user_name_locator)
+        )
+        return username_element.text

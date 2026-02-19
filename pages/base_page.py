@@ -38,3 +38,12 @@ class BasePage:
     def click(self, locator):
         """Click on the element specified by the locator."""
         self.find(locator).click()
+
+    def refresh_page(self):
+        """Refresh the current page."""
+        self.driver.refresh()
+        return self
+
+    def go_back(self):
+        """Go back to the previous page."""
+        self.driver.back()

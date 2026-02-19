@@ -30,6 +30,7 @@ def driver(request):
             opts = ChromeOptions()
             if headless_flag:
                 opts.add_argument("--headless=new")
+            opts.add_argument("--lang=en-US")
             opts.add_argument("--no-sandbox")
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
@@ -40,3 +41,15 @@ def driver(request):
     yield drv
 
     drv.quit()
+
+
+@fixture(scope="function")
+def signed_in_driver(driver):  # pylint: disable=redefined-outer-name
+    """Fixture that returns a signed-in by the test user Selenium WebDriver."""
+    from pages.main_page import MainPage  # pylint: disable=import-outside-toplevel
+
+    main_page = MainPage(driver)
+    sign_in_modal = main_page.header.click_sign_in_link()
+    my_space_page = sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    my_space_page.header.click_logo()
+    yield driver

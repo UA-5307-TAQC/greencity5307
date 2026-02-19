@@ -31,7 +31,7 @@ class SignInComponent(BaseComponent):
             *self.sign_in_button_locator)
 
     @allure.step("Sign in")
-    def sign_in(self, driver: WebDriver, email: str, password: str) -> None:
+    def sign_in(self, driver: WebDriver, email: str, password: str):
         """Signing in"""
         self.email_input.send_keys(email)
         self.password_input.send_keys(password)
@@ -40,3 +40,5 @@ class SignInComponent(BaseComponent):
         WebDriverWait(driver, 10).until(
             EC.url_changes(Config.BASE_UI_URL)
         )
+        from pages.my_space_abstract_page import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
+        return MySpaceAbstractPage(driver)

@@ -2,16 +2,16 @@
 It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
-from pages.base_page import BasePage, WebDriver
-from utils.types import Locators
+from pages.base_page import BasePage
+from components.user_info_banner_component import UserInfoBannerComponent
 
 
 class FriendAbstractPage(BasePage):
     """Page object for the Friend Abstract (other user) page."""
-    there_are_locator: Locators = (By.CSS_SELECTOR, "#stats > h2")
+    user_info_banner_locator = (By.CSS_SELECTOR, ".side-bar")
 
-    def __init__(self, driver: WebDriver):
+    def __init__(self, driver):
         super().__init__(driver)
-        self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
+        self._user_info_banner_root = self.driver.find_element(*self.user_info_banner_locator)
+        self.user_info_banner = UserInfoBannerComponent(self._user_info_banner_root)

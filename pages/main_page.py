@@ -15,3 +15,8 @@ class MainPage(BasePage):
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
         self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
+
+    def is_loaded(self) -> bool:
+        """Checks if the main page is loaded by verifying
+        the presence of the 'There are' element."""
+        return self.there_are.is_displayed()
