@@ -2,7 +2,9 @@
 which represents the create_update_eco_news page of a website."""
 import allure
 from selenium.webdriver.common.by import By
-from components.create_update_eco_news_component import CreateUpdateNewsTitleComponent, \
+from selenium.webdriver.remote.webdriver import WebDriver
+
+from components.create_update_eco_news_component import CreateUpdateEcoNewsTitleComponent, \
     CreateUpdateEcoNewsFormComponent
 from pages.base_page import BasePage
 from utils.types import Locators
@@ -17,18 +19,23 @@ class CreateUpdateEcoNewsPage(BasePage):
     preview_button: Locators = (By.XPATH, "//button[contains(text(),'Preview')]")
     submit_button: Locators = (By.XPATH, "//button[contains(text(),'Submit')]")
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)
+        self.title_component = CreateUpdateEcoNewsTitleComponent(self.find(self.page_title_locator))
+        self.form_component = CreateUpdateEcoNewsFormComponent(self.find(self.form_locator))
+
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
         return self.is_visible(self.page_title_locator)
 
-    def get_title_component(self) -> CreateUpdateNewsTitleComponent:
-        """Get the title of the page."""
-        return CreateUpdateNewsTitleComponent(self.find(self.page_title_locator))
+    def get_title_component(self) -> CreateUpdateEcoNewsTitleComponent:
+        """Get the title component of the page."""
+        return self.title_component
 
     @allure.step("Getting the form component")
     def get_form(self) -> CreateUpdateEcoNewsFormComponent:
         """Get the form of the page."""
-        return CreateUpdateEcoNewsFormComponent(self.find(self.form_locator))
+        return self.form_component
 
     @allure.step("Clicking the submit button")
     def click_submit(self):

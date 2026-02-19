@@ -10,7 +10,7 @@ from data.config import Config
 
 
 
-@pytest.mark.regression
+
 
  # pylint: disable=no-member
 @allure.title("Test Validation: Create Eco News with Valid Data. Open Create Eco News page.")
@@ -19,7 +19,7 @@ from data.config import Config
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-101")
 @allure.step("Open Create Eco News page")
-
+@pytest.mark.regression
 def test_open_create_update_eco_news_page(driver):
     """
         TC-101

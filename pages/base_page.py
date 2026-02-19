@@ -1,5 +1,5 @@
 """Base page class for all page objects."""
-
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -41,5 +41,8 @@ class BasePage:
 
     def is_visible(self, locator: Locators) -> bool:
         """Check if the element specified by the locator is visible."""
-        self.find(locator)
-        return True
+        try:
+            self.find(locator)
+            return True
+        except NoSuchElementException:
+            return False

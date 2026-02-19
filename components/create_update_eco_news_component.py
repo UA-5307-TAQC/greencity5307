@@ -11,12 +11,12 @@ from components.base_component import BaseComponent
 from utils.types import Locators
 
 
-class CreateUpdateNewsTitleComponent(BaseComponent):
+class CreateUpdateEcoNewsTitleComponent(BaseComponent):
     """Component that contains title information."""
     section_title: Locators = (By.XPATH, "//*[@id='main-content']/div/div[1]/h2")
     section_description: Locators = (By.XPATH, "//*[@id='main-content']/div/div[1]/div/p")
 
-    def get_section_title_value(self):
+    def get_section_title_and_description_value(self):
         """Get title value."""
         title = self.root.find_element(*self.section_title).text
         description = self.root.find_element(*self.section_description).text
