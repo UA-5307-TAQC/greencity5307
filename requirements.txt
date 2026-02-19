@@ -28,8 +28,9 @@ pre_commit==4.5.1
 pycparser==3.0
 Pygments==2.19.2
 pylint==4.0.4
+pylint-pytest==1.1.8
 PySocks==1.7.1
-pytest==9.0.2
+pytest==8.2.0
 python-dotenv==1.2.1
 PyYAML==6.0.3
 requests==2.32.5
