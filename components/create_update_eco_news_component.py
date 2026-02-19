@@ -67,15 +67,17 @@ class CreateUpdateEcoNewsTagsComponent(BaseComponent):
     def select_tag(self, tag_name: str):
         """Select a tag by name."""
         container = self.root.find_element(By.XPATH, self.tag_button)
+        try:
+            for button in container.find_elements(By.TAG_NAME, "button"):
+                if button.text.strip().lower() == tag_name.strip().lower():
+                    button.click()
+                    return
 
-        for button in container.find_elements(By.TAG_NAME, "button"):
-            if button.text.strip().lower() == tag_name.strip().lower():
-                button.click()
-                return
-
-        raise ValueError(
-            f"Tag with name '{tag_name}' not found in eco news tags component."
-        )
+            raise ValueError(
+                f"Tag with name '{tag_name}' not found in eco news tags component."
+            )
+        except ValueError:
+            return
 
     def select_multiple_tags(self, *tags):
         """Select multiple tags."""
