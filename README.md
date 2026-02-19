@@ -5,7 +5,7 @@ A lightweight pytest-based test automation scaffold for the "greencity5307" proj
 ### 🔗 Main branch report
 The current report for the main branch is available at the following link:
 
-<a href="https://ua-5307-taqc.github.io/greencity5307/main" target="_blank">
+<a href="https://ua-5307-taqc.github.io/greencity5307" target="_blank">
   <img src="https://img.shields.io/badge/Allure%20Report-main-blue" alt="Allure Report">
 </a>
 
@@ -158,3 +158,4 @@ Notes & next steps (suggested improvements)
 License
 
 No license specified. Add a license file (e.g., MIT) if you intend to make this project public.
+
