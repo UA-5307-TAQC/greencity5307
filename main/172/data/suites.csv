@@ -1,5 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"This test verifies that a user can successfully open eco news page. ","3846","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Thu Feb 19 12:00:46 UTC 2026","passed","Thu Feb 19 12:00:50 UTC 2026","","test_create_update_eco_news_page","",""
-"A simple smoke test that always passes.","10635","Smoke test for the main page","tests.ui","Thu Feb 19 12:01:00 UTC 2026","failed","Thu Feb 19 12:01:10 UTC 2026","","test_smoke","",""
-"Test like one news page like one news","4243","Test like one news on one news page","tests.ui.news_pages_tests","Thu Feb 19 12:00:53 UTC 2026","passed","Thu Feb 19 12:00:57 UTC 2026","","test_one_news_page_like_one_news","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Thu Feb 19 12:00:36 UTC 2026","passed","Thu Feb 19 12:00:36 UTC 2026","","test_stub","",""
