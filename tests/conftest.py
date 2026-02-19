@@ -1,11 +1,13 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
-import allure
+import io
+import logging
 from pytest import fixture
+import allure
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-
+from utils.logger import logger
 from data.config import Config
 
 @fixture(params=["chrome"], scope="function")
@@ -40,3 +42,31 @@ def driver(request):
     yield drv
 
     drv.quit()
+
+
+@fixture(scope='function', autouse=True)
+def capture_logs_to_allure():
+    """Capture logs to allure."""
+    log_capture_string = io.StringIO()
+
+    ch = logging.StreamHandler(log_capture_string)
+    ch.setLevel(logging.DEBUG)
+
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+
+    logger.addHandler(ch)
+
+    yield
+
+    log_contents = log_capture_string.getvalue()
+
+    if log_contents:
+        allure.attach(
+            log_contents,
+            name='Test logs',
+            attachment_type=allure.attachment_type.TEXT
+        )
+
+    logger.removeHandler(ch)
+    log_capture_string.close()
