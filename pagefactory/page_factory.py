@@ -86,8 +86,7 @@ class BaseFactory(Generic[T]):
         """
         Universal click method with lazy waiting and 'Auto-Healing' for stale elements.
         """
-
-        def _clickable_condition():
+        def _clickable_condition(_):
             try:
                 # Triggers dynamic resolution (__getattr__)
                 element = getattr(self, attr_name)

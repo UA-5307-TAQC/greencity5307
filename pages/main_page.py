@@ -4,7 +4,7 @@ and methods for interacting with the main page elements."""
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 
-from pages.base_page import BasePage
+from pages.base_page import BasePage, WebDriver
 
 
 class MainPage(BasePage):
@@ -14,3 +14,7 @@ class MainPage(BasePage):
     }
 
     there_are: WebElement
+
+    # pylint: disable=useless-parent-delegation
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)

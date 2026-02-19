@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 from components.news_components.news_card_base_component import NewsCardBaseComponent
@@ -17,6 +18,10 @@ class EcoNewsPage(BasePage):
     }
 
     main_header: WebElement
+
+    # pylint: disable=useless-parent-delegation
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)
 
     @property
     def news_cards(self) -> list[NewsCardBaseComponent]:

@@ -1,6 +1,7 @@
 """Likes component"""
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -19,6 +20,10 @@ class LikesComponent(BaseComponent):
     likes_count: WebElement
 
     __liked_img_src = "assets/img/comments/liked.png"
+
+    # pylint: disable=useless-parent-delegation
+    def __init__(self, driver: WebDriver, root: WebElement):
+        super().__init__(driver, root)
 
     @allure.step("Click like button and wait for update")
     def click_like_button(self):
