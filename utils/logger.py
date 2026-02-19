@@ -20,11 +20,11 @@ class Logger:
 
         self.logger.setLevel(logging.DEBUG)
 
-        formater = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
         if not self.logger.handlers:
             console_handler = logging.StreamHandler(sys.stdout)
-            console_handler.setFormatter(formater)
+            console_handler.setFormatter(formatter)
             self.logger.addHandler(console_handler)
 
     def get_logger(self):

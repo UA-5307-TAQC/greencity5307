@@ -38,9 +38,9 @@ class HeaderComponent(BaseComponent):
             logger.info("Successfully clicked the news link in the header.")
             return EcoNewsPage(self.root.parent)
 
-        except Exception as e:
-            logger.error("Failed to click the news link in the header.")
-            raise e
+        except Exception:
+            logger.exception("Failed to click the news link in the header.")
+            raise
 
     @allure.step("Clicking the event link in the header")
     def click_event_link(self) -> "EventPage":
