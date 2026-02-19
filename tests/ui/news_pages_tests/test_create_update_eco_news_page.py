@@ -19,7 +19,6 @@ from data.config import Config
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-101")
 @allure.step("Open Create Eco News page")
-@pytest.mark.regression
 def test_open_create_update_eco_news_page(driver):
     """
         TC-101
@@ -44,18 +43,13 @@ def test_open_create_update_eco_news_page(driver):
     tags = ("Events", "News")
     source = "https://saving-planet.org/"
     content = "Eco content" * 30
-    #with tempfile.NamedTemporaryFile(suffix=".png", delete=False) as tmp:
-    #    temp_file_path = tmp.name
-        # Generate a tiny 1x1 pixel image
-    #    image = Image.new('RGB', (10, 10), color='red')
-    #    image.save(temp_file_path)
+
 
     form.fill_form(
         title=title,
         tags=tags,
         source=source,
-        content=content,
-        #image_path=None
+        content=content
     )
     assert form.get_title() == title
     assert form.get_source() == source
