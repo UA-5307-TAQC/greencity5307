@@ -1,5 +1,6 @@
 """ OneHabitPage elements"""
 
+import allure
 
 from selenium.webdriver.common.by import By
 
@@ -65,3 +66,12 @@ class OneHabitPage(BasePage):
         """
         elements = self.driver.find_elements(*self.tags_list)
         return [element.text.strip() for element in elements]
+
+
+    @allure.step("Clicking on the Delete button on OneHabitPage")
+    def click_delete_button(self):
+        """Clicking the Delete button on OneHabitPage."""
+        from pages.all_habits_page import AllHabitPage # pylint: disable=import-outside-toplevel
+        delete_btn = self.driver.find_element(*self.delete_habit_button)
+        delete_btn.click()
+        return AllHabitPage(self.driver)
