@@ -59,12 +59,17 @@ def pytest_runtest_makereport(item):
         web_driver = item.funcargs.get("driver")
 
         if web_driver:
-            test_name = item.name
-            timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            allure.attach(web_driver.get_screenshot_as_png(),
-                          name=f"failed_{test_name}_{timestamp}",
-                          attachment_type=AttachmentType.PNG, )
-
+            try:
+                test_name = item.name
+                timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                allure.attach(
+                    web_driver.get_screenshot_as_png(),
+                    name=f"failed_{test_name}_{timestamp}",
+                    attachment_type=AttachmentType.PNG,
+                )
+            except Exception: # pylint: disable=broad-except
+                # Ignore screenshot capture errors to avoid masking the original test failure
+                pass
 
 @fixture(scope='function', autouse=True)
 def capture_logs_to_allure():
