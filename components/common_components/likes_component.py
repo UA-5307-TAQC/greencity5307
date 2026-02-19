@@ -1,36 +1,49 @@
 """Likes component"""
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support.wait import WebDriverWait
 
 from components.base_component import BaseComponent
-from utils.types import Locators
 
 
 class LikesComponent(BaseComponent):
     """Likes component class"""
-    like_button_locator: Locators = (By.TAG_NAME, "img")
-    likes_count_locator: Locators = (By.CSS_SELECTOR,
-                                     ".like_wr > .numerosity_likes")
 
-    __liked_img_src = "assets/img/comments/like.png"
+    locators = {
+        "like_button": (By.TAG_NAME, "img", WebElement),
+        "likes_count": (By.CSS_SELECTOR, ".like_wr > .numerosity_likes", WebElement)
+    }
 
-    def __init__(self, root: WebElement):
-        super().__init__(root)
-        self.like_button = self.root.find_element(*self.like_button_locator)
-        self.likes_count = self.root.find_element(*self.likes_count_locator)
+    like_button: WebElement
+    likes_count: WebElement
 
-    @allure.step("Click like button")
+    __liked_img_src = "assets/img/comments/liked.png"
+
+    # pylint: disable=useless-parent-delegation
+    def __init__(self, driver: WebDriver, root: WebElement):
+        super().__init__(driver, root)
+
+    @allure.step("Click like button and wait for update")
     def click_like_button(self):
-        """Like something"""
+        """Likes the item and waits for the counter to change."""
+        initial_count = self.get_likes_count()
         self.like_button.click()
+
+        WebDriverWait(self.driver, 10).until(
+            lambda _: self.get_likes_count() != initial_count,
+            message=f"Count did not change from {initial_count}"
+        )
 
     @allure.step("Check if object is liked")
     def check_like_status(self) -> bool:
         """Check if object is liked"""
-        return self.like_button.get_attribute('src') == self.__liked_img_src
+        actual_src = self.like_button.get_attribute('src')
+        return actual_src is not None and self.__liked_img_src in actual_src
 
     @allure.step("Get likes count")
     def get_likes_count(self) -> int:
         """Get int value of likes count"""
-        return int(self.likes_count.text)
+        text = self.likes_count.text.strip()
+        return int(text) if text.isdigit() else 0

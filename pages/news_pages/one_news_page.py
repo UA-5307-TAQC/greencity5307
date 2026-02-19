@@ -1,4 +1,6 @@
 """This module contains the OneNewsPage class, which represents the One News page of the website."""
+
+from __future__ import annotations
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -6,40 +8,32 @@ from selenium.webdriver.remote.webelement import WebElement
 
 from components.common_components.likes_component import LikesComponent
 from pages.base_page import BasePage
-from utils.types import Locators
 
 
 class OneNewsPage(BasePage):
     """Page object for the One News page."""
-    tag_locator: Locators = (By.CSS_SELECTOR, ".tags > .tags-item")
-    title_locator: Locators = (By.CSS_SELECTOR, ".news-title.word-wrap")
-    creation_date_locator: Locators = (By.CSS_SELECTOR,
-                                       ".news-info > .news-info-date")
-    author_locator: Locators = (By.CSS_SELECTOR,
-                                ".news-info > .news-info-author")
-    likes_locator: Locators = (By.CSS_SELECTOR, ".news-info > .like_wr")
 
-    main_text_locator: Locators = (By.CSS_SELECTOR, ".ql-editor")
-    comments_section_locator: Locators = (By.TAG_NAME,
-                                          "app-comments-container")
+    locators = {
+        "tag": (By.CSS_SELECTOR, ".tags > .tags-item", WebElement),
+        "title": (By.CSS_SELECTOR, ".news-title.word-wrap", WebElement),
+        "creation_date": (By.CSS_SELECTOR, ".news-info > .news-info-date", WebElement),
+        "author": (By.CSS_SELECTOR, ".news-info > .news-info-author", WebElement),
+        "likes": (By.CSS_SELECTOR, ".news-info > .like_wr", LikesComponent),
+        "main_text": (By.CSS_SELECTOR, ".ql-editor", WebElement),
+        "comments_section": (By.TAG_NAME, "app-comments-container", WebElement),
+    }
+
+    tag: WebElement
+    title: WebElement
+    creation_date: WebElement
+    author: WebElement
+    likes: LikesComponent
+    main_text: WebElement
+    comments_section: WebElement
 
     @allure.step("Init OneNewsPage")
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-        self.tag: WebElement = self.driver.find_element(
-            *self.tag_locator)
-        self.title: WebElement = self.driver.find_element(
-            *self.title_locator)
-        self.creation_date: WebElement = self.driver.find_element(
-            *self.creation_date_locator)
-        self.author: WebElement = self.driver.find_element(
-            *self.author_locator)
-        self.likes: LikesComponent = LikesComponent(self.driver.find_element(
-            *self.likes_locator))
-        self.main_text: WebElement = self.driver.find_element(
-            *self.main_text_locator)
-        self.comments_section: WebElement = self.driver.find_element(
-            *self.comments_section_locator)
 
     def get_tag(self) -> str:
         """Gets tag text of the news page."""

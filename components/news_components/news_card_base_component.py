@@ -1,19 +1,18 @@
 """Base news card class component module"""
-
 import allure
-from selenium.webdriver.remote.webdriver import WebDriver
-
 from components.base_component import BaseComponent
 from pages.news_pages.one_news_page import OneNewsPage
 
 
 class NewsCardBaseComponent(BaseComponent):
-    """Base news card class component
+    """Base news card class component"""
 
-    Base class for vertical and horizontal news card components"""
+    locators = {}
 
-    @allure.step("Navigate to OneNewsPage")
-    def navigate_to_one_news_page(self, driver: WebDriver) -> OneNewsPage:
-        """Navigate to OneNewsPage"""
-        self.root.click()
-        return OneNewsPage(driver)
+    @allure.step("Navigate to one news page")
+    def navigate_to_one_news_page(self) -> "OneNewsPage":
+        """Navigate to one news page"""
+
+        self.wait_and_click("root")
+
+        return OneNewsPage(self.driver)
