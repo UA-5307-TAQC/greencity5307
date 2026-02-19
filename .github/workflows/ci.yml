@@ -160,41 +160,37 @@ jobs:
 
           TOTAL_FAILED_GLOBAL=0
 
-          for dir in $(ls -dt $REPORT_DIR/*/ | xargs -n 1 basename); do
-            SUMMARY_FILE="$REPORT_DIR/$dir/widgets/summary.json"
-            TREND_FILE="$REPORT_DIR/$dir/widgets/history-trend.json"
+          for dir in "$REPORT_DIR"/*; do
+            [ -d "$dir" ] || continue
+
+            NAME=$(basename "$dir")
+            SUMMARY_FILE="$dir/widgets/summary.json"
+            TREND_FILE="$dir/widgets/history-trend.json"
 
             if [ -f "$SUMMARY_FILE" ]; then
-              TOTAL=$(jq '.statistic.total' $SUMMARY_FILE)
-              PASSED=$(jq '.statistic.passed' $SUMMARY_FILE)
-              FAILED=$(jq '.statistic.failed' $SUMMARY_FILE)
-              BROKEN=$(jq '.statistic.broken' $SUMMARY_FILE)
-              SKIPPED=$(jq '.statistic.skipped' $SUMMARY_FILE)
+              TOTAL=$(jq '.statistic.total' "$SUMMARY_FILE")
+              PASSED=$(jq '.statistic.passed' "$SUMMARY_FILE")
+              FAILED=$(jq '.statistic.failed' "$SUMMARY_FILE")
+              BROKEN=$(jq '.statistic.broken' "$SUMMARY_FILE")
+              SKIPPED=$(jq '.statistic.skipped' "$SUMMARY_FILE")
 
               TOTAL_FAILED_GLOBAL=$((TOTAL_FAILED_GLOBAL + FAILED))
 
               FLAKY_RATE=0
-              if [ -f "$TREND_FILE" ]; then
-                LAST_RUN=$(jq '.[-1].data.failed' $TREND_FILE 2>/dev/null)
-                if [ "$LAST_RUN" != "null" ]; then
-                  if [ "$TOTAL" -gt 0 ]; then
-                    FLAKY_RATE=$((FAILED * 100 / TOTAL))
-                  else
-                    FLAKY_RATE=0
-                  fi
-                fi
+              if [ -f "$TREND_FILE" ] && [ "$TOTAL" -gt 0 ]; then
+                FLAKY_RATE=$((FAILED * 100 / TOTAL))
               fi
 
               CLASS="pr"
-              if [ "$dir" = "main" ]; then
+              if [ "$NAME" = "main" ]; then
                 CLASS="main"
               fi
-              if [ "$FAILED" != "0" ]; then
+              if [ "$FAILED" -gt 0 ]; then
                 CLASS="failed"
               fi
 
               echo "<div class='card $CLASS'>
-                      <a href='./$dir/'>$dir Report</a>
+                      <a href='./$NAME/'>$NAME Report</a>
                       <div class='stats'>
                         Total: $TOTAL |
                         ✅ Passed: $PASSED |
@@ -203,7 +199,7 @@ jobs:
                         ⏭ Skipped: $SKIPPED |
                         <span class='flaky'>⚡ Flaky rate: $FLAKY_RATE%</span>
                       </div>
-                    </div>" >> $INDEX_FILE
+                    </div>" >> "$INDEX_FILE"
             fi
           done
 
