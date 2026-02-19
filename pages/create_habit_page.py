@@ -1,8 +1,12 @@
 """This module contains the CreateHabitPage class, which represents the Create Habit page."""
 
+import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.ui import WebDriverWait
 
 from components.habit_basic_info_form_component import HabitBasicInfoFormComponent
 from components.habit_progress_form_component import HabitProgressFormComponent
@@ -14,11 +18,14 @@ class CreateHabitPage(BasePage):
     """Class for the Create Habit page."""
     page_title_locator: Locators = (By.CSS_SELECTOR, ".create-habit-header .header-title")
     form_instruction_locator: Locators = (By.CSS_SELECTOR, ".create-habit-header p")
-    basic_form_root_locator: Locators = (By.CLASS_NAME, "habit-form")
-    progress_form_root_locator: Locators = (By.CLASS_NAME, "habit-info-block")
+    basic_form_root_locator: Locators = (By.CSS_SELECTOR, "form.habit-form")
+    progress_form_root_locator: Locators = (By.CSS_SELECTOR, "div.habit-info-block")
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
+        WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located(self.basic_form_root_locator)
+        )
         self.page_title: WebElement = self.driver.find_element(*self.page_title_locator)
         self.form_instruction = self.driver.find_element(*self.form_instruction_locator)
         basic_form_root = self.driver.find_element(*self.basic_form_root_locator)
@@ -27,10 +34,14 @@ class CreateHabitPage(BasePage):
         self.progress_form: HabitProgressFormComponent = \
             HabitProgressFormComponent(progress_form_root)
 
+
+    @allure.step("Get form instruction")
     def get_instruction(self) -> str:
         """Get form instruction."""
         return self.form_instruction.text
 
+
+    @allure.step("Get title of Habit page")
     def get_page_header(self) -> str:
         """Get title of Habit page."""
         return self.page_title.text
