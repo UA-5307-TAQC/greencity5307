@@ -1,4 +1,6 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
+import io
+import logging
 from datetime import datetime
 
 import allure
@@ -10,6 +12,7 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 from data.config import Config
+from utils.logger import logger
 
 
 @fixture(params=["chrome"], scope="function")
@@ -58,8 +61,30 @@ def pytest_runtest_makereport(item):
         if web_driver:
             test_name = item.name
             timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-            allure.attach(
-                web_driver.get_screenshot_as_png(),
-                name=f"failed_{test_name}_{timestamp}",
-                attachment_type=AttachmentType.PNG,
-            )
+            allure.attach(web_driver.get_screenshot_as_png(),
+                          name=f"failed_{test_name}_{timestamp}",
+                          attachment_type=AttachmentType.PNG, )
+
+
+@fixture(scope='function', autouse=True)
+def capture_logs_to_allure():
+    """Capture logs to allure."""
+    log_capture_string = io.StringIO()
+
+    ch = logging.StreamHandler(log_capture_string)
+    ch.setLevel(logging.DEBUG)
+
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+
+    logger.addHandler(ch)
+
+    yield
+
+    log_contents = log_capture_string.getvalue()
+
+    if log_contents:
+        allure.attach(log_contents, name='Test logs', attachment_type=allure.attachment_type.TEXT)
+
+    logger.removeHandler(ch)
+    log_capture_string.close()
