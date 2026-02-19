@@ -36,8 +36,8 @@ class HabitCardComponent(BaseComponent):
         self.add_habit_btn.click()
 
     @allure.step("Clicking on the More button on habit card on All Habits page")
-    def click_details_btn(self, driver):
+    def click_details_btn(self):
         """Click 'More/Details' button."""
         from pages.one_habit_page import OneHabitPage # pylint: disable=import-outside-toplevel
         self.details_btn.click()
-        return OneHabitPage(driver)
+        return OneHabitPage(self.root.parent)

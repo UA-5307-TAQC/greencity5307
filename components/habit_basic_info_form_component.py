@@ -103,10 +103,10 @@ class HabitBasicInfoFormComponent(BaseComponent):
 
 
     @allure.step("Clicking the Add Habit button on Create Habit form")
-    def submit_form(self, driver):
+    def submit_form(self):
         """Submit habit form."""
         self.add_habit_btn.click()
 
-        WebDriverWait(driver, 10).until(
+        WebDriverWait(self.root.parent, 10).until(
             EC.url_contains("allhabits")
         )
