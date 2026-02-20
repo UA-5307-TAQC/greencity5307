@@ -107,109 +107,47 @@ jobs:
             echo "⚠️ Summary file not found. Skipping fail check."
           fi
 
-      - name: Generate DevOps Allure Dashboard
+      - name: Generate simple index.html with report links
         if: always()
         run: |
           REPORT_DIR="allure-history"
           INDEX_FILE="$REPORT_DIR/index.html"
 
-          # Keep last 20 PR reports
-          PR_DIRS=$(find "$REPORT_DIR" -maxdepth 1 -type d -name 'pr-*' -printf '%T@ %p\n' 2>/dev/null | sort -nr | tail -n +21 | cut -d' ' -f2-)
-          if [ -n "$PR_DIRS" ]; then
-            echo "$PR_DIRS" | while IFS= read -r dir; do
-              rm -rf "$dir"
-            done
-          fi
-
           echo "<!DOCTYPE html>
           <html>
           <head>
             <meta charset='UTF-8'>
-            <title>Allure DevOps Dashboard</title>
+            <title>Allure Reports</title>
             <style>
-              body { font-family: Arial; background:#f4f6f9; padding:40px; }
-              h1 { color:#2c3e50; }
-              .card {
-                background:white;
-                padding:20px;
-                margin-bottom:15px;
-                border-radius:12px;
-                box-shadow:0 4px 12px rgba(0,0,0,0.1);
+              body { font-family: Arial; padding: 40px; background: #f4f6f9; }
+              h1 { color: #2c3e50; }
+              ul { list-style: none; padding: 0; }
+              li { margin-bottom: 10px; }
+              a {
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: bold;
+                color: #3498db;
               }
-              .main { border-left:6px solid #2ecc71; }
-              .pr { border-left:6px solid #3498db; }
-              .failed { border-left:6px solid #e74c3c; }
-              .stats { margin-top:10px; font-size:14px; }
-              .flaky { color:#e67e22; font-weight:bold; }
-              .date { color:gray; }
-              .banner {
-                padding:15px;
-                margin-bottom:25px;
-                border-radius:8px;
-                font-weight:bold;
-              }
-              .ok { background:#d4edda; color:#155724; }
-              .bad { background:#f8d7da; color:#721c24; }
-              a { text-decoration:none; font-weight:bold; font-size:18px; }
+              a:hover { text-decoration: underline; }
+              .date { color: gray; margin-bottom: 20px; }
             </style>
           </head>
           <body>
-          <h1>🚀 Allure DevOps Dashboard</h1>
-          <p class='date'>Last updated: $(date)</p>
-          " > $INDEX_FILE
+          <h1>📊 Allure Reports</h1>
+          <div class='date'>Last updated: $(date)</div>
+          <ul>" > $INDEX_FILE
 
-          TOTAL_FAILED_GLOBAL=0
+          # Сортуємо по даті створення (новіші зверху)
+          find "$REPORT_DIR" -maxdepth 1 -type d -not -path "$REPORT_DIR" \
+            -printf '%T@ %f\n' 2>/dev/null | \
+            sort -nr | \
+            cut -d' ' -f2- | \
+            while read dir; do
+              echo "<li><a href='./$dir/'>$dir</a></li>" >> "$INDEX_FILE"
+            done
 
-          for dir in "$REPORT_DIR"/*; do
-            [ -d "$dir" ] || continue
-
-            NAME=$(basename "$dir")
-            SUMMARY_FILE="$dir/widgets/summary.json"
-            TREND_FILE="$dir/widgets/history-trend.json"
-
-            if [ -f "$SUMMARY_FILE" ]; then
-              TOTAL=$(jq '.statistic.total' "$SUMMARY_FILE")
-              PASSED=$(jq '.statistic.passed' "$SUMMARY_FILE")
-              FAILED=$(jq '.statistic.failed' "$SUMMARY_FILE")
-              BROKEN=$(jq '.statistic.broken' "$SUMMARY_FILE")
-              SKIPPED=$(jq '.statistic.skipped' "$SUMMARY_FILE")
-
-              TOTAL_FAILED_GLOBAL=$((TOTAL_FAILED_GLOBAL + FAILED))
-
-              FLAKY_RATE=0
-              if [ -f "$TREND_FILE" ] && [ "$TOTAL" -gt 0 ]; then
-                FLAKY_RATE=$((FAILED * 100 / TOTAL))
-              fi
-
-              CLASS="pr"
-              if [ "$NAME" = "main" ]; then
-                CLASS="main"
-              fi
-              if [ "$FAILED" -gt 0 ]; then
-                CLASS="failed"
-              fi
-
-              echo "<div class='card $CLASS'>
-                      <a href='./$NAME/'>$NAME Report</a>
-                      <div class='stats'>
-                        Total: $TOTAL |
-                        ✅ Passed: $PASSED |
-                        ❌ Failed: $FAILED |
-                        💥 Broken: $BROKEN |
-                        ⏭ Skipped: $SKIPPED |
-                        <span class='flaky'>⚡ Flaky rate: $FLAKY_RATE%</span>
-                      </div>
-                    </div>" >> "$INDEX_FILE"
-            fi
-          done
-
-          if [ "$TOTAL_FAILED_GLOBAL" = "0" ]; then
-            echo "<div class='banner ok'>✅ All reports are stable</div>" >> $INDEX_FILE
-          else
-            echo "<div class='banner bad'>❌ Some reports contain failures</div>" >> $INDEX_FILE
-          fi
-
-          echo "</body></html>" >> $INDEX_FILE
+          echo "</ul></body></html>" >> "$INDEX_FILE"
 
       - name: Deploy report to Github Pages
         if: always()
