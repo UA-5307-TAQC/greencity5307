@@ -138,8 +138,13 @@ jobs:
           <div class='date'>Last updated: $(date)</div>
           <ul>" > $INDEX_FILE
 
-          # Сортуємо по даті створення (новіші зверху)
-          find "$REPORT_DIR" -maxdepth 1 -type d -not -path "$REPORT_DIR" \
+          # 1️⃣ Спочатку додаємо main (якщо існує)
+          if [ -d "$REPORT_DIR/main" ]; then
+            echo "<li><a href='./main/'>main</a></li>" >> "$INDEX_FILE"
+          fi
+
+          # 2️⃣ Додаємо всі pr-* папки (без .git і main)
+          find "$REPORT_DIR" -maxdepth 1 -type d -name "pr-*" \
             -printf '%T@ %f\n' 2>/dev/null | \
             sort -nr | \
             cut -d' ' -f2- | \
