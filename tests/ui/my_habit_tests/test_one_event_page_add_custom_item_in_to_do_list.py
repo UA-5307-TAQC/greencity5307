@@ -37,4 +37,4 @@ def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
 
     items = one_habit_page.check_added_element()
 
-    assert new_item_text  in items, "Текст не зберігся!"
+    assert new_item_text in items, "Текст не зберігся!"
