@@ -16,7 +16,6 @@ class FindFriendPage(FriendsAbstractPage):
                                     "[.//p[contains(@class, 'friend-name') "
                                     "and contains(text(), '{}')]]")
     friend_card_item = (By.CSS_SELECTOR, ".user-card")
-    _snack_bar_message = (By.CSS_SELECTOR, "div[matsnackbarlabel]")
 
     def get_friend_card_by_name(self, name: str):
         """Finds a friend card element by the friend's name."""
@@ -32,13 +31,3 @@ class FindFriendPage(FriendsAbstractPage):
             return True
         except TimeoutException:
             return False
-
-    def get_friend_request_sent_msg(self):
-        """Getting text from snack bar message."""
-        try:
-            snack_bar_element = WebDriverWait(self.driver, 5).until(
-                EC.visibility_of_element_located(self._snack_bar_message)
-            )
-            return snack_bar_element.text.strip()
-        except TimeoutException:
-            return ""

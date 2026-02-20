@@ -38,7 +38,7 @@ class MyHabitPage(MySpaceAbstractPage):
     def is_loaded(self):
         """Method that verifies if My Habit Page is loaded by 'Add New Habit' button."""
         try:
-            add_new_habit_button = self.driver.find_element(*self.add_new_habit_button)
+            add_new_habit_button = self.driver.find_element(*self.add_new_habit_button_locator)
             WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable(add_new_habit_button)
             )

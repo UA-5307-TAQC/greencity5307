@@ -14,6 +14,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 from data.config import Config
 from pages.main_page import MainPage
+from pages.my_habit_page import MyHabitPage
 
 from utils.logger import logger
 
@@ -52,6 +53,7 @@ def driver(request):
 
     drv.quit()
 
+
 @pytest.fixture(scope="function")
 def driver_with_login(driver):
     """Fixture that logs in the user before yielding the WebDriver."""
@@ -87,6 +89,7 @@ def pytest_runtest_makereport(item):
                 # Ignore screenshot capture errors to avoid masking the original test failure
                 pass
 
+
 @fixture(scope='function', autouse=True)
 def capture_logs_to_allure():
     """Capture logs to allure."""
@@ -112,10 +115,17 @@ def capture_logs_to_allure():
 
 
 @fixture(scope="function")
-def signed_in_driver(driver):  # pylint: disable=redefined-outer-name
-    """Fixture that returns a signed-in by the test user Selenium WebDriver."""
-    main_page = MainPage(driver)
-    sign_in_modal = main_page.header.click_sign_in_link()
-    my_space_page = sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
-    my_space_page.header.click_logo()
-    yield driver
+def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=redefined-outer-name
+    """Fixture that verifies, that the user was not added to the friends list."""
+    def _verify_is_added_friend(name):
+        find_friend_page = MyHabitPage(driver_with_login).profile_banner.click_add_friends_btn()
+        find_friend_page.search_friend(name)
+        friend_card = find_friend_page.get_friend_card_by_name(name)
+
+        if friend_card.get_friend_button_text() == "Cancel request":
+            friend_card.click_cancel_request_btn()
+            find_friend_page.wait_for_snack_bar_disappear()
+
+        find_friend_page.header.click_logo()
+
+    return _verify_is_added_friend

@@ -75,7 +75,7 @@ class HeaderComponent(BaseComponent):
         from pages.main_page import MainPage  # pylint: disable=import-outside-toplevel
         return MainPage(self.root.parent)
 
-    def get_signed_in_user_name(self) -> str | bool:
+    def get_signed_in_user_name(self):
         """Get the username of the signed-in user from the header."""
         username_element = WebDriverWait(self.root.parent, 5).until(
             EC.visibility_of_element_located(self._user_name_locator)

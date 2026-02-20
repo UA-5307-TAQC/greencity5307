@@ -16,7 +16,7 @@ class FriendCardComponent(BaseComponent):
     """Component class for the friend card on a web page."""
     friend_name_locator: Locators = (By.CSS_SELECTOR, "p.friend-name")
     friend_city_locator: Locators = (By.CSS_SELECTOR, "p.friend-city")
-    add_friend_btn_locator: Locators = (By.CSS_SELECTOR, "button#addFriend")
+    add_friend_btn_locator: Locators = (By.CSS_SELECTOR, ".friend-btn")
 
     def __init__(self, root: WebElement):
         super().__init__(root)

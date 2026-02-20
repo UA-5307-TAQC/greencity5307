@@ -1,6 +1,4 @@
-"""This module contains the MainPage class, which represents the main page of the application.
-It inherits from the BasePage class and provides specific locators
-and methods for interacting with the main page elements."""
+"""This module contains the FriendAbstractPage class."""
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage

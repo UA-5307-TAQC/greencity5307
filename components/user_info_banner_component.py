@@ -9,7 +9,7 @@ from components.base_component import BaseComponent
 
 
 class UserInfoBannerComponent(BaseComponent):
-    """UserInforComponent class."""
+    """UserInfoBannerComponent class."""
     friend_btn_locator = (By.CSS_SELECTOR, ".friend-btn")
 
     def click_add_friend(self):
