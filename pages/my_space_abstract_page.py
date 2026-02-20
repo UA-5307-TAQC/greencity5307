@@ -32,7 +32,6 @@ class MySpaceAbstractPage(BasePage):
         self.calendar: CalendarComponent = CalendarComponent(profile_root)
         self.to_do_list: ToDoListComponent = ToDoListComponent(profile_root)
 
-
     @allure.step("Click on My habits tab on My Space page")
     def click_my_habits_tab(self):
         """Click on My habits tab."""

@@ -17,3 +17,4 @@ class Config: # pylint: disable=too-few-public-methods
     HEADLESS = os.getenv("HEADLESS", "true").lower() in ("1", "true", "True")
     USER_EMAIL = os.getenv("USER_EMAIL")
     USER_PASSWORD = os.getenv("USER_PASSWORD")
+    USER_NAME = os.getenv("USER_NAME")

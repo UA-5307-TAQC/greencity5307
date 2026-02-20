@@ -37,3 +37,8 @@ class MainPage(BasePage):
             EC.url_contains("news")
         )
         return EcoNewsPage(self.driver)
+
+    def is_loaded(self) -> bool:
+        """Checks if the main page is loaded by verifying
+        the presence of the 'There are' element."""
+        return self.there_are.is_displayed()

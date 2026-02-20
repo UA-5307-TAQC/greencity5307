@@ -1,11 +1,11 @@
 """
 Habit page
 """
-
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from pages.my_space_abstract_page import MySpaceAbstractPage
 from utils.types import Locators
@@ -34,3 +34,14 @@ class MyHabitPage(MySpaceAbstractPage):
         from pages.all_habits_page import AllHabitPage # pylint: disable=import-outside-toplevel
         self.add_new_habit_button.click()
         return AllHabitPage(self.driver)
+
+    def is_loaded(self):
+        """Method that verifies if My Habit Page is loaded by 'Add New Habit' button."""
+        try:
+            add_new_habit_button = self.driver.find_element(*self.add_new_habit_button_locator)
+            WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable(add_new_habit_button)
+            )
+            return True
+        except TimeoutException:
+            return False
