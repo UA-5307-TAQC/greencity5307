@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Test like one news page like one news","3550","Test like one news on one news page","tests.ui.news_pages_tests","Fri Feb 20 08:56:24 UTC 2026","passed","Fri Feb 20 08:56:28 UTC 2026","","test_one_news_page_like_one_news","",""
+"A test for successful habit creation.","1639","Test for successful habit creation","tests.ui.habit_form_tests","Fri Feb 20 08:56:14 UTC 2026","passed","Fri Feb 20 08:56:16 UTC 2026","","test_successful_habit_creation","",""
+"A test that does nothing and always passes.","0","test_nothing","tests","Fri Feb 20 08:55:46 UTC 2026","passed","Fri Feb 20 08:55:46 UTC 2026","","test_stub","",""
+"This test verifies that a user can successfully open eco news page. ","3478","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Fri Feb 20 08:56:19 UTC 2026","passed","Fri Feb 20 08:56:23 UTC 2026","","test_create_update_eco_news_page","",""
+"A simple smoke test that always passes.","10455","Smoke test for the main page","tests.ui","Fri Feb 20 08:56:31 UTC 2026","passed","Fri Feb 20 08:56:41 UTC 2026","","test_smoke","",""
+"","9026","Verify user search, friend request sending, persistence, and cancellation","tests.ui.find_friend_page_tests","Fri Feb 20 08:56:00 UTC 2026","passed","Fri Feb 20 08:56:09 UTC 2026","","test_findfriend_verify_user_search","",""
