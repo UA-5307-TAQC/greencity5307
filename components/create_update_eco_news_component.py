@@ -74,8 +74,8 @@ class CreateUpdateEcoNewsTagsComponent(BaseComponent):
                 return
 
         raise ValueError(
-            f"Tag with name '{tag_name}' not found in eco news tags component."
-        )
+            f"Tag with name '{tag_name}' not found in eco news tags component.")
+
 
     def select_multiple_tags(self, *tags):
         """Select multiple tags."""
