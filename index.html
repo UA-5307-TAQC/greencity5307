@@ -2,37 +2,30 @@
 <html>
 <head>
   <meta charset='UTF-8'>
-  <title>Allure DevOps Dashboard</title>
+  <title>Allure Reports</title>
   <style>
-    body { font-family: Arial; background:#f4f6f9; padding:40px; }
-    h1 { color:#2c3e50; }
-    .card {
-      background:white;
-      padding:20px;
-      margin-bottom:15px;
-      border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    body { font-family: Arial; padding: 40px; background: #f4f6f9; }
+    h1 { color: #2c3e50; }
+    ul { list-style: none; padding: 0; }
+    li { margin-bottom: 10px; }
+    a {
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      color: #3498db;
     }
-    .main { border-left:6px solid #2ecc71; }
-    .pr { border-left:6px solid #3498db; }
-    .failed { border-left:6px solid #e74c3c; }
-    .stats { margin-top:10px; font-size:14px; }
-    .flaky { color:#e67e22; font-weight:bold; }
-    .date { color:gray; }
-    .banner {
-      padding:15px;
-      margin-bottom:25px;
-      border-radius:8px;
-      font-weight:bold;
-    }
-    .ok { background:#d4edda; color:#155724; }
-    .bad { background:#f8d7da; color:#721c24; }
-    a { text-decoration:none; font-weight:bold; font-size:18px; }
+    a:hover { text-decoration: underline; }
+    .date { color: gray; margin-bottom: 20px; }
   </style>
 </head>
 <body>
-<h1>🚀 Allure DevOps Dashboard</h1>
-<p class='date'>Last updated: Fri Feb 20 16:43:26 UTC 2026</p>
-
-<div class='banner ok'>✅ All reports are stable</div>
-</body></html>
+<h1>📊 Allure Reports</h1>
+<div class='date'>Last updated: Sat Feb 21 10:40:21 UTC 2026</div>
+<ul>
+<li><a href='./main/'>main</a></li>
+<li><a href='./pr-109/'>pr-109</a></li>
+<li><a href='./pr-95/'>pr-95</a></li>
+<li><a href='./pr-96/'>pr-96</a></li>
+<li><a href='./pr-107/'>pr-107</a></li>
+<li><a href='./pr-105/'>pr-105</a></li>
+</ul></body></html>
