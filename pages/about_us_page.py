@@ -1,8 +1,7 @@
-"""This module contains the AboutUsPage class,which represents the about_us page of a website."""
+"""This module contains the AboutUsPage class, which represents the about_us page of a website."""
 from selenium.webdriver.common.by import By
 
-from components.about_us_buttons_component import AboutUsPageHabitButtonOneComponent, \
-    AboutUsPageHabitButtonTwoComponent
+from components.about_us_buttons_component import AboutUsPageHabitButtonComponent
 from pages.base_page import BasePage
 from pages.my_habit_page import MyHabitPage
 from utils.types import Locators
@@ -26,11 +25,12 @@ class AboutUsPage(BasePage):
     vision_cards: Locators = (By.CSS_SELECTOR, ".container > .vision-card")
 
     def get_button_one_component(self):
-        """Get the locator for the create news button."""
-        return AboutUsPageHabitButtonOneComponent(self.find(self.section_button_form_habit_one))
+        """Get the first Form habit button component."""
+        return AboutUsPageHabitButtonComponent(self.find(self.section_button_form_habit_one))
+
     def get_button_two_component(self):
-        """Get the locator for the create news button."""
-        return AboutUsPageHabitButtonTwoComponent(self.find(self.section_button_form_habit_two))
+        """Get the second Form habit button component."""
+        return AboutUsPageHabitButtonComponent(self.find(self.section_button_form_habit_two))
 
     def click_section_button_form_habit_one(self):
         """Click the form habit button one and return my habits page."""

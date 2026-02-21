@@ -59,3 +59,5 @@ class HeaderComponent(BaseComponent):
         WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.about_us_link_locator)
         ).click()
+        from pages.about_us_page import AboutUsPage # pylint: disable=import-outside-toplevel
+        return AboutUsPage(self.root.parent)

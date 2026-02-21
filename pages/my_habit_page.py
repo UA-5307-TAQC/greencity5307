@@ -37,7 +37,7 @@ class MyHabitPage(MySpaceAbstractPage):
 
     @allure.step("Navigating to the About Us page from My Habit page")
     def go_to_about_us(self):
-        """Navigate to the Eco News page."""
+        """Navigate to the About Us page."""
         from pages.about_us_page import AboutUsPage # pylint: disable=import-outside-toplevel
         self.header.click_about_us_link()
         WebDriverWait(self.driver, 10).until(
