@@ -1,4 +1,5 @@
 """Base page class for all page objects."""
+from selenium.common import TimeoutException
 from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -45,4 +46,12 @@ class BasePage:
             self.find(locator)
             return True
         except NoSuchElementException:
+            return False
+
+    def verify_text_present(self, locator, text: str) -> bool:
+        """Wait for text presence."""
+        try:
+            self.wait.until(EC.text_to_be_present_in_element(locator, text))
+            return True
+        except TimeoutException:
             return False

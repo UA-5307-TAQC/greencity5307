@@ -13,6 +13,7 @@ class Config: # pylint: disable=too-few-public-methods
     """Configuration class to hold environment variables."""
 
     BASE_UI_URL = os.getenv("BASE_UI_URL")
+    BROWSER_LANG = os.getenv("BROWSER_LANG", "uk-UA")
     DEFAULT_TIMEOUT = int(os.getenv("DEFAULT_TIMEOUT", "10"))
     HEADLESS = os.getenv("HEADLESS", "true").lower() in ("1", "true", "True")
     USER_EMAIL = os.getenv("USER_EMAIL")
