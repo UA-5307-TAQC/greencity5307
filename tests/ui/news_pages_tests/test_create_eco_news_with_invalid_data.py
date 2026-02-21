@@ -8,20 +8,17 @@ from pages.main_page import MainPage
 from data.config import Config
 
 
-
-
-
  # pylint: disable=no-member
 @allure.title("Test Validation: Create Eco News with Invalid Data. Open Create Eco News page.")
 @allure.description("This test verifies that a user "
-                    "cannot successfully create eco new, because of invalid data. ")
+                    "cannot successfully create eco news, because of invalid data. ")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-102")
 @allure.step("Open Create Eco News page")
 def test_create_eco_news_with_invalid_data(driver):
     """
-        TC-101
+        TC-102
         Title: Create eco news with invalid data
         Author: Vitalina Kliuieva
         Priority: High
@@ -40,7 +37,7 @@ def test_create_eco_news_with_invalid_data(driver):
     form = create_news_page.get_form()
 
     title = ""
-    tags = ("Invalid", "Invalid")
+    tags = ()
     source = "invalid-url"
     content = "Eco content"
 
@@ -59,3 +56,4 @@ def test_create_eco_news_with_invalid_data(driver):
 
     create_news_page.click_submit()
     assert create_news_page.is_page_opened(), "Form not submitted successfully with invalid data"
+    assert create_news_page.is_submit_button_disabled()
