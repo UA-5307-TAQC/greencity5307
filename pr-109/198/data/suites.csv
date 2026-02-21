@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"A test for successful habit creation.","1757","Test for successful habit creation","tests.ui.habit_form_tests","Sat Feb 21 12:04:19 UTC 2026","passed","Sat Feb 21 12:04:21 UTC 2026","","test_successful_habit_creation","",""
+"Test like one news page like one news","4900","Test like one news on one news page","tests.ui.news_pages_tests","Sat Feb 21 12:04:31 UTC 2026","passed","Sat Feb 21 12:04:36 UTC 2026","","test_one_news_page_like_one_news","",""
+"This test verifies that a user can successfully open eco news page. ","6086","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Sat Feb 21 12:04:23 UTC 2026","passed","Sat Feb 21 12:04:29 UTC 2026","","test_create_update_eco_news_page","",""
+"A simple smoke test that always passes.","12516","Smoke test for the main page","tests.ui","Sat Feb 21 12:04:37 UTC 2026","passed","Sat Feb 21 12:04:49 UTC 2026","","test_smoke","",""
+"A test that does nothing and always passes.","1","test_nothing","tests","Sat Feb 21 12:03:58 UTC 2026","passed","Sat Feb 21 12:03:58 UTC 2026","","test_stub","",""
+"This test verifies that a user can successfully click on form habit buttons. ","5342","Test Validation: About Us Page Buttons Verification.","tests.ui.about_us_page_tests","Sat Feb 21 12:04:08 UTC 2026","passed","Sat Feb 21 12:04:14 UTC 2026","","test_about_us_page_buttons_verification","",""
