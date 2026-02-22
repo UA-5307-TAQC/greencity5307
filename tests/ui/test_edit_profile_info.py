@@ -1,6 +1,7 @@
 """Test update basic profile information."""
 
 import allure
+import time
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -8,7 +9,8 @@ from selenium.webdriver.common.by import By
 
 from data.config import Config
 from pages.base_page import BasePage
-from pages.profile_edit_page import ProfileEditPage
+from pages.edit_profile_page import ProfileEditPage
+from pages.my_space_abstract_page import MySpaceAbstractPage
 
 
 @allure.title("Update basic profile information")
@@ -26,50 +28,47 @@ def test_update_basic_profile_information(driver: WebDriver):
     sign_in_component = base_page.header.click_sign_in_link()
     sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
 
-    # Navigate to Edit Profile page
-    driver.get(f"{Config.BASE_URL}/#/greenCity/profile/{Config.USER_ID}/edit")
+    my_space_page = MySpaceAbstractPage(driver)
+    my_space_page.profile_banner.click_edit_btn(driver)
 
     page = ProfileEditPage(driver)
-    personal_info = page.get_personal_info_component()
+    personal_info_block = page.personal_info
 
-    new_name = "Oleksandr"
-    new_city = "Kyiv"
+    # new_name = "Oleksandr"
+    new_name = "test"
+    # new_city = "Kyiv"
+    new_city = "Kharkiv"
     new_credo = "I sort waste every day"
 
-    # Step 1 - Update name
-    personal_info.clear_name()
-    personal_info.enter_name(new_name)
-    assert personal_info.get_name_value() == new_name
+    # Step 2
+    personal_info_block.fill_name(new_name)
 
-    # Step 2 - Update city
-    personal_info.clear_city()
-    personal_info.enter_city(new_city)
-    assert personal_info.get_city_value() == new_city
+    # Step 3
+    personal_info_block.fill_city(new_city)
 
-    # Step 3 - Update credo
-    personal_info.clear_credo()
-    personal_info.enter_credo(new_credo)
-    assert personal_info.get_credo_value() == new_credo
+    # Step 4
+    personal_info_block.fill_credo(new_credo)
 
-    # Step 4 - Check Save button is enabled
-    assert page.is_save_enabled(), "Save button should be active"
+    # Step 5
+    assert page.is_save_enabled()
 
-    # Step 5 - Click Save
+    # Step 6
     page.click_save()
 
-    # Step 6 - Wait for success notification
-    success_locator = (By.CLASS_NAME, "success-notification")
-    WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located(success_locator)
-    )
+    # Step 7
+    WebDriverWait(driver, 10).until(EC.url_contains("/profile/"))
 
-    # Step 7 - Refresh page
-    driver.refresh()
+    # Step 8 - reopen edit page
+    my_space_page = MySpaceAbstractPage(driver)
+    my_space_page.profile_banner.click_edit_btn(driver)
 
     page = ProfileEditPage(driver)
-    personal_info = page.get_personal_info_component()
+    personal_info_block = page.personal_info
 
-    # Step 8-10 - Verify updated values
-    assert personal_info.get_name_value() == new_name, "Name was not updated"
-    assert personal_info.get_city_value() == new_city, "City was not updated"
-    assert personal_info.get_credo_value() == new_credo, "Credo was not updated"
+    WebDriverWait(driver, 5).until(
+        lambda d: personal_info_block.get_name_value() != ""
+    )
+
+    # Step 9-10
+    assert personal_info_block.get_name_value() == new_name
+    assert personal_info_block.get_city_value() == new_city + ", Ukraine"

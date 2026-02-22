@@ -16,7 +16,7 @@ class MyProfileDataBannerComponent(BaseComponent):
     """Component class for the  user data banner of the My Space page."""
     edit_btn_locator: Locators = (By.CSS_SELECTOR, "a.edit-icon")
     username_locator: Locators = (By.CSS_SELECTOR, "p.name")
-    add_friends_btn_locator: Locators = (By.CSS_SELECTOR, "div.add-friends")
+    # add_friends_btn_locator: Locators = (By.CSS_SELECTOR, "div.add-friends")
 
     acquired_habits_locator: Locators = (By.XPATH, ".//div[@class='chain'][1]/p[1]")
     habits_in_prog_locator: Locators = (By.XPATH, ".//div[@class='chain'][2]/p[1]")
@@ -28,7 +28,7 @@ class MyProfileDataBannerComponent(BaseComponent):
         super().__init__(root)
         self.edit_btn = self.root.find_element(*self.edit_btn_locator)
         self.username = self.root.find_element(*self.username_locator)
-        self.add_friends_btn = self.root.find_element(*self.add_friends_btn_locator)
+        # self.add_friends_btn = self.root.find_element(*self.add_friends_btn_locator)
 
         self.acquired_habits = self.root.find_element(*self.acquired_habits_locator)
         self.habits_in_prog = self.root.find_element(*self.habits_in_prog_locator)
@@ -52,14 +52,14 @@ class MyProfileDataBannerComponent(BaseComponent):
         return self.username.text
 
 
-    @allure.step("Click on Add friends button on Profile Banner component")
-    def click_add_friends_btn(self, driver):
-        """Click on add friends button."""
-        self.add_friends_btn.click()
-
-        WebDriverWait(driver, 10).until(
-            EC.url_contains("friends")
-        )
+    # @allure.step("Click on Add friends button on Profile Banner component")
+    # def click_add_friends_btn(self, driver):
+    #     """Click on add friends button."""
+    #     self.add_friends_btn.click()
+    #
+    #     WebDriverWait(driver, 10).until(
+    #         EC.url_contains("friends")
+    #     )
 
 
     @allure.step("Get profile progress from Profile Banner component")
