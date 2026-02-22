@@ -1,0 +1,9 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"A test that does nothing and always passes.","0","test_nothing","tests","Sun Feb 22 12:12:49 UTC 2026","passed","Sun Feb 22 12:12:49 UTC 2026","","test_stub","",""
+"Test like one news page like one news","2725","Test like one news on one news page","tests.ui.news_pages_tests","Sun Feb 22 12:13:17 UTC 2026","passed","Sun Feb 22 12:13:20 UTC 2026","","test_one_news_page_like_one_news","",""
+"Check that user is able to create a new habit card by
+    filling in all required fields on the Create habit page.","947","Test for successful habit creation","tests.ui.habit_form_tests","Sun Feb 22 12:13:06 UTC 2026","passed","Sun Feb 22 12:13:07 UTC 2026","","test_successful_habit_creation","",""
+"This test verifies that a user can successfully open eco news page. ","3706","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Sun Feb 22 12:13:10 UTC 2026","passed","Sun Feb 22 12:13:14 UTC 2026","","test_create_update_eco_news_page","",""
+"A simple smoke test that always passes.","10370","Smoke test for the main page","tests.ui","Sun Feb 22 12:13:23 UTC 2026","passed","Sun Feb 22 12:13:34 UTC 2026","","test_smoke","",""
+"Check that user is not able to submit a form on the Create habit page
+    after leaving the ""Title"" field empty.","159","Test that 'Habit title' field is required","tests.ui.habit_form_tests","Sun Feb 22 12:13:01 UTC 2026","passed","Sun Feb 22 12:13:01 UTC 2026","","test_required_title","",""
