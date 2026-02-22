@@ -69,7 +69,7 @@ def test_header_navigation(driver: WebDriver):
     with allure.step("Step 4: Click on 'About us', and ensure the site loaded on about us page."):
         about_us_page = places_page.go_to_about_us()
         assert ("about" in driver.current_url and
-                about_us_page.header_one.text in ("About us", "Про Нас")), "This is not about us page."
+                about_us_page.header_one.text in ("About Us", "Про Нас")), "This is not about us page."
 
 
     with allure.step("Step 6: Click on 'Main page', and ensure the site loaded on my space page."):
