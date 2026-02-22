@@ -25,6 +25,6 @@ class MyHabitPage(MySpaceAbstractPage):
 
     @allure.step("Get habit card component")
     def get_habit_card(self) -> UserHabitCardComponent:
-        """Get the habit cards list"""
+        """Get the first habit card component"""
         element = self.find(self.habit_card_for_test)
         return UserHabitCardComponent(element)

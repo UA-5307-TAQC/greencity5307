@@ -60,7 +60,6 @@ class OneHabitPage(BasePage):
                                    "//button[normalize-space()='Edit Habit']"
                                     )
 
-
     def get_tags_text(self) -> list[str]:
         """
         Return text tags['Resource saving', 'Reusable']

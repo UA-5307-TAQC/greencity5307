@@ -23,13 +23,18 @@ class HeaderComponent(BaseComponent):
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
     my_space_link_locator: Locators = (By.XPATH, "//app-header//ul/li[5]/a")
 
-    def click_my_space(self):
-        """Click the space in the header and return an instance of the MySpaceAbstractPage."""
+    @allure.step("Clicking the My Space link in the header")
+    def click_my_space(self) -> "MySpaceAbstractPage":
+        """
+        Click the My Space link in the header and return
+        an instance of the MySpaceAbstractPage.
+        """
+        from pages.my_space_abstract_page import  MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
+
         WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.my_space_link_locator)
         ).click()
-
-
+        return MySpaceAbstractPage(self.root.parent)
 
     @allure.step("Clicking the news link in the header")
     def click_new_link(self) -> "EcoNewsPage":
