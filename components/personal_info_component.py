@@ -37,7 +37,7 @@ class PersonalInfoComponent(BaseComponent):
         field.send_keys(Keys.TAB)
 
     def fill_city(self, city: str):
-        """Fill the city field and select item 4 positions above."""
+        """Fill the city field and select item."""
         wait = WebDriverWait(self.root.parent, 5)
 
         self.city.click()
@@ -50,7 +50,7 @@ class PersonalInfoComponent(BaseComponent):
         self.city.send_keys(Keys.TAB)
 
     def fill_credo(self, text: str):
-        """Fill the credo field reliably."""
+        """Fill the credo field."""
         field = self.credo
         time.sleep(0.1)
 
