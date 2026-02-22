@@ -65,9 +65,7 @@ def test_update_basic_profile_information(driver: WebDriver):
     page = ProfileEditPage(driver)
     personal_info_block = page.personal_info
 
-    WebDriverWait(driver, 5).until(
-        lambda d: personal_info_block.get_name_value() != ""
-    )
+    WebDriverWait(driver, 5).until(lambda d: personal_info_block.get_name_value() != "")
 
     # Step 9-10
     assert personal_info_block.get_name_value() == new_name
