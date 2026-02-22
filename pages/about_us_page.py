@@ -1,5 +1,10 @@
 """This module contains the AboutUsPage class,which represents the about_us page of a website."""
+
+import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 from utils.types import Locators
@@ -22,6 +27,10 @@ class AboutUsPage(BasePage):
 
     vision_cards: Locators = (By.CSS_SELECTOR, ".container > .vision-card")
 
+    def __init__(self, driver: WebDriver):
+        super().__init__(driver)
+        self.header_one = self.driver.find_element(*self.section_header_one)
+
     def click_section_button_form_habit_one(self):
         """Clicks the section button form habit."""
         self.click(self.section_button_form_habit_one)
@@ -33,3 +42,23 @@ class AboutUsPage(BasePage):
     def is_page_loaded(self):
         """Checks if the page is loaded."""
         return self.driver.find_element(*self.vision_cards).is_displayed()
+
+    @allure.step("Navigating to the Main page")
+    def go_to_main_page(self) -> "MainPage":
+        """Navigate to the Main page."""
+        from pages.main_page import MainPage # pylint: disable=import-outside-toplevel
+        self.header.click_main_page_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("greenCity")
+        )
+        return MainPage(self.driver)
+
+    @allure.step("Navigating to the UBS Courier page")
+    def go_to_ubs_courier(self) -> "UBSCourierPage":
+        """Navigate to the UBS courier page."""
+        from pages.ubc_courier_page import UBSCourierPage # pylint: disable=import-outside-toplevel
+        self.header.click_ubs_courier_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("ubs")
+        )
+        return UBSCourierPage(self.driver)

@@ -12,7 +12,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
 from pages.base_page import BasePage
-from pages.eco_news_page import EcoNewsPage
 
 class MainPage(BasePage):
     """Page object for the main page."""
@@ -32,6 +31,7 @@ class MainPage(BasePage):
     @allure.step("Navigating to the Eco News page")
     def go_to_eco_news(self) -> "EcoNewsPage":
         """Navigate to the Eco News page."""
+        from pages.eco_news_page import EcoNewsPage # pylint: disable=import-outside-toplevel
         self.header.click_new_link()
         WebDriverWait(self.driver, 10).until(
             EC.url_contains("news")

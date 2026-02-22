@@ -24,6 +24,7 @@ class EcoNewsPage(BasePage):
     button_create_news_locator: Locators = (By.XPATH, "//*[@id='main-content']/div/div[1]/div/a")
     news_cards_locator: Locators = (By.CSS_SELECTOR,
                                     ".ng-star-inserted .gallery-view-li-active")
+
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
         self.main_header: WebElement = self.driver.find_element(
@@ -33,6 +34,7 @@ class EcoNewsPage(BasePage):
             for element
             in self.driver.find_elements(*self.news_cards_locator)
         ]
+
     def get_new_button_component(self):
         """Get the create news button component."""
         return CreateNewButtonComponent(self.find(self.button_create_news_locator))
