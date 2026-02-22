@@ -1,0 +1,7 @@
+INFO     GreenCityLogger:test_smoke.py:11 Starting Smoke Test
+INFO     GreenCityLogger:test_smoke.py:15 Checking 'There are' text on Main Page
+INFO     GreenCityLogger:test_smoke.py:20 Clicking 'News' link in header
+INFO     GreenCityLogger:header_component.py:34 Clicking the news link in the header.
+INFO     GreenCityLogger:header_component.py:39 Successfully clicked the news link in the header.
+INFO     GreenCityLogger:test_smoke.py:26 Clicking 'Events' link in header (from News page context)
+INFO     GreenCityLogger:test_smoke.py:31 Smoke Test finished successfully
