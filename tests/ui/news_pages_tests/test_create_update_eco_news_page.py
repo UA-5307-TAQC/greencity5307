@@ -19,7 +19,6 @@ from data.config import Config
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-101")
 @allure.step("Open Create Eco News page")
-@pytest.mark.regression
 def test_open_create_update_eco_news_page(driver):
     """
         TC-101
@@ -44,6 +43,7 @@ def test_open_create_update_eco_news_page(driver):
     tags = ("Events", "News")
     source = "https://saving-planet.org/"
     content = "Eco content" * 30
+
 
     form.fill_form(
         title=title,
