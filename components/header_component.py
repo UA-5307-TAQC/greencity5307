@@ -11,7 +11,6 @@ from selenium.webdriver.support.ui import WebDriverWait
 from components.base_component import BaseComponent
 from components.common_components.auth_components.signin_modal_component import SignInComponent
 from utils.logger import logger
-from utils.types import Locators
 
 
 class HeaderComponent(BaseComponent):
@@ -50,7 +49,7 @@ class HeaderComponent(BaseComponent):
             raise
 
     @allure.step("Clicking the event link in the header")
-    def click_event_link(self) -> "EventPage":
+    def click_event_link(self):
         """Click the event link in the header and return an instance of the EventPage."""
         from pages.event_page import EventPage  # pylint: disable=import-outside-toplevel
         WebDriverWait(self.root.parent,
@@ -63,9 +62,3 @@ class HeaderComponent(BaseComponent):
         WebDriverWait(self.root.parent,
                       10).until(EC.element_to_be_clickable(self.sign_in_link_locator)).click()
         return SignInComponent(self.root.parent)
-
-    def click_event_link(self):
-        """Click the event link in the header."""
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.event_link_locator)
-        ).click()

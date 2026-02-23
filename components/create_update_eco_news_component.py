@@ -8,6 +8,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
 from components.base_component import BaseComponent
+from components.header_component import HeaderComponent
 from utils.types import Locators
 
 
