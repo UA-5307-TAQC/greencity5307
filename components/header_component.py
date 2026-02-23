@@ -20,6 +20,15 @@ class HeaderComponent(BaseComponent):
     event_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
+    language_option = (By.XPATH,
+                       "/html/body/app-root/app-main/div/app-header/"
+                       "header/div[2]/div/div/div/ul/ul[1]/li/span")
+
+    def is_language_english(self) -> bool:
+        """Check if the current language is English by
+         inspecting the language option in the header."""
+        element = self.root.parent.find_element(*self.language_option)
+        return element.text.strip().lower() in ["en", "english"]
 
     @allure.step("Clicking the news link in the header")
     def click_new_link(self):
