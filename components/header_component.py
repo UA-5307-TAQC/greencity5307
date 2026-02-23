@@ -23,7 +23,7 @@ class HeaderComponent(BaseComponent):
     about_us_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/about']")
 
     @allure.step("Clicking the news link in the header")
-    def click_new_link(self) -> "EcoNewsPage":
+    def click_new_link(self) :
         """Click the news link in the header and return an instance of the EcoNewsPage."""
         logger.info("Clicking the news link in the header.")
 
@@ -39,7 +39,7 @@ class HeaderComponent(BaseComponent):
             raise
 
     @allure.step("Clicking the event link in the header")
-    def click_event_link(self) -> "EventPage":
+    def click_event_link(self):
         """Click the event link in the header and return an instance of the EventPage."""
         WebDriverWait(self.root.parent,
                       10).until(EC.element_to_be_clickable(self.event_link_locator)).click()

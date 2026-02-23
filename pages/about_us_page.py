@@ -1,9 +1,11 @@
 """This module contains the AboutUsPage class, which represents the about_us page of a website."""
 from selenium.webdriver.common.by import By
 
-from components.about_us_buttons_component import AboutUsPageHabitButtonComponent
+from components.vision_card_component import VisionCardComponent
 from pages.base_page import BasePage
-from pages.my_habit_page import MyHabitPage
+from pages.eco_news_page import EcoNewsPage
+from pages.friends_abstract_page import FriendsAbstractPage
+from pages.places_page import PlacesPage
 from utils.types import Locators
 
 
@@ -24,23 +26,33 @@ class AboutUsPage(BasePage):
 
     vision_cards: Locators = (By.CSS_SELECTOR, ".container > .vision-card")
 
-    def get_button_one_component(self):
-        """Get the first Form habit button component."""
-        return AboutUsPageHabitButtonComponent(self.find(self.section_button_form_habit_one))
+    def get_vision_cards(self) -> list[VisionCardComponent]:
+        """Get the vision cards present in the section."""
+        cards = self.driver.find_elements(
+            By.CSS_SELECTOR,
+            "app-vision-card.vision-card"
+        )
+        return [VisionCardComponent(card) for card in cards]
 
-    def get_button_two_component(self):
-        """Get the second Form habit button component."""
-        return AboutUsPageHabitButtonComponent(self.find(self.section_button_form_habit_two))
+    def click_vision_card_button(self, index: int):
+        """Click the button on the vision card based on the provided index."""
+        cards = self.get_vision_cards()
 
-    def click_section_button_form_habit_one(self):
-        """Click the form habit button one and return my habits page."""
-        self.get_button_one_component().click_form_habit_button_one()
-        return MyHabitPage(self.driver)
+        if index < 1 or index > len(cards):
+            raise ValueError("Index must be between 1 and 4.")
 
-    def click_section_button_form_habit_two(self):
-        """Click the form habit button two and return my habits page."""
-        self.get_button_two_component().click_form_habit_button_two()
-        return MyHabitPage(self.driver)
+        cards[index - 1].click_button()
+
+        match index:
+            case 1:
+                return PlacesPage(self.driver)
+            case 2:
+                return FriendsAbstractPage(self.driver)
+            case 3:
+                return EcoNewsPage(self.driver)
+            case 4:
+                return FriendsAbstractPage(self.driver)
+        return None
 
     def get_vision_cards_count(self):
         """Gets the number of vision cards present in the section."""
@@ -49,3 +61,7 @@ class AboutUsPage(BasePage):
     def is_page_loaded(self):
         """Checks if the page is loaded."""
         return self.driver.find_element(*self.vision_cards).is_displayed()
+
+    def is_page_opened(self) -> bool:
+        """Check if the page is opened."""
+        return self.is_visible(self.section_header_one)
