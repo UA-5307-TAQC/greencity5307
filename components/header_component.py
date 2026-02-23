@@ -21,14 +21,15 @@ class HeaderComponent(BaseComponent):
                                     ".//a[@href='#/greenCity/events']")
     sign_in_link_locator: Locators = (By.CSS_SELECTOR,
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
-    
-    my_space_tab_locator: Locators = (By.XPATH, ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]")
-    
+    my_space_tab_locator: Locators = (By.XPATH,
+                                      ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]")
+
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self) -> "MySpaceAbstractPage":
-        """Click the my space link in the header and return an instance of the MySpaceAbstractPage."""
+        """Click the my space link in the header
+        and return an instance of the MySpaceAbstractPage."""
         from pages.my_space_abstract_page import \
-        MySpaceAbstractPage # pylint: disable=import-outside-toplevel 
+        MySpaceAbstractPage # pylint: disable=import-outside-toplevel
         WebDriverWait(self.root.parent, 10).until(
             EC.element_to_be_clickable(self.my_space_tab_locator)
         ).click()
