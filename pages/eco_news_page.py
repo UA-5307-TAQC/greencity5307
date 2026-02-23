@@ -61,8 +61,3 @@ class EcoNewsPage(BasePage):
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)
-
-    @allure.step("Checking if the Eco News page is opened")
-    def is_page_opened(self) -> bool:
-        """Check if the page is opened."""
-        return self.is_visible(self.title_locator)

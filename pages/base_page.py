@@ -46,3 +46,11 @@ class BasePage:
             return True
         except NoSuchElementException:
             return False
+
+    title_locator: tuple
+
+    def is_page_opened(self) -> bool:
+        """Check if the page is opened by verifying the visibility of the title element."""
+        if not hasattr(self, "title_locator"):
+            raise NotImplementedError("Page must define title_locator")
+        return self.is_visible(self.title_locator)
