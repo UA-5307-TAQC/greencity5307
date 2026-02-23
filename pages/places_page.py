@@ -30,7 +30,7 @@ class PlacesPage(BasePage):
 
     @allure.step("Navigating to the AboutUs page")
     def go_to_about_us(self) -> "AboutUsPage":
-        """Navigate to the Eco News page."""
+        """Navigate to the Bout Us page."""
         self.header.click_about_us_link()
         WebDriverWait(self.driver, 10).until(
             EC.url_contains("about")

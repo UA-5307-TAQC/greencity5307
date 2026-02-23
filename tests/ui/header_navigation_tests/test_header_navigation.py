@@ -4,7 +4,6 @@ import allure
 from selenium.common import NoSuchElementException
 
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support.expected_conditions import url_contains
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -20,7 +19,7 @@ from utils.logger import logger
 @allure.epic("GreenCity header functionality.")
 @allure.feature("Header navigation.")
 @allure.story("User can be navigated to correct pages.")
-@allure.testcase("https://github.com//[Test Case]: BasePage change language #44")
+@allure.testcase("https://github.com/ita-social-projects/GreenCity/issues/44")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Header navigation test.")
 def test_header_navigation(driver: WebDriver):
@@ -30,7 +29,6 @@ def test_header_navigation(driver: WebDriver):
 
     with allure.step("Pre-condition: ensure site is loaded, sign in, and land on My Space page."):
         initial_url = driver.current_url
-
 
 
         sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
@@ -72,7 +70,7 @@ def test_header_navigation(driver: WebDriver):
                 about_us_page.header_one.text in ("About Us", "Про Нас")), "This is not about us page."
 
 
-    with allure.step("Step 6: Click on 'Main page', and ensure the site loaded on my space page."):
+    with allure.step("Step 5: Click on 'Main page', and ensure the site loaded on my space page."):
         main_page = about_us_page.go_to_main_page()
         assert ("greenCity" in driver.current_url and
                 main_page.there_are.text in

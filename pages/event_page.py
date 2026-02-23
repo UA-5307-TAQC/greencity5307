@@ -24,7 +24,7 @@ class EventPage(BasePage):
 
     @allure.step("Navigating to the Places page")
     def go_to_places(self) -> "PlacesPage":
-        """Navigate to the Eco News page."""
+        """Navigate to the Places page."""
         self.header.click_places_link()
         WebDriverWait(self.driver, 10).until(
             EC.url_contains("places")

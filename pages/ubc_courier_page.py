@@ -21,7 +21,7 @@ class UBSCourierPage(BasePage):
         self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
         self.section_text: WebElement = self.driver.find_element(*self.section_text_locator)
 
-    @allure.step("Navigating to the UBS Courier page")
+    @allure.step("Navigating to the Main page")
     def go_to_main_page(self) -> "MainPage":
         """Navigate to the Main page."""
         from pages.main_page import MainPage # pylint: disable=import-outside-toplevel
