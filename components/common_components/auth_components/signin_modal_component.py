@@ -34,7 +34,7 @@ class SignInComponent(BaseComponent):
         return self.root.find_element(*self.sign_in_button_locator)
 
     @allure.step("Sign in")
-    def sign_in(self, driver: WebDriver, email: str, password: str) -> None:
+    def sign_in(self, driver: WebDriver, email: str, password: str) -> "MyHabitPage":
         """Signing in"""
         self.get_email().send_keys(email)
         self.get_password().send_keys(password)
@@ -43,3 +43,5 @@ class SignInComponent(BaseComponent):
         WebDriverWait(driver, 10).until(
             EC.url_changes(Config.BASE_UI_URL)
         )
+        from pages.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
+        return MyHabitPage(driver)

@@ -1,6 +1,8 @@
 """This module contains the AllFriendsPage class,
 which represents the Friend page with All friends tab."""
 
+import allure
+
 from selenium.webdriver.common.by import By
 
 from components.friend_card_component import FriendCardComponent
@@ -10,7 +12,7 @@ from utils.types import Locators
 
 class AllFriendsPage(FriendAbstractPage):
     """Class for the all friends tab of Friend page."""
-    cards_root_locator: Locators = (By.CLASS_NAME, "friend-item-wrapper")
+    cards_root_locator: Locators = (By.CSS_SELECTOR, "div.friend-item-wrapper")
     default_text_locator: Locators = (By.XPATH, ".//h3[@class='no-friends']")
 
 
@@ -20,6 +22,7 @@ class AllFriendsPage(FriendAbstractPage):
         self.default_text = self.driver.find_element(*self.default_text_locator)
 
 
+    @allure.step("Get all friend cards on the All friends tab on User profile page")
     def get_cards_list(self) -> list:
         """Get all friend cards on the all friends tab."""
         friend_cards = []
@@ -28,6 +31,7 @@ class AllFriendsPage(FriendAbstractPage):
         return friend_cards
 
 
+    @allure.step("Get the text on the All friends tab without friends on User profile page")
     def get_default_text(self) -> str:
         """Get the text on the all friends tab without friends."""
         return self.default_text.text
