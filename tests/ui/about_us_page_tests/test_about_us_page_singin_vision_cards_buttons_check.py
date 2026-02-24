@@ -16,7 +16,6 @@ from pages.places_page import PlacesPage
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-102")
-@allure.step("Open Create Eco News page")
 def test_about_us_page_sing_in_vision_cards_buttons_check(driver):
     """
         TC-102

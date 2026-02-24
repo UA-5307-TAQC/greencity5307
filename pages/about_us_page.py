@@ -24,14 +24,11 @@ class AboutUsPage(BasePage):
 
     vision_section_header: Locators = (By.XPATH, "//*[@id='main-content']/div[3]/div/h2")
 
-    vision_cards: Locators = (By.CSS_SELECTOR, ".container > .vision-card")
+    vision_cards: Locators = (By.CSS_SELECTOR, "app-vision-card.vision-card")
 
     def get_vision_cards(self) -> list[VisionCardComponent]:
         """Get the vision cards present in the section."""
-        cards = self.driver.find_elements(
-            By.CSS_SELECTOR,
-            "app-vision-card.vision-card"
-        )
+        cards = self.driver.find_elements(*self.vision_cards)
         return [VisionCardComponent(card) for card in cards]
 
     def click_vision_card_button(self, index: int):
@@ -52,7 +49,6 @@ class AboutUsPage(BasePage):
                 return EcoNewsPage(self.driver)
             case 4:
                 return FriendsAbstractPage(self.driver)
-        return None
 
     def get_vision_cards_count(self):
         """Gets the number of vision cards present in the section."""
