@@ -4,8 +4,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 import pytest
 import allure
 
-from components.common_components.auth_components.signin_modal_component import \
-    SignInComponent
+from components.common_components.auth_components.signin_modal_component import SignInComponent
 from data.config import Config
 from pages.friend_requests_page import FriendRequestsPage
 from pages.main_page import MainPage
@@ -55,4 +54,3 @@ def test_search_requests_by_partial_username(driver: WebDriver):
         friend_requests_page.search(non_existing)
         assert friend_requests_page.is_search_value(non_existing)
         assert friend_requests_page.no_results_are_displayed()
-        
