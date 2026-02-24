@@ -12,7 +12,7 @@ class VisionCardComponent(BaseComponent):
     vision_card_picture_locator: Locators = (By.CSS_SELECTOR, "img")
     vision_card_title_locator: Locators = (By.CSS_SELECTOR, ".vision-card__title")
     vision_card_description_locator: Locators = (By.CSS_SELECTOR, ".vision-card__info > p")
-    vision_card_button_locator = (By.CSS_SELECTOR, ".vision-card__info > a")
+    vision_card_button_locator: Locators = (By.CSS_SELECTOR, ".vision-card__info > a")
 
     def click_button(self):
         """Click the button on the vision card."""

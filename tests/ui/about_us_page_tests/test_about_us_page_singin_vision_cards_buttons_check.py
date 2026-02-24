@@ -19,7 +19,7 @@ from pages.places_page import PlacesPage
 @allure.step("Open Create Eco News page")
 def test_about_us_page_sing_in_vision_cards_buttons_check(driver):
     """
-        TC-002
+        TC-102
         Title: Click buttons in the vision card after sing in
         Author: Vitalina Kliuieva
         Priority: Medium

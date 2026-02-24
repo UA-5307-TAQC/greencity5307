@@ -23,7 +23,7 @@ class HeaderComponent(BaseComponent):
     about_us_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/about']")
 
     @allure.step("Clicking the news link in the header")
-    def click_new_link(self) :
+    def click_new_link(self):
         """Click the news link in the header and return an instance of the EcoNewsPage."""
         logger.info("Clicking the news link in the header.")
 

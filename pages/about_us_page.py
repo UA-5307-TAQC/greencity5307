@@ -39,7 +39,7 @@ class AboutUsPage(BasePage):
         cards = self.get_vision_cards()
 
         if index < 1 or index > len(cards):
-            raise ValueError("Index must be between 1 and 4.")
+            raise ValueError(f"Index must be between 1 and {len(cards)}.")
 
         cards[index - 1].click_button()
 
