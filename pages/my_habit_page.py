@@ -34,3 +34,18 @@ class MyHabitPage(MySpaceAbstractPage):
         from pages.all_habits_page import AllHabitPage # pylint: disable=import-outside-toplevel
         self.add_new_habit_button.click()
         return AllHabitPage(self.driver)
+
+    @allure.step("Navigating to the About Us page from My Habit page")
+    def go_to_about_us(self):
+        """Navigate to the About Us page."""
+        from pages.about_us_page import AboutUsPage # pylint: disable=import-outside-toplevel
+        self.header.click_about_us_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("about")
+        )
+        return AboutUsPage(self.driver)
+
+    @allure.step("Checking if My Habit page is opened")
+    def is_page_opened(self) -> bool:
+        """Check if the page is opened."""
+        return self.is_visible(self.my_habits_tab_locator)
