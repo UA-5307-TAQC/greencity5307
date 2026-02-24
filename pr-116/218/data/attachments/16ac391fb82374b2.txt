@@ -1,7 +1,0 @@
-2026-02-23 18:24:49,885 - GreenCityLogger - INFO - Starting Smoke Test
-2026-02-23 18:24:49,956 - GreenCityLogger - INFO - Checking 'There are' text on Main Page
-2026-02-23 18:24:49,981 - GreenCityLogger - INFO - Clicking 'News' link in header
-2026-02-23 18:24:49,981 - GreenCityLogger - INFO - Clicking the news link in the header.
-2026-02-23 18:24:51,501 - GreenCityLogger - INFO - Successfully clicked the news link in the header.
-2026-02-23 18:25:01,570 - GreenCityLogger - INFO - Clicking 'Events' link in header (from News page context)
-2026-02-23 18:25:01,771 - GreenCityLogger - INFO - Smoke Test finished successfully
