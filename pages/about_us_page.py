@@ -7,10 +7,6 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from components.vision_card_component import VisionCardComponent
 from pages.base_page import BasePage
-from pages.eco_news_page import EcoNewsPage
-from pages.friends_abstract_page import FriendsAbstractPage
-from pages.places_page import PlacesPage
-from utils.types import Locators
 
 
 class AboutUsPage(BasePage):
@@ -19,10 +15,13 @@ class AboutUsPage(BasePage):
     locators = {
         "section_header_one": (By.XPATH, "//*[@id='main-content']/div[1]/div/h2"),
         "section_description_one": (By.XPATH, "//*[@id='main-content']/div[1]/div/p"),
-        "section_button_form_habit_one": (By.CSS_SELECTOR, "#main-content > div.about-section.section > div > button"),
+        "section_button_form_habit_one": (By.CSS_SELECTOR,
+                                          "#main-content > div.about-section.section "
+                                          "> div > button"),
         "section_header_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/h2"),
         "section_description_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/p"),
-        "section_button_form_habit_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/button"),
+        "section_button_form_habit_two": (By.XPATH,
+                                          "//*[@id='main-content']/div[2]/div/div/button"),
         "vision_section_header": (By.XPATH, "//*[@id='main-content']/div[3]/div/h2"),
         "vision_cards": (By.CSS_SELECTOR, "app-vision-card.vision-card", VisionCardComponent)
     }
@@ -42,17 +41,6 @@ class AboutUsPage(BasePage):
     def click_section_button_form_habit_one(self):
         """Clicks the section button form habit."""
         self.click(self.section_button_form_habit_one)
-        cards[index - 1].click_button()
-
-        match index:
-            case 1:
-                return PlacesPage(self.driver)
-            case 2:
-                return FriendsAbstractPage(self.driver)
-            case 3:
-                return EcoNewsPage(self.driver)
-            case 4:
-                return FriendsAbstractPage(self.driver)
 
     def get_vision_cards_count(self):
         """Gets the number of vision cards present in the section."""
