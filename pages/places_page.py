@@ -7,7 +7,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.places_components.add_place_modal_component import AddPlaceModalComponent
-from pages.about_us_page import AboutUsPage
 from pages.base_page import BasePage
 from utils.types import Locators
 

@@ -122,12 +122,3 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.sign_in_link_locator)
         ).click()
         return SignInComponent(self.root.parent)
-
-    @allure.step("Clicking the About Us link in the header")
-    def click_about_us_link(self):
-        """Click the About Us link in the header and return an instance of the AboutUsPage."""
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.about_us_link_locator)
-        ).click()
-        from pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
-        return AboutUsPage(self.root.parent)

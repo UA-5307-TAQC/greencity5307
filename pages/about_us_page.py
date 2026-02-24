@@ -16,19 +16,16 @@ from utils.types import Locators
 class AboutUsPage(BasePage):
     """Page object for the about_us page."""
 
-    section_header_one: Locators = (By.XPATH, "//*[@id='main-content']/div[1]/div/h2")
-    section_description_one: Locators = (By.XPATH, "//*[@id='main-content']/div[1]/div/p")
-    section_button_form_habit_one: Locators = (By.CSS_SELECTOR,
-        "#main-content > div.about-section.section > div > button")
-
-    section_header_two: Locators = (By.XPATH, "//*[@id='main-content']/div[2]/div/div/h2")
-    section_description_two: Locators = (By.XPATH, "//*[@id='main-content']/div[2]/div/div/p")
-    section_button_form_habit_two: Locators = (By.XPATH,
-                                               "//*[@id='main-content']/div[2]/div/div/button")
-
-    vision_section_header: Locators = (By.XPATH, "//*[@id='main-content']/div[3]/div/h2")
-
-    vision_cards: Locators = (By.CSS_SELECTOR, "app-vision-card.vision-card")
+    locators = {
+        "section_header_one": (By.XPATH, "//*[@id='main-content']/div[1]/div/h2"),
+        "section_description_one": (By.XPATH, "//*[@id='main-content']/div[1]/div/p"),
+        "section_button_form_habit_one": (By.CSS_SELECTOR, "#main-content > div.about-section.section > div > button"),
+        "section_header_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/h2"),
+        "section_description_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/p"),
+        "section_button_form_habit_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/button"),
+        "vision_section_header": (By.XPATH, "//*[@id='main-content']/div[3]/div/h2"),
+        "vision_cards": (By.CSS_SELECTOR, "app-vision-card.vision-card", VisionCardComponent)
+    }
 
     def get_vision_cards(self) -> list[VisionCardComponent]:
         """Get the vision cards present in the section."""
