@@ -8,6 +8,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
 from components.base_component import BaseComponent
+from components.header_component import HeaderComponent
 from utils.types import Locators
 
 
@@ -67,6 +68,19 @@ class CreateUpdateEcoNewsTagsComponent(BaseComponent):
     def select_tag(self, tag_name: str):
         """Select a tag by name."""
         container = self.root.find_element(By.XPATH, self.tag_button)
+        header = HeaderComponent(self.root)
+        if not header.is_language_english():
+            if tag_name.lower() == "news":
+                tag_name = "новини"
+            elif tag_name.lower() == "events":
+                tag_name = "події"
+            elif tag_name.lower() == "education":
+                tag_name = "освіта"
+            elif tag_name.lower() == "initiatives":
+                tag_name = "ініціативи"
+            elif tag_name.lower() == "ads":
+                tag_name = "реклама"
+
 
         for button in container.find_elements(By.TAG_NAME, "button"):
             if button.text.strip().lower() == tag_name.strip().lower():
