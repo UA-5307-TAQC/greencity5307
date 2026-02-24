@@ -1,6 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"A test for successful habit creation.","1520","Test for successful habit creation","tests.ui.habit_form_tests","Mon Feb 23 08:11:54 UTC 2026","passed","Mon Feb 23 08:11:55 UTC 2026","","test_successful_habit_creation","",""
-"This test verifies that a user can successfully open eco news page. ","4495","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Mon Feb 23 08:11:57 UTC 2026","passed","Mon Feb 23 08:12:02 UTC 2026","","test_create_update_eco_news_page","",""
-"Test like one news page like one news","3948","Test like one news on one news page","tests.ui.news_pages_tests","Mon Feb 23 08:12:04 UTC 2026","passed","Mon Feb 23 08:12:08 UTC 2026","","test_one_news_page_like_one_news","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Mon Feb 23 08:11:42 UTC 2026","passed","Mon Feb 23 08:11:42 UTC 2026","","test_stub","",""
-"A simple smoke test that always passes.","11356","Smoke test for the main page","tests.ui","Mon Feb 23 08:12:10 UTC 2026","passed","Mon Feb 23 08:12:22 UTC 2026","","test_smoke","",""
