@@ -11,6 +11,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
+from pages.about_us_page import AboutUsPage
 from pages.base_page import BasePage
 from pages.eco_news_page import EcoNewsPage
 
@@ -37,3 +38,12 @@ class MainPage(BasePage):
             EC.url_contains("news")
         )
         return EcoNewsPage(self.driver)
+
+    @allure.step("Navigating to the About Us page")
+    def go_to_about_us(self) -> AboutUsPage:
+        """Navigate to the About Us page."""
+        self.header.click_about_us_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("about")
+        )
+        return AboutUsPage(self.driver)
