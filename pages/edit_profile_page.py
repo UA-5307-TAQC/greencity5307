@@ -17,7 +17,7 @@ class ProfileEditPage(BasePage):
 
     page_root_locator: Locators = (By.CLASS_NAME, "edit_prof-wrap")
     page_title_locator: Locators = (By.TAG_NAME, "h2")
-    cancel_button_locator = (By.CSS_SELECTOR, ".buttons .secondary-global-button"    )
+    cancel_button_locator = (By.CSS_SELECTOR, ".buttons .secondary-global-button")
     save_button_locator = (By.CSS_SELECTOR, ".buttons .primary-global-button")
 
     def __init__(self, driver: WebDriver):
@@ -31,26 +31,6 @@ class ProfileEditPage(BasePage):
         self.email_preferences: EmailPreferencesComponent = EmailPreferencesComponent(page_root)
         self.cancel_button: WebElement = page_root.find_element(*self.cancel_button_locator)
         self.save_button: WebElement = page_root.find_element(*self.save_button_locator)
-
-    def get_page_header(self) -> str:
-        """Return page title text."""
-        return self.page_title.text
-
-    def get_personal_info_component(self) -> PersonalInfoComponent:
-        """Return PersonalInfoComponent instance."""
-        return self.personal_info
-
-    def get_social_networks_component(self) -> SocialNetworksComponent:
-        """Return SocialNetworksComponent instance."""
-        return self.social_networks
-
-    def get_profile_privacy_component(self) -> ProfilePrivacyComponent:
-        """Return ProfilePrivacyComponent instance."""
-        return self.profile_privacy
-
-    def get_email_preferences_component(self) -> EmailPreferencesComponent:
-        """Return EmailPreferencesComponent instance."""
-        return self.email_preferences
 
     def click_cancel(self):
         """Click Cancel button."""
