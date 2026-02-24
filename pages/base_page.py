@@ -1,5 +1,5 @@
 """Base page class for all page objects."""
-
+from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,8 +16,8 @@ class BasePage:
     def __init__(self, driver: WebDriver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
-        header_root = self.driver.find_element(*self.header_root_locator)
-        self.header: HeaderComponent = HeaderComponent(header_root)
+        self.header: HeaderComponent = HeaderComponent(
+            self.driver.find_element(*self.header_root_locator))
 
     def navigate_to(self, url: str):
         """Navigate to the specified URL."""
@@ -38,3 +38,19 @@ class BasePage:
     def click(self, locator):
         """Click on the element specified by the locator."""
         self.find(locator).click()
+
+    def is_visible(self, locator: Locators) -> bool:
+        """Check if the element specified by the locator is visible."""
+        try:
+            self.find(locator)
+            return True
+        except NoSuchElementException:
+            return False
+
+    title_locator: tuple
+
+    def is_page_opened(self) -> bool:
+        """Check if the page is opened by verifying the visibility of the title element."""
+        if not hasattr(self, "title_locator"):
+            raise NotImplementedError("Page must define title_locator")
+        return self.is_visible(self.title_locator)

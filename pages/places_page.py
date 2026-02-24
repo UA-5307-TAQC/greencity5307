@@ -1,7 +1,10 @@
 """Page object for the Places page."""
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
 from components.places_components.add_place_modal_component import AddPlaceModalComponent
 from pages.base_page import BasePage
@@ -22,3 +25,18 @@ class PlacesPage(BasePage):
         """Open add place modal component."""
         self.add_place_button.click()
         return AddPlaceModalComponent(self.driver.find_element(*self.add_place_modal_locator))
+
+    @allure.step("Navigating to the About Us page from Places page")
+    def go_to_about_us(self):
+        """Navigate to the About Us page."""
+        from pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
+        self.header.click_about_us_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("about")
+        )
+        return AboutUsPage(self.driver)
+
+    @allure.step("Checking if Places page is opened")
+    def is_page_opened(self) -> bool:
+        """Check if the page is opened."""
+        return self.is_visible(self.add_place_button_locator)
