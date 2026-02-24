@@ -1,14 +1,14 @@
 """Module for testing search functionality in Friend Requests page."""
 
 from selenium.webdriver.remote.webdriver import WebDriver
+import pytest
+import allure
 
 from components.common_components.auth_components.signin_modal_component import \
     SignInComponent
 from data.config import Config
 from pages.friend_requests_page import FriendRequestsPage
 from pages.main_page import MainPage
-import pytest
-import allure
 
 @allure.title("Search friend requests by partial username")
 @allure.feature("Friends")
@@ -24,7 +24,7 @@ def test_search_requests_by_partial_username(driver: WebDriver):
     with allure.step("Link to my space page"):
         main_page.header.click_my_space()
 
-    with allure.step("Open My friends and request"):
+    with allure.step("Open Friends page and switch to Requests tab"):
         friend_requests_page = FriendRequestsPage(driver)
         friend_requests_page.click_plus_friends()
         friend_requests_page.click_requests_tab()

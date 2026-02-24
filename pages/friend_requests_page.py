@@ -19,7 +19,7 @@ class FriendRequestsPage(BasePage):
         "//a[contains(text(),'Friend requests') or contains(text(),'Запити')]"
     )
 
-    search_input_locator: Locators = (By.XPATH, "//input[@class='search']")
+    search_input_locator: Locators = (By.CSS_SELECTOR, "input.search")
 
     friend_name_locator: Locators = (
         By.XPATH, "//p[contains(@class,'friend-name')]")
@@ -27,7 +27,8 @@ class FriendRequestsPage(BasePage):
     my_space_tab_locator: Locators = (
         By.XPATH, "//a[contains(.,'Мій кабінет')]")
 
-    plus_my_friends_click: Locators = (By.XPATH, "//a[contains(.,'+')]")
+    plus_my_friends_click: Locators = (
+        By.XPATH, "//a[normalize-space(text()) = '+']")
 
     def click_my_space_tab(self) -> None:
         """Click My space tab."""
@@ -36,7 +37,7 @@ class FriendRequestsPage(BasePage):
         ).click()
 
     def click_plus_friends(self) -> None:
-        """Click My Space tab."""
+        """Click '+ friends' link/button."""
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.plus_my_friends_click)
         ).click()
