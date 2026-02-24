@@ -8,35 +8,36 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from components.base_component import BaseComponent
 from data.config import Config
-from utils.types import Locators
-
 
 class SignInComponent(BaseComponent):
     """Signin modal component class"""
-    email_locator: Locators = (By.ID, "email")
-    password_locator: Locators = (By.ID, "password")
-    forgot_password_locator: Locators = (By.CLASS_NAME, "forgot-password")
-    sign_in_button_locator: Locators = (By.XPATH,
-                                        "//app-sign-in//button[@type='submit']")
-    sign_in_with_google_button_locator: Locators = (By.CLASS_NAME,
-                                                    "google-sign-in")
-    sign_up_button_locator: Locators = (By.XPATH,
-                                        '//a[contains(text(), "Sign up")]')
 
-    def __init__(self, root: WebElement):
-        super().__init__(root)
-        self.email_input = self.root.find_element(*self.email_locator)
-        self.password_input = self.root.find_element(*self.password_locator)
-        self.sign_in_button = self.root.find_element(
-            *self.sign_in_button_locator)
+    locators = {
+        "email": (By.ID, "email"),
+        "password": (By.ID, "password"),
+        "forgot_password": (By.CLASS_NAME, "forgot-password"),
+        "sign_in_button": (By.XPATH, "//app-sign-in//button[@type='submit']"),
+        "sign_in_with_google_button": (By.CLASS_NAME, "google-sign-in"),
+        "sign_up_button": (By.XPATH, '//a[contains(text(), "Sign up")]')
+    }
+
+    # Type hints для зручності в IDE
+    email: WebElement
+    password: WebElement
+    forgot_password: WebElement
+    sign_in_button: WebElement
+    sign_in_with_google_button: WebElement
+    sign_up_button: WebElement
 
     @allure.step("Sign in")
-    def sign_in(self, driver: WebDriver, email: str, password: str) -> None:
+    def sign_in(self, driver: WebDriver, email: str, password: str) -> "MyHabitPage":
         """Signing in"""
-        self.email_input.send_keys(email)
-        self.password_input.send_keys(password)
-        self.sign_in_button.click()
-        # wait for sign in
+        self.email.send_keys(email)
+        self.password.send_keys(password)
+        self.sign_in_button.wait_and_click()
+
         WebDriverWait(driver, 10).until(
             EC.url_changes(Config.BASE_UI_URL)
         )
+        from pages.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
+        return MyHabitPage(driver)

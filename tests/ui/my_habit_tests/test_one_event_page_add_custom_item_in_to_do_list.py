@@ -29,7 +29,7 @@ def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
     one_habit_page = OneHabitPage(driver)
 
     one_habit_page.press_to_do_list_edit_button()
-    time.sleep(1)
+    time.sleep(0.5)
     new_item_text = "Eco Bag"
     one_habit_page.add_element_into_list(new_item_text)
 
