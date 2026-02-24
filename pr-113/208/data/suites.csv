@@ -1,7 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"Verify user can update name, city and credo on Edit Profile page and changes are saved successfully.","4664","Update basic profile information","tests.ui","Sun Feb 22 19:04:19 UTC 2026","passed","Sun Feb 22 19:04:24 UTC 2026","","test_edit_profile_info","",""
-"A simple smoke test that always passes.","10510","Smoke test for the main page","tests.ui","Sun Feb 22 19:04:27 UTC 2026","passed","Sun Feb 22 19:04:37 UTC 2026","","test_smoke","",""
-"A test for successful habit creation.","1790","Test for successful habit creation","tests.ui.habit_form_tests","Sun Feb 22 19:04:03 UTC 2026","passed","Sun Feb 22 19:04:04 UTC 2026","","test_successful_habit_creation","",""
-"This test verifies that a user can successfully open eco news page. ","3786","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Sun Feb 22 19:04:08 UTC 2026","passed","Sun Feb 22 19:04:12 UTC 2026","","test_create_update_eco_news_page","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Sun Feb 22 19:03:50 UTC 2026","passed","Sun Feb 22 19:03:50 UTC 2026","","test_stub","",""
-"Test like one news page like one news","3615","Test like one news on one news page","tests.ui.news_pages_tests","Sun Feb 22 19:04:13 UTC 2026","failed","Sun Feb 22 19:04:17 UTC 2026","","test_one_news_page_like_one_news","",""
