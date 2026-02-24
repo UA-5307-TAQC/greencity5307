@@ -1,5 +1,8 @@
 """This module contains the EcoNewsPage class, which represents the Eco News page of the website."""
 import allure
+
+
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.remote.webdriver import WebDriver
@@ -19,8 +22,8 @@ class EcoNewsPage(BasePage):
     """Page object for the Eco News page."""
 
     main_header_locator: Locators = (By.CSS_SELECTOR, ".cont >.main-header")
-    title_locator: Locators = (By.CSS_SELECTOR, "#main-content > div > div:nth-child(1) > div > h1")
     button_create_news_locator: Locators = (By.XPATH, "//*[@id='main-content']/div/div[1]/div/a")
+    title_locator: Locators = (By.CSS_SELECTOR, "#main-content > div > div:nth-child(1) > div > h1")
     news_cards_locator: Locators = (By.CSS_SELECTOR,
                                     ".ng-star-inserted .gallery-view-li-active")
     def __init__(self, driver: WebDriver):

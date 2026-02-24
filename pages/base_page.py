@@ -12,6 +12,7 @@ from utils.types import Locators
 class BasePage:
     """Base page class for all page objects."""
     header_root_locator: Locators = (By.XPATH, "//header[@role='banner']")
+    title_locator: tuple
 
     def __init__(self, driver: WebDriver):
         self.driver = driver
@@ -46,8 +47,6 @@ class BasePage:
             return True
         except NoSuchElementException:
             return False
-
-    title_locator: tuple
 
     def is_page_opened(self) -> bool:
         """Check if the page is opened by verifying the visibility of the title element."""
