@@ -6,53 +6,54 @@ from __future__ import annotations
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.wait import WebDriverWait
 
 from components.base_component import BaseComponent
 from components.common_components.auth_components.signin_modal_component import SignInComponent
+from utils.custom_web_element import CustomWebElement
 from utils.logger import logger
-from utils.types import Locators
 
 
 class HeaderComponent(BaseComponent):
     """Component class for the header section of a web page."""
-    new_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/news']")
-    event_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/events']")
-    sign_in_link_locator: Locators = (By.CSS_SELECTOR,
-                                      ".header_navigation-menu-right-list > .header_sign-in-link")
-    about_us_link_locator: Locators = (By.XPATH, ".//a[@href='#/greenCity/about']")
-    my_space_tab_locator: Locators = (By.XPATH,
-                                      ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]")
-    language_option = (By.XPATH, ".//li[contains(@class, 'lang-option')]/span")
+    locators = {
+        "new_link": (By.XPATH, ".//a[@href='#/greenCity/news']"),
+        "event_link": (By.XPATH, ".//a[@href='#/greenCity/events']"),
+        "sign_in_link": (By.CSS_SELECTOR,
+                         ".header_navigation-menu-right-list > .header_sign-in-link"),
+        "about_us_link": (By.XPATH, ".//a[@href='#/greenCity/about']"),
+        "my_space_tab": (By.XPATH, ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]"),
+        "language_option": (By.XPATH, ".//li[contains(@class, 'lang-option')]/span"),
+    }
+
+    new_link: CustomWebElement
+    event_link: CustomWebElement
+    sign_in_link: CustomWebElement
+    about_us_link: CustomWebElement
+    my_space_tab: CustomWebElement
+    language_option: CustomWebElement
 
     @allure.step("Clicking the My Space link in the header")
-    def click_my_space(self) -> "MySpaceAbstractPage":
-        """Click the my space link in the header
+    def click_my_space(self):
+        """Click my space link in the header
         and return an instance of the MySpaceAbstractPage."""
-        from pages.my_space_abstract_page import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.my_space_tab_locator)
-        ).click()
-        return MySpaceAbstractPage(self.root.parent)
+        from pages.my_space_abstract_page \
+            import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
 
-    def is_language_english(self) -> bool:
-        """Check if the current language is English by
-         inspecting the language option in the header."""
-        element = self.root.parent.find_element(*self.language_option)
-        return element.text.strip().lower() in ["en", "english"]
+        self.my_space_tab.wait_and_click()
+        return MySpaceAbstractPage(self.driver)
 
     @allure.step("Clicking the news link in the header")
-    def click_new_link(self):
+    def click_new_link(self) :
         """Click the news link in the header and return an instance of the EcoNewsPage."""
         logger.info("Clicking the news link in the header.")
 
         try:
-            WebDriverWait(self.root.parent, 10).until(
-                EC.element_to_be_clickable(self.new_link_locator)
-            ).click()
+            self.new_link.wait_and_click()
             logger.info("Successfully clicked the news link in the header.")
+
             from pages.eco_news_page import EcoNewsPage  # pylint: disable=import-outside-toplevel
-            return EcoNewsPage(self.root.parent)
+            return EcoNewsPage(self.driver)
 
         except Exception:
             logger.exception("Failed to click the news link in the header.")
@@ -61,25 +62,26 @@ class HeaderComponent(BaseComponent):
     @allure.step("Clicking the event link in the header")
     def click_event_link(self):
         """Click the event link in the header and return an instance of the EventPage."""
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.event_link_locator)
-        ).click()
         from pages.event_page import EventPage  # pylint: disable=import-outside-toplevel
-        return EventPage(self.root.parent)
 
-    @allure.step("Clicking signin button in the header")
+        self.event_link.wait_and_click()
+        return EventPage(self.driver)
+
     def click_sign_in_link(self) -> SignInComponent:
-        """Click the sign-in link in the header and return an instance of the SignInComponent."""
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.sign_in_link_locator)
-        ).click()
-        return SignInComponent(self.root.parent)
+        """Click the Sign-in link and return the SignInComponent modal."""
+        self.sign_in_link.wait_and_click()
+
+        modal_locator = (By.TAG_NAME, "app-auth-modal")
+        modal_element = WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(modal_locator)
+        )
+
+        return SignInComponent(self.driver, root=modal_element)
 
     @allure.step("Clicking the About Us link in the header")
     def click_about_us_link(self):
         """Click the About Us link in the header and return an instance of the AboutUsPage."""
-        WebDriverWait(self.root.parent, 10).until(
-            EC.element_to_be_clickable(self.about_us_link_locator)
-        ).click()
+        self.about_us_link.wait_and_click()
+
         from pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
-        return AboutUsPage(self.root.parent)
+        return AboutUsPage(self.driver)
