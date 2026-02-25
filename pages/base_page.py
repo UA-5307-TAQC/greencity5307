@@ -7,18 +7,19 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from components.header_component import HeaderComponent
 from utils.types import Locators
+from utils.page_factory import Factory
 
 
-class BasePage:
+class BasePage(Factory):
     """Base page class for all page objects."""
-    header_root_locator: Locators = (By.XPATH, "//header[@role='banner']")
+    locators = {
+        "header": (By.XPATH, "//header[@role='banner']", HeaderComponent)
+    }
     title_locator: tuple
 
     def __init__(self, driver: WebDriver):
-        self.driver = driver
+        super().__init__(driver)
         self.wait = WebDriverWait(driver, 10)
-        self.header: HeaderComponent = HeaderComponent(
-            self.driver.find_element(*self.header_root_locator))
 
     def navigate_to(self, url: str):
         """Navigate to the specified URL."""

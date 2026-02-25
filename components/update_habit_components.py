@@ -4,7 +4,6 @@ from selenium.common import NoSuchElementException
 from selenium.webdriver.common.by import By
 
 from components.base_component import BaseComponent
-from utils.types import Locators
 
 
 class HabitBasicInfoComponent(BaseComponent):
@@ -12,35 +11,36 @@ class HabitBasicInfoComponent(BaseComponent):
     Component that edit main information.
     """
 
-    title_field: Locators = (By.CSS_SELECTOR, "[formcontrolname='title']")
-
-    description_field: Locators = (By.CSS_SELECTOR, "[formcontrolname='description']")
-
-    difficulty_stars: Locators = (By.CSS_SELECTOR, "#complexityList")
-    tags: Locators = (By.CSS_SELECTOR, ".tag-button.ng-star-inserted")
+    locators = {
+        "title_field": (By.CSS_SELECTOR, "[formcontrolname='title']"),
+        "description_field": (By.CSS_SELECTOR, "[formcontrolname='description']"),
+        "difficulty_stars": (By.CSS_SELECTOR, "#complexityList li"),
+        "tags": (By.CSS_SELECTOR, ".tag-button.ng-star-inserted")
+    }
 
     def set_title(self, title: str):
         """Set new title."""
-        self.root.find_element(*self.title_field).send_keys(title)
+        self.title_field.clear()
+        self.title_field.send_keys(title)
 
     def get_title_value(self) -> str:
         """Get title value."""
-        return self.root.find_element(*self.title_field).get_attribute("value")
+        return self.title_field.get_attribute("value")
 
     def set_description(self, description: str):
         """Set description."""
-
-        self.root.find_element(*self.description_field).send_keys(description)
+        self.title_field.clear()
+        self.description_field.send_keys(description)
 
     def get_description_value(self) -> str:
         """Get current description value."""
-        return self.root.find_element(*self.description_field).get_attribute("value")
+        return self.description_field.get_attribute("value")
 
     def set_difficulty(self, level: int):
         """
         Set difficulty level.
         """
-        stars = self.root.find_elements(*self.difficulty_stars)
+        stars = self.resolve_list("difficulty_stars")
         if level < 1 or level > len(stars):
             raise ValueError(f"Difficulty {level} unavailable. Maximum: {len(stars)}")
 
@@ -50,10 +50,10 @@ class HabitBasicInfoComponent(BaseComponent):
         """
         Select tag by his name.
         """
-        tags = self.root.find_elements(*self.tags)
+        tags = self.resolve_list("tags")
 
         for tag in tags:
-            if tag.text.strip() == tag_name:
+            if tag.text.lower().strip() == tag_name.lower():
                 tag.click()
                 return True
 
@@ -64,16 +64,18 @@ class HabitProgressComponent(BaseComponent):
     """
     Component for progress bar block,
     """
-    progress_block = (By.CSS_SELECTOR, ".duration")
 
-    calendar_block = (By.CSS_SELECTOR, ".habit-progress")
+    locators = {
+        "progress_block": (By.CSS_SELECTOR, ".duration"),
+        "calendar_block": (By.CSS_SELECTOR, ".habit-progress")
+    }
 
     def is_progress_available(self):
         """Check if progress bar is available."""
-        elements = self.root.find_elements(*self.progress_block)
+        elements = self.resolve_list("progress_block")
         return len(elements) > 0 and elements[0].is_displayed()
 
     def is_calendar_visible(self) -> bool:
         """Check if calendar block is visible"""
-        elements = self.root.find_elements(*self.calendar_block)
+        elements = self.resolve_list("calendar_block")
         return len(elements) > 0 and elements[0].is_displayed()
