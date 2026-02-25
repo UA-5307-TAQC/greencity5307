@@ -3,7 +3,7 @@ Component for Personal info section of profile edit page.
 """
 
 import time
-
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
@@ -27,6 +27,7 @@ class PersonalInfoComponent(BaseComponent):
         self.city = self.root.find_element(*self.city_input)
         self.credo = self.root.find_element(*self.credo_textarea)
 
+    @allure.step("Fill Name field with value: {text}")
     def fill_name(self, text: str):
         """Fill the personal info field."""
         field = self.name
@@ -36,6 +37,7 @@ class PersonalInfoComponent(BaseComponent):
         field.send_keys(text)
         field.send_keys(Keys.TAB)
 
+    @allure.step("Fill City field with value: {city} and select suggestion")
     def fill_city(self, city: str):
         """Fill the city field and select item."""
         wait = WebDriverWait(self.root.parent, 5)
@@ -49,6 +51,7 @@ class PersonalInfoComponent(BaseComponent):
         suggestion.click()
         self.city.send_keys(Keys.TAB)
 
+    @allure.step("Fill Credo field with value: {text}")
     def fill_credo(self, text: str):
         """Fill the credo field."""
         field = self.credo
@@ -58,14 +61,17 @@ class PersonalInfoComponent(BaseComponent):
         field.send_keys(text)
         field.send_keys(Keys.TAB)
 
+    @allure.step("Get Name field value")
     def get_name_value(self) -> str:
         """Get the personal info field."""
         return self.name.get_attribute("value")
 
+    @allure.step("Get City field value")
     def get_city_value(self) -> str:
         """Get the city field."""
         return self.city.get_attribute("value")
 
+    @allure.step("Get Credo field value")
     def get_credo_value(self) -> str:
         """Get the credo field."""
         return self.credo.get_attribute("value")

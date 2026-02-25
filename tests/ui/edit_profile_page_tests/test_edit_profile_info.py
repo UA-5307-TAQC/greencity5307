@@ -24,15 +24,16 @@ def test_update_basic_profile_information(driver: WebDriver):
 
     base_page = BasePage(driver)
 
-    # Sign in
-    sign_in_component = base_page.header.click_sign_in_link()
-    sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    with allure.step("User signs in with valid credentials"):
+        sign_in_component = base_page.header.click_sign_in_link()
+        sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
 
-    my_space_page = MySpaceAbstractPage(driver)
-    my_space_page.profile_banner.click_edit_btn(driver)
+    with allure.step("User opens Edit Profile page"):
+        my_space_page = MySpaceAbstractPage(driver)
+        my_space_page.profile_banner.click_edit_btn(driver)
 
-    page = ProfileEditPage(driver)
-    personal_info_block = page.personal_info
+        page = ProfileEditPage(driver)
+        personal_info_block = page.personal_info
 
     # new_name = "Oleksandr"
     new_name = "test"
@@ -40,33 +41,26 @@ def test_update_basic_profile_information(driver: WebDriver):
     new_city = "Kharkiv"
     new_credo = "I sort waste every day"
 
-    # Step 2
-    personal_info_block.fill_name(new_name)
+    with allure.step("User updates personal information"):
+        personal_info_block.fill_name(new_name)
+        personal_info_block.fill_city(new_city)
+        personal_info_block.fill_credo(new_credo)
 
-    # Step 3
-    personal_info_block.fill_city(new_city)
-
-    # Step 4
-    personal_info_block.fill_credo(new_credo)
-
-    # Step 5
     assert page.is_save_enabled()
 
-    # Step 6
-    page.click_save()
+    with allure.step("User saves profile changes"):
+        page.click_save()
+        WebDriverWait(driver, 10).until(EC.url_contains("/profile/"))
 
-    # Step 7
-    WebDriverWait(driver, 10).until(EC.url_contains("/profile/"))
+    with allure.step("User reopens Edit Profile page to verify saved data"):
+        my_space_page = MySpaceAbstractPage(driver)
+        my_space_page.profile_banner.click_edit_btn(driver)
 
-    # Step 8 - reopen edit page
-    my_space_page = MySpaceAbstractPage(driver)
-    my_space_page.profile_banner.click_edit_btn(driver)
+        page = ProfileEditPage(driver)
+        personal_info_block = page.personal_info
 
-    page = ProfileEditPage(driver)
-    personal_info_block = page.personal_info
+        WebDriverWait(driver, 5).until(lambda d: personal_info_block.get_name_value() != "")
 
-    WebDriverWait(driver, 5).until(lambda d: personal_info_block.get_name_value() != "")
-
-    # Step 9-10
-    assert personal_info_block.get_name_value() == new_name
-    assert personal_info_block.get_city_value() == new_city + ", Ukraine"
+    with allure.step("Verify updated data is saved correctly"):
+        assert personal_info_block.get_name_value() == new_name
+        assert personal_info_block.get_city_value() == new_city + ", Ukraine"

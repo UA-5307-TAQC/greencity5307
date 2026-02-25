@@ -1,5 +1,7 @@
 """Edit profile page."""
 
+import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
@@ -32,14 +34,17 @@ class ProfileEditPage(BasePage):
         self.cancel_button: WebElement = page_root.find_element(*self.cancel_button_locator)
         self.save_button: WebElement = page_root.find_element(*self.save_button_locator)
 
+    @allure.step("Click Cancel button")
     def click_cancel(self):
         """Click Cancel button."""
         self.cancel_button.click()
 
+    @allure.step("Click Save button")
     def click_save(self):
         """Click Save button."""
         self.save_button.click()
 
+    @allure.step("Check if Save button is enabled")
     def is_save_enabled(self) -> bool:
         """Check if Save button is enabled."""
         return self.save_button.is_enabled()
