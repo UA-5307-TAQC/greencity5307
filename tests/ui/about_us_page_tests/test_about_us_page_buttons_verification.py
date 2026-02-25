@@ -15,11 +15,12 @@ from pages.my_habit_page import MyHabitPage
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-001")
 def test_about_us_page_click_habit_buttons(driver):
-    """
-        TC-001
-        Title: About us page "Form Habit" buttons verification
-        Author: Vitalina Kliuieva
-        Priority: High
+    """Test that a user can click Form Habit buttons on About Us page and navigate to My Habit page.
+
+    TC-001
+    Title: About us page "Form Habit" buttons verification
+    Author: Vitalina Kliuieva
+    Priority: High
     """
 
     main_page = MainPage(driver)
@@ -30,9 +31,9 @@ def test_about_us_page_click_habit_buttons(driver):
     about_page_one: AboutUsPage = main_page.go_to_about_us()
     my_habit_page_one: MyHabitPage = about_page_one.click_section_button_form_habit_one()
 
-    assert my_habit_page_one.is_page_opened(), "My habit page is not opened"
+    assert my_habit_page_one.is_page_loaded(), "My habit page is not opened"
 
     about_page_two: AboutUsPage = my_habit_page_one.go_to_about_us()
     my_habit_page_two: MyHabitPage = about_page_two.click_section_button_form_habit_two()
 
-    assert my_habit_page_two.is_page_opened(), "My habit page is not opened"
+    assert my_habit_page_two.is_page_loaded(), "My habit page is not opened"

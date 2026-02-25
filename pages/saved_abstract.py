@@ -3,23 +3,29 @@ which represents the saved_abstract page of a website."""
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
-from utils.types import Locators
 
 
 class SavedAbstract(BasePage):
     """Page object for the saved_abstract page."""
-
-    section_heading: Locators = (By.CSS_SELECTOR, "div > .main-header")
-    tabs: Locators = (By.CSS_SELECTOR, "div>.tabs")
+    locators ={
+         "section_heading": (By.CSS_SELECTOR, "div > .main-header"),
+         "tabs": (By.CSS_SELECTOR, "div>.tabs")
+    }
 
     def open_tab(self, index: int):
         """Clicks the tab at the specified index."""
-        self.find_all(self.tabs)[index].click()
+        tabs = self.resolve_list("tabs")
 
-    def get_section_heading(self):
+        if index < 0 or index >= len(tabs):
+            raise IndexError(f"Tab index must be between 0 and {len(tabs) - 1}")
+
+        tabs[index].wait_and_click()
+
+    def get_section_heading(self) -> str:
         """Gets the text of the section heading."""
-        return self.find(self.section_heading).text
+        return self.section_heading.text
 
-    def is_loaded(self):
+    def is_loaded(self) -> bool:
         """Checks if the page is loaded."""
-        return self.find_all(self.tabs)[0].is_displayed()
+        tabs = self.resolve_list("tabs")
+        return len(tabs) > 0 and tabs[0].is_displayed()
