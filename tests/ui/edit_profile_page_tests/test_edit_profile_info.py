@@ -1,7 +1,9 @@
 """Test update basic profile information."""
 
-import allure
 import time
+import pytest
+import allure
+
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,14 +14,20 @@ from pages.base_page import BasePage
 from pages.edit_profile_page import ProfileEditPage
 from pages.my_space_abstract_page import MySpaceAbstractPage
 
-
+@pytest.mark.parametrize(
+    "new_name, new_city, new_credo",
+    [
+        ("Hlib", "Kyiv", "I sort waste every day"),
+        ("Oleksandr", "Kharkiv", "Save nature every day"),
+    ],
+)
 @allure.title("Update basic profile information")
 @allure.description(
     "Verify user can update name, city and credo on Edit Profile page "
     "and changes are saved successfully."
 )
 @allure.severity(allure.severity_level.NORMAL)
-def test_update_basic_profile_information(driver: WebDriver):
+def test_update_basic_profile_information(driver: WebDriver, new_name, new_city, new_credo):
     """TC-EP-01"""
 
     base_page = BasePage(driver)
@@ -34,12 +42,6 @@ def test_update_basic_profile_information(driver: WebDriver):
 
         page = ProfileEditPage(driver)
         personal_info_block = page.personal_info
-
-    # new_name = "Oleksandr"
-    new_name = "test"
-    # new_city = "Kyiv"
-    new_city = "Kharkiv"
-    new_credo = "I sort waste every day"
 
     with allure.step("User updates personal information"):
         personal_info_block.fill_name(new_name)
