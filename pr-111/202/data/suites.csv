@@ -1,9 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"This test verifies that a user can successfully open eco news page. ","6575","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Sun Feb 22 11:53:42 UTC 2026","passed","Sun Feb 22 11:53:48 UTC 2026","","test_create_update_eco_news_page","",""
-"A simple smoke test that always passes.","12317","Smoke test for the main page","tests.ui","Sun Feb 22 11:53:56 UTC 2026","passed","Sun Feb 22 11:54:08 UTC 2026","","test_smoke","",""
-"Check that user is not able to submit a form on the Create habit page
-    after leaving the ""Title"" field empty.","215","Test that 'Habit title' field is required","tests.ui.habit_form_tests","Sun Feb 22 11:53:32 UTC 2026","passed","Sun Feb 22 11:53:33 UTC 2026","","test_required_title","",""
-"Check that user is able to create a new habit card by
-    filling in all required fields on the Create habit page.","1004","Test for successful habit creation","tests.ui.habit_form_tests","Sun Feb 22 11:53:39 UTC 2026","passed","Sun Feb 22 11:53:40 UTC 2026","","test_successful_habit_creation","",""
-"Test like one news page like one news","4863","Test like one news on one news page","tests.ui.news_pages_tests","Sun Feb 22 11:53:50 UTC 2026","passed","Sun Feb 22 11:53:55 UTC 2026","","test_one_news_page_like_one_news","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Sun Feb 22 11:53:16 UTC 2026","passed","Sun Feb 22 11:53:16 UTC 2026","","test_stub","",""
