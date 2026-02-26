@@ -1,7 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"Test like one news page like one news","2819","Test like one news on one news page","tests.ui.news_pages_tests","Fri Feb 20 16:42:56 UTC 2026","passed","Fri Feb 20 16:42:59 UTC 2026","","test_one_news_page_like_one_news","",""
-"A test for successful habit creation.","1445","Test for successful habit creation","tests.ui.habit_form_tests","Fri Feb 20 16:42:39 UTC 2026","passed","Fri Feb 20 16:42:40 UTC 2026","","test_successful_habit_creation","",""
-"A simple smoke test that always passes.","10499","Smoke test for the main page","tests.ui","Fri Feb 20 16:43:02 UTC 2026","passed","Fri Feb 20 16:43:12 UTC 2026","","test_smoke","",""
-"This test verifies that a user cannot successfully create eco new, because of invalid data. ","3304","Test Validation: Create Eco News with Invalid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Fri Feb 20 16:42:43 UTC 2026","passed","Fri Feb 20 16:42:46 UTC 2026","","test_create_eco_news_with_invalid_data","",""
-"This test verifies that a user can successfully create eco new. ","3786","Test Validation: Create Eco News with Valid Data.","tests.ui.news_pages_tests","Fri Feb 20 16:42:49 UTC 2026","passed","Fri Feb 20 16:42:53 UTC 2026","","test_create_eco_news_with_valid_data","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Fri Feb 20 16:42:24 UTC 2026","passed","Fri Feb 20 16:42:24 UTC 2026","","test_stub","",""
