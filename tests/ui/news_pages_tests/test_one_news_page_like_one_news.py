@@ -1,6 +1,5 @@
 """Module for test like one news page like one news"""
 import random
-import time
 
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
