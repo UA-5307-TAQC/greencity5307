@@ -43,3 +43,8 @@ class CreateUpdateEcoNewsPage(BasePage):
     def click_cancel(self):
         """Click the cancel button."""
         self.cancel_button.wait_and_click()
+
+    @allure.step("Clicking the submit button is disabled")
+    def is_submit_button_disabled(self) -> bool:
+        """Check if the submit button is disabled."""
+        return self.submit_button.is_enabled()
