@@ -11,21 +11,30 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
-from utils.types import Locators
-
 
 class PersonalInfoComponent(BaseComponent):
     """Component representing Personal info block."""
 
-    name_input: Locators = (By.CSS_SELECTOR, "input[formcontrolname='name']")
-    city_input: Locators = (By.CSS_SELECTOR, "app-input-google-autocomplete input")
-    credo_textarea: Locators = (By.CSS_SELECTOR, "textarea[formcontrolname='credo']")
+    # name_input: Locators = (By.CSS_SELECTOR, "input[formcontrolname='name']")
+    # city_input: Locators = (By.CSS_SELECTOR, "app-input-google-autocomplete input")
+    # credo_textarea: Locators = (By.CSS_SELECTOR, "textarea[formcontrolname='credo']")
+    #
+    # def __init__(self, root: WebElement):
+    #     super().__init__(root)
+    #     self.name = self.root.find_element(*self.name_input)
+    #     self.city = self.root.find_element(*self.city_input)
+    #     self.credo = self.root.find_element(*self.credo_textarea)
 
-    def __init__(self, root: WebElement):
-        super().__init__(root)
-        self.name = self.root.find_element(*self.name_input)
-        self.city = self.root.find_element(*self.city_input)
-        self.credo = self.root.find_element(*self.credo_textarea)
+    locators = {
+        "name": (By.CSS_SELECTOR, "input[formcontrolname='name']"),
+        "city": (By.CSS_SELECTOR, "app-input-google-autocomplete input"),
+        "credo": (By.CSS_SELECTOR, "textarea[formcontrolname='credo']")
+    }
+
+    name: WebElement
+    city: WebElement
+    credo: WebElement
+
 
     @allure.step("Fill Name field with value: {text}")
     def fill_name(self, text: str):
