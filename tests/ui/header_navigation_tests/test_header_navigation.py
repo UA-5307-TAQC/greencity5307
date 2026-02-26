@@ -1,7 +1,6 @@
 """File to test header navigation."""
 
 import allure
-from selenium.common import NoSuchElementException
 
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -32,11 +31,7 @@ def test_header_navigation(driver: WebDriver):
 
 
         sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-        try:
-            sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
-        except NoSuchElementException:
-            logger.warning(
-                "Caught NoSuchElementException from eager initialization in MyHabitPage. Ignoring and proceeding...")
+        sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
         WebDriverWait(driver, 10).until(
             EC.url_changes(initial_url),
@@ -51,12 +46,12 @@ def test_header_navigation(driver: WebDriver):
     with allure.step("Step 1: Click on 'Eco News', and ensure the site loaded on eco news page."):
         eco_news_page = main_page.go_to_eco_news()
         assert ("news" in driver.current_url
-                and eco_news_page.main_header.text in ("Eco news", "Еко новини")), "This is not Eco News page."
+                and eco_news_page.main_header_locator.text in ("Eco news", "Еко новини")), "This is not Eco News page."
 
     with allure.step("Step 2: Click on 'Events', and ensure the site loaded on events page."):
         event_page = eco_news_page.go_to_events()
         assert ("events" in driver.current_url
-                and event_page.main_header.text in ("Events", "Події")), "This is not Events page."
+                and event_page.main_header_locator.text in ("Events", "Події")), "This is not Events page."
 
     with allure.step("Step 3: Click on 'Places', and ensure the site loaded on places page."):
         places_page = event_page.go_to_places()

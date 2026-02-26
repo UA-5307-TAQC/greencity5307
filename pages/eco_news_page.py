@@ -24,10 +24,10 @@ class EcoNewsPage(BasePage):
                                         ".ng-star-inserted .gallery-view-li-active")
     }
 
-    main_header_locator : CustomWebElement
-    button_create_news_locator : CreateNewButtonComponent
-    title_locator : CustomWebElement
-    news_cards_locator : NewsCardBaseComponent
+    main_header_locator: CustomWebElement
+    button_create_news_locator: CreateNewButtonComponent
+    title_locator: CustomWebElement
+    news_cards_locator: NewsCardBaseComponent
 
     def get_button_create_news(self) -> CreateNewButtonComponent:
         """Get the create news button component."""
