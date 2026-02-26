@@ -1,14 +1,14 @@
 """Base page class for all page objects."""
-from selenium.common import NoSuchElementException
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from components.header_component import HeaderComponent
+from utils.page_factory import Factory
 from utils.types import Locators
 
-from utils.page_factory import Factory
 
 class BasePage(Factory):
     """Base page class for all page objects."""
@@ -19,9 +19,9 @@ class BasePage(Factory):
     title_locator: tuple
 
     def __init__(self, driver: WebDriver):
+        """Initialize the component"""
         super().__init__(driver)
 
-        self.driver = driver
         self.wait = WebDriverWait(driver, 10)
 
     def navigate_to(self, url: str):
@@ -32,24 +32,16 @@ class BasePage(Factory):
         """Get the title of the current page."""
         return self.driver.title
 
-    def find(self, locator):
+    def find(self, locator: Locators):
         """Find single element with wait"""
         return self.wait.until(EC.visibility_of_element_located(locator))
-
-    def find_all(self, locator):
-        """Find list of elements"""
-        return self.wait.until(EC.presence_of_all_elements_located(locator))
-
-    def click(self, locator):
-        """Click on the element specified by the locator."""
-        self.find(locator).click()
 
     def is_visible(self, locator: Locators) -> bool:
         """Check if the element specified by the locator is visible."""
         try:
             self.find(locator)
             return True
-        except NoSuchElementException:
+        except (NoSuchElementException, TimeoutException):
             return False
 
     def is_page_opened(self) -> bool:
