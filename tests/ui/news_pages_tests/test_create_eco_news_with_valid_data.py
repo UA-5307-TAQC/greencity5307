@@ -1,5 +1,4 @@
 """This module contains tests for creating eco news with valid data"""
-import pytest
 import allure
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
@@ -8,18 +7,13 @@ from pages.eco_news_page import EcoNewsPage
 from pages.main_page import MainPage
 from data.config import Config
 
-
-
-
-
  # pylint: disable=no-member
-@allure.title("Test Validation: Create Eco News with Valid Data. Open Create Eco News page.")
-@allure.description("This test verifies that a user can successfully open eco news page. ")
+@allure.title("Test Validation: Create Eco News with Valid Data.")
+@allure.description("This test verifies that a user can successfully create eco new. ")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-101")
-@allure.step("Open Create Eco News page")
-def test_open_create_update_eco_news_page(driver):
+def test_create_eco_news_with_valid_data(driver):
     """
         TC-101
         Title: Create eco news with valid data
@@ -56,3 +50,4 @@ def test_open_create_update_eco_news_page(driver):
     assert form.get_content() == content
 
     create_news_page.click_submit()
+    assert create_news_page.is_page_opened(), "Create Eco News page is not opened after submit"
