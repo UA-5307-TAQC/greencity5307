@@ -1,0 +1,3 @@
+INFO     GreenCityLogger:test_smoke.py:11 Starting Smoke Test
+INFO     GreenCityLogger:test_smoke.py:15 Checking 'There are' text on Main Page
+INFO     GreenCityLogger:test_smoke.py:20 Clicking 'News' link in header

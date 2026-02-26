@@ -1,0 +1,3 @@
+2026-02-26 12:08:04,470 - GreenCityLogger - INFO - Starting Smoke Test
+2026-02-26 12:08:04,470 - GreenCityLogger - INFO - Checking 'There are' text on Main Page
+2026-02-26 12:08:04,499 - GreenCityLogger - INFO - Clicking 'News' link in header
