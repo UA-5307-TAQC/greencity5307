@@ -4,9 +4,9 @@
 import allure
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class CalendarComponent(BaseComponent):
@@ -16,15 +16,13 @@ class CalendarComponent(BaseComponent):
         "month_year": (By.CSS_SELECTOR, "button.monthAndYear"),
         "next_btn": (By.CSS_SELECTOR, "img.arrow-next"),
         "prev_btn": (By.CSS_SELECTOR, "img.arrow-previous"),
-        "day": (By.XPATH,
-                ".//button[contains(@class,'calendar-grid-day') "
-                "and contains(@class,'current-day')]/span")
+        "day": (By.CSS_SELECTOR, "button.current-day span")
     }
 
-    month_year: WebElement
-    next_btn: WebElement
-    prev_btn: WebElement
-    day: WebElement
+    month_year: CustomWebElement
+    next_btn: CustomWebElement
+    prev_btn: CustomWebElement
+    day: CustomWebElement
 
 
     @allure.step("Get current date on Calendar component")

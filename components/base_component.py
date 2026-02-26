@@ -9,8 +9,7 @@ class BaseComponent(Factory):
 
     def __init__(self, root: WebElement):
         """Initialize BaseComponent object."""
-        super().__init__(root.parent, root=root)
-
+        super().__init__(root.parent, root)
         self.wait = WebDriverWait(self.driver, 10)
 
     def is_displayed(self) -> bool:

@@ -68,7 +68,7 @@ class Factory(Generic[T]):
         from components.base_component import BaseComponent # pylint: disable=C0415
 
         if issubclass(element_type, BaseComponent):
-            return cast(T, element_type(root=web_element))
+            return cast(T, element_type(web_element))
 
         # Handle raw Selenium WebElements -> ТЕПЕР ОБГОРТАЄМО ЇХ
         if element_type is WebElement:

@@ -4,29 +4,30 @@ which represents the Friend page with All friends tab."""
 import allure
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 from components.friend_card_component import FriendCardComponent
 from pages.friend_abstract_page import FriendAbstractPage
-from utils.types import Locators
+from utils.custom_web_element import CustomWebElement
 
 
 class AllFriendsPage(FriendAbstractPage):
     """Class for the all friends tab of Friend page."""
-    cards_root_locator: Locators = (By.CSS_SELECTOR, "div.friend-item-wrapper")
-    default_text_locator: Locators = (By.XPATH, ".//h3[@class='no-friends']")
 
+    locators = {
+        "card_roots": (By.CSS_SELECTOR, "div.friend-item-wrapper"),
+        "default_text": (By.XPATH, ".//h3[@class='no-friends']")
+    }
 
-    def __init__(self, driver):
-        super().__init__(driver)
-        self.card_roots = self.driver.find_elements(*self.cards_root_locator)
-        self.default_text = self.driver.find_element(*self.default_text_locator)
-
+    card_roots: list
+    default_text: CustomWebElement
 
     @allure.step("Get all friend cards on the All friends tab on User profile page")
     def get_cards_list(self) -> list:
         """Get all friend cards on the all friends tab."""
+        found_card_roots = self.resolve_list("card_roots")
         friend_cards = []
-        for card_root in self.card_roots:
+        for card_root in found_card_roots:
             friend_cards.append(FriendCardComponent(card_root))
         return friend_cards
 
@@ -34,4 +35,4 @@ class AllFriendsPage(FriendAbstractPage):
     @allure.step("Get the text on the All friends tab without friends on User profile page")
     def get_default_text(self) -> str:
         """Get the text on the all friends tab without friends."""
-        return self.default_text.text
+        return self.wait.until(EC.visibility_of(self.default_text)).text

@@ -42,13 +42,12 @@ class MyHabitPage(MySpaceAbstractPage):
             EC.visibility_of_element_located(locator)
         )
 
-        @allure.step("Clicking Add New Habit button on the My Habit page")
-        def click_add_new_habit_button(self):
-            """Click on Add New Habit button."""
-            from pages.all_habits_page import AllHabitPage  # pylint: disable=import-outside-toplevel
-
-            self.add_new_habit_button.wait_and_click()
-            return AllHabitPage(self.driver)
+    @allure.step("Clicking Add New Habit button on the My Habit page")
+    def click_add_new_habit_button(self):
+        """Click on Add New Habit button."""
+        from pages.all_habits_page import AllHabitPage  # pylint: disable=import-outside-toplevel
+        self.add_new_habit_button.wait_and_click()
+        return AllHabitPage(self.driver)
 
     @allure.step("Navigating to the About Us page from My Habit page")
     def go_to_about_us(self):
