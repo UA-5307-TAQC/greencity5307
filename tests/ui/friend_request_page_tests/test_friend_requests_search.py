@@ -18,7 +18,7 @@ def test_search_requests_by_partial_username(driver: WebDriver):
     with allure.step("Open main page and sign in"):
         main_page = MainPage(driver)
         sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-        sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+        sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     with allure.step("Link to my space page"):
         main_page.header.click_my_space()

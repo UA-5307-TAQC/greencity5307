@@ -17,6 +17,7 @@ class BasePage(Factory):
     }
 
     title_locator: tuple
+    header: HeaderComponent
 
     def __init__(self, driver: WebDriver):
         """Initialize the component"""

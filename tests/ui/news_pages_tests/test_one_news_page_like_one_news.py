@@ -20,7 +20,7 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     main_page = MainPage(driver)
     # sign in
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
     # link to news page
     news_page: EcoNewsPage = main_page.go_to_eco_news()
     # get random number to get random news_card

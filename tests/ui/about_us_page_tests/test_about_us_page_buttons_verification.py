@@ -26,7 +26,7 @@ def test_about_us_page_click_habit_buttons(driver):
     main_page = MainPage(driver)
 
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     about_page_one: AboutUsPage = main_page.go_to_about_us()
     my_habit_page_one: MyHabitPage = about_page_one.click_section_button_form_habit_one()
