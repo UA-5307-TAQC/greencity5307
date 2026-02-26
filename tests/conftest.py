@@ -61,8 +61,7 @@ def driver_with_login(driver):
     with allure.step(f"Logging in the user with email: {Config.USER_EMAIL}"):
         main_page = MainPage(driver)
         sign_in_form = main_page.header.click_sign_in_link()
-        sign_in_form.sign_in(driver,
-                             Config.USER_EMAIL,
+        sign_in_form.sign_in(Config.USER_EMAIL,
                              Config.USER_PASSWORD).wait_page_loaded()
     yield driver
 

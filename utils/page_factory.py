@@ -68,7 +68,7 @@ class Factory(Generic[T]):
         from components.base_component import BaseComponent # pylint: disable=C0415
 
         if issubclass(element_type, BaseComponent):
-            return cast(T, element_type(self.driver, root=web_element))
+            return cast(T, element_type(web_element))
 
         # Handle raw Selenium WebElements -> ТЕПЕР ОБГОРТАЄМО ЇХ
         if element_type is WebElement:
@@ -109,7 +109,7 @@ class Factory(Generic[T]):
 
         # Instantiate each element in the list as a component if applicable
         if issubclass(el_type, BaseComponent):
-            return [el_type(self.driver, root=el) for el in elements]
+            return [el_type(el) for el in elements]
 
         # Якщо це стандартний WebElement, обгортаємо кожен елемент списку у CustomWebElement,
         # щоб поведінка була консистентною з _resolve_element

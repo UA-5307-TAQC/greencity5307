@@ -25,7 +25,7 @@ def test_update_basic_profile_information(driver: WebDriver):
 
     # Sign in
     sign_in_component = base_page.header.click_sign_in_link()
-    sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     my_space_page = MySpaceAbstractPage(driver)
     my_space_page.profile_banner.click_edit_btn(driver)

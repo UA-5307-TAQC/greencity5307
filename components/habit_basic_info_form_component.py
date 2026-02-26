@@ -5,50 +5,48 @@ import allure
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from components.base_component import BaseComponent
-from utils.types import Locators
+from utils.custom_web_element import CustomWebElement
 
 
 class HabitBasicInfoFormComponent(BaseComponent):
     """Component class for the habit basic form of the Create Habit page."""
-    title_locator: Locators = (By.XPATH, ".//input[@placeholder='Enter name for the habit']")
-    stars_locator: Locators = (By.CSS_SELECTOR, "li.star-button")
-    tags_locator: Locators = (By.CSS_SELECTOR, "app-tags-select button")
-    description_locator: Locators = (By.XPATH, ".//div[@data-placeholder='Describe the habit']")
-    submit_locator: Locators = \
-        (By.XPATH, ".//div[@class='habit-block']//button[text()[contains(., 'Submit')]]")
-    dropzone_locator: Locators = (By.CSS_SELECTOR, "div.dropzone")
-    images_locator: Locators = (By.CSS_SELECTOR, "app-select-images button")
 
-    add_habit_btn_locator: Locators = (By.XPATH, ".//button[text() [contains(.,'Add Habit')]]")
+    locators = {
+        "title": (By.XPATH, ".//input[@placeholder='Enter name for the habit']"),
+        "stars": (By.CSS_SELECTOR, "li.star-button"),
+        "tags": (By.CSS_SELECTOR, "app-tags-select button"),
+        "description": (By.XPATH, ".//div[@data-placeholder='Describe the habit']"),
+        "submit_img_btn": (By.CSS_SELECTOR, "div.cropper-buttons button.primary-global-button"),
+        "dropzone": (By.CSS_SELECTOR, "div.dropzone"),
+        "images": (By.CSS_SELECTOR, "app-select-images button"),
+        "add_habit_btn": (By.CSS_SELECTOR, "div.add-habit-container button.primary-global-button")
+    }
 
-
-    def __init__(self, root: WebElement):
-        super().__init__(root)
-        self.title = self.root.find_element(*self.title_locator)
-        self.stars = self.root.find_elements(*self.stars_locator)
-        self.tags = self.root.find_elements(*self.tags_locator)
-        self.submit_img_btn = self.root.find_element(*self.submit_locator)
-        self.images = self.root.find_elements(*self.images_locator)
-        self.add_habit_btn = self.root.find_element(*self.add_habit_btn_locator)
+    title: CustomWebElement
+    stars: list
+    tags: list
+    description: CustomWebElement
+    submit_img_btn: CustomWebElement
+    dropzone: CustomWebElement
+    images: list
+    add_habit_btn: CustomWebElement
 
 
     @allure.step("Enter text into title field on Create Habit form")
     def enter_title(self, text: str):
         """Enter text into title field."""
-        self.title.send_keys(text)
+        self.wait.until(EC.visibility_of(self.title)).send_keys(text)
 
 
     @allure.step("Enter text into description field on Create Habit form")
     def enter_description(self, text: str):
         """Enter text into description textarea."""
-        description = self.root.find_element(*self.description_locator)
-        description.send_keys(text)
+        self.wait.until(EC.visibility_of(self.description)).send_keys(text)
 
 
     @allure.step("Choose difficulty")
@@ -57,12 +55,14 @@ class HabitBasicInfoFormComponent(BaseComponent):
         levels = {'easy': 0,
                   'medium': 1,
                   'hard': 2}
+        found_stars = self.resolve_list("stars")
+
         index = levels.get(difficulty.lower())
 
         if index is None:
             raise ValueError(f"Invalid difficulty: {difficulty}.")
 
-        self.stars[index].click()
+        found_stars[index].wait_and_click()
 
 
     @allure.step("Choose tags for habit on Create Habit form")
@@ -77,6 +77,7 @@ class HabitBasicInfoFormComponent(BaseComponent):
             'recycling/waste sorting': 5
             }
         indexes = []
+        found_tags = self.resolve_list("tags")
 
         for tag in chosen_tags:
             index = list_of_tags.get(tag)
@@ -85,7 +86,7 @@ class HabitBasicInfoFormComponent(BaseComponent):
             indexes.append(index)
 
         for i in indexes:
-            self.tags[i].click()
+            found_tags[i].wait_and_click()
 
 
     @allure.step("Choose an image")
@@ -94,19 +95,21 @@ class HabitBasicInfoFormComponent(BaseComponent):
         if image_num > 3 or image_num < 1:
             raise ValueError(f"Invalid image number: {image_num}.")
 
+        found_images = self.resolve_list("images")
         actions = ActionChains(driver)
-        image = self.images[image_num - 1]
-        dropzone = self.root.find_element(*self.dropzone_locator)
-        actions.drag_and_drop(image, dropzone).perform()
+        image = found_images[image_num - 1]
+        actions.drag_and_drop(image, self.dropzone).perform()
 
-        self.submit_img_btn.click()
+        self.submit_img_btn.wait_and_click()
 
 
     @allure.step("Clicking the Add Habit button on Create Habit form")
-    def submit_form(self):
+    def submit_form(self) -> "AllHabitPage":
         """Submit habit form."""
-        self.add_habit_btn.click()
+        from pages.all_habits_page import AllHabitPage # pylint: disable=import-outside-toplevel
+        self.add_habit_btn.wait_and_click()
 
         WebDriverWait(self.root.parent, 10).until(
             EC.url_contains("allhabits")
         )
+        return AllHabitPage(self.root.parent)

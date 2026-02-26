@@ -126,7 +126,7 @@ class CreateUpdateEcoNewsFormComponent(BaseComponent):
     def get_tags_input(self) -> CreateUpdateEcoNewsTagsComponent:
         """Get the form component."""
         element = self.driver.find_element(*self.locators["tags_input"])
-        return CreateUpdateEcoNewsTagsComponent(self.driver, element)
+        return CreateUpdateEcoNewsTagsComponent(element)
 
     def enter_title(self, title: str):
         """Enter title."""
