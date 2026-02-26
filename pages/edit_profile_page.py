@@ -1,14 +1,8 @@
 """Edit profile page."""
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
-from components.personal_info_component import PersonalInfoComponent
-from components.social_networks_component import SocialNetworksComponent
-from components.profile_privacy_component import ProfilePrivacyComponent
-from components.email_preferences_component import EmailPreferencesComponent
 from utils.types import Locators
 
 
@@ -20,17 +14,6 @@ class ProfileEditPage(BasePage):
     cancel_button_locator = (By.CSS_SELECTOR, ".buttons .secondary-global-button")
     save_button_locator = (By.CSS_SELECTOR, ".buttons .primary-global-button")
 
-    def __init__(self, driver: WebDriver):
-        super().__init__(driver)
-        self.page_title: WebElement = self.driver.find_element(*self.page_title_locator)
-        page_root = self.driver.find_element(*self.page_root_locator)
-
-        self.personal_info: PersonalInfoComponent = PersonalInfoComponent(page_root)
-        self.social_networks: SocialNetworksComponent = SocialNetworksComponent(page_root)
-        self.profile_privacy: ProfilePrivacyComponent = ProfilePrivacyComponent(page_root)
-        self.email_preferences: EmailPreferencesComponent = EmailPreferencesComponent(page_root)
-        self.cancel_button: WebElement = page_root.find_element(*self.cancel_button_locator)
-        self.save_button: WebElement = page_root.find_element(*self.save_button_locator)
 
     def click_cancel(self):
         """Click Cancel button."""

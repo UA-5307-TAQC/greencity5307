@@ -4,7 +4,6 @@
 import allure
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -30,10 +29,6 @@ class MyProfileDataBannerComponent(BaseComponent):
     habits_in_prog: WebElement
     news: WebElement
     events: WebElement
-
-    def __init__(self, driver: WebDriver, root: WebElement):
-        super().__init__(driver, root=root)
-
 
     @allure.step("Click on Edit profile button on Profile Banner component")
     def click_edit_btn(self):
