@@ -19,7 +19,7 @@ def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
 
     sign_in_component = base_page.header.click_sign_in_link()
 
-    sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     page = MyHabitPage(driver)
 

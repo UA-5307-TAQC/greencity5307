@@ -27,7 +27,7 @@ def test_about_us_page_sing_in_vision_cards_buttons_check(driver):
     main_page = MainPage(driver)
 
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     about_page: AboutUsPage = main_page.go_to_about_us()
     assert about_page.is_page_loaded(), "About Us page is not opened"

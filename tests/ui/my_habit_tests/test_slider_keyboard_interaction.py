@@ -13,7 +13,7 @@ def test_slider_keyboard_interaction(driver: WebDriver):
 
     sign_in_component = base_page.header.click_sign_in_link()
 
-    sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     page = MyHabitPage(driver)
 

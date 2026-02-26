@@ -109,7 +109,7 @@ class Factory(Generic[T]):
 
         # Instantiate each element in the list as a component if applicable
         if issubclass(el_type, BaseComponent):
-            return [el_type(self.driver, root=el) for el in elements]
+            return [el_type(el) for el in elements]
 
         # Якщо це стандартний WebElement, обгортаємо кожен елемент списку у CustomWebElement,
         # щоб поведінка була консистентною з _resolve_element

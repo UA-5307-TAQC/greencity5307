@@ -24,7 +24,7 @@ def test_create_eco_news_with_valid_data(driver):
     main_page = MainPage(driver)
 
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     news_page: EcoNewsPage = main_page.go_to_eco_news()
     create_news_page: CreateUpdateEcoNewsPage = news_page.click_create_button()

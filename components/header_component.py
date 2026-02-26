@@ -82,7 +82,7 @@ class HeaderComponent(BaseComponent):
         """Click the main page link in the header and return an instance of the MainPage."""
         from pages.main_page import MainPage  # pylint: disable=import-outside-toplevel
         self.main_page.wait_and_click()
-        return MainPage(self.root.parent)
+        return MainPage(self.driver)
 
     @allure.step("Clicking the places link in the header")
     def click_places_link(self) -> "PlacesPage":
@@ -90,7 +90,7 @@ class HeaderComponent(BaseComponent):
         from pages.places_pages.places_page import PlacesPage # pylint: disable=import-outside-toplevel
 
         self.places_link.wait_and_click()
-        return PlacesPage(self.root.parent)
+        return PlacesPage(self.driver)
 
     @allure.step("Clicking the about us link in the header")
     def click_about_us_link(self) -> "AboutUsPage":
@@ -98,7 +98,7 @@ class HeaderComponent(BaseComponent):
         from pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
         self.about_us_link.wait_and_click()
 
-        return AboutUsPage(self.root.parent)
+        return AboutUsPage(self.driver)
 
     @allure.step("Clicking the my space link in the header")
     def click_my_space_link(self) -> "MySpaceAbstractPage":
@@ -108,14 +108,14 @@ class HeaderComponent(BaseComponent):
         """
         from pages.my_space_abstract_page import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
         self.my_space_tab.wait_and_click()
-        return MySpaceAbstractPage(self.root.parent)
+        return MySpaceAbstractPage(self.driver)
 
     @allure.step("Clicking the UBS Courier link in the header")
     def click_ubs_courier_link(self) -> "UBSCourierPage":
         """Click the UBS Courier link in the header and return an instance of the UBSCourierPage."""
         from pages.ubc_courier_page import UBSCourierPage  # pylint: disable=import-outside-toplevel
         self.ubs_courier_link.wait_and_click()
-        return UBSCourierPage(self.root.parent)
+        return UBSCourierPage(self.driver)
 
     @allure.step("Clicking signin button in the header")
     def click_sign_in_link(self) -> SignInComponent:
