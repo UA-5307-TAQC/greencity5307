@@ -1,178 +1,165 @@
 """Create/Update eco news components."""
-from typing import Tuple
-
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 
 from components.base_component import BaseComponent
-from components.header_component import HeaderComponent
-from utils.types import Locators
+from utils.custom_web_element import CustomWebElement
 
 
 class CreateUpdateEcoNewsTitleComponent(BaseComponent):
     """Component that contains title information."""
-    section_title: Locators = (By.XPATH, "//*[@id='main-content']/div/div[1]/h2")
-    section_description: Locators = (By.XPATH, "//*[@id='main-content']/div/div[1]/div/p")
+    locators = {
+        "section_title" : (By.XPATH, "//*[@id='main-content']/div/div[1]/h2"),
+        "section_description" : (By.XPATH, "//*[@id='main-content']/div/div[1]/div/p")
+    }
+
+    section_title_input: CustomWebElement
+    section_description_input: CustomWebElement
 
     def get_section_title_and_description_value(self):
         """Get title value."""
-        title = self.root.find_element(*self.section_title).text
-        description = self.root.find_element(*self.section_description).text
-        return title, description
+        return self.section_title.text, self.section_description.text
 
 class CreateUpdateEcoNewsPictureComponent(BaseComponent):
     """Component that contains picture upload."""
-    Locators = Tuple[str, str]
-    picture_browse: Locators = (By.XPATH,
-                                "/html/body/app-root/app-main/div/div[2]/app-greencity-main/" \
-                                "app-eco-news/div/app-create-edit-news/main/div/div[2]/form/" \
-                                "div[1]/div[4]/app-drag-and-drop/div[1]/div/div/input")
-    cancel_button: Locators = (By.XPATH,
+    locators = {
+        "picture_browse": (By.XPATH,
+                                    "/html/body/app-root/app-main/div/div[2]/app-greencity-main/" \
+                                    "app-eco-news/div/app-create-edit-news/main/div/div[2]/form/" \
+                                    "div[1]/div[4]/app-drag-and-drop/div[1]/div/div/input"),
+        "cancel_button": (By.XPATH,
                                "//*[@id='main-content']/div/div[2]/form/div[1]/div[4]/" \
-                               "app-drag-and-drop/div[2]/div[2]/button[1]")
-    submit_button: Locators = (By.XPATH,
+                               "app-drag-and-drop/div[2]/div[2]/button[1]"),
+        "submit_button": (By.XPATH,
                                "//*[@id='main-content']/div/div[2]/form/div[1]/div[4]/" \
-                               "app-drag-and-drop/div[2]/div[2]/button[2]")
+                               "app-drag-and-drop/div[2]/div[2]/button[2]"),
 
-    browsed_picture: Locators = (By.XPATH, "//*[@id='main-content']/div/div[2]/form/div[1]/" \
+        "browsed_picture": (By.XPATH, "//*[@id='main-content']/div/div[2]/form/div[1]/" \
                                            "div[4]/app-drag-and-drop/div/div[1]/img")
+    }
 
+    picture_browse: CustomWebElement
+    cancel_button: CustomWebElement
+    submit_button: CustomWebElement
+    browsed_picture: CustomWebElement
 
+    @allure.step("Upload image in EcoNews form")
     def upload_image(self, image_path: str):
-        """Upload image using the file input inside picture_browse."""
-
-        file_input = WebDriverWait(self.root, 10).until(
-            lambda r: r.find_element(*self.picture_browse))
-        self.root.parent.execute_script("arguments[0].style.display='block'; "
-                                        "arguments[0].style.opacity=1;",
-                                        file_input)
-
-        file_input.send_keys(image_path)
-
-        submit_btn = WebDriverWait(self.root.parent, 20).until(
-            lambda driver: driver.find_element(*self.submit_button)
-            if driver.find_element(*self.submit_button).is_enabled() else False
+        """Upload image using the file input and click submit."""
+        # Show hidden input if needed
+        self.driver.execute_script(
+            "arguments[0].style.display='block'; arguments[0].style.opacity=1;",
+            self.picture_input
         )
-        submit_btn.click()
+        self.picture_input.send_keys(image_path)
+        self.submit_button.wait_and_click()
 
 class CreateUpdateEcoNewsTagsComponent(BaseComponent):
     """Component that contains tags choice information."""
+    locators = {
+        "tag_button" : (By.XPATH,
+                        "//*[@id='main-content']/div/div[2]/form/"
+                        "div[1]/div[2]/div/app-tags-select"),
+        "selected_tag_button" : (By.XPATH, ".//button[contains(@class, 'global-tag-clicked')]")
+    }
 
-    tag_button = "//*[@id='main-content']/div/div[2]/form/div[1]/div[2]/div/app-tags-select"
-    selected_tag_button = ".//button[contains(@class, 'global-tag-clicked')]"
+    tag_button: CustomWebElement
+    selected_tag_button: CustomWebElement
+
 
     @allure.step("Select multiple tags")
     def select_tag(self, tag_name: str):
         """Select a tag by name."""
-        container = self.root.find_element(By.XPATH, self.tag_button)
-        header = HeaderComponent(self.root)
-        if not header.is_language_english():
-            if tag_name.lower() == "news":
-                tag_name = "новини"
-            elif tag_name.lower() == "events":
-                tag_name = "події"
-            elif tag_name.lower() == "education":
-                tag_name = "освіта"
-            elif tag_name.lower() == "initiatives":
-                tag_name = "ініціативи"
-            elif tag_name.lower() == "ads":
-                tag_name = "реклама"
+        uk_tags = ["новини","події","освіта","ініціативи", "реклама"]
+        if tag_name in uk_tags:
+            mapping = {
+                "news": "новини",
+                "events": "події",
+                "education": "освіта",
+                "initiatives": "ініціативи",
+                "ads": "реклама"
+            }
+            tag_name = mapping.get(tag_name.lower(), tag_name)
 
+        buttons = self.root.find_elements(By.TAG_NAME, "button")
 
-        for button in container.find_elements(By.TAG_NAME, "button"):
+        for button in buttons:
             if button.text.strip().lower() == tag_name.strip().lower():
                 button.click()
                 return
 
-        raise ValueError(
-            f"Tag with name '{tag_name}' not found in eco news tags component."
-        )
+        raise ValueError(f"Tag '{tag_name}' not found.")
 
-    def select_multiple_tags(self, *tags):
-        """Select multiple tags."""
+    @allure.step("Select multiple tags")
+    def select_multiple_tags(self, *tags: str):
+        """Select multiple tags by their names."""
         for tag in tags:
             self.select_tag(tag)
 
     def get_selected_tags(self) -> list[str]:
         """Return list of selected tag names."""
-        elements = self.root.find_elements(By.XPATH, self.selected_tag_button)
-        return [el.text for el in elements]
-
+        elements = self.root.find_elements(
+            By.XPATH,
+            ".//button[contains(@class, 'global-tag-clicked')]"
+        )
+        return [el.text.strip() for el in elements]
 
 class CreateUpdateEcoNewsFormComponent(BaseComponent):
     """Component that contains main form"""
-    Locators = Tuple[str, str]
-    title_input: Locators = (By.XPATH,
-                             "//*[@id='main-content']/div/div[2]/form/div[1]/div[1]/label/textarea")
-    source_input: Locators = (By.XPATH,
-                              "//*[@id='main-content']/div/div[2]/form/div[1]/div[3]/label/input")
-    content_input: Locators = (By.XPATH,
+    locators = {"title_input": (By.XPATH,
+                                "//*[@id='main-content']/div/div[2]/"
+                                "form/div[1]/div[1]/label/textarea"),
+        "source_input": (By.XPATH,
+                              "//*[@id='main-content']/div/div[2]/form/div[1]/div[3]/label/input"),
+        "content_input": (By.XPATH,
                                "//*[@id='main-content']/div/div[2]/" \
-                               "form/div[2]/quill-editor/div[2]/div[1]")
+                               "form/div[2]/quill-editor/div[2]/div[1]"),
+        "tags_input": (By.XPATH,
+                       "//*[@id='main-content']/div/div[2]/form/div[1]/div[2]/div/app-tags-select")
+    }
 
-    def __init__(self, root: WebElement):
-        """Initialize the component."""
-        super().__init__(root)
-        self.tags_input = CreateUpdateEcoNewsTagsComponent(root)
-        self.picture_input = CreateUpdateEcoNewsPictureComponent(root)
+    title_input: CustomWebElement
+    source_input: CustomWebElement
+    content_input: CustomWebElement
+    tags_input: CreateUpdateEcoNewsTagsComponent
 
-    def get_tags(self) -> list[str]:
-        """Get selected tags."""
-        return self.tags_input.get_selected_tags()
+    def get_tags_input(self) -> CreateUpdateEcoNewsTagsComponent:
+        """Get the form component."""
+        element = self.driver.find_element(*self.locators["tags_input"])
+        return CreateUpdateEcoNewsTagsComponent(self.driver, element)
 
     def enter_title(self, title: str):
         """Enter title."""
-        element = WebDriverWait(self.root, 10).until(
-            EC.element_to_be_clickable(self.title_input)
-        )
-        element.clear()
-        element.send_keys(title)
+        self.title_input.clear()
+        self.title_input.send_keys(title)
 
     def get_title(self) -> str:
         """Get title."""
-        element = WebDriverWait(self.root, 10).until(
-            EC.visibility_of_element_located(self.title_input)
-        )
-        return element.get_attribute("value")
+        return self.title_input.get_attribute("value")
 
     def enter_source(self, source: str):
         """Enter source."""
-        element = WebDriverWait(self.root, 10).until(
-            EC.element_to_be_clickable(self.source_input)
-        )
-        element.clear()
-        element.send_keys(source)
+        self.source_input.clear()
+        self.source_input.send_keys(source)
 
     def get_source(self) -> str:
         """Get source."""
-        element = WebDriverWait(self.root, 10).until(
-            EC.visibility_of_element_located(self.source_input)
-        )
-        return element.get_attribute("value")
+        return self.source_input.get_attribute("value")
 
     def enter_content(self, content: str):
         """Enter content."""
-        element = WebDriverWait(self.root, 10).until(
-            EC.element_to_be_clickable(self.content_input)
-        )
-        element.clear()
-        element.send_keys(content)
+        self.content_input.clear()
+        self.content_input.send_keys(content)
 
     def get_content(self) -> str:
         """Get content."""
-        element = WebDriverWait(self.root, 10).until(
-            EC.visibility_of_element_located(self.content_input)
-        )
-        return element.text.strip()
+        return self.content_input.text.strip()
 
     @allure.step("Fill eco news form")
     # pylint: disable=too-many-positional-arguments
     def fill_form(self, title: str, tags: tuple, source: str, content: str):
         """Fill the entire form."""
         self.enter_title(title)
-        self.tags_input.select_multiple_tags(*tags)
+        self.get_tags_input().select_multiple_tags(*tags)
         self.enter_source(source)
         self.enter_content(content)

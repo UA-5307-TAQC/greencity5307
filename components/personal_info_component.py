@@ -5,7 +5,6 @@ Component for Personal info section of profile edit page.
 import time
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -20,12 +19,6 @@ class PersonalInfoComponent(BaseComponent):
     name_input: Locators = (By.CSS_SELECTOR, "input[formcontrolname='name']")
     city_input: Locators = (By.CSS_SELECTOR, "app-input-google-autocomplete input")
     credo_textarea: Locators = (By.CSS_SELECTOR, "textarea[formcontrolname='credo']")
-
-    def __init__(self, root: WebElement):
-        super().__init__(root)
-        self.name = self.root.find_element(*self.name_input)
-        self.city = self.root.find_element(*self.city_input)
-        self.credo = self.root.find_element(*self.credo_textarea)
 
     def fill_name(self, text: str):
         """Fill the personal info field."""

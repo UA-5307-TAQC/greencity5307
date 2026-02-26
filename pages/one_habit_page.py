@@ -1,6 +1,7 @@
 """ OneHabitPage elements"""
 
 import allure
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
@@ -121,3 +122,22 @@ class OneHabitPage(BasePage):
 
         self.delete_habit_button.wait_and_click()
         return AllHabitPage(self.driver)
+
+    @allure.step("Move slider to the right")
+    def move_slider_right(self, value: int):
+        """Move slider using keyboard arrows"""
+        for _ in range(value):
+            self.duration_day_slider.send_keys(Keys.ARROW_RIGHT)
+        return self
+    @allure.step("Move slider to the left")
+    def move_slider_left(self,value: int):
+        """Move slider using keyboard arrows"""
+        for _ in range(value):
+            self.duration_day_slider.send_keys(Keys.ARROW_LEFT)
+        return self
+
+    @allure.step("Get current slider value")
+    def get_slider_value(self) -> int:
+        """Returns the current numeric value of the slider"""
+        value_str = self.duration_day_slider.get_attribute("aria-valuetext")
+        return int(value_str)
