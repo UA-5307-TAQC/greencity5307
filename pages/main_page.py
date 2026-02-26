@@ -2,10 +2,8 @@
 It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 
-
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,6 +12,7 @@ from components.common_components.auth_components.signin_modal_component import 
 from pages.about_us_page import AboutUsPage
 from pages.base_page import BasePage
 from pages.eco_news_page import EcoNewsPage
+
 
 class MainPage(BasePage):
     """Page object for the main page."""
@@ -27,9 +26,6 @@ class MainPage(BasePage):
     header_locator: WebElement
     main_header: WebElement
 
-    def __init__(self, driver: WebDriver):
-        # pylint: disable=useless-parent-delegation
-        super().__init__(driver)
 
     def sign_in(self) -> SignInComponent:
         """Click the Sign-in link in the header and return an instance of the SignInComponent."""
