@@ -1,25 +1,24 @@
 """Page object for the Places page."""
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
+
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 from components.places_components.add_place_modal_component import AddPlaceModalComponent
 from pages.base_page import BasePage
-from utils.types import Locators
+from utils.custom_web_element import CustomWebElement
 
 
 class PlacesPage(BasePage):
     """Page object for the Eco News page."""
-    add_place_button_locator: Locators = (By.CSS_SELECTOR,
-                                          ".secondary-global-button.m-btn.ng-star-inserted")
-    add_place_modal_locator: Locators = (By.CSS_SELECTOR, ".ng-star-inserted > .form-container")
-
-    def __init__(self, driver: WebDriver):
-        super().__init__(driver)
-        self.add_place_button: WebElement = self.driver.find_element(*self.add_place_button_locator)
+    locators = {
+        "add_place_button": (By.CSS_SELECTOR,
+                                     ".secondary-global-button.m-btn.ng-star-inserted"),
+        "add_place_modal": (By.CSS_SELECTOR, ".ng-star-inserted > .form-container")
+    }
+    add_place_button: CustomWebElement
+    add_place_modal: AddPlaceModalComponent
 
     def open_add_place_modal(self) -> AddPlaceModalComponent:
         """Open add place modal component."""
@@ -39,4 +38,12 @@ class PlacesPage(BasePage):
     @allure.step("Checking if Places page is opened")
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
-        return self.is_visible(self.add_place_button_locator)
+        return self.is_visible(self.add_place_button)
+
+    @allure.step("Checking if Places page is loaded")
+    def is_page_loaded(self) -> bool:
+        """Checks if the page is loaded."""
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of(self.add_place_button)
+        )
+        return True
