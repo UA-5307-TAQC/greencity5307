@@ -1,7 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"A simple smoke test that always passes.","11320","Smoke test for the main page","tests.ui","Mon Feb 23 11:00:27 UTC 2026","passed","Mon Feb 23 11:00:39 UTC 2026","","test_smoke","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Mon Feb 23 10:59:50 UTC 2026","passed","Mon Feb 23 10:59:50 UTC 2026","","test_stub","",""
-"Test like one news page like one news","3597","Test like one news on one news page","tests.ui.news_pages_tests","Mon Feb 23 11:00:22 UTC 2026","passed","Mon Feb 23 11:00:25 UTC 2026","","test_one_news_page_like_one_news","",""
-"A test for successful habit creation.","1568","Test for successful habit creation","tests.ui.habit_form_tests","Mon Feb 23 11:00:05 UTC 2026","passed","Mon Feb 23 11:00:07 UTC 2026","","test_successful_habit_creation","",""
-"This test verifies that a user can successfully open eco news page. ","4689","Test Validation: Create Eco News with Valid Data. Open Create Eco News page.","tests.ui.news_pages_tests","Mon Feb 23 11:00:15 UTC 2026","passed","Mon Feb 23 11:00:20 UTC 2026","","test_create_update_eco_news_page","",""
-"Function to test header navigation.","3809","Header navigation test.","tests.ui.header_navigation_tests","Mon Feb 23 11:00:09 UTC 2026","passed","Mon Feb 23 11:00:13 UTC 2026","","test_header_navigation","",""

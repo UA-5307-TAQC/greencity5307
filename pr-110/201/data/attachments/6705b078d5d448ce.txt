@@ -1,2 +1,0 @@
-2026-02-22 11:46:31,044 - GreenCityLogger - INFO - Clicking the news link in the header.
-2026-02-22 11:46:31,151 - GreenCityLogger - INFO - Successfully clicked the news link in the header.
