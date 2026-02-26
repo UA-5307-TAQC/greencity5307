@@ -1,5 +1,0 @@
-"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
-"A simple smoke test that always passes.","10615","Smoke test for the main page","tests.ui","Thu Feb 19 15:56:06 UTC 2026","passed","Thu Feb 19 15:56:17 UTC 2026","","test_smoke","",""
-"We check possibility add field into to do list of some special habit","17530","Add custom item into to_do_list","tests.ui.my_habit_tests","Thu Feb 19 15:55:41 UTC 2026","passed","Thu Feb 19 15:55:58 UTC 2026","","test_one_event_page_add_custom_item_in_to_do_list","",""
-"A test that does nothing and always passes.","0","test_nothing","tests","Thu Feb 19 15:55:29 UTC 2026","passed","Thu Feb 19 15:55:29 UTC 2026","","test_stub","",""
-"Test like one news page like one news","2499","Test like one news on one news page","tests.ui.news_pages_tests","Thu Feb 19 15:56:01 UTC 2026","failed","Thu Feb 19 15:56:03 UTC 2026","","test_one_news_page_like_one_news","",""
