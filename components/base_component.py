@@ -1,5 +1,4 @@
 """Base component class for web elements using Selenium WebDriver."""
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -8,9 +7,9 @@ from utils.page_factory import Factory
 class BaseComponent(Factory):
     """Base component class for web elements using Selenium WebDriver."""
 
-    def __init__(self, driver: WebDriver, root: WebElement):
+    def __init__(self, root: WebElement):
         """Initialize BaseComponent object."""
-        super().__init__(driver, root=root)
+        super().__init__(root.parent, root=root)
 
         self.wait = WebDriverWait(self.driver, 10)
 

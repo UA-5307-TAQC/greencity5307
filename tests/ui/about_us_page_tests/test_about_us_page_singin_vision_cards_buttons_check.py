@@ -6,7 +6,7 @@ from pages.about_us_page import AboutUsPage
 from pages.eco_news_page import EcoNewsPage
 from pages.friends_abstract_page import FriendsAbstractPage
 from pages.main_page import MainPage
-from pages.places_page import PlacesPage
+from pages.places_pages.places_page import PlacesPage
 
 
 # pylint: disable=no-member

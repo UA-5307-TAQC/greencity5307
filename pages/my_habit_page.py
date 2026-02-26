@@ -1,11 +1,10 @@
 """
 Habit page
 """
-
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from components.user_habit_card_component import UserHabitCardComponent
 from pages.my_space_abstract_page import MySpaceAbstractPage
@@ -46,8 +45,8 @@ class MyHabitPage(MySpaceAbstractPage):
         @allure.step("Clicking Add New Habit button on the My Habit page")
         def click_add_new_habit_button(self):
             """Click on Add New Habit button."""
-
             from pages.all_habits_page import AllHabitPage  # pylint: disable=import-outside-toplevel
+
             self.add_new_habit_button.wait_and_click()
             return AllHabitPage(self.driver)
 

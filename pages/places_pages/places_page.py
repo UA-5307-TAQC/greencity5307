@@ -20,10 +20,11 @@ class PlacesPage(BasePage):
     add_place_button: CustomWebElement
     add_place_modal: AddPlaceModalComponent
 
+    @allure.step("Open modal form to add place")
     def open_add_place_modal(self) -> AddPlaceModalComponent:
         """Open add place modal component."""
         self.add_place_button.click()
-        return AddPlaceModalComponent(self.driver.find_element(*self.add_place_modal_locator))
+        return AddPlaceModalComponent(self.add_place_modal)
 
     @allure.step("Navigating to the About Us page from Places page")
     def go_to_about_us(self):

@@ -39,12 +39,16 @@ class HeaderComponent(BaseComponent):
         and return an instance of the MySpaceAbstractPage."""
         from pages.my_space_abstract_page \
             import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
-
         self.my_space_tab.wait_and_click()
         return MySpaceAbstractPage(self.driver)
 
+    def is_language_english(self) -> bool:
+        """Check if the current language is English by
+         inspecting the language option in the header."""
+        return self.language_option.text.strip().lower() in ["en", "english"]
+
     @allure.step("Clicking the news link in the header")
-    def click_new_link(self) :
+    def click_new_link(self) -> "EcoNewsPage":
         """Click the news link in the header and return an instance of the EcoNewsPage."""
         logger.info("Clicking the news link in the header.")
 
@@ -60,13 +64,13 @@ class HeaderComponent(BaseComponent):
             raise
 
     @allure.step("Clicking the event link in the header")
-    def click_event_link(self):
+    def click_event_link(self) -> "EventPage":
         """Click the event link in the header and return an instance of the EventPage."""
         from pages.event_page import EventPage  # pylint: disable=import-outside-toplevel
-
         self.event_link.wait_and_click()
         return EventPage(self.driver)
 
+    @allure.step("Clicking signin button in the header")
     def click_sign_in_link(self) -> SignInComponent:
         """Click the Sign-in link and return the SignInComponent modal."""
         self.sign_in_link.wait_and_click()
@@ -76,7 +80,7 @@ class HeaderComponent(BaseComponent):
             EC.visibility_of_element_located(modal_locator)
         )
 
-        return SignInComponent(self.driver, root=modal_element)
+        return SignInComponent(modal_element)
 
     @allure.step("Clicking the About Us link in the header")
     def click_about_us_link(self):
