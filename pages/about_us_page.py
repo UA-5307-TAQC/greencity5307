@@ -18,8 +18,8 @@ class AboutUsPage(BasePage):
     locators = {
         "section_header_one": (By.XPATH, "//*[@id='main-content']/div[1]/div/h2"),
         "section_description_one": (By.XPATH, "//*[@id='main-content']/div[1]/div/p"),
-        "section_button_form_habit_one": (By.XPATH,
-                                          "//*[@id='main-content']/div[1]/div/button"),
+        "section_button_form_habit_one": (By.CSS_SELECTOR,
+            "#main-content > div.about-section.section > div > button"),
 
         "section_header_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/h2"),
         "section_description_two": (By.XPATH, "//*[@id='main-content']/div[2]/div/div/p"),
@@ -32,26 +32,6 @@ class AboutUsPage(BasePage):
     }
 
 
-    def get_button_one_component(self):
-        """Get the first Form habit button component."""
-        element = self.driver.find_element(*self.locators["section_button_form_habit_one"])
-        return AboutUsPageHabitButtonComponent(self.driver, element)
-
-    def get_button_two_component(self):
-        """Get the second Form habit button component."""
-        element = self.driver.find_element(*self.locators["section_button_form_habit_two"])
-        return AboutUsPageHabitButtonComponent(self.driver, element)
-
-
-    def click_section_button_form_habit_one(self):
-        """Click the form habit button one and return my habits page."""
-        self.get_button_one_component().click_form_habit_button_one()
-        return MyHabitPage(self.driver)
-
-    def click_section_button_form_habit_two(self):
-        """Click the form habit button two and return my habits page."""
-        self.get_button_two_component().click_form_habit_button_two()
-        return MyHabitPage(self.driver)
 
     def get_vision_cards(self) -> list[VisionCardComponent]:
         """Return list of VisionCardComponent objects."""
