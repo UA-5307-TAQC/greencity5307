@@ -1,5 +1,4 @@
 """My friends page"""
-
 from selenium.webdriver.common.by import By
 
 from pages.base_page import BasePage
@@ -9,12 +8,14 @@ from components.friend_item_component import FriendItemComponent
 class FriendsPage(BasePage):
     """Friends page"""
 
-    back_btn = (By.CSS_SELECTOR, ".button-link")
-    search_input = (By.CSS_SELECTOR, ".searchForm input.search")
-    tab_my_friends = (By.XPATH, "//a[contains(., 'My friends')]")
-    tab_find_friend = (By.XPATH, "//a[contains(., 'Find a friend')]")
-    tab_friend_requests = (By.XPATH, "//a[contains(., 'Friend requests')]")
-    friend_cards = (By.CSS_SELECTOR, ".friends-list .user-card")
+    locators = {
+        "back_btn" : (By.CSS_SELECTOR, ".button-link"),
+        "search_input" : (By.CSS_SELECTOR, ".searchForm input.search"),
+        "tab_my_friends" : (By.XPATH, "//a[contains(., 'My friends')]"),
+        "tab_find_friend" : (By.XPATH, "//a[contains(., 'Find a friend')]"),
+        "tab_friend_requests" : (By.XPATH, "//a[contains(., 'Friend requests')]"),
+        "friend_cards" : (By.CSS_SELECTOR, ".friends-list .user-card")
+    }
 
     def click_back(self):
         """Click back"""
@@ -39,5 +40,8 @@ class FriendsPage(BasePage):
 
     def get_friend_items(self):
         """Get friend items"""
-        elements = self.driver.find_elements(*self.friend_cards)
-        return [FriendItemComponent(el) for el in elements]
+        elements = self.driver.find_elements(*self.locators["friend_cards"])
+        return [
+            FriendItemComponent(self.driver, element)
+            for element in elements
+        ]
