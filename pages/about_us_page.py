@@ -5,7 +5,7 @@ from components.vision_card_component import VisionCardComponent
 from pages.base_page import BasePage
 from pages.eco_news_page import EcoNewsPage
 from pages.friends_abstract_page import FriendsAbstractPage
-from pages.places_page import PlacesPage
+from pages.places_pages.places_page import PlacesPage
 from utils.types import Locators
 
 
