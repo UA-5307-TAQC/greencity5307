@@ -33,7 +33,7 @@ class CreateUpdateEcoNewsPage(BasePage):
     def get_form(self) -> CreateUpdateEcoNewsFormComponent:
         """Get the form component."""
         element = self.driver.find_element(*self.locators["form"])
-        return CreateUpdateEcoNewsFormComponent(self.driver, element)
+        return CreateUpdateEcoNewsFormComponent(element)
 
     @allure.step("Clicking the submit button")
     def click_submit(self):

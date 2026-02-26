@@ -8,7 +8,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
-from pages.places_page import PlacesPage
+from pages.places_pages.places_page import PlacesPage
 from utils.types import Locators
 
 

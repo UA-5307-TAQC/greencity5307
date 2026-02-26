@@ -5,7 +5,6 @@ import allure
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
 
 from components.base_component import BaseComponent
 
@@ -17,8 +16,6 @@ class ToDoListComponent(BaseComponent):
         "to_do_items": (By.XPATH, ".//ul[@class='to-do-list to-do-list-min']/li")
     }
 
-    def __init__(self, driver: WebDriver, root: WebElement):
-        super().__init__(driver, root=root)
 
     @allure.step("Get list of dictionaries of to-do items from To-do List component")
     def get_to_do_list(self) -> list:

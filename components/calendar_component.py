@@ -4,7 +4,6 @@
 import allure
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
 from components.base_component import BaseComponent
@@ -27,8 +26,6 @@ class CalendarComponent(BaseComponent):
     prev_btn: WebElement
     day: WebElement
 
-    def __init__(self, driver: WebDriver, root: WebElement):
-        super().__init__(driver, root=root)
 
     @allure.step("Get current date on Calendar component")
     def get_current_date(self) -> str:

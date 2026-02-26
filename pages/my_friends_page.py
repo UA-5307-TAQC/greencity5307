@@ -42,6 +42,6 @@ class FriendsPage(BasePage):
         """Get friend items"""
         elements = self.driver.find_elements(*self.locators["friend_cards"])
         return [
-            FriendItemComponent(self.driver, element)
+            FriendItemComponent(element)
             for element in elements
         ]

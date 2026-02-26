@@ -33,13 +33,13 @@ class MySpaceAbstractPage(BasePage):
         super().__init__(driver)
 
         self.profile_banner: MyProfileDataBannerComponent = \
-            MyProfileDataBannerComponent(self.driver, root=self.profile_root)
+            MyProfileDataBannerComponent(self.profile_root)
 
         self.calendar: CalendarComponent = \
-            CalendarComponent(self.driver, root=self.profile_root)
+            CalendarComponent(self.profile_root)
 
         self.to_do_list: ToDoListComponent = \
-            ToDoListComponent(self.driver, root=self.profile_root)
+            ToDoListComponent(self.profile_root)
 
     @allure.step("Click on My habits tab on My Space page")
     def click_my_habits_tab(self):
