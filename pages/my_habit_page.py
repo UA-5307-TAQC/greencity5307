@@ -3,16 +3,16 @@ Habit page
 """
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.user_habit_card_component import UserHabitCardComponent
 from pages.my_space_abstract_page import MySpaceAbstractPage
+from utils.custom_web_element import CustomWebElement
+
 
 class MyHabitPage(MySpaceAbstractPage):
     """ Habit page """
-
     locators = {
         "first_habit_card": (By.XPATH, "(//app-one-habit)[1]", UserHabitCardComponent),
         "habit_cards_list": (By.TAG_NAME, "app-one-habit", UserHabitCardComponent),
@@ -22,12 +22,8 @@ class MyHabitPage(MySpaceAbstractPage):
     }
 
     first_habit_card: UserHabitCardComponent
-    add_new_habit_button: WebElement
-    my_habits_tab: WebElement
-
-    def __init__(self, driver):
-        # pylint: disable=useless-parent-delegation
-        super().__init__(driver)
+    add_new_habit_button: CustomWebElement
+    my_habits_tab: CustomWebElement
 
     @allure.step("Get habit card component")
     def get_habit_card(self) -> UserHabitCardComponent:
@@ -46,29 +42,29 @@ class MyHabitPage(MySpaceAbstractPage):
             EC.visibility_of_element_located(locator)
         )
 
-    @allure.step("Clicking Add New Habit button on the My Habit page")
-    def click_add_new_habit_button(self):
-        """Click on Add New Habit button."""
-        from pages.all_habits_page import AllHabitPage # pylint: disable=import-outside-toplevel
+        @allure.step("Clicking Add New Habit button on the My Habit page")
+        def click_add_new_habit_button(self):
+            """Click on Add New Habit button."""
+            from pages.all_habits_page import AllHabitPage  # pylint: disable=import-outside-toplevel
 
-        self.add_new_habit_button.wait_and_click()
-        return AllHabitPage(self.driver)
+            self.add_new_habit_button.wait_and_click()
+            return AllHabitPage(self.driver)
 
-    @allure.step("Navigating to the About Us page from My Habit page")
-    def go_to_about_us(self):
-        """Navigate to the About Us page."""
-        from pages.about_us_page import AboutUsPage # pylint: disable=import-outside-toplevel
+        @allure.step("Navigating to the About Us page from My Habit page")
+        def go_to_about_us(self):
+            """Navigate to the About Us page."""
+            from pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
 
-        self.header.click_about_us_link()
-        WebDriverWait(self.driver, 10).until(
-            EC.url_contains("about")
-        )
-        return AboutUsPage(self.driver)
+            self.header.click_about_us_link()
+            WebDriverWait(self.driver, 10).until(
+                EC.url_contains("about")
+            )
+            return AboutUsPage(self.driver)
 
-    @allure.step("Checking if My Habit page is opened")
-    def is_page_opened(self) -> bool:
-        """Check if the page is opened."""
-        try:
-            return self.my_habits_tab.is_displayed()
-        except Exception: # pylint: disable=broad-exception-caught
-            return False
+        @ allure.step("Checking if My Habit page is opened")
+        def is_page_opened(self) -> bool:
+            """Check if the page is opened."""
+            try:
+                return self.my_habits_tab.is_displayed()
+            except Exception:  # pylint: disable=broad-exception-caught
+                return False

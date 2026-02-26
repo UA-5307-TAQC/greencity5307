@@ -1,5 +1,6 @@
 """This module contains the EcoNewsPage class, which represents the Eco News page of the website."""
 import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -10,32 +11,34 @@ from components.news_components.news_card_base_component import \
 from pages.base_page import BasePage
 from pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
 from pages.event_page import EventPage
-
+from utils.custom_web_element import CustomWebElement
 
 class EcoNewsPage(BasePage):
     """Page object for the Eco News page."""
 
     locators = {
-        "main_header": (By.CSS_SELECTOR, ".cont >.main-header"),
-        "button_create_news": (By.XPATH,
-                               "//*[@id='main-content']/div/div[1]/div/a"),
-        "title": (By.CSS_SELECTOR,
-                  "#main-content > div > div:nth-child(1) > div > h1"),
-        "news_cards": (By.CSS_SELECTOR,
-                       ".ng-star-inserted .gallery-view-li-active",
-                       NewsCardBaseComponent),
+        "main_header_locator": (By.CSS_SELECTOR, ".cont >.main-header"),
+        "button_create_news_locator":  (By.XPATH, "//*[@id='main-content']/div/div[1]/div/a"),
+        "title_locator":  (By.XPATH, "//*[@id='main-content']/div/div[1]/div/h1"),
+        "news_cards_locator":  (By.CSS_SELECTOR,
+                                        ".ng-star-inserted .gallery-view-li-active")
     }
 
-    def get_new_button_component(self):
+    main_header_locator : CustomWebElement
+    button_create_news_locator : CreateNewButtonComponent
+    title_locator : CustomWebElement
+    news_cards_locator : NewsCardBaseComponent
+
+    def get_button_create_news(self) -> CreateNewButtonComponent:
         """Get the create news button component."""
-        return CreateNewButtonComponent(
-            self.find(self.button_create_news_locator))
+        element = self.driver.find_element(*self.locators["button_create_news_locator"])
+        return CreateNewButtonComponent(element)
 
     @allure.step("Clicking the create news button")
     def click_create_button(self):
         """Click the create news link in the page and return an instance of the
         CreateUpdateEcoNews."""
-        self.get_new_button_component().click_create_new_button()
+        self.get_button_create_news().click_create_new_button()
         return CreateUpdateEcoNewsPage(self.driver)
 
     @allure.step("Navigating to the Events page")
@@ -57,3 +60,19 @@ class EcoNewsPage(BasePage):
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)
+
+    @allure.step("Checking if Eco News page is opened")
+    def is_page_opened(self) -> bool:
+        """Check if the page is opened."""
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("news")
+        )
+        return self.button_create_news_locator.is_displayed()
+
+    @allure.step("Checking if Eco News page is loaded")
+    def is_page_loaded(self) -> bool:
+        """Checks if the page is loaded."""
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.locators["button_create_news_locator"])
+        )
+        return True
