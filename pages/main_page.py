@@ -4,7 +4,6 @@ and methods for interacting with the main page elements."""
 
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -17,7 +16,6 @@ from pages.eco_news_page import EcoNewsPage
 
 class MainPage(BasePage):
     """Page object for the main page."""
-
     locators = {
         "there_are": (By.CSS_SELECTOR, "#stats > h2"),
         "header_locator": (By.CSS_SELECTOR, "#stats > h1"),
@@ -28,9 +26,6 @@ class MainPage(BasePage):
     header_locator: WebElement
     main_header: WebElement
 
-    def __init__(self, driver: WebDriver):
-        # pylint: disable=useless-parent-delegation
-        super().__init__(driver)
 
     def sign_in(self) -> SignInComponent:
         """Click the Sign-in link in the header and return an instance of the SignInComponent."""

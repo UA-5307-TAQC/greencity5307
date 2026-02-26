@@ -1,7 +1,5 @@
 """Base page class for all page objects."""
-from typing import Any
-
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,9 +10,8 @@ from utils.page_factory import Factory
 from utils.types import Locators
 
 
-class BasePage(Factory[Any]):
+class BasePage(Factory):
     """Base page class for all page objects."""
-
     locators = {
         "header": (By.XPATH, "//header[@role='banner']", HeaderComponent)
     }
