@@ -29,7 +29,7 @@ def test_find_friend_verify_user_search_friend_request(driver_with_login, target
 
         # Expected result:
         # The "My Space" page loads successfully.
-        assert my_space_page.is_loaded(), "'My Space' page did not load successfully."
+        assert my_space_page.is_page_loaded(), "'My Space' page did not load successfully."
 
     with allure.step("Step 3: Click in the "+" icon in the 'My Friends' section "
                                              "within the profile information banner"):

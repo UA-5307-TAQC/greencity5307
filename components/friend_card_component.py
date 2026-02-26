@@ -39,14 +39,16 @@ class FriendCardComponent(BaseComponent):
 
     def click_cancel_request_btn(self):
         """Click Cancel request button."""
-        actual_friend_button = self.root.find_element(*self.add_friend_btn_locator)
+        actual_friend_button = self.add_friend_btn
         if actual_friend_button.text.strip() == "Cancel request":
             actual_friend_button.wait_and_click()
 
     @allure.step("Click on a Friend card")
     def click_friend_card(self):
         """Click on a friend card."""
+        from pages.all_habits_user_page import AllHabitsUsersPage
         self.root.wait_and_click()
+        return AllHabitsUsersPage(self.driver)
 
     def get_friend_button_text(self):
         """Gets text from the friend button."""
