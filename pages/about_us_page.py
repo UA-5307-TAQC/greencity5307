@@ -1,6 +1,9 @@
-"""This module contains the AboutUsPage class, which represents the about_us page of a website."""
+"""This module contains the AboutUsPage class,which represents the about_us page of a website."""
 
+import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from components.vision_card_component import VisionCardComponent
 from pages.base_page import BasePage
@@ -58,6 +61,10 @@ class AboutUsPage(BasePage):
             case 4:
                 return FriendsAbstractPage(self.driver)
 
+    def click_section_button_form_habit_one(self):
+        """Clicks the section button form habit."""
+        self.click(self.section_button_form_habit_one)
+
     def get_vision_cards_count(self) -> int:
         """Gets the number of vision cards present in the section."""
         return len(self.get_vision_cards())
@@ -66,6 +73,26 @@ class AboutUsPage(BasePage):
     def is_page_loaded(self) -> bool:
         """Checks if the page is loaded by verifying the presence of the vision cards."""
         return len(self.get_vision_cards()) > 0
+
+    @allure.step("Navigating to the Main page")
+    def go_to_main_page(self) -> "MainPage":
+        """Navigate to the Main page."""
+        from pages.main_page import MainPage # pylint: disable=import-outside-toplevel
+        self.header.click_main_page_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("greenCity")
+        )
+        return MainPage(self.driver)
+
+    @allure.step("Navigating to the UBS Courier page")
+    def go_to_ubs_courier(self) -> "UBSCourierPage":
+        """Navigate to the UBS courier page."""
+        from pages.ubc_courier_page import UBSCourierPage # pylint: disable=import-outside-toplevel
+        self.header.click_ubs_courier_link()
+        WebDriverWait(self.driver, 10).until(
+            EC.url_contains("ubs")
+        )
+        return UBSCourierPage(self.driver)
 
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
