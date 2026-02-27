@@ -3,11 +3,11 @@ It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from pages.base_page import BasePage, WebDriver
+from pages.base_page import BasePage
 from utils.types import Locators
 
 
@@ -26,7 +26,7 @@ class UBSCourierPage(BasePage):
         """Navigate to the Main page."""
         from pages.common_pages.main_page import MainPage # pylint: disable=import-outside-toplevel
         self.header.click_main_page_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("greenCity")
         )
         return MainPage(self.driver)

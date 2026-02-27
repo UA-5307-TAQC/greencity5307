@@ -33,4 +33,4 @@ class AllFriendsPage(FriendAbstractPage):
     @allure.step("Get the text on the All friends tab without friends on User profile page")
     def get_default_text(self) -> str:
         """Get the text on the all friends tab without friends."""
-        return self.wait.until(EC.visibility_of(self.default_text)).text
+        return self.get_wait().until(EC.visibility_of(self.default_text)).text

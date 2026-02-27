@@ -3,8 +3,6 @@ which represents the friends_abstract page of a website."""
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-
 from pages.base_page import BasePage
 
 
@@ -30,7 +28,7 @@ class FriendsAbstractPage(BasePage):
 
     def is_page_loaded(self) -> bool:
         """Checks if the page is loaded by verifying the visibility of the title and friend tabs."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.visibility_of(self.search_input)
         )
         return True
@@ -42,7 +40,7 @@ class FriendsAbstractPage(BasePage):
 
         self.header.click_about_us_link()
 
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)

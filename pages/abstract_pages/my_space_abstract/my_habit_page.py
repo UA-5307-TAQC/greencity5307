@@ -3,7 +3,6 @@ Habit page
 """
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.user_habit_card_component import UserHabitCardComponent
@@ -17,7 +16,7 @@ class MyHabitPage(MySpaceAbstractPage):
         "first_habit_card": (By.XPATH, "(//app-one-habit)[1]", UserHabitCardComponent),
         "habit_cards_list": (By.TAG_NAME, "app-one-habit", UserHabitCardComponent),
 
-        "add_new_habit_button": (By.XPATH, ".//span[text()='Add New Habit']/.."),
+        "add_new_habit_button": (By.ID, "create-button-new-habit"),
         "my_habits_tab": (By.XPATH, ".//div[contains(@class, 'my-habits-tab')]")
     }
 
@@ -38,7 +37,7 @@ class MyHabitPage(MySpaceAbstractPage):
     def wait_page_loaded(self):
         """Wait for the My Habit page to load."""
         locator = self.locators["add_new_habit_button"][:2]
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait(20).until(
             EC.visibility_of_element_located(locator)
         )
 
@@ -55,7 +54,7 @@ class MyHabitPage(MySpaceAbstractPage):
         from pages.common_pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
 
         self.header.click_about_us_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)
@@ -71,7 +70,7 @@ class MyHabitPage(MySpaceAbstractPage):
     @allure.step("Checking if My Habit page is loaded")
     def is_page_loaded(self) -> bool:
         """Checks if the page is loaded by verifying the visibility of the title and friend tabs."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.visibility_of(self.add_new_habit_button)
         )
         return True

@@ -52,7 +52,7 @@ class HabitProgressFormComponent(BaseComponent):
         if num_of_days > 56 or num_of_days < 7:
             raise ValueError(f"Invalid number of days: {num_of_days}.")
         for _ in range(num_of_days - 7):
-            self.wait.until(EC.visibility_of(self.slider)).send_keys(
+            self.get_wait().until(EC.visibility_of(self.slider)).send_keys(
                 Keys.ARROW_RIGHT)
 
     @allure.step("Click add friends button on Habit form")
@@ -64,6 +64,6 @@ class HabitProgressFormComponent(BaseComponent):
     def add_to_do_item(self, text: str):
         """Add and save to do item on habit form."""
         self.edit_to_do_btn.wait_and_click()
-        self.wait.until(EC.visibility_of(self.to_do_field)).send_keys(text)
+        self.get_wait().until(EC.visibility_of(self.to_do_field)).send_keys(text)
         self.add_to_do_btn.wait_and_click()
         self.save_to_do_btn.wait_and_click()
