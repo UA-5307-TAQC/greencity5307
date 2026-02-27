@@ -16,7 +16,7 @@ class MyHabitPage(MySpaceAbstractPage):
         "first_habit_card": (By.XPATH, "(//app-one-habit)[1]", UserHabitCardComponent),
         "habit_cards_list": (By.TAG_NAME, "app-one-habit", UserHabitCardComponent),
 
-        "add_new_habit_button": (By.XPATH, ".//span[text()='Add New Habit']/.."),
+        "add_new_habit_button": (By.ID, "create-button-new-habit"),
         "my_habits_tab": (By.XPATH, ".//div[contains(@class, 'my-habits-tab')]")
     }
 
@@ -37,7 +37,7 @@ class MyHabitPage(MySpaceAbstractPage):
     def wait_page_loaded(self):
         """Wait for the My Habit page to load."""
         locator = self.locators["add_new_habit_button"][:2]
-        self.get_wait().until(
+        self.get_wait(20).until(
             EC.visibility_of_element_located(locator)
         )
 

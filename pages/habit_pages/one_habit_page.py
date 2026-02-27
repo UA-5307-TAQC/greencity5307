@@ -111,7 +111,7 @@ class OneHabitPage(BasePage):
     def check_added_element(self):
         """check added element"""
         list_items_locator = self.locators["list_items_loc"][:2]
-        saved_items = self.wait.until(EC.presence_of_all_elements_located(list_items_locator))
+        saved_items = self.get_wait().until(EC.presence_of_all_elements_located(list_items_locator))
         return [item.text.strip() for item in saved_items]
 
     @allure.step("Clicking on the Delete button on OneHabitPage")

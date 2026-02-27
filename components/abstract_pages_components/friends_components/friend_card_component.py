@@ -27,8 +27,8 @@ class FriendCardComponent(BaseComponent):
     def get_friend_info(self) -> dict:
         """Get a friend name and city from a friend card."""
         friend_info = {
-            "name": self.wait.until(EC.visibility_of(self.friend_name)).text,
-            "city": self.wait.until(EC.visibility_of(self.friend_city)).text
+            "name": self.get_wait().until(EC.visibility_of(self.friend_name)).text,
+            "city": self.get_wait().until(EC.visibility_of(self.friend_city)).text
             }
         return friend_info
 

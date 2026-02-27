@@ -29,7 +29,7 @@ class BasePage(Factory):
 
     def find(self, locator: Locators):
         """Find single element with wait"""
-        return self.wait.until(EC.visibility_of_element_located(locator))
+        return self.get_wait().until(EC.visibility_of_element_located(locator))
 
     def is_visible(self, locator: Locators) -> bool:
         """Check if the element specified by the locator is visible."""
