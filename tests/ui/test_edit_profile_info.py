@@ -8,8 +8,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from data.config import Config
 from pages.base_page import BasePage
-from pages.edit_profile_page import ProfileEditPage
-from pages.my_space_abstract_page import MySpaceAbstractPage
+from pages.common_pages.edit_profile_page import ProfileEditPage
+from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 
 
 @allure.title("Update basic profile information")

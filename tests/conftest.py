@@ -13,7 +13,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
 
 from data.config import Config
-from pages.main_page import MainPage
+from pages.common_pages.main_page import MainPage
 
 from utils.logger import logger
 

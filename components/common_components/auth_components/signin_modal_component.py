@@ -37,5 +37,5 @@ class SignInComponent(BaseComponent):
         WebDriverWait(self.driver, 10).until(
             EC.url_changes(Config.BASE_UI_URL)
         )
-        from pages.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
+        from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
         return MyHabitPage(self.driver)
