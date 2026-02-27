@@ -5,7 +5,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-from components.header_component import HeaderComponent
+from components.common_components.layout_components.header_component import HeaderComponent
 from utils.page_factory import Factory
 from utils.types import Locators
 

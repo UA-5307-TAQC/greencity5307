@@ -2,11 +2,11 @@
 import allure
 from data.config import Config
 from components.common_components.auth_components.signin_modal_component import SignInComponent
-from pages.about_us_page import AboutUsPage
-from pages.eco_news_page import EcoNewsPage
-from pages.friends_abstract_page import FriendsAbstractPage
-from pages.main_page import MainPage
-from pages.places_pages.places_page import PlacesPage
+from pages.common_pages.about_us_page import AboutUsPage
+from pages.news_pages.eco_news_page import EcoNewsPage
+from pages.abstract_pages.friends_abstract.friends_abstract_page import FriendsAbstractPage
+from pages.common_pages.main_page import MainPage
+from pages.common_pages.places_page import PlacesPage
 
 
 # pylint: disable=no-member

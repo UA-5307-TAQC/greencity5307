@@ -8,8 +8,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from components.common_components.auth_components.signin_modal_component import \
     SignInComponent
 from data.config import Config
-from pages.eco_news_page import EcoNewsPage
-from pages.main_page import MainPage
+from pages.news_pages.eco_news_page import EcoNewsPage
+from pages.common_pages.main_page import MainPage
 
 
 @allure.title("Test like one news on one news page")

@@ -6,8 +6,8 @@ import allure
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
 from data.config import Config
-from pages.friend_requests_page import FriendRequestsPage
-from pages.main_page import MainPage
+from pages.abstract_pages.friends_abstract.friend_requests_page import FriendRequestsPage
+from pages.common_pages.main_page import MainPage
 
 @allure.title("Search friend requests by partial username")
 @allure.feature("Friends")

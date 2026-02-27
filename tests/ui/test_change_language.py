@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from pages.main_page import MainPage
+from pages.common_pages.main_page import MainPage
 
 @allure.epic("GreenCity Main Functionality")
 @allure.feature("Localization")
