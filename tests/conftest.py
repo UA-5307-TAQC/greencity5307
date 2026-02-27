@@ -11,6 +11,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
+
 from data.config import Config
 from pages.main_page import MainPage
 
@@ -39,6 +40,7 @@ def driver(request):
             opts = ChromeOptions()
             if headless_flag:
                 opts.add_argument("--headless=new")
+            opts.add_argument(f"--lang={Config.BROWSER_LANG}")
             opts.add_argument("--no-sandbox")
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
@@ -51,19 +53,20 @@ def driver(request):
     drv.quit()
 
 @pytest.fixture(scope="function")
+# pylint: disable=redefined-outer-name
 def driver_with_login(driver):
     """Fixture that logs in the user before yielding the WebDriver."""
 
     with allure.step(f"Logging in the user with email: {Config.USER_EMAIL}"):
         main_page = MainPage(driver)
         sign_in_form = main_page.header.click_sign_in_link()
-        sign_in_form.sign_in(driver,
-                             Config.USER_EMAIL,
+        sign_in_form.sign_in(Config.USER_EMAIL,
                              Config.USER_PASSWORD).wait_page_loaded()
     yield driver
 
 
 @pytest.hookimpl(hookwrapper=True)
+# pylint: disable=redefined-outer-name
 def pytest_runtest_makereport(item):
     """Hook to make screenshots and attach them to allure"""
     outcome = yield

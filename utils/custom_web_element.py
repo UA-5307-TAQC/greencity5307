@@ -3,7 +3,9 @@ from typing import Any
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException, \
+    ElementClickInterceptedException
+
 
 class CustomWebElement:
     """
@@ -43,7 +45,8 @@ class CustomWebElement:
                     return self.root
                 return False
 
-            except (NoSuchElementException, StaleElementReferenceException):
+            except (NoSuchElementException, StaleElementReferenceException,
+                    ElementClickInterceptedException):
                 # Allow the system to wait and retry
                 return False
 

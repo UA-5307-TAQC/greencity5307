@@ -12,18 +12,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
 
+
 class PersonalInfoComponent(BaseComponent):
     """Component representing Personal info block."""
-
-    # name_input: Locators = (By.CSS_SELECTOR, "input[formcontrolname='name']")
-    # city_input: Locators = (By.CSS_SELECTOR, "app-input-google-autocomplete input")
-    # credo_textarea: Locators = (By.CSS_SELECTOR, "textarea[formcontrolname='credo']")
-    #
-    # def __init__(self, root: WebElement):
-    #     super().__init__(root)
-    #     self.name = self.root.find_element(*self.name_input)
-    #     self.city = self.root.find_element(*self.city_input)
-    #     self.credo = self.root.find_element(*self.credo_textarea)
 
     locators = {
         "name": (By.CSS_SELECTOR, "input[formcontrolname='name']"),
@@ -35,15 +26,14 @@ class PersonalInfoComponent(BaseComponent):
     city: WebElement
     credo: WebElement
 
-
-    @allure.step("Fill Name field with value: {text}")
-    def fill_name(self, text: str):
+    @allure.step("Fill Name field with value: {name}")
+    def fill_name(self, name: str):
         """Fill the personal info field."""
         field = self.name
-        time.sleep(0.1)
+        time.sleep(0.3)
 
         field.clear()
-        field.send_keys(text)
+        field.send_keys(name)
         field.send_keys(Keys.TAB)
 
     @allure.step("Fill City field with value: {city} and select suggestion")
@@ -53,7 +43,7 @@ class PersonalInfoComponent(BaseComponent):
 
         self.city.click()
         self.city.clear()
-        time.sleep(0.1)
+        time.sleep(0.2)
         self.city.send_keys(city)
 
         suggestion = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "mat-option")))
@@ -64,7 +54,7 @@ class PersonalInfoComponent(BaseComponent):
     def fill_credo(self, text: str):
         """Fill the credo field."""
         field = self.credo
-        time.sleep(0.1)
+        time.sleep(0.2)
 
         field.clear()
         field.send_keys(text)

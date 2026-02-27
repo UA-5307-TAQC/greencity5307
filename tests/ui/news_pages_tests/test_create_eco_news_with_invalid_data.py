@@ -1,5 +1,4 @@
-"""This module contains tests for creating eco news with valid data"""
-import pytest
+"""This module contains tests for creating eco news with invalid data"""
 import allure
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
@@ -9,20 +8,18 @@ from pages.main_page import MainPage
 from data.config import Config
 
 
-
-
-
  # pylint: disable=no-member
-@allure.title("Test Validation: Create Eco News with Valid Data. Open Create Eco News page.")
-@allure.description("This test verifies that a user can successfully open eco news page. ")
+@allure.title("Test Validation: Create Eco News with Invalid Data. Open Create Eco News page.")
+@allure.description("This test verifies that a user "
+                    "cannot successfully create eco news, because of invalid data. ")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
-@allure.testcase("TC-101")
+@allure.testcase("TC-102")
 @allure.step("Open Create Eco News page")
-def test_open_create_update_eco_news_page(driver):
+def test_create_eco_news_with_invalid_data(driver):
     """
-        TC-101
-        Title: Create eco news with valid data
+        TC-102
+        Title: Create eco news with invalid data
         Author: Vitalina Kliuieva
         Priority: High
     """
@@ -30,7 +27,7 @@ def test_open_create_update_eco_news_page(driver):
     main_page = MainPage(driver)
 
     sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     news_page: EcoNewsPage = main_page.go_to_eco_news()
     create_news_page: CreateUpdateEcoNewsPage = news_page.click_create_button()
@@ -39,10 +36,11 @@ def test_open_create_update_eco_news_page(driver):
 
     form = create_news_page.get_form()
 
-    title = "Save the Planet"
-    tags = ("Events", "News")
-    source = "https://saving-planet.org/"
-    content = "Eco content" * 30
+    title = ""
+    tags = ()
+    source = "invalid-url"
+    content = "Eco content"
+
 
 
     form.fill_form(
@@ -51,8 +49,11 @@ def test_open_create_update_eco_news_page(driver):
         source=source,
         content=content
     )
+
     assert form.get_title() == title
     assert form.get_source() == source
     assert form.get_content() == content
 
     create_news_page.click_submit()
+    assert create_news_page.is_page_opened(), "Form not submitted successfully with invalid data"
+    assert create_news_page.is_submit_button_disabled()

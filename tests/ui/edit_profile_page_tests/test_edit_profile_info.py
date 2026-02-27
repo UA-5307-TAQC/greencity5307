@@ -17,8 +17,8 @@ from pages.my_space_abstract_page import MySpaceAbstractPage
 @pytest.mark.parametrize(
     "new_name, new_city, new_credo",
     [
-        ("Hlib", "Kyiv", "I sort waste every day"),
-        ("Oleksandr", "Kharkiv", "Save nature every day"),
+        ("Hlib", "Київ", "I sort waste every day"),
+        ("Oleksandr", "Харків", "Save nature every day"),
     ],
 )
 @allure.title("Update basic profile information")
@@ -34,11 +34,11 @@ def test_update_basic_profile_information(driver: WebDriver, new_name, new_city,
 
     with allure.step("User signs in with valid credentials"):
         sign_in_component = base_page.header.click_sign_in_link()
-        sign_in_component.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+        sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     with allure.step("User opens Edit Profile page"):
         my_space_page = MySpaceAbstractPage(driver)
-        my_space_page.profile_banner.click_edit_btn(driver)
+        my_space_page.profile_banner.click_edit_btn()
 
         page = ProfileEditPage(driver)
         personal_info_block = page.personal_info
@@ -56,7 +56,7 @@ def test_update_basic_profile_information(driver: WebDriver, new_name, new_city,
 
     with allure.step("User reopens Edit Profile page to verify saved data"):
         my_space_page = MySpaceAbstractPage(driver)
-        my_space_page.profile_banner.click_edit_btn(driver)
+        my_space_page.profile_banner.click_edit_btn()
 
         page = ProfileEditPage(driver)
         personal_info_block = page.personal_info
@@ -65,4 +65,4 @@ def test_update_basic_profile_information(driver: WebDriver, new_name, new_city,
 
     with allure.step("Verify updated data is saved correctly"):
         assert personal_info_block.get_name_value() == new_name
-        assert personal_info_block.get_city_value() == new_city + ", Ukraine"
+        assert personal_info_block.get_city_value() == new_city + ", Україна"
