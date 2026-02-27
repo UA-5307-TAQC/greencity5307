@@ -23,13 +23,18 @@ class Factory(Generic[T]):
     driver: WebDriver
     root: WebElement | None
 
-    def __init__(self, contex: Union[WebDriver, WebElement]):
-        if isinstance(contex, WebDriver):
-            self.driver = contex
+    def __init__(self, context: Union[WebDriver, WebElement]):
+        if isinstance(context, WebDriver):
+            self.driver = context
             self.root = None
-        elif isinstance(contex, WebElement):
-            self.driver = contex.parent
-            self.root = contex
+        elif isinstance(context, WebElement):
+            self.driver = context.parent
+            self.root = context
+        else:
+            raise TypeError(
+                f"{type(self).__name__} expects a WebDriver or WebElement, "
+                f"got {type(context).__name__!r} instead."
+            )
         self._lazy_resolvers: dict[str, Any] = {}
         self._bind_locators()
 
