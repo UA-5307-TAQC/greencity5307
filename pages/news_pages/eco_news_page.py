@@ -8,7 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from components.news_components.button_create_new_component import CreateNewButtonComponent
 from components.news_components.news_card_base_component import NewsCardBaseComponent
 from pages.base_page import BasePage
-from pages.common_pages.about_us_page import AboutUsPage
 from pages.events_pages.event_page import EventPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
 from utils.custom_web_element import CustomWebElement
@@ -55,6 +54,8 @@ class EcoNewsPage(BasePage):
         """Navigate to the About Us page."""
         self.header.click_about_us_link()
         self.get_wait().until(EC.url_contains("about"))
+        from pages.common_pages.about_us_page \
+            import AboutUsPage # pylint: disable=import-outside-toplevel
         return AboutUsPage(self.driver)
 
     @allure.step("Checking if Eco News page is opened")
