@@ -1,10 +1,9 @@
 import allure
 
-
-@allure.title("Test for successful habit creation")
+@allure.title("Check that user is able to create a new habit card by "
+              "filling in all required fields on the Create habit page")
 def test_successful_habit_creation(driver_delete_habit_after):
-    """Check that user is able to create a new habit card by
-    filling in all required fields on the Create habit page."""
+    """Test for successful habit creation."""
 
     with allure.step("Go to all habits page"):
         create_habit_page = driver_delete_habit_after.create_page

@@ -15,21 +15,17 @@ class AllFriendsPage(FriendAbstractPage):
     """Class for the all friends tab of Friend page."""
 
     locators = {
-        "card_roots": (By.CSS_SELECTOR, "div.friend-item-wrapper"),
+        "cards": (By.CSS_SELECTOR, "div.friend-item-wrapper", FriendCardComponent),
         "default_text": (By.XPATH, ".//h3[@class='no-friends']")
     }
 
-    card_roots: list
+    cards: list
     default_text: CustomWebElement
 
     @allure.step("Get all friend cards on the All friends tab on User profile page")
     def get_cards_list(self) -> list:
         """Get all friend cards on the all friends tab."""
-        found_card_roots = self.resolve_list("card_roots")
-        friend_cards = []
-        for card_root in found_card_roots:
-            friend_cards.append(FriendCardComponent(card_root))
-        return friend_cards
+        return self.resolve_list("cards")
 
 
     @allure.step("Get the text on the All friends tab without friends on User profile page")
