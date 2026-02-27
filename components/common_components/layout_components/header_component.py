@@ -47,8 +47,7 @@ class HeaderComponent(BaseComponent):
         """Click my space link in the header
         and return an instance of the MySpaceAbstractPage."""
         from pages.abstract_pages.my_space_abstract.my_space_abstract_page \
-            import \
-            MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
+            import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
         self.my_space_tab.wait_and_click()
         return MySpaceAbstractPage(self.driver)
 
@@ -115,8 +114,7 @@ class HeaderComponent(BaseComponent):
         return an instance of the MySpaceAbstractPage.
         """
         from pages.abstract_pages.my_space_abstract.my_space_abstract_page \
-            import \
-            MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
+            import (MySpaceAbstractPage)  # pylint: disable=import-outside-toplevel
         self.my_space_tab.wait_and_click()
         return MySpaceAbstractPage(self.driver)
 

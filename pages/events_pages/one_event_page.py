@@ -42,8 +42,7 @@ class OneEventPage(BasePage):
         social_media_links = self.driver.find_element(
             *self.event_social_media_links_locator)
         from components.common_components.social_media_links_component \
-            import \
-            SocialMediaLinksComponent  # pylint: disable=import-outside-toplevel
+            import SocialMediaLinksComponent  # pylint: disable=import-outside-toplevel
         return SocialMediaLinksComponent(social_media_links)
 
     def save_event(self):
