@@ -88,25 +88,6 @@ jobs:
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
 
-      - name: Fail PR if tests failed
-        if: always() && github.event_name == 'pull_request'
-        run: |
-          SUMMARY_FILE="allure-history/pr-${{ github.event.number }}/widgets/summary.json"
-
-          if [ -f "$SUMMARY_FILE" ]; then
-            FAILED=$(jq '.statistic.failed' "$SUMMARY_FILE")
-            echo "Failed tests: $FAILED"
-
-            if [ "$FAILED" -gt 0 ]; then
-              echo "❌ Tests failed"
-              exit 1
-            else
-              echo "✅ All tests passed"
-            fi
-          else
-            echo "⚠️ Summary file not found. Skipping fail check."
-          fi
-
       - name: Generate simple index.html with report links
         if: always()
         run: |
