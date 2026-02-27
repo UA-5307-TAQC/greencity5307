@@ -21,9 +21,10 @@ class ProfileEditPage(BasePage):
         "cancel_button": (By.CSS_SELECTOR, ".buttons .secondary-global-button"),
         "save_button": (By.CSS_SELECTOR, ".buttons .primary-global-button"),
         "personal_info": (By.CSS_SELECTOR, "div.wrapper", PersonalInfoComponent),
-        "social_networks": (By.CLASS_NAME, "edit_prof-wrap", SocialNetworksComponent),
-        "profile_privacy": (By.CLASS_NAME, "edit_prof-wrap", ProfilePrivacyComponent),
-        "email_preferences": (By.CLASS_NAME, "edit_prof-wrap", EmailPreferencesComponent),
+        "social_networks": (By.CSS_SELECTOR, "div.wrapper", SocialNetworksComponent),
+        "profile_privacy": (By.CSS_SELECTOR, "privacy-wrapper", ProfilePrivacyComponent),
+        "email_preferences": (By.CSS_SELECTOR, "email-preferences ng-pristine ng-valid ng-touched",
+                              EmailPreferencesComponent),
     }
 
     page_root: WebElement
