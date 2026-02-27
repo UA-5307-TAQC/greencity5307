@@ -4,7 +4,6 @@
 import allure
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
@@ -38,7 +37,7 @@ class MyProfileDataBannerComponent(BaseComponent):
     def click_edit_btn(self) -> ProfileEditPage:
         """Click on edit profile button."""
         self.edit_btn.wait_and_click()
-        WebDriverWait(self.root.parent, 10).until(EC.url_contains("edit"))
+        self.get_wait().until(EC.url_contains("edit"))
         return ProfileEditPage(self.root.parent)
 
 
@@ -46,17 +45,20 @@ class MyProfileDataBannerComponent(BaseComponent):
     def click_add_friends_btn(self) -> AllFriendsPage:
         """Click on Add friends button."""
         self.add_friends_btn.wait_and_click()
-        WebDriverWait(self.root.parent, 10).until(EC.url_contains("friends"))
+        self.get_wait().until(EC.url_contains("friends"))
         return AllFriendsPage(self.root.parent)
 
     @allure.step("Get username from Profile Banner component")
     def get_username(self) -> str:
         """Get username."""
-        return self.username.text
+        return self.get_wait().until(
+            EC.visibility_of(self.self.username)
+            ).text
 
     @allure.step("Get profile progress from Profile Banner component")
     def get_profile_progress(self) -> dict:
         """Get profile progress."""
+        self.get_wait().until(EC.visibility_of(self.root))
         return {
             "acquired habits": self.acquired_habits.text,
             "habits in progress": self.habits_in_prog.text,
