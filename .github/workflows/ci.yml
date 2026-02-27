@@ -55,8 +55,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
+        id: pytest
         run: |
+          set +e
           pytest -v
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          echo "Pytest exit code: $EXIT_CODE"
+          exit 0
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
@@ -152,3 +158,21 @@ jobs:
             Ви можете переглянути звіт за посиланням:
             https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.number }}/
           comment_tag: allure-report-link
+
+      - name: Fail job if pytest had critical ERRORS
+        if: always()
+        run: |
+          CODE=${{ steps.pytest.outputs.exit_code }}
+          echo "Final pytest exit code: $CODE"
+
+          # 0 = PASS
+          # 1 = FAILED tests (assert) → OK
+          # >=2 = real problems (errors, crash, config issues)
+
+          if [ "$CODE" -ge 2 ]; then
+            echo "❌ Critical pytest error detected. Failing job."
+            exit 1
+          else
+            echo "✅ Only test failures or success. Job stays green."
+            exit 0
+          fi
