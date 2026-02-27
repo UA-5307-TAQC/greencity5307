@@ -5,7 +5,6 @@ and methods for interacting with the main page elements."""
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
@@ -35,7 +34,7 @@ class MainPage(BasePage):
     def go_to_eco_news(self) -> EcoNewsPage:
         """Navigate to the Eco News page."""
         self.header.click_new_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("news")
         )
         return EcoNewsPage(self.driver)
@@ -44,7 +43,7 @@ class MainPage(BasePage):
     def go_to_about_us(self) -> AboutUsPage:
         """Navigate to the About Us page."""
         self.header.click_about_us_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)

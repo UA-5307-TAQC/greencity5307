@@ -45,7 +45,7 @@ def driver(request):
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
             drv = webdriver.Chrome(options=opts)
-    drv.implicitly_wait(Config.DEFAULT_TIMEOUT)
+    drv.implicitly_wait(Config.IMPLICITLY_WAIT)
     drv.get(Config.BASE_UI_URL)
 
     yield drv

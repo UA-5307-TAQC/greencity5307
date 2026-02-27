@@ -2,7 +2,7 @@
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+
 
 from components.base_component import BaseComponent
 from data.config import Config
@@ -34,7 +34,7 @@ class SignInComponent(BaseComponent):
         self.email.send_keys(email)
         self.password.send_keys(password)
         self.sign_in_button.wait_and_click()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_changes(Config.BASE_UI_URL)
         )
         from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel

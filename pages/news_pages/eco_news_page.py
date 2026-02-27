@@ -1,14 +1,15 @@
 """This module contains the EcoNewsPage class, which represents the Eco News page of the website."""
+from typing import List
+
 import allure
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
 
 from components.news_components.button_create_new_component import CreateNewButtonComponent
-from components.news_components.news_card_base_component import \
-    NewsCardBaseComponent
+from components.news_components.news_card_base_component import NewsCardBaseComponent
 from pages.base_page import BasePage
+from pages.common_pages.about_us_page import AboutUsPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
 from pages.events_pages.event_page import EventPage
 from utils.custom_web_element import CustomWebElement
@@ -21,7 +22,8 @@ class EcoNewsPage(BasePage):
         "button_create_news_locator":  (By.XPATH, "//*[@id='main-content']/div/div[1]/div/a"),
         "title_locator":  (By.XPATH, "//*[@id='main-content']/div/div[1]/div/h1"),
         "news_cards_locator":  (By.CSS_SELECTOR,
-                                        ".ng-star-inserted .gallery-view-li-active")
+                                ".ng-star-inserted .gallery-view-li-active",
+                                List[NewsCardBaseComponent])
     }
 
     main_header_locator: CustomWebElement
@@ -45,7 +47,7 @@ class EcoNewsPage(BasePage):
     def go_to_events(self) -> "EventPage":
         """Navigate to the Eco News page."""
         self.header.click_event_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("events")
         )
         return EventPage(self.driver)
@@ -53,10 +55,8 @@ class EcoNewsPage(BasePage):
     @allure.step("Navigating to the About Us page from Eco News page")
     def go_to_about_us(self):
         """Navigate to the About Us page."""
-        from pages.common_pages.about_us_page import \
-            AboutUsPage  # pylint: disable=import-outside-toplevel
         self.header.click_about_us_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)
@@ -64,7 +64,7 @@ class EcoNewsPage(BasePage):
     @allure.step("Checking if Eco News page is opened")
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("news")
         )
         return self.button_create_news_locator.is_displayed()
@@ -72,7 +72,7 @@ class EcoNewsPage(BasePage):
     @allure.step("Checking if Eco News page is loaded")
     def is_page_loaded(self) -> bool:
         """Checks if the page is loaded."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.visibility_of_element_located(self.locators["button_create_news_locator"])
         )
         return True

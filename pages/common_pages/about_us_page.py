@@ -2,7 +2,7 @@
 
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
+
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.common_pages_components.about_us_components \
@@ -81,7 +81,7 @@ class AboutUsPage(BasePage):
         """Navigate to the Main page."""
         from pages.common_pages.main_page import MainPage # pylint: disable=import-outside-toplevel
         self.header.click_main_page_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("greenCity")
         )
         return MainPage(self.driver)
@@ -91,7 +91,7 @@ class AboutUsPage(BasePage):
         """Navigate to the UBS courier page."""
         from pages.common_pages.ubc_courier_page import UBSCourierPage # pylint: disable=import-outside-toplevel
         self.header.click_ubs_courier_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("ubs")
         )
         return UBSCourierPage(self.driver)

@@ -3,7 +3,6 @@
 for interacting with the event page elements."""
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
@@ -24,7 +23,7 @@ class EventPage(BasePage):
     def go_to_places(self) -> "PlacesPage":
         """Navigate to the Places page."""
         self.header.click_places_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("places")
         )
         return PlacesPage(self.driver)

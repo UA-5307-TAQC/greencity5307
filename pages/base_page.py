@@ -1,9 +1,8 @@
 """Base page class for all page objects."""
 from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+
 
 from components.common_components.layout_components.header_component import HeaderComponent
 from utils.page_factory import Factory
@@ -19,11 +18,6 @@ class BasePage(Factory):
     title_locator: tuple
     header: HeaderComponent
 
-    def __init__(self, driver: WebDriver):
-        """Initialize the component"""
-        super().__init__(driver)
-
-        self.wait = WebDriverWait(driver, 10)
 
     def navigate_to(self, url: str):
         """Navigate to the specified URL."""

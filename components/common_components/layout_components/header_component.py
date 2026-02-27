@@ -6,7 +6,7 @@ from __future__ import annotations
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
+
 
 from components.base_component import BaseComponent
 from components.common_components.auth_components.signin_modal_component import \
@@ -132,7 +132,7 @@ class HeaderComponent(BaseComponent):
         self.sign_in_link.wait_and_click()
 
         modal_locator = (By.TAG_NAME, "app-auth-modal")
-        modal_element = WebDriverWait(self.driver, 10).until(
+        modal_element = self.get_wait().until(
             EC.visibility_of_element_located(modal_locator)
         )
 

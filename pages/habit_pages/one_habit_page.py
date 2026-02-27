@@ -4,7 +4,6 @@ import allure
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
@@ -92,7 +91,7 @@ class OneHabitPage(BasePage):
         self.custom_item_input.send_keys(message)
         self.custom_item_add.wait_and_click()
         list_items_locator = self.locators["list_items_loc"][:2]
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.text_to_be_present_in_element(list_items_locator, message)
         )
         return self
@@ -103,7 +102,7 @@ class OneHabitPage(BasePage):
         self.save_button.wait_and_click()
 
         save_btn_locator = self.locators["save_button"][:2]
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.invisibility_of_element_located(save_btn_locator)
         )
         return self

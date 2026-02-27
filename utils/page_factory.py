@@ -1,10 +1,13 @@
 """
 Page factory module
 """
-from typing import Generic, TypeVar, Any, cast
+from typing import Generic, TypeVar, Any, Union, get_origin, get_args, List
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.wait import WebDriverWait
+
+from data.config import Config
 from utils.custom_web_element import CustomWebElement
 
 T = TypeVar("T")
@@ -17,19 +20,34 @@ class Factory(Generic[T]):
     Base class implementing lazy loading and dynamic resolution of web elements and components.
     """
     locators: dict[str, LocatorTuple] = {}
+    driver: WebDriver
+    root: WebElement | None
 
-    def __init__(self, driver: WebDriver, root: WebDriver | WebElement | None = None) -> None:
-        self.driver = driver
-
-        if isinstance(root, WebElement):
-            self.root = CustomWebElement(self.driver, root)
-        else:
-            # Якщо це WebDriver (ціла сторінка), залишаємо як є
-            self.root = root or driver
-
+    def __init__(self, contex: Union[WebDriver, WebElement]):
+        if isinstance(contex, WebDriver):
+            self.driver = contex
+            self.root = None
+        elif isinstance(contex, WebElement):
+            self.driver = contex.parent
+            self.root = contex
         self._lazy_resolvers: dict[str, Any] = {}
         self._bind_locators()
 
+    def __getattr__(self, name: str) -> Any:
+        """
+        Lazy loading mechanism. Invoked only when the requested attribute
+        does not exist in the instance's __dict__.
+        """
+        if name in self._lazy_resolvers:
+            # Note: Caching with setattr is omitted to prevent StaleElementReferenceException
+            # in dynamic environments (Angular/React).
+            return self._lazy_resolvers[name]()
+
+        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
+
+    def get_wait(self, timeout: int = Config.EXPLICITLY_WAIT) -> WebDriverWait:
+        """Returns a WebDriverWait instance for the current driver."""
+        return WebDriverWait(self.driver, timeout)
     def _bind_locators(self) -> None:
         """
         Iterates through 'locators' dictionaries across the entire class hierarchy (MRO)
@@ -47,77 +65,48 @@ class Factory(Generic[T]):
         for name, locator_data in all_locators.items():
             by = locator_data[0]
             value = locator_data[1]
-            el_type = locator_data[2] if len(locator_data) > 2 else WebElement
+            multiple = False
+            el_type: type[Any] = CustomWebElement
+            if len(locator_data) > 2:
 
-            self._lazy_resolvers[name] = \
-                lambda b=by, v=value, t=el_type: self._resolve_element(b, v, t)
+                multiple = get_origin(locator_data[2]) is list
+                el_type = locator_data[2] if not multiple else get_args(locator_data[2])[0]
+
+            if multiple:
+                self._lazy_resolvers[name] = \
+                    lambda b=by, v=value, t=el_type: self._resolve_list(b, v, t)
+            else:
+                self._lazy_resolvers[name] = \
+                    lambda b=by, v=value, t=el_type: self._resolve_element(b, v, t)
 
     def _resolve_element(self, by: str, value: str, element_type: type[T]) -> T:
         """
         Explicitly locates and instantiates a WebElement or a Component.
         """
         try:
-            # Search is triggered ONLY at the moment of physical attribute access
-            web_element = self.root.find_element(by, value)
+            if self.root:
+                web_element = self.root.find_element(by, value)
+            else:
+                web_element = self.driver.find_element(by, value)
         except NoSuchElementException as e:
             raise NoSuchElementException(
                 f"Lazy resolution failed: Element via '{by}'='{value}' not found."
             ) from e
 
-        # Local import to break circular dependency with BaseComponent
-        from components.base_component import BaseComponent # pylint: disable=C0415
+        return element_type(web_element)
 
-        if issubclass(element_type, BaseComponent):
-            return cast(T, element_type(web_element))
-
-        # Handle raw Selenium WebElements -> ТЕПЕР ОБГОРТАЄМО ЇХ
-        if element_type is WebElement:
-            return cast(T, CustomWebElement(self.driver, web_element))
-
-        # Handle custom element wrappers (якщо ви передали інший кастомний тип)
-        try:
-            return cast(T, element_type(self.driver, web_element))
-        except TypeError:
-            # Fallback для простих обгорток, які приймають лише web_element
-            return cast(T, element_type(web_element))
-
-    def __getattr__(self, name: str) -> Any:
-        """
-        Lazy loading mechanism. Invoked only when the requested attribute
-        does not exist in the instance's __dict__.
-        """
-        if name in self._lazy_resolvers:
-            # Note: Caching with setattr is omitted to prevent StaleElementReferenceException
-            # in dynamic environments (Angular/React).
-            return self._lazy_resolvers[name]()
-
-        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{name}'")
-
-    def resolve_list(self, locator_name: str) -> list[Any]:
+    def _resolve_list(self, by: str, value: str, element_type: type[T]) -> List[T]:
         """
         Locates all elements matching the locator and returns a list of objects or components.
         """
-        locator_data = self.locators[locator_name]
-
-        by = locator_data[0]
-        value = locator_data[1]
-        el_type = locator_data[2] if len(locator_data) > 2 else WebElement
-
-        elements = self.root.find_elements(by, value)
-
-        from components.base_component import BaseComponent  # pylint: disable=C0415
-
-        # Instantiate each element in the list as a component if applicable
-        if issubclass(el_type, BaseComponent):
-            return [el_type(el) for el in elements]
-
-        # Якщо це стандартний WebElement, обгортаємо кожен елемент списку у CustomWebElement,
-        # щоб поведінка була консистентною з _resolve_element
-        if el_type is WebElement:
-            return [CustomWebElement(self.driver, el) for el in elements]
-
-        # Fallback для інших кастомних обгорток
         try:
-            return [el_type(self.driver, el) for el in elements]
-        except TypeError:
-            return [el_type(el) for el in elements]
+            if self.root:
+                web_elements = self.root.find_elements(by, value)
+            else:
+                web_elements = self.driver.find_elements(by, value)
+        except NoSuchElementException as e:
+            raise NoSuchElementException(
+                f"Lazy resolution failed: Elements via '{by}'='{value}' not found."
+            ) from e
+
+        return [element_type(element) for element in web_elements]
