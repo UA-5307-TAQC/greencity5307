@@ -2,9 +2,9 @@
 import allure
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
-from pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
-from pages.eco_news_page import EcoNewsPage
-from pages.main_page import MainPage
+from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
+from pages.news_pages.eco_news_page import EcoNewsPage
+from pages.common_pages.main_page import MainPage
 from data.config import Config
 
  # pylint: disable=no-member

@@ -4,8 +4,8 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from data.config import Config
 from pages.base_page import BasePage
-from pages.my_habit_page import MyHabitPage
-from pages.one_habit_page import OneHabitPage
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
+from pages.habit_pages.one_habit_page import OneHabitPage
 
 
 def test_slider_keyboard_interaction(driver: WebDriver):

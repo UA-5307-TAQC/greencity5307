@@ -3,9 +3,9 @@ Form habit buttons on the About Us page."""
 import allure
 from data.config import Config
 from components.common_components.auth_components.signin_modal_component import SignInComponent
-from pages.about_us_page import AboutUsPage
-from pages.main_page import MainPage
-from pages.my_habit_page import MyHabitPage
+from pages.common_pages.about_us_page import AboutUsPage
+from pages.common_pages.main_page import MainPage
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
 
 # pylint: disable=no-member

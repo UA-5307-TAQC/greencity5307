@@ -10,9 +10,8 @@ from components.common_components.auth_components.signin_modal_component import 
     SignInComponent
 from data.config import Config
 
-from pages.main_page import MainPage
-from pages.my_space_abstract_page import MySpaceAbstractPage
-from utils.logger import logger
+from pages.common_pages.main_page import MainPage
+from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 
 
 @allure.epic("GreenCity header functionality.")
