@@ -1,10 +1,7 @@
 """Page object for the Places page."""
 import allure
 from selenium.webdriver.common.by import By
-
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-
 from components.places_components.add_place_modal_component import AddPlaceModalComponent
 from pages.base_page import BasePage
 from utils.custom_web_element import CustomWebElement
@@ -31,7 +28,7 @@ class PlacesPage(BasePage):
         """Navigate to the About Us page."""
         from pages.common_pages.about_us_page import AboutUsPage  # pylint: disable=import-outside-toplevel
         self.header.click_about_us_link()
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.url_contains("about")
         )
         return AboutUsPage(self.driver)
@@ -44,7 +41,7 @@ class PlacesPage(BasePage):
     @allure.step("Checking if Places page is loaded")
     def is_page_loaded(self) -> bool:
         """Checks if the page is loaded."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.visibility_of(self.add_place_button)
         )
         return True

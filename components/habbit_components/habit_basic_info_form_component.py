@@ -40,13 +40,13 @@ class HabitBasicInfoFormComponent(BaseComponent):
     @allure.step("Enter text into title field on Create Habit form")
     def enter_title(self, text: str):
         """Enter text into title field."""
-        self.wait.until(EC.visibility_of(self.title)).send_keys(text)
+        self.get_wait().until(EC.visibility_of(self.title)).send_keys(text)
 
 
     @allure.step("Enter text into description field on Create Habit form")
     def enter_description(self, text: str):
         """Enter text into description textarea."""
-        self.wait.until(EC.visibility_of(self.description)).send_keys(text)
+        self.get_wait().until(EC.visibility_of(self.description)).send_keys(text)
 
 
     @allure.step("Choose difficulty")

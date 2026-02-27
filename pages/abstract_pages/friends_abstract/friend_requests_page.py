@@ -1,7 +1,6 @@
 """Module contains FriendRequestsPage page object."""
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
@@ -32,37 +31,37 @@ class FriendRequestsPage(BasePage):
 
     def click_my_space_tab(self) -> None:
         """Click My space tab."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.element_to_be_clickable(self.my_space_tab_locator)
         ).click()
 
     def click_plus_friends(self) -> None:
         """Click '+ friends' link/button."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.element_to_be_clickable(self.plus_my_friends_click)
         ).click()
 
     def get_title(self) -> str:
         """Return page title text."""
-        return WebDriverWait(self.driver, 10).until(
+        return self.get_wait().until(
             EC.visibility_of_element_located(self.page_title_locator)
         ).text
 
     def click_requests_tab(self) -> None:
         """Click on Requests tab."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.element_to_be_clickable(self.requests_tab_locator)
         ).click()
 
     def is_search_input_visible(self) -> bool:
         """Search input is visible."""
-        return WebDriverWait(self.driver, 10).until(
+        return self.get_wait().until(
             EC.visibility_of_element_located(self.search_input_locator)
         ).is_displayed()
 
     def search(self, text: str) -> None:
         """Partial search."""
-        search_input = WebDriverWait(self.driver, 10).until(
+        search_input = self.get_wait().until(
             EC.visibility_of_element_located(self.search_input_locator)
         )
 
@@ -71,7 +70,7 @@ class FriendRequestsPage(BasePage):
 
     def get_search_value(self) -> str:
         """Return current value of search input."""
-        search_input = WebDriverWait(self.driver, 10).until(
+        search_input = self.get_wait().until(
             EC.visibility_of_element_located(self.search_input_locator)
         )
         return search_input.get_attribute("value")
@@ -82,7 +81,7 @@ class FriendRequestsPage(BasePage):
 
     def are_matching_results_displayed(self, query: str) -> bool:
         """Verify matching results are shown."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.presence_of_all_elements_located(self.friend_name_locator)
         )
         elements = self.driver.find_elements(*self.friend_name_locator)
@@ -95,7 +94,7 @@ class FriendRequestsPage(BasePage):
 
     def search_input_clear(self) -> None:
         """Clear input."""
-        search_input = WebDriverWait(self.driver, 10).until(
+        search_input = self.get_wait().until(
             EC.visibility_of_element_located(self.search_input_locator)
         )
 
@@ -103,7 +102,7 @@ class FriendRequestsPage(BasePage):
 
     def is_search_empty(self) -> bool:
         """Check if search input is empty."""
-        search_input = WebDriverWait(self.driver, 10).until(
+        search_input = self.get_wait().until(
             EC.visibility_of_element_located(self.search_input_locator)
         )
         return search_input.get_attribute("value") == ""
@@ -116,7 +115,7 @@ class FriendRequestsPage(BasePage):
     def verify_requests_list_is_restored(self, initial_count: int) -> bool:
         """Request list is restored."""
         try:
-            WebDriverWait(self.driver, 10).until(
+            self.get_wait().until(
                 lambda d: len(d.find_elements(
                     *self.friend_name_locator)) == initial_count
             )
@@ -126,7 +125,7 @@ class FriendRequestsPage(BasePage):
 
     def no_results_are_displayed(self) -> bool:
         """Verify no results are shown/empty results state."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             lambda d: len(d.find_elements(*self.friend_name_locator)) == 0
         )
         return True

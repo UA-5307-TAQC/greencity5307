@@ -11,10 +11,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-
 from data.config import Config
 from pages.common_pages.main_page import MainPage
-
 from utils.logger import logger
 
 
@@ -45,12 +43,13 @@ def driver(request):
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
             drv = webdriver.Chrome(options=opts)
-    drv.implicitly_wait(Config.DEFAULT_TIMEOUT)
+    drv.implicitly_wait(Config.IMPLICITLY_WAIT)
     drv.get(Config.BASE_UI_URL)
 
     yield drv
 
     drv.quit()
+
 
 @pytest.fixture(scope="function")
 # pylint: disable=redefined-outer-name
@@ -60,8 +59,7 @@ def driver_with_login(driver):
     with allure.step(f"Logging in the user with email: {Config.USER_EMAIL}"):
         main_page = MainPage(driver)
         sign_in_form = main_page.header.click_sign_in_link()
-        sign_in_form.sign_in(Config.USER_EMAIL,
-                             Config.USER_PASSWORD).wait_page_loaded()
+        sign_in_form.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD).wait_page_loaded()
     yield driver
 
 
@@ -82,11 +80,12 @@ def pytest_runtest_makereport(item):
                 allure.attach(
                     web_driver.get_screenshot_as_png(),
                     name=f"failed_{test_name}_{timestamp}",
-                    attachment_type=AttachmentType.PNG,
+                    attachment_type=AttachmentType.PNG
                 )
-            except Exception: # pylint: disable=broad-except
+            except Exception:  # pylint: disable=broad-except
                 # Ignore screenshot capture errors to avoid masking the original test failure
                 pass
+
 
 @fixture(scope='function', autouse=True)
 def capture_logs_to_allure():

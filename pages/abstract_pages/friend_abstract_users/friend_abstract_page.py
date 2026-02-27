@@ -2,9 +2,10 @@
 It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 
-from pages.base_page import BasePage, WebDriver
+from pages.base_page import BasePage
 from utils.types import Locators
 
 

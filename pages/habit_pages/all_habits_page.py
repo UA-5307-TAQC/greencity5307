@@ -6,7 +6,6 @@ import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
 
 from components.habbit_components.all_habits.bread_crumbs_component \
     import BreadCrumbsComponent
@@ -39,7 +38,7 @@ class AllHabitPage(BasePage):
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-        WebDriverWait(driver, 10).until(
+        self.get_wait().until(
             EC.visibility_of_element_located(self.main_header_locator)
         )
         self.main_header = self.driver.find_element(*self.main_header_locator)
@@ -69,7 +68,7 @@ class AllHabitPage(BasePage):
     @allure.step("Get all habit cards on All Habits page")
     def get_all_habit_cards(self) -> List[HabitCardComponent]:
         """Returns a list of habit cards."""
-        WebDriverWait(self.driver, 10).until(
+        self.get_wait().until(
             EC.visibility_of_any_elements_located(self.habit_cards_locator)
         )
         elements = self.driver.find_elements(*self.habit_cards_locator)
