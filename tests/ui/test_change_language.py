@@ -32,8 +32,8 @@ def test_change_language(driver: WebDriver):
         assert main_page.there_are.text == "There are of us and today we", \
             f"Expected 'There are of us and today we', but got '{main_page.there_are.text}'"
 
-    with (((allure.step("Step 2: Switch language back to Ukrainian (UA) and ensure the main text"
-                        "translated to 'Нас і сьогодні ми'")))):
+    with allure.step("Step 2: Switch language back to Ukrainian (UA) and ensure the main text"
+                     "translated to 'Нас і сьогодні ми'"):
         main_page.header.switch_language()
         main_page.get_wait().until(lambda d: main_page.there_are.text == "Нас і сьогодні ми")
 
