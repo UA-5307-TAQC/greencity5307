@@ -28,6 +28,8 @@ class HeaderComponent(BaseComponent):
                          ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]"),
         "language_option": (By.XPATH,
                             ".//li[contains(@class, 'lang-option')]/span"),
+        "other_language_option": (By.XPATH,
+                                  ".//ul[contains(@aria-label, 'language switcher')]/li[2]/span"),
         "ubs_courier_link": (By.XPATH, ".//a[contains(@href, 'ubs')]"),
         "places_link": (By.XPATH, "//div/nav/ul/li[3]/a")
     }
@@ -39,6 +41,7 @@ class HeaderComponent(BaseComponent):
     about_us_link: CustomWebElement
     my_space_tab: CustomWebElement
     language_option: CustomWebElement
+    other_language_option: CustomWebElement
     ubs_courier_link: CustomWebElement
     places_link: CustomWebElement
 
@@ -50,6 +53,15 @@ class HeaderComponent(BaseComponent):
             import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
         self.my_space_tab.wait_and_click()
         return MySpaceAbstractPage(self.driver)
+
+    @allure.step("Clicking the language button in the header.")
+    def switch_language(self) -> "MainPage":
+        """Switch language button in the header."""
+        logger.info("Clicking switch language button in the header.")
+
+        self.language_option.wait_and_click()
+        self.other_language_option.wait_and_click()
+        return self
 
     def is_language_english(self) -> bool:
         """Check if the current language is English by
