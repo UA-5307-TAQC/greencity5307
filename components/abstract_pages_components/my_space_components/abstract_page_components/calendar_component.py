@@ -4,6 +4,7 @@
 import allure
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
 from utils.custom_web_element import CustomWebElement
@@ -28,6 +29,7 @@ class CalendarComponent(BaseComponent):
     @allure.step("Get current date on Calendar component")
     def get_current_date(self) -> str:
         """Get current day, month and year."""
+        self.get_wait().until(EC.visibility_of(self.root))
         current_month, current_year = self.month_year.text.split()
         current_day = self.day.text
         return f"{current_day} {current_month} {current_year}"
