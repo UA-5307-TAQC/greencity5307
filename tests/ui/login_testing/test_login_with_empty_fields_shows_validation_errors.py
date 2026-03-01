@@ -8,7 +8,7 @@ from pages.base_page import BasePage
 @allure.suite("Authentication Tests")
 @allure.title("Verify validation errors when signing in with empty fields")
 @allure.severity(allure.severity_level.CRITICAL)
-def test_logining(driver: WebDriver):
+def test_login_with_empty_fields_shows_validation_errors(driver: WebDriver):
     """
     Test Objective: Verify that the system correctly triggers and displays
     validation error messages when a user attempts to sign in without entering data.

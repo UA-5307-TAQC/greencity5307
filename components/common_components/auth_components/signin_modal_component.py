@@ -62,8 +62,18 @@ class SignInComponent(BaseComponent):
         """
         Waits for error messages to be visible and matches their text content.
         """
-        assert error_email_text == self.email_error.text, \
-            f"Expected email error '{error_email_text}', but got '{self.email_error.text}'"
-
-        assert error_password_text == self.password_error.text, \
-            f"Expected password error '{error_password_text}', but got '{self.password_error.text}'"
+        wait = self.get_wait()
+        email_error_element = wait.until(
+            EC.visibility_of_element_located(self.locators["email_error"])
+        )
+        password_error_element = wait.until(
+            EC.visibility_of_element_located(self.locators["password_error"])
+        )
+        actual_email_error = email_error_element.text.strip()
+        actual_password_error = password_error_element.text.strip()
+        assert error_email_text.strip() == actual_email_error, (
+            f"Expected email error '{error_email_text}', but got '{actual_email_error}'"
+        )
+        assert error_password_text.strip() == actual_password_error, (
+            f"Expected password error '{error_password_text}', but got '{actual_password_error}'"
+        )
