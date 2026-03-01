@@ -45,7 +45,7 @@ def test_header_navigation(driver: WebDriver):
     with allure.step("Step 1: Click on 'Eco News', and ensure the site loaded on eco news page."):
         eco_news_page = main_page.go_to_eco_news()
         assert ("news" in driver.current_url
-                and eco_news_page.main_header_locator.text in ("Eco news", "Еко новини")), "This is not Eco News page."
+                and eco_news_page.main_header.text in ("Eco news", "Еко новини")), "This is not Eco News page."
 
     with allure.step("Step 2: Click on 'Events', and ensure the site loaded on events page."):
         event_page = eco_news_page.go_to_events()

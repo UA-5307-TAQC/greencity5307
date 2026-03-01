@@ -15,7 +15,7 @@ class BasePage(Factory):
         "header": (By.XPATH, "//header[@role='banner']", HeaderComponent)
     }
 
-    title_locator: tuple
+    title: tuple
     header: HeaderComponent
 
 
@@ -43,4 +43,4 @@ class BasePage(Factory):
         """Check if the page is opened by verifying the visibility of the title element."""
         if not hasattr(self, "title_locator"):
             raise NotImplementedError("Page must define title_locator")
-        return self.is_visible(self.title_locator)
+        return self.is_visible(self.title)
