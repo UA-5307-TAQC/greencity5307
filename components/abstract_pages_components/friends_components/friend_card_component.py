@@ -6,6 +6,7 @@ import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+from pages.abstract_pages.friend_abstract_users.all_habits_page import AllHabitsPage
 from components.base_component import BaseComponent
 from utils.custom_web_element import CustomWebElement
 
@@ -16,7 +17,7 @@ class FriendCardComponent(BaseComponent):
     locators = {
         "friend_name": (By.CSS_SELECTOR, "p.friend-name"),
         "friend_city": (By.CSS_SELECTOR, "p.friend-city"),
-        "add_friend_btn": (By.CSS_SELECTOR, "button#addFriend")
+        "add_friend_btn": (By.CSS_SELECTOR, ".friend-btn")
     }
 
     friend_name: CustomWebElement
@@ -42,4 +43,5 @@ class FriendCardComponent(BaseComponent):
     @allure.step("Click on a Friend card")
     def click_friend_card(self):
         """Click on a friend card."""
-        self.root.wait_and_click()
+        CustomWebElement(self.root).wait_and_click()
+        return AllHabitsPage(self.driver)

@@ -9,7 +9,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
 from pages.common_pages.edit_profile_page import ProfileEditPage
-from pages.abstract_pages.friend_abstract_users.all_friends_page import AllFriendsPage
+from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage
 from utils.custom_web_element import CustomWebElement
 
 
@@ -43,11 +43,11 @@ class MyProfileDataBannerComponent(BaseComponent):
 
 
     @allure.step("Click on Add friends button on Profile Banner component")
-    def click_add_friends_btn(self) -> AllFriendsPage:
+    def click_add_friends_btn(self) -> FindFriendPage:
         """Click on Add friends button."""
         self.add_friends_btn.wait_and_click()
-        WebDriverWait(self.root.parent, 10).until(EC.url_contains("friends"))
-        return AllFriendsPage(self.root.parent)
+        self.get_wait().until(EC.url_contains("friends"))
+        return FindFriendPage(self.root.parent)
 
     @allure.step("Get username from Profile Banner component")
     def get_username(self) -> str:

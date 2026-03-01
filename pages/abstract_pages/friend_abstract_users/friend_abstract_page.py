@@ -1,18 +1,16 @@
-"""This module contains the MainPage class, which represents the main page of the application.
-It inherits from the BasePage class and provides specific locators
-and methods for interacting with the main page elements."""
+"""This module contains the FriendAbstractPage class."""
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
-from utils.types import Locators
+from components.abstract_pages_components.friend_users_components.user_info_banner_component \
+    import UserInfoBannerComponent
 
 
 class FriendAbstractPage(BasePage):
     """Page object for the Friend Abstract (other user) page."""
-    there_are_locator: Locators = (By.CSS_SELECTOR, "#stats > h2")
 
-    def __init__(self, driver: WebDriver):
-        super().__init__(driver)
-        self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
+    locators = {
+        "user_info_banner": (By.CSS_SELECTOR, ".side-bar", UserInfoBannerComponent)
+    }
+
+    user_info_banner: UserInfoBannerComponent
