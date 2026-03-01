@@ -11,8 +11,8 @@ from selenium.webdriver.common.by import By
 
 from data.config import Config
 from pages.base_page import BasePage
-from pages.edit_profile_page import ProfileEditPage
-from pages.my_space_abstract_page import MySpaceAbstractPage
+from pages.common_pages.edit_profile_page import ProfileEditPage
+from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 
 @pytest.mark.parametrize(
     "new_name, new_city, new_credo",

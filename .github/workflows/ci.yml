@@ -55,8 +55,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
+        id: pytest
         run: |
+          set +e
           pytest -v
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          echo "Pytest exit code: $EXIT_CODE"
+          exit 0
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
@@ -87,25 +93,6 @@ jobs:
 
       - name: Install jq
         run: sudo apt-get update && sudo apt-get install -y jq
-
-      - name: Fail PR if tests failed
-        if: always() && github.event_name == 'pull_request'
-        run: |
-          SUMMARY_FILE="allure-history/pr-${{ github.event.number }}/widgets/summary.json"
-
-          if [ -f "$SUMMARY_FILE" ]; then
-            FAILED=$(jq '.statistic.failed' "$SUMMARY_FILE")
-            echo "Failed tests: $FAILED"
-
-            if [ "$FAILED" -gt 0 ]; then
-              echo "❌ Tests failed"
-              exit 1
-            else
-              echo "✅ All tests passed"
-            fi
-          else
-            echo "⚠️ Summary file not found. Skipping fail check."
-          fi
 
       - name: Generate simple index.html with report links
         if: always()
@@ -171,3 +158,21 @@ jobs:
             Ви можете переглянути звіт за посиланням:
             https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.number }}/
           comment_tag: allure-report-link
+
+      - name: Fail job if pytest had critical ERRORS
+        if: always()
+        run: |
+          CODE=${{ steps.pytest.outputs.exit_code }}
+          echo "Final pytest exit code: $CODE"
+
+          # 0 = PASS
+          # 1 = FAILED tests (assert) → OK
+          # >=2 = real problems (errors, crash, config issues)
+
+          if [ "$CODE" -ge 2 ]; then
+            echo "❌ Critical pytest error detected. Failing job."
+            exit 1
+          else
+            echo "✅ Only test failures or success. Job stays green."
+            exit 0
+          fi

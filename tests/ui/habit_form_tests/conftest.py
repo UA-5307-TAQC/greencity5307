@@ -3,7 +3,7 @@ from types import SimpleNamespace
 import allure
 import pytest
 
-from pages.my_habit_page import MyHabitPage
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
 
 @pytest.fixture(scope="function")
