@@ -18,7 +18,9 @@ class SignInComponent(BaseComponent):
         "sign_in_button": (By.XPATH,
                                    "//app-sign-in//button[@type='submit']"),
         "sign_in_with_google_button": (By.CLASS_NAME,"google-sign-in"),
-        "sign_up_button": (By.XPATH,'//a[contains(text(), "Sign up")]')
+        "sign_up_button": (By.XPATH,'//a[contains(text(), "Sign up")]'),
+        "email_error": (By.ID, "email-err-msg"),
+        "password_error": (By.ID, "pass-err-msg"),
     }
 
     email: CustomWebElement
@@ -39,3 +41,29 @@ class SignInComponent(BaseComponent):
         )
         from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
         return MyHabitPage(self.driver)
+
+    @allure.step("Clear email and password fields to trigger validation")
+    def clear_email_and_password(self):
+        """
+        Clears input fields and cycles focus to ensure 'onBlur'
+        validation is triggered on the frontend.
+        """
+        self.email.clear()
+        self.password.wait_and_click()
+        self.password.clear()
+        self.email.wait_and_click()
+        self.password.wait_and_click()
+        return self
+
+    @allure.step("Verify validation errors: "
+                 "Email='{error_email_text}',"
+                 "Password='{error_password_text}'")
+    def compare_error(self, error_email_text: str, error_password_text: str):
+        """
+        Waits for error messages to be visible and matches their text content.
+        """
+        assert error_email_text == self.email_error.text, \
+            f"Expected email error '{error_email_text}', but got '{self.email_error.text}'"
+
+        assert error_password_text == self.password_error.text, \
+            f"Expected password error '{error_password_text}', but got '{self.password_error.text}'"
