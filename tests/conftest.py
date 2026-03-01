@@ -121,8 +121,8 @@ def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=rede
         find_friend_page.search_friend(name)
         friend_card = find_friend_page.get_friend_card_by_name(name)
 
-        if friend_card.get_friend_button_text() == "Cancel request":
-            friend_card.click_cancel_request_btn()
+        if friend_card.add_friend_btn.text == "Cancel request":
+            friend_card.click_add_friend_btn()
             find_friend_page.wait_for_snack_bar_disappear()
 
         find_friend_page.header.click_main_page_link()

@@ -30,7 +30,7 @@ class FindFriendPage(FriendsAbstractPage):
     def is_page_loaded(self) -> bool:
         try:
             self.get_wait().until(
-                EC.visibility_of_element_located(self.locators["friend_card"])
+                EC.visibility_of_element_located(self.locators["friend_card"][:2])
             )
             return True
         except TimeoutException:
