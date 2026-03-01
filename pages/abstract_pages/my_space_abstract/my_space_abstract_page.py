@@ -22,7 +22,7 @@ class MySpaceAbstractPage(BasePage):
     locators = {
         "profile_banner": (By.CSS_SELECTOR, "div.left-column", MyProfileDataBannerComponent),
         "calendar": (By.CSS_SELECTOR, "div.calendar", CalendarComponent),
-        "to_do_list": (By.CSS_SELECTOR, "div.profile-container", ToDoListComponent),
+        "to_do_list": (By.XPATH, "(.//div[@class='to-do-list-block'])[2]", ToDoListComponent),
         "my_habits_tab": (By.XPATH, ".//div[@class='mat-mdc-tab-labels']/div[1]"),
         "my_news_tab": (By.XPATH, ".//div[@class='mat-mdc-tab-labels']/div[2]"),
         "my_events_tab": (By.XPATH, ".//div[@class='mat-mdc-tab-labels']/div[3]"),
@@ -54,6 +54,9 @@ class MySpaceAbstractPage(BasePage):
         return MyNewsPage(self.driver)
 
     @allure.step("Click on My events tab on My Space page")
-    def click_my_events_tab(self):
+    def click_my_events_tab(self) -> "MyEventsPage":
         """Click on My events tab."""
+        from pages.abstract_pages.my_space_abstract.my_events import MyEventsPage # pylint: disable=import-outside-toplevel
         self.my_events_tab.wait_and_click()
+        self.find(self.locators["content"][:2])
+        return MyEventsPage(self.driver)
