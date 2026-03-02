@@ -43,5 +43,5 @@ class FriendCardComponent(BaseComponent):
     @allure.step("Click on a Friend card")
     def click_friend_card(self):
         """Click on a friend card."""
-        CustomWebElement(self.root).wait_and_click()
+        self.friend_name.wait_and_click()
         return AllHabitsPage(self.driver)
