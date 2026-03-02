@@ -43,29 +43,38 @@ class FriendRequestsPage(BasePage):
 
     def click_my_space_tab(self) -> None:
         """Click My Space tab."""
-        self.get_wait().until(EC.element_to_be_clickable(self.locators["my_space_tab"])).click()
+        self.get_wait().until(EC.element_to_be_clickable(
+            self.locators["my_space_tab"])).click()
 
     def click_plus_friends(self) -> None:
         """Click + (open friends section)."""
-        self.get_wait().until(EC.element_to_be_clickable(self.locators["plus_friends_btn"])).click()
+        self.get_wait().until(EC.element_to_be_clickable(
+            self.locators["plus_friends_btn"])).click()
 
     def open_friends_section(self) -> None:
         """Open friends section via + (or later you can add 'See all')."""
-        self.get_wait().until(EC.element_to_be_clickable(self.locators["plus_friends_btn"])).click()
+        self.get_wait().until(EC.element_to_be_clickable(
+            self.locators["plus_friends_btn"])).click()
 
     def open_requests_tab(self) -> None:
         """Open 'Requests' tab."""
-        self.get_wait().until(EC.element_to_be_clickable(self.locators["requests_tab"])).click()
+        self.get_wait().until(EC.element_to_be_clickable(
+            self.locators["requests_tab"])).click()
         self.get_wait().until(EC.url_contains("/friends/requests"))
 
     def open_my_friends_tab(self) -> None:
         """Open 'My Friends' tab."""
-        self.get_wait().until(EC.element_to_be_clickable(self.locators["my_friends_tab"])).click()
+        self.get_wait().until(EC.element_to_be_clickable(
+            self.locators["my_friends_tab"])).click()
         self.get_wait().until(EC.url_contains("/friends"))
 
     def get_request_cards(self) -> list:
         """Return list of friend request cards."""
-        return self.get_wait().until(EC.visibility_of_any_elements_located(self.request_card_locator))
+        return self.get_wait().until(
+            EC.visibility_of_any_elements_located(
+                self.request_card_locator
+            )
+        )
 
     def is_accept_button_visible_on_first_card(self) -> bool:
         """Verify Accept button is visible on first request card."""
@@ -109,4 +118,3 @@ class FriendRequestsPage(BasePage):
             f"[.//*[normalize-space()='{username}']]",
         )
         return len(self.driver.find_elements(*locator)) > 0
-    
