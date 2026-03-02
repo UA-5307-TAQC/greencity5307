@@ -5,14 +5,18 @@ from selenium.webdriver.common.by import By
 
 from selenium.webdriver.support import expected_conditions as EC
 
+from components.common_components.auth_components.signin_modal_component import SignInComponent
+from components.common_pages_components.about_us_components.about_us_buttons_component import \
+    AboutUsPageHabitButtonComponent
 from components.common_pages_components.about_us_components \
     .vision_card_component import VisionCardComponent
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.base_page import BasePage
 from pages.news_pages.eco_news_page import EcoNewsPage
 from pages.abstract_pages.friends_abstract.friends_abstract_page \
     import FriendsAbstractPage
 from pages.common_pages.places_page import PlacesPage
-
+from utils.custom_web_element import CustomWebElement
 
 
 class AboutUsPage(BasePage):
@@ -34,6 +38,23 @@ class AboutUsPage(BasePage):
         "vision_cards": (By.CSS_SELECTOR, "app-vision-card.vision-card")
     }
 
+    section_header_one: CustomWebElement
+    section_description_one: CustomWebElement
+    section_button_form_habit_one: CustomWebElement
+    section_header_two: CustomWebElement
+    section_description_two: CustomWebElement
+    section_button_form_habit_two: CustomWebElement
+    vision_section_header: CustomWebElement
+
+    def click_vision_card_button_without_sing_in(self, index: int):
+        """Click the button on the vision card based on the provided index without signing in."""
+        cards = self.get_vision_cards()
+
+        if index < 1 or index > len(cards):
+            raise ValueError(f"Index must be between 1 and {len(cards)}.")
+
+        cards[index - 1].click_button()
+        return SignInComponent(self.driver)
 
 
     def get_vision_cards(self) -> list[VisionCardComponent]:
@@ -63,9 +84,25 @@ class AboutUsPage(BasePage):
             case 4:
                 return FriendsAbstractPage(self.driver)
 
+    def get_form_habit_button_one(self) :
+        """Returns the 'Form Habit' button one element."""
+        element = self.driver.find_element(*self.locators["section_button_form_habit_one"])
+        return AboutUsPageHabitButtonComponent(element)
+
+    def get_form_habit_button_two(self) :
+        """Returns the 'Form Habit' button one element."""
+        element = self.driver.find_element(*self.locators["section_button_form_habit_two"])
+        return AboutUsPageHabitButtonComponent(element)
+
     def click_section_button_form_habit_one(self):
         """Clicks the section button form habit."""
-        self.click(self.section_button_form_habit_one)
+        self.get_form_habit_button_one().click_form_habit_button_one()
+        return MyHabitPage(self.driver)
+
+    def click_section_button_form_habit_two(self):
+        """Clicks the section button form habit."""
+        self.get_form_habit_button_two().click_form_habit_button_two()
+        return MyHabitPage(self.driver)
 
     def get_vision_cards_count(self) -> int:
         """Gets the number of vision cards present in the section."""
@@ -77,7 +114,7 @@ class AboutUsPage(BasePage):
         return len(self.get_vision_cards()) > 0
 
     @allure.step("Navigating to the Main page")
-    def go_to_main_page(self) -> "MainPage":
+    def go_to_main_page(self):
         """Navigate to the Main page."""
         from pages.common_pages.main_page import MainPage # pylint: disable=import-outside-toplevel
         self.header.click_main_page_link()
@@ -87,7 +124,7 @@ class AboutUsPage(BasePage):
         return MainPage(self.driver)
 
     @allure.step("Navigating to the UBS Courier page")
-    def go_to_ubs_courier(self) -> "UBSCourierPage":
+    def go_to_ubs_courier(self):
         """Navigate to the UBS courier page."""
         from pages.common_pages.ubc_courier_page import UBSCourierPage # pylint: disable=import-outside-toplevel
         self.header.click_ubs_courier_link()
