@@ -1,12 +1,20 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
+import io
+import logging
+from datetime import datetime
+
 import allure
+import pytest
+from allure_commons.types import AttachmentType
 from pytest import fixture
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-
 from data.config import Config
+from pages.common_pages.main_page import MainPage
+from utils.logger import logger
+
 
 @fixture(params=["chrome"], scope="function")
 def driver(request):
@@ -30,13 +38,74 @@ def driver(request):
             opts = ChromeOptions()
             if headless_flag:
                 opts.add_argument("--headless=new")
+            opts.add_argument(f"--lang={Config.BROWSER_LANG}")
             opts.add_argument("--no-sandbox")
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
             drv = webdriver.Chrome(options=opts)
-    drv.implicitly_wait(Config.DEFAULT_TIMEOUT)
+    drv.implicitly_wait(Config.IMPLICITLY_WAIT)
     drv.get(Config.BASE_UI_URL)
 
     yield drv
 
     drv.quit()
+
+
+@pytest.fixture(scope="function")
+# pylint: disable=redefined-outer-name
+def driver_with_login(driver):
+    """Fixture that logs in the user before yielding the WebDriver."""
+
+    with allure.step(f"Logging in the user with email: {Config.USER_EMAIL}"):
+        main_page = MainPage(driver)
+        sign_in_form = main_page.header.click_sign_in_link()
+        sign_in_form.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD).wait_page_loaded()
+    yield driver
+
+
+@pytest.hookimpl(hookwrapper=True)
+# pylint: disable=redefined-outer-name
+def pytest_runtest_makereport(item):
+    """Hook to make screenshots and attach them to allure"""
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        web_driver = item.funcargs.get("driver")
+
+        if web_driver:
+            try:
+                test_name = item.name
+                timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+                allure.attach(
+                    web_driver.get_screenshot_as_png(),
+                    name=f"failed_{test_name}_{timestamp}",
+                    attachment_type=AttachmentType.PNG
+                )
+            except Exception:  # pylint: disable=broad-except
+                # Ignore screenshot capture errors to avoid masking the original test failure
+                pass
+
+
+@fixture(scope='function', autouse=True)
+def capture_logs_to_allure():
+    """Capture logs to allure."""
+    log_capture_string = io.StringIO()
+
+    ch = logging.StreamHandler(log_capture_string)
+    ch.setLevel(logging.DEBUG)
+
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    ch.setFormatter(formatter)
+
+    logger.addHandler(ch)
+
+    yield
+
+    log_contents = log_capture_string.getvalue()
+
+    if log_contents:
+        allure.attach(log_contents, name='Test logs', attachment_type=allure.attachment_type.TEXT)
+
+    logger.removeHandler(ch)
+    log_capture_string.close()

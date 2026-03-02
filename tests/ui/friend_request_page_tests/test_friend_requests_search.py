@@ -1,15 +1,15 @@
 """Module for testing search functionality in Friend Requests page."""
 
 from selenium.webdriver.remote.webdriver import WebDriver
-
-from components.common_components.auth_components.signin_modal_component import \
-    SignInComponent
-from data.config import Config
-from pages.friend_requests_page import FriendRequestsPage
-from pages.main_page import MainPage
 import pytest
 import allure
 
+from components.common_components.auth_components.signin_modal_component import SignInComponent
+from data.config import Config
+from pages.abstract_pages.friends_abstract.friend_requests_page import FriendRequestsPage
+from pages.common_pages.main_page import MainPage
+
+@pytest.mark.ui
 @allure.title("Search friend requests by partial username")
 @allure.feature("Friends")
 @allure.story("Friend Requests - Search")
@@ -19,12 +19,12 @@ def test_search_requests_by_partial_username(driver: WebDriver):
     with allure.step("Open main page and sign in"):
         main_page = MainPage(driver)
         sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-        sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+        sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
     with allure.step("Link to my space page"):
         main_page.header.click_my_space()
 
-    with allure.step("Open My friends and request"):
+    with allure.step("Open Friends page and switch to Requests tab"):
         friend_requests_page = FriendRequestsPage(driver)
         friend_requests_page.click_plus_friends()
         friend_requests_page.click_requests_tab()
@@ -38,7 +38,8 @@ def test_search_requests_by_partial_username(driver: WebDriver):
             pytest.skip("No friend requests available to validate search filtering/restoring.")
 
     with allure.step("Enter partial username -> list updated -> verify matching results"):
-        first_name = driver.find_elements(*friend_requests_page.friend_name_locator)[0].text.strip()
+        friend_requests_page.wait_requests_present()
+        first_name = friend_requests_page.get_request_usernames()[0]
         query = first_name[:3] if len(first_name) >= 3 else first_name
 
         friend_requests_page.search(query)
@@ -46,7 +47,7 @@ def test_search_requests_by_partial_username(driver: WebDriver):
         assert friend_requests_page.are_matching_results_displayed(query)
 
     with allure.step("Clear input -> verify empty -> verify full list restored"):
-        friend_requests_page.search_input_clear()
+        friend_requests_page.clear_search()
         assert friend_requests_page.is_search_empty()
         assert friend_requests_page.verify_requests_list_is_restored(initial_count)
 
@@ -55,4 +56,3 @@ def test_search_requests_by_partial_username(driver: WebDriver):
         friend_requests_page.search(non_existing)
         assert friend_requests_page.is_search_value(non_existing)
         assert friend_requests_page.no_results_are_displayed()
-        

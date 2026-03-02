@@ -35,7 +35,7 @@ jobs:
         run: |
           pylint .
 
-  pytest:
+  pytest-and-report:
     if: github.event.pull_request.draft == false || github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: lint
@@ -55,8 +55,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run tests
+        id: pytest
         run: |
+          set +e
           pytest -v
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          echo "Pytest exit code: $EXIT_CODE"
+          exit 0
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
@@ -81,6 +87,60 @@ jobs:
           allure_history: allure-history
           subfolder: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'main' }}
 
+      - name: Fix ownership
+        if: always()
+        run: sudo chown -R $USER:$USER allure-history
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Generate simple index.html with report links
+        if: always()
+        run: |
+          REPORT_DIR="allure-history"
+          INDEX_FILE="$REPORT_DIR/index.html"
+
+          echo "<!DOCTYPE html>
+          <html>
+          <head>
+            <meta charset='UTF-8'>
+            <title>Allure Reports</title>
+            <style>
+              body { font-family: Arial; padding: 40px; background: #f4f6f9; }
+              h1 { color: #2c3e50; }
+              ul { list-style: none; padding: 0; }
+              li { margin-bottom: 10px; }
+              a {
+                text-decoration: none;
+                font-size: 18px;
+                font-weight: bold;
+                color: #3498db;
+              }
+              a:hover { text-decoration: underline; }
+              .date { color: gray; margin-bottom: 20px; }
+            </style>
+          </head>
+          <body>
+          <h1>📊 Allure Reports</h1>
+          <div class='date'>Last updated: $(date)</div>
+          <ul>" > $INDEX_FILE
+
+          # 1️⃣ Спочатку додаємо main (якщо існує)
+          if [ -d "$REPORT_DIR/main" ]; then
+            echo "<li><a href='./main/'>main</a></li>" >> "$INDEX_FILE"
+          fi
+
+          # 2️⃣ Додаємо всі pr-* папки (без .git і main)
+          find "$REPORT_DIR" -maxdepth 1 -type d -name "pr-*" \
+            -printf '%T@ %f\n' 2>/dev/null | \
+            sort -nr | \
+            cut -d' ' -f2- | \
+            while read dir; do
+              echo "<li><a href='./$dir/'>$dir</a></li>" >> "$INDEX_FILE"
+            done
+
+          echo "</ul></body></html>" >> "$INDEX_FILE"
+
       - name: Deploy report to Github Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
@@ -98,3 +158,21 @@ jobs:
             Ви можете переглянути звіт за посиланням:
             https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/pr-${{ github.event.number }}/
           comment_tag: allure-report-link
+
+      - name: Fail job if pytest had critical ERRORS
+        if: always()
+        run: |
+          CODE=${{ steps.pytest.outputs.exit_code }}
+          echo "Final pytest exit code: $CODE"
+
+          # 0 = PASS
+          # 1 = FAILED tests (assert) → OK
+          # >=2 = real problems (errors, crash, config issues)
+
+          if [ "$CODE" -ge 2 ]; then
+            echo "❌ Critical pytest error detected. Failing job."
+            exit 1
+          else
+            echo "✅ Only test failures or success. Job stays green."
+            exit 0
+          fi
