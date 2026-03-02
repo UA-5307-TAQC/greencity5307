@@ -29,7 +29,12 @@ class HeaderComponent(BaseComponent):
         "language_option": (By.XPATH,
                             ".//li[contains(@class, 'lang-option')]/span"),
         "ubs_courier_link": (By.XPATH, ".//a[contains(@href, 'ubs')]"),
-        "places_link": (By.XPATH, "//div/nav/ul/li[3]/a")
+        "places_link": (By.XPATH, "//div/nav/ul/li[3]/a"),
+        "user_menu": (By.XPATH, "//*[@id='header_user-wrp']"),
+        "user_menu_profile_link": (By.XPATH,
+                                   "//*[@id='header_user-wrp']/ul/li[@role='navigation']"),
+        "user_menu_sign_out_link": (By.XPATH,
+                                    "//*[@id='header_user-wrp']/ul/li[@aria-label='sign-out']")
     }
 
     main_page: CustomWebElement
@@ -41,6 +46,9 @@ class HeaderComponent(BaseComponent):
     language_option: CustomWebElement
     ubs_courier_link: CustomWebElement
     places_link: CustomWebElement
+    user_menu: CustomWebElement
+    user_menu_profile_link: CustomWebElement
+    user_menu_sign_out_link: CustomWebElement
 
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self):
@@ -137,3 +145,21 @@ class HeaderComponent(BaseComponent):
         )
 
         return SignInComponent(modal_element)
+
+    @allure.step("Clicking the user menu in the header.")
+    def click_user_menu(self):
+        """Click the user menu in the header."""
+        self.user_menu.wait_and_click()
+
+    @allure.step("Clicking the profile link in user menu in the header.")
+    def click_user_menu_profile_link(self):
+        """Click the profile link in the header."""
+        self.user_menu_profile_link.wait_and_click()
+
+    @allure.step("Clicking the sign out link in user menu in the header.")
+    def click_user_menu_sign_out_link(self) -> "MainPage":
+        """Click the sign out link in the header."""
+        from pages.common_pages.main_page import \
+            MainPage  # pylint: disable=import-outside-toplevel
+        self.user_menu_sign_out_link.wait_and_click()
+        return MainPage(self.driver)
