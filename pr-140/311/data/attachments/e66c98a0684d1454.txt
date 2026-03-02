@@ -1,0 +1,4 @@
+2026-03-02 15:39:00,125 - GreenCityLogger - INFO - Query: ?page=1&size=-1
+2026-03-02 15:39:00,126 - GreenCityLogger - INFO - Send GET request to https://greencity.greencity.cx.ua/eco-news?page=1&size=-1
+2026-03-02 15:39:00,380 - GreenCityLogger - INFO - 400
+2026-03-02 15:39:00,381 - GreenCityLogger - INFO - {"message":"size must be a positive number"}
