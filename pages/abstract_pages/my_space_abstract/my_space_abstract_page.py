@@ -12,6 +12,7 @@ from components.abstract_pages_components.my_space_components \
     import MyProfileDataBannerComponent
 from components.abstract_pages_components.my_space_components \
     .abstract_page_components.to_do_list_component import ToDoListComponent
+from pages.abstract_pages.friends_abstract.friends_abstract_page import FriendsAbstractPage
 from pages.base_page import BasePage
 from utils.custom_web_element import CustomWebElement
 
@@ -57,3 +58,8 @@ class MySpaceAbstractPage(BasePage):
     def click_my_events_tab(self):
         """Click on My events tab."""
         self.my_events_tab.wait_and_click()
+
+    def click_friends_tab(self):
+        """Click on Friends tab."""
+        self.profile_banner.click_add_friends_btn()
+        return FriendsAbstractPage(self.driver)
