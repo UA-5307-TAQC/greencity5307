@@ -1,0 +1,2 @@
+INFO     GreenCityLogger:header_component.py:72 Clicking the news link in the header.
+INFO     GreenCityLogger:header_component.py:76 Successfully clicked the news link in the header.
