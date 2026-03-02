@@ -42,3 +42,10 @@ class MainPage(BasePage):
         self.header.click_about_us_link()
         self.get_wait().until(EC.url_contains("about"))
         return AboutUsPage(self.driver)
+
+    def go_to_saved(self):
+        """Navigate to the Saved page."""
+        self.header.click_saved_link()
+        self.get_wait().until(EC.url_contains("isBookmark=true"))
+        from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract # pylint: disable=import-outside-toplevel
+        return SavedAbstract(self.driver)

@@ -29,7 +29,9 @@ class HeaderComponent(BaseComponent):
         "language_option": (By.XPATH,
                             ".//li[contains(@class, 'lang-option')]/span"),
         "ubs_courier_link": (By.XPATH, ".//a[contains(@href, 'ubs')]"),
-        "places_link": (By.XPATH, "//div/nav/ul/li[3]/a")
+        "places_link": (By.XPATH, "//div/nav/ul/li[3]/a"),
+        "saved_link": (By.XPATH, "/html/body/app-root/app-main/div/app-header"
+                                 "/header/div[2]/div/div/div/ul/li[1]/img")
     }
 
     main_page: CustomWebElement
@@ -41,6 +43,14 @@ class HeaderComponent(BaseComponent):
     language_option: CustomWebElement
     ubs_courier_link: CustomWebElement
     places_link: CustomWebElement
+    saved_link: CustomWebElement
+
+    @allure.step("Clicking the saved link in the header")
+    def click_saved_link(self) -> "SavedAbstract":
+        """Click the saved link in the header and return an instance of the SavedAbstract page."""
+        from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract  # pylint: disable=import-outside-toplevel
+        self.saved_link.wait_and_click()
+        return SavedAbstract(self.driver)
 
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self):
