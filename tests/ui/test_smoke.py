@@ -1,7 +1,7 @@
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from utils.logger import logger
-from pages.main_page import MainPage
+from pages.common_pages.main_page import MainPage
 
 
 @allure.title("Smoke test for the main page")

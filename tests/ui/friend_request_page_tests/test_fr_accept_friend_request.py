@@ -6,7 +6,7 @@ from allure_commons.types import AttachmentType
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from data.config import Config
-from pages.main_page import MainPage
+from pages.common_pages.main_page import MainPage
 from pages.friend_requests_page import FriendRequestsPage
 
 
@@ -23,7 +23,7 @@ def test_fr_accept_friend_request(driver: WebDriver) -> None:
         with allure.step("Precondition: Login"):
             main_page = MainPage(driver)
             sign_in_modal = main_page.header.click_sign_in_link()
-            sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
+            sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
         with allure.step("Step 2: Open My Space"):
             friends_page = FriendRequestsPage(driver)
@@ -76,4 +76,3 @@ def test_fr_accept_friend_request(driver: WebDriver) -> None:
             attachment_type=AttachmentType.PNG,
         )
         raise
-    
