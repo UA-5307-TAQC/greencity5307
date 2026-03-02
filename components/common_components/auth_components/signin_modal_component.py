@@ -1,5 +1,6 @@
 """Signin modal component"""
 import allure
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -18,7 +19,9 @@ class SignInComponent(BaseComponent):
         "sign_in_button": (By.XPATH,
                                    "//app-sign-in//button[@type='submit']"),
         "sign_in_with_google_button": (By.CLASS_NAME,"google-sign-in"),
-        "sign_up_button": (By.XPATH,'//a[contains(text(), "Sign up")]')
+        "sign_up_button": (By.XPATH,'//a[contains(text(), "Sign up")]'),
+        "close_button": (By.CLASS_NAME,
+                         "close-modal-window")
     }
 
     email: CustomWebElement
@@ -27,6 +30,7 @@ class SignInComponent(BaseComponent):
     sign_in_button: CustomWebElement
     sign_in_with_google_button: CustomWebElement
     sign_up_button: CustomWebElement
+    close_button: CustomWebElement
 
     @allure.step("Sign in")
     def sign_in(self, email: str, password: str):
@@ -39,3 +43,22 @@ class SignInComponent(BaseComponent):
         )
         from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
         return MyHabitPage(self.driver)
+
+    @allure.step("Closing the sign-in modal")
+    def close_sign_in(self):
+        """Closing the sign-in modal"""
+        self.close_button.wait_and_click()
+        self.get_wait().until(EC.invisibility_of_element_located(
+            (By.CSS_SELECTOR, ".cdk-overlay-backdrop")
+        ))
+
+    @allure.step("Checking if the sign-in modal is displayed")
+    def is_displayed(self):
+        """Check if the sign-in modal is displayed."""
+        try:
+            self.get_wait(5).until(
+                EC.visibility_of_element_located(self.locators["email"])
+            )
+            return True
+        except (NoSuchElementException, StaleElementReferenceException):
+            return False

@@ -42,3 +42,7 @@ class MainPage(BasePage):
         self.header.click_about_us_link()
         self.get_wait().until(EC.url_contains("about"))
         return AboutUsPage(self.driver)
+
+    def is_page_opened(self) -> bool:
+        """Check if the main page is opened by verifying the presence of key elements."""
+        return self.there_are.is_displayed()

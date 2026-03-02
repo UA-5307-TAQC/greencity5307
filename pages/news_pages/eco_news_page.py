@@ -62,7 +62,7 @@ class EcoNewsPage(BasePage):
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
         self.get_wait().until(EC.url_contains("news"))
-        return self.button_create_news_locator.is_displayed()
+        return self.title_locator.is_displayed()
 
     @allure.step("Checking if Eco News page is loaded")
     def is_page_loaded(self) -> bool:
