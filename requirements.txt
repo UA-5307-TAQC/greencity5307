@@ -8,6 +8,7 @@ cffi==2.0.0
 cfgv==3.5.0
 charset-normalizer==3.4.4
 colorama==0.4.6
+cryptography==46.0.5
 dill==0.4.1
 distlib==0.4.0
 filelock==3.20.3
@@ -17,6 +18,8 @@ idna==3.11
 importlib_metadata==8.7.1
 iniconfig==2.3.0
 isort==7.0.0
+Jinja2==3.1.6
+MarkupSafe==3.0.3
 mccabe==0.7.0
 mypy_extensions==1.1.0
 nodeenv==1.10.0
@@ -27,16 +30,19 @@ pluggy==1.6.0
 pre_commit==4.5.1
 pycparser==3.0
 Pygments==2.19.2
+PyJWT==2.11.0
 pylint==4.0.4
 pylint-pytest==1.1.8
 PySocks==1.7.1
 pytest==8.2.0
+pytest-metadata==3.1.1
 python-dotenv==1.2.1
 PyYAML==6.0.3
 requests==2.32.5
 selenium==4.40.0
 sniffio==1.3.1
 sortedcontainers==2.4.0
+timer==0.3.0
 tomlkit==0.14.0
 trio==0.32.0
 trio-typing==0.10.0
