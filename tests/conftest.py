@@ -5,6 +5,7 @@ from datetime import datetime
 
 import allure
 import pytest
+import requests
 from allure_commons.types import AttachmentType
 from pytest import fixture
 from selenium import webdriver
@@ -109,3 +110,28 @@ def capture_logs_to_allure():
 
     logger.removeHandler(ch)
     log_capture_string.close()
+
+
+@fixture(scope="function")
+def auth_headers():
+    """Fixture that logs in the user for api tests."""
+    login_url = "https://greencity-user.greencity.cx.ua/ownSecurity/signIn"
+
+    payload = {
+        "email": Config.USER_EMAIL,
+        "password": Config.USER_PASSWORD,
+        "projectName": "GREENCITY"
+    }
+
+    response = requests.post(login_url, json=payload, timeout=10)
+
+    assert response.status_code == 200, \
+        f"Login failed. Status: {response.status_code}"
+
+    auth_token = response.json().get("accessToken")
+
+    headers = {
+        "Authorization": f"Bearer {auth_token}",
+    }
+
+    return headers
