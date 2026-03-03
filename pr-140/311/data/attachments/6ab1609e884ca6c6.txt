@@ -1,5 +1,0 @@
-INFO     GreenCityLogger:test_eco_news_get_request.py:76 Query: ?page=100&size=100
-INFO     GreenCityLogger:test_eco_news_get_request.py:79 Send GET request to https://greencity.greencity.cx.ua/eco-news?page=100&size=100
-INFO     GreenCityLogger:test_eco_news_get_request.py:83 200
-INFO     GreenCityLogger:test_eco_news_get_request.py:88 {'page': [], 'totalElements': 1114, 'currentPage': 100, 'totalPages': 12, 'number': 100, 'hasPrevious': True, 'hasNext': False, 'first': False, 'last': True}
-INFO     GreenCityLogger:test_eco_news_get_request.py:91 ✅ JSON validation passed

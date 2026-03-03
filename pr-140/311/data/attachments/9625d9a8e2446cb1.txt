@@ -1,4 +1,0 @@
-2026-03-02 15:39:01,835 - GreenCityLogger - INFO - Query: ?page=1&size=0
-2026-03-02 15:39:01,835 - GreenCityLogger - INFO - Send GET request to https://greencity.greencity.cx.ua/eco-news?page=1&size=0
-2026-03-02 15:39:02,464 - GreenCityLogger - INFO - 400
-2026-03-02 15:39:02,465 - GreenCityLogger - INFO - {"message":"Page size must be greater than or equal to 1"}

@@ -1,4 +1,0 @@
-INFO     GreenCityLogger:test_eco_news_get_request.py:39 Query: ?page=-1&size=20
-INFO     GreenCityLogger:test_eco_news_get_request.py:42 Send GET request to https://greencity.greencity.cx.ua/eco-news?page=-1&size=20
-INFO     GreenCityLogger:test_eco_news_get_request.py:46 400
-INFO     GreenCityLogger:test_eco_news_get_request.py:50 {"message":"page must be a positive number"}
