@@ -42,3 +42,8 @@ class MainPage(BasePage):
         self.header.click_about_us_link()
         self.get_wait().until(EC.url_contains("about"))
         return AboutUsPage(self.driver)
+
+    def is_loaded(self):
+        """Checks if the main page is loaded by verifying
+                the presence of the 'There are' element."""
+        return self.there_are.is_displayed()

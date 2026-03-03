@@ -1,5 +1,6 @@
 """Create update event page."""
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 from components.events_components.event_header_component import EventHeaderComponent
@@ -14,6 +15,13 @@ from utils.types import Locators
 
 class CreateEventPage(BasePage):
     """Create event page."""
+
+    locators = {
+        "page_header": (By.CSS_SELECTOR, "h3.ng-star-inserted"),
+    }
+
+    page_header: WebElement
+
     header_root: Locators = (By.CSS_SELECTOR, "div.header-container")
     chip_set_root: Locators = (By.CSS_SELECTOR, "div.mdc-evolution-chip-set__chips")
     event_type_root: Locators = (By.CSS_SELECTOR, "div.event-type-wrapper")
