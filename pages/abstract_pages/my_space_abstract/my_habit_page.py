@@ -4,6 +4,7 @@ Habit page
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from components.user_habit_card_component import UserHabitCardComponent
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
@@ -70,7 +71,10 @@ class MyHabitPage(MySpaceAbstractPage):
     @allure.step("Checking if My Habit page is loaded")
     def is_page_loaded(self) -> bool:
         """Checks if the page is loaded by verifying the visibility of the title and friend tabs."""
-        self.get_wait().until(
-            EC.visibility_of(self.add_new_habit_button)
-        )
-        return True
+        try:
+            self.get_wait().until(
+                EC.element_to_be_clickable(self.locators["add_new_habit_button"][:2])
+            )
+            return True
+        except TimeoutException:
+            return False
