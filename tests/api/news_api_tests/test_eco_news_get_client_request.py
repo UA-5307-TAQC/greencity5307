@@ -1,16 +1,12 @@
 import allure
 import pytest
-import requests
 from selenium.webdriver.remote.webdriver import WebDriver
 from jsonschema import validate
 
-
+from clients.eco_new_client import EcoNewClient
 from data.config import Config
-from utils.Schemas.news.eco_news_response_schema import \
-    eco_news_response_schema
+from schemas.news.eco_news_response_schema import eco_news_response_schema
 from utils.logger import logger
-
-BASE_URL = f'{Config.BASE_API_URL}/eco-news'
 
 
 @pytest.mark.parametrize(
@@ -25,23 +21,18 @@ BASE_URL = f'{Config.BASE_API_URL}/eco-news'
 @allure.feature("News")
 @allure.story("Get news")
 @allure.title("Verify proper responses when use invalid query params")
-def test_eco_news_get_request_with_invalid_query_params(driver: WebDriver,
-                                                        page: int, size: int,
+def test_eco_news_get_request_with_invalid_query_params(page: int,
+                                                        size: int,
                                                         message: str,
                                                         status_code: int):
     """Test eco news request expecting error"""
 
-    with allure.step("Prepare request query params"):
-        page_query = f"page={page}"
-        size_query = f"size={size}"
-        query_arr = [page_query, size_query]
-        query = f"?{'&'.join(query_arr)}" if query_arr else ""
-        logger.info(f"Query: {query}")
+    client = EcoNewClient(base_url=Config.BASE_API_URL)
 
-    with allure.step("Send GET request"):
-        logger.info(f"Send GET request to {BASE_URL}{query}")
-        response = requests.get(f'{BASE_URL}{query}')
-
+    response = client.find_eco_news_by_page(
+        page=page,
+        size=size
+    )
     with allure.step("Check status code"):
         logger.info(response.status_code)
         assert response.status_code == status_code
@@ -65,19 +56,15 @@ def test_eco_news_get_request_with_invalid_query_params(driver: WebDriver,
 @allure.story("Get news")
 @allure.title(
     "Test eco news get request's response returns correct data format")
-def test_eco_news_get_request(driver: WebDriver, page: int, size: int):
+def test_eco_news_get_request(page: int, size: int):
     """Test like one news page like one news"""
 
-    with allure.step("Prepare request query params"):
-        page_query = f"page={page}"
-        size_query = f"size={size}"
-        query_arr = [page_query, size_query]
-        query = f"?{'&'.join(query_arr)}" if query_arr else ""
-        logger.info(f"Query: {query}")
+    client = EcoNewClient(base_url=Config.BASE_API_URL)
 
-    with allure.step("Send GET request"):
-        logger.info(f"Send GET request to {BASE_URL}{query}")
-        response = requests.get(f'{BASE_URL}{query}')
+    response = client.find_eco_news_by_page(
+        page=page,
+        size=size
+    )
 
     with allure.step("Check status code"):
         logger.info(response.status_code)

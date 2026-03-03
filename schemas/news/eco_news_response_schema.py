@@ -1,6 +1,6 @@
 """Schema for response data for eco news GET request"""
 
-from utils.Schemas.news.one_news_schema import one_news_schema
+from schemas.news.one_news_schema import one_news_schema
 
 eco_news_response_schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
