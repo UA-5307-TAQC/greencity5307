@@ -31,7 +31,9 @@ class HeaderComponent(BaseComponent):
         "other_language_option": (By.XPATH,
                                   ".//ul[contains(@aria-label, 'language switcher')]/li[2]/span"),
         "ubs_courier_link": (By.XPATH, ".//a[contains(@href, 'ubs')]"),
-        "places_link": (By.XPATH, "//div/nav/ul/li[3]/a")
+        "places_link": (By.XPATH, "//div/nav/ul/li[3]/a"),
+        "logo_link": (By.CSS_SELECTOR, ".header_logo"),
+        "_username": (By.CSS_SELECTOR, ".body-2.user-name")
     }
 
     main_page: CustomWebElement
@@ -44,15 +46,8 @@ class HeaderComponent(BaseComponent):
     other_language_option: CustomWebElement
     ubs_courier_link: CustomWebElement
     places_link: CustomWebElement
-
-    @allure.step("Clicking the My Space link in the header")
-    def click_my_space(self):
-        """Click my space link in the header
-        and return an instance of the MySpaceAbstractPage."""
-        from pages.abstract_pages.my_space_abstract.my_space_abstract_page \
-            import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
-        self.my_space_tab.wait_and_click()
-        return MySpaceAbstractPage(self.driver)
+    logo_link: CustomWebElement
+    _username: CustomWebElement
 
     @allure.step("Clicking the language button in the header.")
     def switch_language(self) -> "MainPage":
@@ -120,15 +115,15 @@ class HeaderComponent(BaseComponent):
         return AboutUsPage(self.driver)
 
     @allure.step("Clicking the my space link in the header")
-    def click_my_space_link(self) -> "MySpaceAbstractPage":
+    def click_my_space_link(self) -> "MyHabitPage":
         """
         Click the my space link in the header and
-        return an instance of the MySpaceAbstractPage.
+        return an instance of the MyHabitPage.
         """
-        from pages.abstract_pages.my_space_abstract.my_space_abstract_page \
-            import (MySpaceAbstractPage)  # pylint: disable=import-outside-toplevel
+        from pages.abstract_pages.my_space_abstract.my_habit_page \
+            import MyHabitPage  # pylint: disable=import-outside-toplevel
         self.my_space_tab.wait_and_click()
-        return MySpaceAbstractPage(self.driver)
+        return MyHabitPage(self.driver)
 
     @allure.step("Clicking the UBS Courier link in the header")
     def click_ubs_courier_link(self) -> "UBSCourierPage":
@@ -149,3 +144,16 @@ class HeaderComponent(BaseComponent):
         )
 
         return SignInComponent(modal_element)
+
+    def click_logo(self):
+        """Click the logo in the header and return an instance of the MainPage."""
+        self.logo_link.wait_and_click()
+        from pages.common_pages.main_page import MainPage  # pylint: disable=import-outside-toplevel
+        return MainPage(self.root.parent)
+
+    def get_signed_in_user_name(self):
+        """Get the username of the signed-in user from the header."""
+        username_element = self.get_wait().until(
+            EC.visibility_of(self._username)
+        )
+        return username_element.text
