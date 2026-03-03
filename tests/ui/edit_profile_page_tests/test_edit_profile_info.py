@@ -1,13 +1,13 @@
 """Test update basic profile information."""
 
-import time
+
 import pytest
 import allure
 
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
+
 
 from data.config import Config
 from pages.base_page import BasePage

@@ -12,9 +12,9 @@ class NewsPage(BasePage):
     """News Page class."""
 
     locators = {
-        "tag_filter": (By.CSS_SELECTOR, "app-tag-filter"),
-        "change_view": (By.CSS_SELECTOR, "app-change-view-button"),
-        "news_list": (By.CSS_SELECTOR, "list gallery-view-active ng-star-inserted"),
+        "tag_filter": (By.CSS_SELECTOR, "app-tag-filter", NewsFilterComponent),
+        "change_view": (By.CSS_SELECTOR, "app-change-view-button", ChangeViewComponent),
+        "news_list": (By.CSS_SELECTOR, ".list.gallery-view-active.ng-star-inserted", NewsListComponent),
     }
 
     tag_filter: NewsFilterComponent
