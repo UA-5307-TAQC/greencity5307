@@ -1,62 +1,81 @@
 """API tests for the Events comments functionality."""
-import json
-
-import requests
 import allure
 
+from clients.event_comment_client import EventCommentClient
+
+from data.config import Config
+
 EVENT_ID = 31
-TARGET_URL = f"https://greencity.greencity.cx.ua/events/{EVENT_ID}/comments"
+TEXT = "Some text to backend from AQA."
 
 
 @allure.title("Verify that an unauthorized user cannot leave a comment")
 def test_unauthorized_user_cannot_leave_comment():
     """Testcase that an anonymous user cannot post a comment on an event."""
-    payload = {
-        "text": "Some text to backend from AQA.",
-        "parentCommentId": 0
-    }
+    client = EventCommentClient(base_url=Config.BASE_API_URL)
 
-    with allure.step("Attempt to send a POST request without an Authorization token."):
-        response = requests.post(TARGET_URL, json=payload)
-
-        # Expected result: Unsuccessful response with 401 status code.
-        assert response.status_code == 401, "Unauthorized user can leave a comment."
+    with allure.step("Step 1: Attempt to send a POST request without an Authorization token."):
+        response = client.create_comment(
+            event_id=EVENT_ID,
+            text=TEXT,
+        )
+        assert response.status_code == 401, f"Error: {response.status_code}"
 
 
-@allure.title("Verify that an authorized user can successfully leave a comment")
-def test_authorized_user_can_leave_comment(auth_headers):
-    """Testcase that an authorized user can successfully post a comment and update the state."""
+@allure.title("Verify that an authorized user can successfully leave and delete a comment.")
+def test_authorized_user_can_leave_comment(access_token):
+    """Testcase that an authorized user can successfully post a comment and delete it."""
     # Precondition: The user is logged in.
-    with allure.step("Get the initial count of comments on the target event page."):
-        response = requests.get(url=f"{TARGET_URL}/count", headers=auth_headers)
-        comments_count_before = int(response.text)
+    client = EventCommentClient(base_url=Config.BASE_API_URL, access_token=access_token)
+
+    with allure.step("Step 1: "
+                     "Get the initial count of comments on the target event page."):
+        response = client.get_comments_count(event_id=EVENT_ID)
+        count_before_creation = int(response.text)
 
         # Expected result: Successful response and count of comments.
         assert response.status_code == 200, f"Error: {response.status_code}"
 
-    with allure.step("Send a POST request with valid credentials to leave a new comment."):
-        payload = {
-            "text": "Some text to backend from AQA.",
-            "parentCommentId": 0
-        }
-        files = {
-            "request": (None, json.dumps(payload)),
-        }
-        response = requests.post(TARGET_URL, headers=auth_headers, files=files)
+    with allure.step("Step 2: "
+                     "Send a POST request with valid credentials to leave a new comment."):
+        response = client.create_comment(
+            event_id=EVENT_ID,
+            text=TEXT
+        )
 
         # Expected result: Successful response and posted comment text matches with actual.
         assert response.status_code == 201, f"Error: {response.status_code}"
 
         posted_comment_text = response.json()["text"]
-        actual_comment_text = payload["text"]
-        assert posted_comment_text == actual_comment_text, \
-            f"Comments do not match. Expected: {actual_comment_text}, got: {posted_comment_text}"
+        comment_id = response.json()["id"]
+        assert posted_comment_text == TEXT, \
+            f"Comments do not match. Expected: {TEXT}, got: {posted_comment_text}"
 
-    with allure.step("Fetch the updated comments count and verify it incremented by one"):
-        response = requests.get(url=f"{TARGET_URL}/count", headers=auth_headers)
-        comments_count_after = int(response.text)
+    with allure.step("Step 3: "
+                     "Fetch the updated comments count and verify it incremented by one"):
+        response = client.get_comments_count(event_id=EVENT_ID)
+        count_after_creation = int(response.text)
 
         # Expected result: Successful response and count of comments increments by one.
         assert response.status_code == 200, f"Error: {response.status_code}"
-        assert comments_count_after == comments_count_before + 1, \
-            f"Comments count does not match."
+        assert count_after_creation == count_before_creation + 1, \
+            (f"Comments count does not match. Expected: {count_before_creation + 1},"
+             f"got: {count_after_creation}")
+
+    with allure.step("Step 4: "
+                     "Send a DELETE request and verify that the comment is deleted."):
+        response = client.delete_comment(comment_id=comment_id)
+
+        # Expected result: Successful response.
+        assert response.status_code == 200, f"Error: {response.status_code}"
+
+    with allure.step("Step 5: "
+                     "Fetch the updated comments and verify it decremented by one."):
+        response = client.get_comments_count(event_id=EVENT_ID)
+        comments_count_after_deletion = int(response.text)
+
+        # Expected result: Successful response and count of comments decrements by one.
+        assert response.status_code == 200, f"Error: {response.status_code}"
+        assert comments_count_after_deletion == count_after_creation - 1, \
+            (f"Comments count does not match. Expected: {count_after_creation - 1},"
+             f"got: {comments_count_after_deletion}")

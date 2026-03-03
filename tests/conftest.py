@@ -5,7 +5,7 @@ from datetime import datetime
 
 import allure
 import pytest
-import requests
+
 from allure_commons.types import AttachmentType
 from pytest import fixture
 from selenium import webdriver
@@ -15,6 +15,7 @@ from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from data.config import Config
 from pages.common_pages.main_page import MainPage
 from utils.logger import logger
+from clients.own_security_client import OwnSecurityClient
 
 
 @fixture(params=["chrome"], scope="function")
@@ -132,25 +133,17 @@ def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=rede
 
 
 @fixture(scope="function")
-def auth_headers():
+def access_token():
     """Fixture that logs in the user for api tests."""
-    login_url = "https://greencity-user.greencity.cx.ua/ownSecurity/signIn"
-
-    payload = {
-        "email": Config.USER_EMAIL,
-        "password": Config.USER_PASSWORD,
-        "projectName": "GREENCITY"
-    }
-
-    response = requests.post(login_url, json=payload, timeout=10)
+    client = OwnSecurityClient()
+    response = client.sign_in(
+        email=Config.USER_EMAIL,
+        password=Config.USER_PASSWORD
+    )
 
     assert response.status_code == 200, \
         f"Login failed. Status: {response.status_code}"
 
     auth_token = response.json().get("accessToken")
 
-    headers = {
-        "Authorization": f"Bearer {auth_token}",
-    }
-
-    return headers
+    return auth_token
