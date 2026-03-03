@@ -1,0 +1,3 @@
+2026-03-03 10:20:08,423 - GreenCityLogger - INFO - Clicking switch language button in the header.
+2026-03-03 10:20:11,129 - GreenCityLogger - INFO - Clicking switch language button in the header.
+2026-03-03 10:20:11,544 - GreenCityLogger - INFO - Clicking switch language button in the header.
