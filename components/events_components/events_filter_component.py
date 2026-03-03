@@ -3,22 +3,31 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from components.base_component import BaseComponent
 
+from utils.custom_web_element import CustomWebElement
+
 
 class EventsFilterComponent(BaseComponent):
     """Component representing the filter block on the events page."""
-    reset_button_locator = (By.CSS_SELECTOR, "button.reset")
-    dropdown_trigger_pattern = (".//div[contains(@class, 'dropdown')]"
-                                "[.//mat-label[contains(text(), '{}')]]//mat-select")
-    option_pattern = "//mat-option//span[contains(text(), '{}')]"
+
+    locators = {
+        "reset_button": (By.CSS_SELECTOR, "button.reset")
+    }
+
+    reset_button: CustomWebElement
+
+    _dropdown_trigger_pattern = (".//div[contains(@class, 'dropdown')]"
+                                 "[.//mat-label[contains(text(), '{}')]]//mat-select")
+    _option_pattern = "//mat-option//span[contains(text(), '{}')]"
 
     def _select_filter_value(self, filter_name: str, option_name: str):
         """Helper method to select a value from a dropdown filter."""
-        xpath = self.dropdown_trigger_pattern.format(filter_name)
-        dropdown = self.root.find_element(By.XPATH, xpath)
-        dropdown.click()
+        xpath = self._dropdown_trigger_pattern.format(filter_name)
+        dropdown = CustomWebElement(self.root.find_element(By.XPATH, xpath))
+        dropdown.wait_and_click()
 
-        option_xpath = self.option_pattern.format(option_name)
-        self.root.parent.find_element(By.XPATH, option_xpath).click()
+        option_xpath = self._option_pattern.format(option_name)
+        raw_option = self.root.parent.find_element(By.XPATH, option_xpath)
+        CustomWebElement(raw_option).wait_and_click()
 
         dropdown.send_keys(Keys.ESCAPE)
 
@@ -40,9 +49,8 @@ class EventsFilterComponent(BaseComponent):
 
     def click_reset(self):
         """Click the reset button to clear all filters."""
-        self.root.find_element(*self.reset_button_locator).click()
+        self.reset_button.wait_and_click()
 
     def is_reset_button_enabled(self):
         """Check if the reset button is enabled."""
-        btn = self.root.find_element(*self.reset_button_locator)
-        return btn.is_enabled()
+        return self.reset_button.is_enabled()
