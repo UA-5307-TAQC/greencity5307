@@ -13,7 +13,7 @@ class EventCardComponent(BaseComponent):
 
     locators = {
         "save_flag": (By.CSS_SELECTOR, ".event-flags"),
-        "event_tags": (By.CSS_SELECTOR, ".ul-eco-buttons .text"),
+        "event_tags": (By.CSS_SELECTOR, ".ul-eco-buttons .text", List[CustomWebElement]),
 
         "event_date": (By.CSS_SELECTOR, ".date"),
         "event_time": (By.CSS_SELECTOR, ".time"),
