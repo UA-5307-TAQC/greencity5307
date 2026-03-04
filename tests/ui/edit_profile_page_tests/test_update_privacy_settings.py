@@ -59,9 +59,8 @@ def test_update_privacy_settings(driver: WebDriver, value: str):
         my_space_page.profile_banner.click_edit_btn()
 
         page = ProfileEditPage(driver)
-        WebDriverWait(driver, 5).until(lambda d: ProfileEditPage(d).profile_privacy
-                                       .get_show_location_value() == value)
         profile_privacy_block = page.profile_privacy
+        WebDriverWait(driver, 5).until(lambda d: profile_privacy_block.get_show_location_value() == value)
 
     with allure.step("Verify updated settings is saved correctly"):
         assert profile_privacy_block.get_show_location_value() == value

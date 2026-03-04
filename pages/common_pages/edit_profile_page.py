@@ -27,7 +27,6 @@ class ProfileEditPage(BasePage):
                               EmailPreferencesComponent),
     }
 
-    page_root: WebElement
     page_title: WebElement
     cancel_button: WebElement
     save_button: WebElement
