@@ -9,13 +9,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class ProfilePrivacyComponent(BaseComponent):
     """Component for the 'Profile privacy' block."""
 
     locators = {
-        "root": (By.CSS_SELECTOR, "div.privacy-wrapper"),
         "setting_item": (By.CSS_SELECTOR, "li.ng-star-inserted"),
         "show_location_select": (By.XPATH, ".//li[1]//mat-select"),
         "show_eco_places_select": (By.XPATH, ".//li[2]//mat-select"),
@@ -23,12 +23,11 @@ class ProfilePrivacyComponent(BaseComponent):
         "mat_option": (By.CSS_SELECTOR, "mat-option"),
     }
 
-    root: WebElement
-    setting_item: WebElement
-    show_location_select: WebElement
-    show_eco_places_select: WebElement
-    show_todo_select: WebElement
-    mat_option: WebElement
+    setting_item: CustomWebElement
+    show_location_select: CustomWebElement
+    show_eco_places_select: CustomWebElement
+    show_todo_select: CustomWebElement
+    mat_option: CustomWebElement
 
     @allure.step("Get 'Show my location' value")
     def get_show_location_value(self) -> str:
@@ -47,17 +46,25 @@ class ProfilePrivacyComponent(BaseComponent):
 
     def _set_value(self, select_element: WebElement, value: str):
         """Helper method to set value."""
-        wait = WebDriverWait(self.root.parent, 5)
+        wait = WebDriverWait(self.driver, 5)
 
         select_element.click()
 
         options = wait.until(EC.presence_of_all_elements_located(self.locators["mat_option"]))
         time.sleep(0.2)
+        matched = False
         for option in options:
             if option.text.strip() == value:
                 option.click()
                 time.sleep(0.1)
+                matched = True
                 break
+        if not matched:
+            available_values = [option.text.strip() for option in options]
+            raise ValueError(
+                f"Option '{value}' not found in privacy dropdown. "
+                f"Available options: {available_values}"
+            )
 
     @allure.step("Set 'Show my location' to {value}")
     def set_show_location_value(self, value: str):
