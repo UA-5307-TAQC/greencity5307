@@ -1,13 +1,12 @@
 """Test update privacy settings"""
-import time
 
 import pytest
 import allure
 
+from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 
 from data.config import Config
 from pages.base_page import BasePage
@@ -60,7 +59,8 @@ def test_update_privacy_settings(driver: WebDriver, value: str):
         my_space_page.profile_banner.click_edit_btn()
 
         page = ProfileEditPage(driver)
-        time.sleep(0.3)
+        WebDriverWait(driver, 5).until(lambda d: ProfileEditPage(d).profile_privacy
+                                       .get_show_location_value() == value)
         profile_privacy_block = page.profile_privacy
 
     with allure.step("Verify updated settings is saved correctly"):
