@@ -17,7 +17,7 @@ class BasePage(Factory):
         "_snack_bar_message": (By.CSS_SELECTOR, "div[matsnackbarlabel]")
     }
 
-    title_locator: tuple
+    title: tuple
     header: HeaderComponent
     _snack_bar_message: CustomWebElement
 
@@ -44,9 +44,9 @@ class BasePage(Factory):
 
     def is_page_opened(self) -> bool:
         """Check if the page is opened by verifying the visibility of the title element."""
-        if not hasattr(self, "title_locator"):
-            raise NotImplementedError("Page must define title_locator")
-        return self.is_visible(self.title_locator)
+        if not hasattr(self, "title"):
+            raise NotImplementedError("Page must define 'title' locator")
+        return self.is_visible(self.title)
 
     def get_alert_msg(self) -> str:
         """Gets text from snack bar message."""
