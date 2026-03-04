@@ -66,7 +66,7 @@ class Factory(Generic[T]):
             if hasattr(cls, 'locators') and isinstance(cls.locators, dict):
                 all_locators.update(cls.locators)
 
-        # Map each locator name to a lazy-loading lambdah
+        # Map each locator name to a lazy-loading lambda
         for name, locator_data in all_locators.items():
             by = locator_data[0]
             value = locator_data[1]
