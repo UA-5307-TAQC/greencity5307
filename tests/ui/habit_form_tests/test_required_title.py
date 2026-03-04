@@ -23,4 +23,4 @@ def test_title_is_required(create_habit_page_context):
     with allure.step("Check that submit button isn't enabled after leaving title field empty"):
         submit_btn = habit_basic_form.add_habit_btn
         assert not submit_btn.is_enabled(), \
-        "Add Habit button shouldn't be enabled - title field is empty"
+               "Add Habit button shouldn't be enabled - title field is empty"

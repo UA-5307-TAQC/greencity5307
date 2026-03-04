@@ -43,3 +43,4 @@ class FriendCardComponent(BaseComponent):
     def click_friend_card(self):
         """Click on a friend card."""
         CustomWebElement(self.root).wait_and_click()
+        return self
