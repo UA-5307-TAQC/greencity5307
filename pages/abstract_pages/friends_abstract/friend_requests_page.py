@@ -20,12 +20,12 @@ class FriendRequestsPage(BasePage):
         "my_space_tab": (
             By.XPATH,
             "//a[contains(.,'Мій кабінет') or contains(., 'My Space')]",
-        ),
+        ),  # pylint: disable=duplicate-code
         "plus_friends_btn": (By.XPATH, "//a[contains(.,'+')]"),
         "requests_tab": (
             By.XPATH,
             "//a[contains(.,'Запити') or contains(.,'Friend requests')]",
-        ),
+        ),  # pylint: disable=duplicate-code
         "search_input": (By.CSS_SELECTOR, "input.search")
 
     }
