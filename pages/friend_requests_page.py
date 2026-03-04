@@ -53,8 +53,7 @@ class FriendRequestsPage(BasePage):
 
     def open_friends_section(self) -> None:
         """Open friends section via + (or later you can add 'See all')."""
-        self.get_wait().until(EC.element_to_be_clickable(
-            self.locators["plus_friends_btn"])).click()
+        self.click_plus_friends()
 
     def open_requests_tab(self) -> None:
         """Open 'Requests' tab."""
@@ -66,7 +65,7 @@ class FriendRequestsPage(BasePage):
         """Open 'My Friends' tab."""
         self.get_wait().until(EC.element_to_be_clickable(
             self.locators["my_friends_tab"])).click()
-        self.get_wait().until(EC.url_contains("/friends"))
+        self.get_wait().until(EC.url_matches(r".*/friends$"))
 
     def get_request_cards(self) -> list:
         """Return list of friend request cards."""

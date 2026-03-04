@@ -29,8 +29,6 @@ def test_fr_accept_friend_request(driver: WebDriver) -> None:
             friends_page = FriendRequestsPage(driver)
             friends_page.click_my_space_tab()
 
-        friends_page = FriendRequestsPage(driver)
-
         with allure.step("Step 3: Navigate to Friends section"):
             friends_page.click_plus_friends()
 
@@ -49,11 +47,11 @@ def test_fr_accept_friend_request(driver: WebDriver) -> None:
             allure.attach(username, name="Accepted username", attachment_type=AttachmentType.TEXT)
             friends_page.accept_request_for_user(username)
 
-        with allure.step("Step 9: Open My Friends tab"):
+        with allure.step("Step 8: Open My Friends tab"):
             friends_page.open_my_friends_tab()
             assert "/friends" in driver.current_url and "/requests" not in driver.current_url, (
-            f"Still not in My Friends tab. Current URL: {driver.current_url}"
-        )
+                f"Still not in My Friends tab. Current URL: {driver.current_url}"
+            )
         allure.attach(driver.current_url, "URL after opening My Friends", attachment_type=AttachmentType.TEXT)
         allure.attach(driver.get_screenshot_as_png(), "My Friends screen", attachment_type=AttachmentType.PNG)
 
