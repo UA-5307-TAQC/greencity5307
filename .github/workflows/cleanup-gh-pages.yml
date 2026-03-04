@@ -1,0 +1,34 @@
+name: PR Cleanup (gh-pages)
+
+on:
+  pull_request:
+    types: [ closed ]
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup-gh-pages:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Delete PR folder
+        run: |
+          PR_FOLDER="pr-${{ github.event.number }}"
+          if [ -d "$PR_FOLDER" ]; then
+            echo "Removing $PR_FOLDER"
+            rm -rf "$PR_FOLDER"
+
+            git config user.name github-actions[bot]
+            git config user.email github-actions[bot]@users.noreply.github.com
+
+            git add .
+            git commit -m "Cleanup: remove Allure report for PR #${{ github.event.number }}"
+            git push origin gh-pages
+          else
+            echo "Folder $PR_FOLDER does not exist, skipping."
+          fi

@@ -7,6 +7,9 @@ ignore=
     .venv,
     .env
 
+load-plugins=pylint_pytest
+
+init-hook="import sys; sys.path.append('.')"
 
 ignore-paths=
     ^tests/ui/.*,
@@ -14,7 +17,8 @@ ignore-paths=
 
 [MESSAGES CONTROL]
 disable=
-    cyclic-import
+    cyclic-import,
+    too-few-public-methods
 
 [FORMAT]
 max-line-length=100
