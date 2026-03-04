@@ -57,7 +57,7 @@ class HabitBasicInfoFormComponent(BaseComponent):
         """Get title validation."""
         return self.get_wait().until(
             EC.visibility_of(self.title_validation_msg)
-            )
+        )
 
 
     @allure.step("Get description validation")
@@ -65,7 +65,7 @@ class HabitBasicInfoFormComponent(BaseComponent):
         """Get description validation."""
         return self.get_wait().until(
             EC.visibility_of(self.description_validation_msg)
-            )
+        )
 
 
     @allure.step("Choose difficulty")
