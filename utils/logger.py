@@ -3,6 +3,7 @@
 import logging
 import sys
 
+
 class Logger:
     """Singleton class for logger configuration."""
     _instance = None
@@ -35,4 +36,4 @@ class Logger:
         """Returns the configured logger instance."""
         return self.logger
 
-logger = Logger().get_logger()
+logger: Logger = Logger().get_logger()
