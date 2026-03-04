@@ -17,18 +17,18 @@ class EcoNewsPage(BasePage):
     """Page object for the Eco News page."""
 
     locators = {
-        "main_header_locator": (By.CSS_SELECTOR, ".cont >.main-header"),
-        "button_create_news_locator": (By.XPATH, "//*[@id='main-content']/div/div[1]/div/a"),
-        "title_locator": (By.XPATH, "//*[@id='main-content']/div/div[1]/div/h1"),
-        "news_cards_locator": (By.CSS_SELECTOR,
+        "main_header": (By.CSS_SELECTOR, ".cont >.main-header"),
+        "button_create_news": (By.XPATH, "//*[@id='main-content']/div/div[1]/div/a"),
+        "title": (By.XPATH, "//*[@id='main-content']/div/div[1]/div/h1"),
+        "news_cards": (By.CSS_SELECTOR,
                                ".ng-star-inserted .gallery-view-li-active",
                                List[NewsCardBaseComponent])
     }
 
-    main_header_locator: CustomWebElement
-    button_create_news_locator: CreateNewButtonComponent
-    title_locator: CustomWebElement
-    news_cards_locator: NewsCardBaseComponent
+    main_header: CustomWebElement
+    button_create_news: CreateNewButtonComponent
+    title: CustomWebElement
+    news_cards: List[NewsCardBaseComponent]
 
     def get_button_create_news(self) -> CreateNewButtonComponent:
         """Get the create news button component."""
@@ -62,7 +62,7 @@ class EcoNewsPage(BasePage):
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
         self.get_wait().until(EC.url_contains("news"))
-        return self.button_create_news_locator.is_displayed()
+        return self.button_create_news.is_displayed()
 
     @allure.step("Checking if Eco News page is loaded")
     def is_page_loaded(self) -> bool:

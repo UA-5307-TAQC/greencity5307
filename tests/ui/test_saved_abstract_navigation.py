@@ -14,10 +14,9 @@ from pages.common_pages.main_page import MainPage
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-102")
-
 def test_saved_abstract_tabs_navigation(driver):
     """
-        TC-101
+        TC-102
         Title: Tabs navigation
         Author: Vitalina Kliuieva
         Priority: High
