@@ -39,6 +39,7 @@ class HabitProgressFormComponent(BaseComponent):
     @allure.step("Get habit progress on Habit form")
     def get_progress(self) -> str:
         """Get habit progress."""
+        self.get_wait().until(EC.visibility_of(self.progress_bar))
         try:
             progress = self.progress_bar.find_element(By.CLASS_NAME,
                                                       "thumb-label-mobile")

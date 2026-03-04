@@ -20,7 +20,11 @@ class Logger:
 
         self.logger.setLevel(logging.DEBUG)
 
-        formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = logging.Formatter(
+            '%(asctime)s - %(name)s - %(levelname)s'
+            ' - %(filename)s  - %(funcName)s'
+            ' - %(message)s'
+        )
 
         if not self.logger.handlers:
             console_handler = logging.StreamHandler(sys.stdout)
