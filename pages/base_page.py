@@ -45,7 +45,7 @@ class BasePage(Factory):
     def is_page_opened(self) -> bool:
         """Check if the page is opened by verifying the visibility of the title element."""
         if not hasattr(self, "title"):
-            raise NotImplementedError("Page must define title")
+            raise NotImplementedError("Page must define 'title' locator")
         return self.is_visible(self.title)
 
     def get_alert_msg(self) -> str:
