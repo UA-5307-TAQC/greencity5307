@@ -1,4 +1,4 @@
-"""This module contains tests for about us page vision cards buttons check before sing in."""
+"""This module contains tests for about us page vision cards buttons check before sign in."""
 import allure
 
 from pages.common_pages.about_us_page import AboutUsPage
@@ -7,13 +7,13 @@ from pages.common_pages.main_page import MainPage
 
 
 # pylint: disable=no-member
-@allure.title("Test Validation: Click buttons in the vision card after sing in.")
+@allure.title("Test Validation: Click buttons in the vision card after sign in.")
 @allure.description("This test verifies that a user can successfully open pages "
                     "after clicking on buttons in vision cards on the page. ")
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-103")
-def test_about_us_page_sing_in_vision_cards_buttons_check(driver):
+def test_about_us_page_sign_in_vision_cards_buttons_check(driver):
     """
         TC-103
         Title: Click buttons in the vision card after sing in

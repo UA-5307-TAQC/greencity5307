@@ -37,7 +37,8 @@ def test_search_requests_by_partial_username(driver: WebDriver):
             pytest.skip("No friend requests available to validate search filtering/restoring.")
 
     with allure.step("Enter partial username -> list updated -> verify matching results"):
-        first_name = driver.find_elements(*friend_requests_page.friend_name_locator)[0].text.strip()
+        friend_requests_page.wait_requests_present()
+        first_name = friend_requests_page.get_request_usernames()[0]
         query = first_name[:3] if len(first_name) >= 3 else first_name
 
         friend_requests_page.search(query)
@@ -45,7 +46,7 @@ def test_search_requests_by_partial_username(driver: WebDriver):
         assert friend_requests_page.are_matching_results_displayed(query)
 
     with allure.step("Clear input -> verify empty -> verify full list restored"):
-        friend_requests_page.search_input_clear()
+        friend_requests_page.clear_search()
         assert friend_requests_page.is_search_empty()
         assert friend_requests_page.verify_requests_list_is_restored(initial_count)
 

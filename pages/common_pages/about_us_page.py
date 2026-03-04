@@ -17,6 +17,7 @@ from pages.abstract_pages.friends_abstract.friends_abstract_page \
 from pages.common_pages.places_page import PlacesPage
 from utils.custom_web_element import CustomWebElement
 
+
 class AboutUsPage(BasePage):
     """Page object for the about_us page."""
 
@@ -44,7 +45,7 @@ class AboutUsPage(BasePage):
     section_button_form_habit_two: CustomWebElement
     vision_section_header: CustomWebElement
 
-    def click_vision_card_button_without_sing_in(self, index: int):
+    def click_vision_card_button_without_sign_in(self, index: int):
         """Click the button on the vision card based on the provided index without signing in."""
         cards = self.get_vision_cards()
 
@@ -53,15 +54,11 @@ class AboutUsPage(BasePage):
 
         cards[index - 1].click_button()
         match index:
-            case 1:
-                return SignInComponent(self.driver)
-            case 2:
+            case 1 | 2 | 4:
                 return SignInComponent(self.driver)
             case 3:
-                from pages.news_pages.eco_news_page import EcoNewsPage # pylint: disable=import-outside-toplevel
+                from pages.news_pages.eco_news_page import EcoNewsPage  # pylint: disable=import-outside-toplevel
                 return EcoNewsPage(self.driver)
-            case 4:
-                return SignInComponent(self.driver)
 
 
     def get_vision_cards(self) -> list[VisionCardComponent]:
@@ -92,13 +89,13 @@ class AboutUsPage(BasePage):
             case 4:
                 return FriendsAbstractPage(self.driver)
 
-    def get_form_habit_button_one(self) :
+    def get_form_habit_button_one(self):
         """Returns the 'Form Habit' button one element."""
         element = self.driver.find_element(*self.locators["section_button_form_habit_one"])
         return AboutUsPageHabitButtonComponent(element)
 
-    def get_form_habit_button_two(self) :
-        """Returns the 'Form Habit' button one element."""
+    def get_form_habit_button_two(self):
+        """Returns the 'Form Habit' button two element."""
         element = self.driver.find_element(*self.locators["section_button_form_habit_two"])
         return AboutUsPageHabitButtonComponent(element)
 

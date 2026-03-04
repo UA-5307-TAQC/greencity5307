@@ -17,6 +17,7 @@ idna==3.11
 importlib_metadata==8.7.1
 iniconfig==2.3.0
 isort==7.0.0
+jsonschema==4.26.0
 mccabe==0.7.0
 mypy_extensions==1.1.0
 nodeenv==1.10.0

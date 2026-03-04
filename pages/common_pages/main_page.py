@@ -3,6 +3,7 @@ It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 
 import allure
+from selenium.common import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -45,4 +46,7 @@ class MainPage(BasePage):
 
     def is_page_opened(self) -> bool:
         """Check if the main page is opened by verifying the presence of key elements."""
-        return self.there_are.is_displayed()
+        try:
+            return self.there_are.is_displayed()
+        except (NoSuchElementException, StaleElementReferenceException):
+            return False
