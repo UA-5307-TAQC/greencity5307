@@ -17,7 +17,6 @@ class FriendRequestsPage(BasePage):
     )
 
     locators = {
-        **BasePage.locators,
         "my_space_tab": (
             By.XPATH,
             "//a[contains(.,'Мій кабінет') or contains(., 'My Space')]",
