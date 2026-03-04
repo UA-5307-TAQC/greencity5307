@@ -59,12 +59,9 @@ class HeaderComponent(BaseComponent):
 
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self):
-        """Click my space link in the header
-        and return an instance of the MySpaceAbstractPage."""
-        from pages.abstract_pages.my_space_abstract.my_space_abstract_page \
-            import MySpaceAbstractPage  # pylint: disable=import-outside-toplevel
-        self.my_space_tab.wait_and_click()
-        return MySpaceAbstractPage(self.driver)
+        """Click My Space link in the header and delegate to the primary
+         navigation method for My Space."""
+        return self.click_my_space_link()
 
     @allure.step("Clicking the language button in the header.")
     def switch_language(self) -> "MainPage":

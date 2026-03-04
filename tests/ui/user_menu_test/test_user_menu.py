@@ -4,8 +4,6 @@ import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support import expected_conditions as EC
 
-from components.common_components.auth_components.signin_modal_component import \
-    SignInComponent
 from data.config import Config
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 from pages.common_pages.main_page import MainPage
@@ -25,9 +23,9 @@ def test_user_menu(driver_with_login: WebDriver):
         my_space_page = MySpaceAbstractPage(driver_with_login)
         assert ("profile" in driver_with_login.current_url and
                 my_space_page.user_name.text ==
-                "Oleksandr"), "This is not my space page or user name is incorrect."
+                Config.USER_NAME), "This is not my space page or user name is incorrect."
 
-    with allure.step("Step 1: click on user menu, and ensure that 'Profile' and 'Sign out' buttons is enabled."):
+    with allure.step("Step 1: click on user menu, and ensure that 'Profile' and 'Sign out' buttons are enabled."):
         main_page.header.click_user_menu()
 
         assert (main_page.header.user_menu_profile_link.is_enabled() and
@@ -47,7 +45,7 @@ def test_user_menu(driver_with_login: WebDriver):
         assert "orders" in driver_with_login.current_url, "Did not redirect after clicking 'Profile'."
 
     with allure.step("Step 3: Click on 'Sign Out' link, and ensure it change url and make user logged out."):
-        driver_with_login.get(f"{Config.BASE_UI_URL.rstrip('/')}/#/greenCity/profile")
+        driver_with_login.get(f"{Config.BASE_UI_URL.rstrip('/')}/profile")
         main_page.header.click_user_menu()
         initial_url = driver_with_login.current_url
         main_page.header.click_user_menu_sign_out_link()
