@@ -13,7 +13,7 @@ from pages.common_pages.main_page import MainPage
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-103")
-def test_about_us_page_nosignin_vision_cards_buttons_check(driver):
+def test_about_us_page_nosingin_vision_cards_buttons_check(driver):
     """
         TC-103
         Title: Click buttons in the vision card before sign in
