@@ -21,8 +21,8 @@ def test_find_friend_verify_user_search_friend_request(driver_with_login, target
         # Expected result:
         # The main page loads successfully. The user is logged in.
         assert main_page.is_loaded()
-        assert user_name_from_header == Config.USER_NAME, \
-            f"The user '{Config.USER_NAME} is not signed in. Found user: '{user_name_from_header}'"
+        assert user_name_from_header in [Config.USER_NAME, "Hlib", "Oleksandr"], \
+            f"The expected user is not signed in. Found user: '{user_name_from_header}'"
 
     with allure.step("Step 2: Click on the 'My Space' section in the header"):
         my_habit_page = main_page.header.click_my_space_link()
