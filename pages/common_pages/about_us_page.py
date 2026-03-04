@@ -46,7 +46,7 @@ class AboutUsPage(BasePage):
     section_button_form_habit_two: CustomWebElement
     vision_section_header: CustomWebElement
 
-    def click_vision_card_button_without_sing_in(self, index: int):
+    def click_vision_card_button_without_sign_in(self, index: int):
         """Click the button on the vision card based on the provided index without signing in."""
         cards = self.get_vision_cards()
 
@@ -89,8 +89,8 @@ class AboutUsPage(BasePage):
         element = self.driver.find_element(*self.locators["section_button_form_habit_one"])
         return AboutUsPageHabitButtonComponent(element)
 
-    def get_form_habit_button_two(self) :
-        """Returns the 'Form Habit' button one element."""
+    def get_form_habit_button_two(self):
+        """Returns the 'Form Habit' button two element."""
         element = self.driver.find_element(*self.locators["section_button_form_habit_two"])
         return AboutUsPageHabitButtonComponent(element)
 

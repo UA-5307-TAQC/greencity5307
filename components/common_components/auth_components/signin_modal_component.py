@@ -1,6 +1,8 @@
 """Signin modal component"""
 import allure
-from selenium.common import NoSuchElementException, StaleElementReferenceException
+from selenium.common.exceptions import (NoSuchElementException,
+                                        StaleElementReferenceException,
+                                        TimeoutException)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -55,5 +57,5 @@ class SignInComponent(BaseComponent):
                 EC.visibility_of_element_located(self.locators["email"])
             )
             return True
-        except (NoSuchElementException, StaleElementReferenceException):
+        except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
             return False
