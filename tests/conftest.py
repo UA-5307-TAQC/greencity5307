@@ -135,15 +135,18 @@ def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=rede
 @fixture(scope="function")
 def access_token():
     """Fixture that logs in the user for api tests."""
-    client = OwnSecurityClient()
+    client = OwnSecurityClient(Config.Base_USER_API_URL)
     response = client.sign_in(
         email=Config.USER_EMAIL,
         password=Config.USER_PASSWORD
     )
 
     assert response.status_code == 200, \
-        f"Login failed. Status: {response.status_code}"
+        f"Login failed. Status: {response.status_code}. Response body: {response.text}"
+
 
     auth_token = response.json().get("accessToken")
+    assert auth_token, \
+        f"Login response does not contain access token. Response body: {response.text}"
 
     return auth_token

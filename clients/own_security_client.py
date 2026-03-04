@@ -6,11 +6,11 @@ from clients.base_client import BaseClient
 class OwnSecurityClient(BaseClient):
     """Client class for interacting with the Own Security API,
     extending BaseClient for common functionality."""
-    def __init__(self, access_token=None):
+    def __init__(self, base_url, access_token=None):
         """Initializes the OwnSecurityClient with the specific base URL
         for authentication endpoints."""
         super().__init__(
-            base_url="https://greencity-user.greencity.cx.ua/ownSecurity",
+            base_url=f"{base_url}/ownSecurity",
             access_token=access_token
         )
 
