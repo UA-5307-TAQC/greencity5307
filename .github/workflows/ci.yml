@@ -66,9 +66,13 @@ jobs:
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
           BASE_API_URL: ${{ secrets.BASE_API_URL }}
+          BASE_USER_API_URL: ${{ secrets.BASE_USER_API_URL }}
+          IMPLICITLY_WAIT: ${{ secrets.IMPLICITLY_WAIT }}
+          EXPLICITLY_WAIT: ${{ secrets.EXPLICITLY_WAIT }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
           USER_NAME: ${{ secrets.USER_NAME }}
+          BROWSER_LANG: ${{ secrets.BROWSER_LANG }}
 
       - name: Get Allure history
         uses: actions/checkout@v4
