@@ -65,6 +65,7 @@ jobs:
           exit 0
         env:
           BASE_UI_URL: ${{ secrets.BASE_UI_URL }}
+          BASE_API_URL: ${{ secrets.BASE_API_URL }}
           USER_EMAIL: ${{ secrets.USER_EMAIL }}
           USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 

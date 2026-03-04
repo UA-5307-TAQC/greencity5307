@@ -1,5 +1,6 @@
 """Create update event page."""
 from selenium.webdriver.common.by import By
+from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 from components.events_components.event_header_component import EventHeaderComponent
