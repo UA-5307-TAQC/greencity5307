@@ -3,7 +3,7 @@ It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 
 import allure
-from selenium.common import NoSuchElementException, StaleElementReferenceException
+from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -50,3 +50,7 @@ class MainPage(BasePage):
             return self.there_are.is_displayed()
         except (NoSuchElementException, StaleElementReferenceException):
             return False
+
+    def is_loaded(self) -> bool:
+        """Backward-compatible alias for is_page_opened()."""
+        return self.is_page_opened()
