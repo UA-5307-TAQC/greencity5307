@@ -1,6 +1,5 @@
 """Create update event page."""
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 from components.events_components.event_header_component import EventHeaderComponent
@@ -15,12 +14,13 @@ class CreateEventPage(BasePage):
     """Create event page."""
 
     locators = {
-        "header_root": (By.CSS_SELECTOR, "div.header-container"),
-        "chip_set": (By.CSS_SELECTOR, "div.mdc-evolution-chip-set__chips"),
-        "event_type": (By.CSS_SELECTOR, "div.event-type-wrapper"),
-        "description": (By.CSS_SELECTOR, "quill-editor[formcontrolname='description']"),
-        "date_time": (By.CSS_SELECTOR, "div.date-time"),
-        "date_location": (By.CSS_SELECTOR, "div.date-location-container"),
+        "header_root": (By.CSS_SELECTOR, "div.header-container", EventHeaderComponent),
+        "chip_set": (By.CSS_SELECTOR, "div.mdc-evolution-chip-set__chips", ChipSetComponent),
+        "event_type": (By.CSS_SELECTOR, "div.event-type-wrapper", EventTypeComponent),
+        "description": (By.CSS_SELECTOR, "quill-editor[formcontrolname='description']",
+                        QuillEditorComponent),
+        "date_time": (By.CSS_SELECTOR, "div.date-time", DateTimeComponent),
+        "date_location": (By.CSS_SELECTOR, "div.date-location-container", LocationComponent),
     }
 
     header_root: EventHeaderComponent

@@ -5,12 +5,12 @@ Component for Personal info section of profile edit page.
 import time
 import allure
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class PersonalInfoComponent(BaseComponent):
@@ -22,9 +22,9 @@ class PersonalInfoComponent(BaseComponent):
         "credo": (By.CSS_SELECTOR, "textarea[formcontrolname='credo']")
     }
 
-    name: WebElement
-    city: WebElement
-    credo: WebElement
+    name: CustomWebElement
+    city: CustomWebElement
+    credo: CustomWebElement
 
     @allure.step("Fill Name field with value: {name}")
     def fill_name(self, name: str):
