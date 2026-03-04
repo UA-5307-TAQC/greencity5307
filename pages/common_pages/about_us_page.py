@@ -12,7 +12,6 @@ from components.common_pages_components.about_us_components \
     .vision_card_component import VisionCardComponent
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.base_page import BasePage
-from pages.news_pages.eco_news_page import EcoNewsPage
 from pages.abstract_pages.friends_abstract.friends_abstract_page \
     import FriendsAbstractPage
 from pages.common_pages.places_page import PlacesPage
@@ -54,7 +53,12 @@ class AboutUsPage(BasePage):
             raise ValueError(f"Index must be between 1 and {len(cards)}.")
 
         cards[index - 1].click_button()
-        return SignInComponent(self.driver)
+        match index:
+            case 1 | 2 | 4:
+                return SignInComponent(self.driver)
+            case 3:
+                from pages.news_pages.eco_news_page import EcoNewsPage  # pylint: disable=import-outside-toplevel
+                return EcoNewsPage(self.driver)
 
 
     def get_vision_cards(self) -> list[VisionCardComponent]:
@@ -80,11 +84,12 @@ class AboutUsPage(BasePage):
             case 2:
                 return FriendsAbstractPage(self.driver)
             case 3:
+                from pages.news_pages.eco_news_page import EcoNewsPage  # pylint: disable=import-outside-toplevel
                 return EcoNewsPage(self.driver)
             case 4:
                 return FriendsAbstractPage(self.driver)
 
-    def get_form_habit_button_one(self) :
+    def get_form_habit_button_one(self):
         """Returns the 'Form Habit' button one element."""
         element = self.driver.find_element(*self.locators["section_button_form_habit_one"])
         return AboutUsPageHabitButtonComponent(element)
@@ -114,7 +119,7 @@ class AboutUsPage(BasePage):
         return len(self.get_vision_cards()) > 0
 
     @allure.step("Navigating to the Main page")
-    def go_to_main_page(self):
+    def go_to_main_page(self) -> "MainPage":
         """Navigate to the Main page."""
         from pages.common_pages.main_page import MainPage # pylint: disable=import-outside-toplevel
         self.header.click_main_page_link()
@@ -124,7 +129,7 @@ class AboutUsPage(BasePage):
         return MainPage(self.driver)
 
     @allure.step("Navigating to the UBS Courier page")
-    def go_to_ubs_courier(self):
+    def go_to_ubs_courier(self) -> "UBSCourierPage":
         """Navigate to the UBS courier page."""
         from pages.common_pages.ubc_courier_page import UBSCourierPage # pylint: disable=import-outside-toplevel
         self.header.click_ubs_courier_link()

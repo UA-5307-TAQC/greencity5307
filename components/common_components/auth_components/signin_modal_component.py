@@ -46,10 +46,15 @@ class SignInComponent(BaseComponent):
         from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage # pylint: disable=import-outside-toplevel
         return MyHabitPage(self.driver)
 
+    @allure.step("Closing the sign-in modal")
     def close_sign_in(self):
         """Closing the sign-in modal"""
-        self.close_button.click()
+        self.close_button.wait_and_click()
+        self.get_wait().until(EC.invisibility_of_element_located(
+            (By.CSS_SELECTOR, ".cdk-overlay-backdrop")
+        ))
 
+    @allure.step("Checking if the sign-in modal is displayed")
     def is_displayed(self):
         """Check if the sign-in modal is displayed."""
         try:
