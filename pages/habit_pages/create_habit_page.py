@@ -31,7 +31,6 @@ class CreateHabitPage(BasePage):
         """Get form instruction."""
         return self.get_wait().until(EC.visibility_of(self.form_instruction)).text
 
-
     @allure.step("Get title of Habit page")
     def get_page_header(self) -> str:
         """Get title of Habit page."""
