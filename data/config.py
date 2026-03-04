@@ -14,7 +14,7 @@ class Config: # pylint: disable=too-few-public-methods
 
     BASE_UI_URL = os.getenv("BASE_UI_URL")
     BASE_API_URL = os.getenv("BASE_API_URL")
-    Base_USER_API_URL = os.getenv("BASE_USER_API_URL")
+    BASE_USER_API_URL = os.getenv("BASE_USER_API_URL")
     BROWSER_LANG = os.getenv("BROWSER_LANG", "uk-UA")
     IMPLICITLY_WAIT = int(os.getenv("IMPLICITLY_WAIT", "10"))
     EXPLICITLY_WAIT = int(os.getenv("EXPLICITLY_WAIT", "10"))
