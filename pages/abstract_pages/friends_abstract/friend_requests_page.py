@@ -149,7 +149,7 @@ class FriendRequestsPage(BasePage):
 
             # 2) Fallback: no visible names in list
             names = d.find_elements(*self.friend_name_in_card_locator)
-            return all(not el.is_displayed() for el in names)
+            return bool(names) and all(not el.is_displayed() for el in names)
 
         try:
             wait.until(predicate)

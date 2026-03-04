@@ -55,7 +55,7 @@ class HeaderComponent(BaseComponent):
         ).click()
         return EventPage(self.root.parent)
 
-    @allure.step("Clicking signin button in the header")
+    @allure.step("Clicking sign in button in the header")
     def click_sign_in_link(self) -> SignInComponent:
         """Click the sign in link in the header and return an instance of the SignInComponent."""
         WebDriverWait(self.root.parent, 10).until(
