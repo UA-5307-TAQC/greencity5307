@@ -17,9 +17,15 @@ class ProfilePrivacyComponent(BaseComponent):
 
     locators = {
         "setting_item": (By.CSS_SELECTOR, "li.ng-star-inserted"),
-        "show_location_select": (By.XPATH, ".//li[1]//mat-select"),
-        "show_eco_places_select": (By.XPATH, ".//li[2]//mat-select"),
-        "show_todo_select": (By.XPATH, ".//li[3]//mat-select"),
+        "show_location_select": (By.XPATH,
+            "//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select"
+        ),
+        "show_eco_places_select": (By.XPATH,
+            "//div[contains(text(),'Показувати мої еко-місця')]/ancestor::li//mat-select"
+        ),
+        "show_todo_select": (By.XPATH,
+            "//div[contains(text(),'Показувати мій список завдань')]/ancestor::li//mat-select"
+        ),
         "mat_option": (By.CSS_SELECTOR, "mat-option"),
     }
 
