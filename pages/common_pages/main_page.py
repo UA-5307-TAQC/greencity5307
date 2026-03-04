@@ -54,3 +54,10 @@ class MainPage(BasePage):
     def is_loaded(self) -> bool:
         """Backward-compatible alias for is_page_opened()."""
         return self.is_page_opened()
+
+    def go_to_saved(self) -> "SavedAbstract":
+        """Navigate to the Saved page."""
+        self.header.click_saved_link()
+        self.get_wait().until(EC.url_contains("isBookmark=true"))
+        from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract # pylint: disable=import-outside-toplevel
+        return SavedAbstract(self.driver)

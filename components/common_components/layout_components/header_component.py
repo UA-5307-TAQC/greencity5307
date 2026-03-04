@@ -38,7 +38,9 @@ class HeaderComponent(BaseComponent):
         "user_menu_profile_link": (By.XPATH,
                                    "//*[@id='header_user-wrp']/ul/li[@role='navigation']"),
         "user_menu_sign_out_link": (By.XPATH,
-                                    "//*[@id='header_user-wrp']/ul/li[@aria-label='sign-out']")
+                                    "//*[@id='header_user-wrp']/ul/li[@aria-label='sign-out']"),
+        "saved_link": (By.XPATH, "/html/body/app-root/app-main/div/app-header"
+                                 "/header/div[2]/div/div/div/ul/li[1]/img")
     }
 
     main_page: CustomWebElement
@@ -56,6 +58,14 @@ class HeaderComponent(BaseComponent):
     user_menu: CustomWebElement
     user_menu_profile_link: CustomWebElement
     user_menu_sign_out_link: CustomWebElement
+    saved_link: CustomWebElement
+
+    @allure.step("Clicking the saved link in the header")
+    def click_saved_link(self) -> "SavedAbstract":
+        """Click the saved link in the header and return an instance of the SavedAbstract page."""
+        from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract  # pylint: disable=import-outside-toplevel
+        self.saved_link.wait_and_click()
+        return SavedAbstract(self.driver)
 
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self):
