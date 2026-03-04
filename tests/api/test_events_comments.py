@@ -31,10 +31,10 @@ def test_authorized_user_can_leave_comment(access_token):
     with allure.step("Step 1: "
                      "Get the initial count of comments on the target event page."):
         response = client.get_comments_count(event_id=EVENT_ID)
-        count_before_creation = int(response.text)
 
         # Expected result: Successful response and count of comments.
         assert response.status_code == 200, f"Error: {response.status_code}"
+        count_before_creation = int(response.text)
 
     with allure.step("Step 2: "
                      "Send a POST request with valid credentials to leave a new comment."):
@@ -72,10 +72,11 @@ def test_authorized_user_can_leave_comment(access_token):
     with allure.step("Step 5: "
                      "Fetch the updated comments and verify it decremented by one."):
         response = client.get_comments_count(event_id=EVENT_ID)
-        comments_count_after_deletion = int(response.text)
 
         # Expected result: Successful response and count of comments decrements by one.
         assert response.status_code == 200, f"Error: {response.status_code}"
+
+        comments_count_after_deletion = int(response.text)
         assert comments_count_after_deletion == count_after_creation - 1, \
             (f"Comments count does not match. Expected: {count_after_creation - 1},"
              f"got: {comments_count_after_deletion}")
