@@ -33,7 +33,12 @@ class HeaderComponent(BaseComponent):
         "ubs_courier_link": (By.XPATH, ".//a[contains(@href, 'ubs')]"),
         "places_link": (By.XPATH, "//div/nav/ul/li[3]/a"),
         "logo_link": (By.CSS_SELECTOR, ".header_logo"),
-        "_username": (By.CSS_SELECTOR, ".body-2.user-name")
+        "_username": (By.CSS_SELECTOR, ".body-2.user-name"),
+        "user_menu": (By.XPATH, "//*[@id='header_user-wrp']"),
+        "user_menu_profile_link": (By.XPATH,
+                                   "//*[@id='header_user-wrp']/ul/li[@role='navigation']"),
+        "user_menu_sign_out_link": (By.XPATH,
+                                    "//*[@id='header_user-wrp']/ul/li[@aria-label='sign-out']")
     }
 
     main_page: CustomWebElement
@@ -48,6 +53,15 @@ class HeaderComponent(BaseComponent):
     places_link: CustomWebElement
     logo_link: CustomWebElement
     _username: CustomWebElement
+    user_menu: CustomWebElement
+    user_menu_profile_link: CustomWebElement
+    user_menu_sign_out_link: CustomWebElement
+
+    @allure.step("Clicking the My Space link in the header")
+    def click_my_space(self):
+        """Click My Space link in the header and delegate to the primary
+         navigation method for My Space."""
+        return self.click_my_space_link()
 
     @allure.step("Clicking the language button in the header.")
     def switch_language(self) -> "MainPage":
@@ -157,3 +171,21 @@ class HeaderComponent(BaseComponent):
             EC.visibility_of(self._username)
         )
         return username_element.text
+
+    @allure.step("Clicking the user menu in the header.")
+    def click_user_menu(self):
+        """Click the user menu in the header."""
+        self.user_menu.wait_and_click()
+
+    @allure.step("Clicking the profile link in user menu in the header.")
+    def click_user_menu_profile_link(self):
+        """Click the profile link in the header."""
+        self.user_menu_profile_link.wait_and_click()
+
+    @allure.step("Clicking the sign out link in user menu in the header.")
+    def click_user_menu_sign_out_link(self) -> "MainPage":
+        """Click the sign out link in the header."""
+        from pages.common_pages.main_page import \
+            MainPage  # pylint: disable=import-outside-toplevel
+        self.user_menu_sign_out_link.wait_and_click()
+        return MainPage(self.driver)

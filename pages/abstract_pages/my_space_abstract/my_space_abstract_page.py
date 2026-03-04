@@ -27,7 +27,8 @@ class MySpaceAbstractPage(BasePage):
         "my_habits_tab": (By.XPATH, ".//div[@class='mat-mdc-tab-labels']/div[1]"),
         "my_news_tab": (By.XPATH, ".//div[@class='mat-mdc-tab-labels']/div[2]"),
         "my_events_tab": (By.XPATH, ".//div[@class='mat-mdc-tab-labels']/div[3]"),
-        "content": (By.CSS_SELECTOR, "div.mat-mdc-tab-body-wrapper:nth-child(2)")
+        "content": (By.CSS_SELECTOR, "div.mat-mdc-tab-body-wrapper:nth-child(2)"),
+        "user_name": (By.XPATH, "//app-profile-header/div/div/p[1]")
     }
 
     profile_banner: MyProfileDataBannerComponent
@@ -37,6 +38,7 @@ class MySpaceAbstractPage(BasePage):
     my_news_tab: CustomWebElement
     my_events_tab: CustomWebElement
     content: CustomWebElement
+    user_name: CustomWebElement
 
     @allure.step("Click on My habits tab on My Space page")
     def click_my_habits_tab(self) -> "MyHabitPage":
