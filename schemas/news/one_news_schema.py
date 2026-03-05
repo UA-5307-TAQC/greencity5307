@@ -104,6 +104,7 @@ one_news_get_by_id_properties.update({
     },
 })
 one_news_get_by_id_schema = {
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": one_news_get_by_id_properties,
     "required": one_news_get_by_id_required,

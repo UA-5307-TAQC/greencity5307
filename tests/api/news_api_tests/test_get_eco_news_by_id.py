@@ -7,36 +7,37 @@ from data.config import Config
 from schemas.news.one_news_schema import one_news_get_by_id_schema
 from utils.logger import logger
 
+languages = ('en', 'uk')
 
 @pytest.mark.parametrize(
     "news_id, lang",
     [
-        (1, 'en'),
-        (2, 'en'),
-        (3, 'en'),
-        (4, 'en'),
-        (5, 'en'),
-        (6, 'en'),
-        (7, 'en'),
-        (17, 'en'),
-        (77, 'en'),
-        (56, 'en'),
-        (90, 'en'),
-        (734, 'en'),
-        (4044, 'en'),
-        (1, 'uk'),
-        (2, 'uk'),
-        (3, 'uk'),
-        (4, 'uk'),
-        (5, 'uk'),
-        (6, 'uk'),
-        (7, 'uk'),
-        (17, 'uk'),
-        (77, 'uk'),
-        (56, 'uk'),
-        (90, 'uk'),
-        (734, 'uk'),
-        (4044, 'uk'),
+        (1, languages[0]),
+        (2, languages[0]),
+        (3, languages[0]),
+        (4, languages[0]),
+        (5, languages[0]),
+        (6, languages[0]),
+        (7, languages[0]),
+        (17, languages[0]),
+        (77, languages[0]),
+        (56, languages[0]),
+        (90, languages[0]),
+        (734, languages[0]),
+        (4044, languages[0]),
+        (1, languages[1]),
+        (2, languages[1]),
+        (3, languages[1]),
+        (4, languages[1]),
+        (5, languages[1]),
+        (6, languages[1]),
+        (7, languages[1]),
+        (17, languages[1]),
+        (77, languages[1]),
+        (56, languages[1]),
+        (90, languages[1]),
+        (734, languages[1]),
+        (4044, languages[1]),
         (1, 'not-exist'),
         (2, 'not-exist'),
         (3, 'not-exist'),
@@ -81,6 +82,7 @@ def test_get_eco_news_by_id(news_id: int, lang: str):
     elif status_code == 400:
         parsed_data = response.json()
         logger.info(parsed_data)
+        # message contains `ua`, but should contain `uk`, this is API problem
         assert parsed_data["message"] == "Select correct language: \'en\' or \'ua\'"
     elif status_code == 404:
         parsed_data = response.json()
