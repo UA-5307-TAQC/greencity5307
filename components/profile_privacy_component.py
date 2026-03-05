@@ -1,6 +1,5 @@
 """Profile privacy component"""
 
-import time
 import allure
 
 from selenium.webdriver.common.by import By
@@ -16,7 +15,6 @@ class ProfilePrivacyComponent(BaseComponent):
     """Component for the 'Profile privacy' block."""
 
     locators = {
-        "setting_item": (By.CSS_SELECTOR, "li.ng-star-inserted"),
         "show_location_select": (By.XPATH,
             "//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select"
         ),
@@ -29,7 +27,6 @@ class ProfilePrivacyComponent(BaseComponent):
         "mat_option": (By.CSS_SELECTOR, "mat-option"),
     }
 
-    setting_item: CustomWebElement
     show_location_select: CustomWebElement
     show_eco_places_select: CustomWebElement
     show_todo_select: CustomWebElement
@@ -51,26 +48,16 @@ class ProfilePrivacyComponent(BaseComponent):
         return self.show_todo_select.text.strip()
 
     def _set_value(self, select_element: WebElement, value: str):
-        """Helper method to set value."""
         wait = WebDriverWait(self.driver, 5)
 
         select_element.click()
 
-        options = wait.until(EC.presence_of_all_elements_located(self.locators["mat_option"]))
-        time.sleep(0.2)
-        matched = False
-        for option in options:
-            if option.text.strip() == value:
-                option.click()
-                time.sleep(0.1)
-                matched = True
-                break
-        if not matched:
-            available_values = [option.text.strip() for option in options]
-            raise ValueError(
-                f"Option '{value}' not found in privacy dropdown. "
-                f"Available options: {available_values}"
-            )
+        option_locator = (By.XPATH, f"//mat-option//span[normalize-space()='{value}']")
+
+        option = wait.until(EC.element_to_be_clickable(option_locator))
+        option.click()
+
+        wait.until(EC.staleness_of(option))
 
     @allure.step("Set 'Show my location' to {value}")
     def set_show_location_value(self, value: str):
