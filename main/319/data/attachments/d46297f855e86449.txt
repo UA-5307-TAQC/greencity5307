@@ -1,3 +1,0 @@
-INFO     GreenCityLogger:header_component.py:60 Clicking switch language button in the header.
-INFO     GreenCityLogger:header_component.py:60 Clicking switch language button in the header.
-INFO     GreenCityLogger:header_component.py:60 Clicking switch language button in the header.
