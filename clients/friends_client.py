@@ -4,6 +4,7 @@ import allure
 from requests import Response
 from clients.base_client import BaseClient
 
+
 class FriendsClient(BaseClient):
     """Client for interacting with Friends API."""
 
@@ -20,7 +21,7 @@ class FriendsClient(BaseClient):
             "size": size
         }
 
-        return self._request("Get", "", params=params)
+        return self._request("GET", "", params=params)
 
     @allure.step("Get mutual friends.")
     def get_mutual_friends(self, friend_id: int, page: int = 0, size: int = 10) -> Response:
@@ -30,4 +31,4 @@ class FriendsClient(BaseClient):
             "page": page,
             "size": size
         }
-        return self._request("Get", "/mutual-friends", params=params)
+        return self._request("GET", "/mutual-friends", params=params)

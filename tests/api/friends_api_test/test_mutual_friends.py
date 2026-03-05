@@ -7,9 +7,6 @@ from clients.friends_client import FriendsClient
 from data.config import Config
 from schemas.friends.mutual_friend_schema import mutual_friend_schema
 
-from tests.conftest import dynamic_friend_id
-
-
 @allure.epic("GreenCity API")
 @allure.feature("Friends API")
 @allure.story("Get mutual friends")
