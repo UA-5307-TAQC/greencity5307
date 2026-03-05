@@ -1,42 +1,75 @@
 """Profile privacy component"""
 
+import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class ProfilePrivacyComponent(BaseComponent):
     """Component for the 'Profile privacy' block."""
 
-    root_locator = (By.CSS_SELECTOR, "div.privacy-wrapper")
-    setting_item_locator = (By.CSS_SELECTOR, "li.ng-star-inserted")
-    mat_select_locator = (By.CSS_SELECTOR, "mat-select.state-select")
-    mat_option_locator = (By.CSS_SELECTOR, "mat-option")
+    locators = {
+        "show_location_select": (By.XPATH,
+            "//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select"
+        ),
+        "show_eco_places_select": (By.XPATH,
+            "//div[contains(text(),'Показувати мої еко-місця')]/ancestor::li//mat-select"
+        ),
+        "show_todo_select": (By.XPATH,
+            "//div[contains(text(),'Показувати мій список завдань')]/ancestor::li//mat-select"
+        ),
+        "mat_option": (By.CSS_SELECTOR, "mat-option"),
+    }
 
-    def __init__(self, parent: WebElement):
-        super().__init__(parent)
-        self.root: WebElement = parent.find_element(*self.root_locator)
+    show_location_select: CustomWebElement
+    show_eco_places_select: CustomWebElement
+    show_todo_select: CustomWebElement
+    mat_option: CustomWebElement
 
-    def get_setting_value(self, index: int) -> str:
-        """Return the currently selected value of a setting by index (0-based)."""
-        mat_selects = self.root.find_elements(*self.mat_select_locator)
-        return mat_selects[index].text
+    @allure.step("Get 'Show my location' value")
+    def get_show_location_value(self) -> str:
+        """Get 'Show my location' value."""
+        return self.show_location_select.text.strip()
 
-    def set_setting_value(self, index: int, value: str):
-        """Set a new value for a setting by index (0-based)."""
-        mat_selects = self.root.find_elements(*self.mat_select_locator)
-        select = mat_selects[index]
-        select.click()  # open the list of options
+    @allure.step("Get 'Show my eco places' value")
+    def get_show_eco_places_value(self) -> str:
+        """Get 'Show my eco places' value."""
+        return self.show_eco_places_select.text.strip()
 
-        # wait until options appear
-        options = WebDriverWait(self.root.parent, 5).until(
-            EC.presence_of_all_elements_located(self.mat_option_locator)
-        )
+    @allure.step("Get 'Show my To-do list' value")
+    def get_show_todo_value(self) -> str:
+        """Get 'Show my To-do list' value."""
+        return self.show_todo_select.text.strip()
 
-        for option in options:
-            if option.text.strip() == value:
-                option.click()
-                break
+    def _set_value(self, select_element: WebElement, value: str):
+        wait = WebDriverWait(self.driver, 5)
+
+        select_element.click()
+
+        option_locator = (By.XPATH, f"//mat-option//span[normalize-space()='{value}']")
+
+        option = wait.until(EC.element_to_be_clickable(option_locator))
+        option.click()
+
+        wait.until(EC.staleness_of(option))
+
+    @allure.step("Set 'Show my location' to {value}")
+    def set_show_location_value(self, value: str):
+        """Set 'Show my location' to '{value}'."""
+        self._set_value(self.show_location_select, value)
+
+    @allure.step("Set 'Show my eco places' to {value}")
+    def set_show_eco_places_value(self, value: str):
+        """Set 'Show my eco places' to '{value}'."""
+        self._set_value(self.show_eco_places_select, value)
+
+    @allure.step("Set 'Show my To-do list' to {value}")
+    def set_show_todo_value(self, value: str):
+        """Set 'Show my To-do list' to '{value}'."""
+        self._set_value(self.show_todo_select, value)
