@@ -14,12 +14,12 @@ class EventHeaderComponent(BaseComponent):
     """Component for event title and duration section."""
 
     locators = {
-        "title_input": (By.CSS_SELECTOR, "input[formcontrolname='title']"),
+        "title": (By.CSS_SELECTOR, "input[formcontrolname='title']"),
         "duration_select": (By.CSS_SELECTOR, "mat-select[formcontrolname='duration']"),
         "duration_options": (By.CSS_SELECTOR, "mat-option")
     }
 
-    title_input: CustomWebElement
+    title: CustomWebElement
     duration_select: CustomWebElement
     duration_options: CustomWebElement
 

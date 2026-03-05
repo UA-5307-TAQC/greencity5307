@@ -10,10 +10,8 @@ class LocationComponent(BaseComponent):
     """Component for Place / Online checkboxes."""
 
     locators = {
-        "checkbox_place": (By.XPATH,
-                ".//mat-checkbox//label[contains(text(),'Place')]/preceding-sibling::input"),
-        "checkbox_online": (By.XPATH,
-                ".//mat-checkbox//label[contains(text(),'Online')]/preceding-sibling::input"),
+        "checkbox_place": (By.XPATH, "//label[contains(text(),'Місце')]/ancestor::mat-checkbox"),
+        "checkbox_online": (By.XPATH, "//label[contains(text(),'Онлайн')]/ancestor::mat-checkbox"),
     }
 
     checkbox_place: CustomWebElement
@@ -38,9 +36,9 @@ class LocationComponent(BaseComponent):
     @allure.step("Check if Place checkbox is selected")
     def is_place(self) -> bool:
         """Return True if Place checkbox is selected."""
-        return self.checkbox_place.is_selected()
+        return "checked" in self.checkbox_place.get_attribute("class")
 
     @allure.step("Check if Online checkbox is selected")
     def is_online(self) -> bool:
         """Return True if Online checkbox is selected."""
-        return self.checkbox_online.is_selected()
+        return "checked" in self. checkbox_online.get_attribute("class")

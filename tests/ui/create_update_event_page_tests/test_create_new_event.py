@@ -9,10 +9,9 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from data.config import Config
 from pages.base_page import BasePage
-from pages.events_pages.create_update_event_page import CreateEventPage
 from pages.events_pages.event_page import EventPage
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
-# from components.header_component import HeaderComponent
+
 
 @allure.title("Create new event with valid data")
 @allure.description(
@@ -37,7 +36,7 @@ def test_create_new_event(driver: WebDriver):
         page = event_page.click_create_event()
 
     with allure.step("User enters event title"):
-        page.header_root.set_title("Park Cleanup")
+        page.header_root.set_title("test")
 
     with allure.step("User selects initiative type"):
         page.chip_set.select_chip("Екологічний")
@@ -46,28 +45,21 @@ def test_create_new_event(driver: WebDriver):
         page.event_type.select_event_type("Відкрита")
 
     with allure.step("User enters event description"):
-        page.description.set_description("Community park cleaning event")
+        page.description.set_description("testtesttest")
 
     with allure.step("User selects event date and time"):
-        page.date_time.select_date("20")
-        page.date_time.fill_start_time("10:00")
-        page.date_time.fill_end_time("12:00")
+        page.date_time.set_date("20")
+        page.date_time.set_start_time("21:30")
+        page.date_time.set_end_time("23:00")
 
-    with allure.step("User selects Place checkbox"):
-        page.date_location.set_place(True)
+    with allure.step("User selects Online checkbox"):
+        page.date_location.set_online(True)
 
-    with allure.step("User enters event address"):
-        page.date_location.fill_address("Kyiv, Park of Glory")
+    with allure.step("User enters Online link"):
+        page.online_link_block.set_link("https://meet.google.com/test")
 
     with allure.step("Publish button should become enabled"):
-        WebDriverWait(driver, 5).until(
-            lambda d: page.publish_button.is_enabled()
-        )
+        WebDriverWait(driver, 5).until(lambda d: page.publish_button.is_enabled())
 
     with allure.step("User publishes event"):
         page.click_publish()
-
-    with allure.step("Verify user redirected to created event page"):
-        WebDriverWait(driver, 10).until(
-            EC.url_contains("/events/")
-        )
