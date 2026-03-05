@@ -36,4 +36,4 @@ class Logger:
         """Returns the configured logger instance."""
         return self.logger
 
-logger: Logger = Logger().get_logger()
+logger: logging.Logger = Logger().get_logger()

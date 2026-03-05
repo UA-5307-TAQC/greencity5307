@@ -8,13 +8,11 @@ import allure
 import pytest
 from PIL import Image
 from jsonschema import validate
-from selenium.webdriver.ie.webdriver import WebDriver
 
 
 from clients.create_eco_news_client import CreateEcoNewsClient
 from data.config import Config
 from schemas.news.create_new_schema import create_eco_new_schema
-from tests.conftest import access_token
 
 
 def image_file():
@@ -77,8 +75,10 @@ def image_file():
     ],
 )
 
-
-def test_create_eco_news_post_request_with_valid_data(driver: WebDriver, data: dict, access_token):
+@allure.feature("CreateEcoNews")
+@allure.story("Create new")
+@allure.title("Create eco new by applying valid parameters to the form.")
+def test_create_eco_news_post_request_with_valid_data(data: dict, access_token):
     """Test create eco news request with valid data"""
     token = access_token
 
