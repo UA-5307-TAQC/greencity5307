@@ -9,7 +9,7 @@ from utils.logger import logger
 
 
 @pytest.mark.parametrize(
-    "id, lang",
+    "news_id, lang",
     [
         (1, 'en'),
         (2, 'en'),
@@ -56,12 +56,12 @@ from utils.logger import logger
 @allure.story("Get news")
 @allure.title(
     "Test eco news get request's response returns correct data format")
-def test_get_eco_news_by_id(id: int, lang: str):
+def test_get_eco_news_by_id(news_id: int, lang: str):
     """Test like one news page like one news"""
 
     client = EcoNewClient(base_url=Config.BASE_API_URL)
 
-    response = client.find_eco_news_by_id(id=id, lang=lang)
+    response = client.find_eco_news_by_id(news_id=news_id, lang=lang)
 
     status_code = response.status_code
     logger.info(status_code)
@@ -81,10 +81,11 @@ def test_get_eco_news_by_id(id: int, lang: str):
     elif status_code == 400:
         parsed_data = response.json()
         logger.info(parsed_data)
+        assert parsed_data["message"] == "Select correct language: \'en\' or \'ua\'"
         assert response.text == f'{{"message":"Select correct language: \'en\' or \'ua\'"}}'
     elif status_code == 404:
         parsed_data = response.json()
         logger.info(parsed_data)
-        assert response.text == f'{{"message":"Eco new doesn\'t exist by this id: {id}"}}'
+        assert response.text == f'{{"message":"Eco new doesn\'t exist by this id: {news_id}"}}'
     else:
         assert False, "Other error"

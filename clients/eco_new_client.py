@@ -46,7 +46,7 @@ class EcoNewClient(BaseClient):
 
         return self._request("GET", "", params=params)
 
-    @allure.step("Find one eco news by {id} with filters: lang={lang}")
+    @allure.step("Find one eco news by {news_id} with filters: lang={lang}")
     def find_eco_news_by_id(self, news_id: int, lang: str = None) -> Response:
         """Find one eco news by id with optional filters."""
         params = {}
