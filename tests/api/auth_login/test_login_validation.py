@@ -3,7 +3,7 @@ import pytest
 import jwt
 import allure
 from datetime import datetime
-from clients.login_client import LoginClient
+from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 
 @allure.feature("Authentication")
@@ -12,8 +12,8 @@ from data.config import Config
 def test_login_validation():
     """auth login validation"""
 
-    client = LoginClient(f"{Config.BASE_USER_API_URL}/ownSecurity")
-    response = client.login(
+    client = OwnSecurityClient(f"{Config.BASE_USER_API_URL}")
+    response = client.sign_in(
         email=Config.USER_EMAIL,
         password=Config.USER_PASSWORD
     )
