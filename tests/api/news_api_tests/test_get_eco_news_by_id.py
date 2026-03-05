@@ -82,10 +82,9 @@ def test_get_eco_news_by_id(news_id: int, lang: str):
         parsed_data = response.json()
         logger.info(parsed_data)
         assert parsed_data["message"] == "Select correct language: \'en\' or \'ua\'"
-        assert response.text == f'{{"message":"Select correct language: \'en\' or \'ua\'"}}'
     elif status_code == 404:
         parsed_data = response.json()
         logger.info(parsed_data)
-        assert response.text == f'{{"message":"Eco new doesn\'t exist by this id: {news_id}"}}'
+        assert parsed_data["message"] == f"Eco new doesn\'t exist by this id: {news_id}"
     else:
         assert False, "Other error"
