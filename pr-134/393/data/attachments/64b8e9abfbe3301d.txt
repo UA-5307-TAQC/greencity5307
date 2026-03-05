@@ -1,0 +1,3 @@
+INFO     GreenCityLogger:base_client.py:37 Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} request_headers={'X-Request-ID': '60aa02db-74b5-49e2-b921-8838d08a5177'} and kwargs: {'params': {'favorite': False, 'page': -1, 'size': 20}}
+INFO     GreenCityLogger:test_eco_news_get_client_request.py:37 400
+INFO     GreenCityLogger:test_eco_news_get_client_request.py:41 {"message":"page must be a positive number"}
