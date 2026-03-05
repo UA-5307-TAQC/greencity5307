@@ -1,6 +1,7 @@
 """This module contains the FriendsAbstractPage class,
 which represents the friends_abstract page of a website."""
 import allure
+from typing import Self
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
@@ -39,17 +40,17 @@ class FriendsAbstractPage(BasePage):
         element = self.driver.find_element(*self.locators["friend_tabs"])
         return FriendsTabsButtonsComponent(element)
 
-    def go_to_my_friend_tab(self):
+    def go_to_my_friend_tab(self) -> Self:
         """Clicks on the specified friend tab."""
         self.get_my_friends_tab().click_my_friends_tab()
         return self
 
-    def go_to_friend_requests_tab(self):
+    def go_to_friend_requests_tab(self) -> Self:
         """Clicks on the specified friend tab."""
         self.get_friend_requests_tab().click_friend_requests_tab()
         return self
 
-    def go_to_find_friend_tab(self):
+    def go_to_find_friend_tab(self) -> Self:
         """Clicks on the specified friend tab."""
         self.get_find_friend_tab().click_find_friend_tab()
         return self

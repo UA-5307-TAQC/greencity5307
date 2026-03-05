@@ -27,3 +27,23 @@ class OwnSecurityClient(BaseClient):
             endpoint="/signIn",
             json=payload
         )
+
+    def refresh_token(self, refresh_token: str):
+        """Exchanges a refresh token for a new access/refresh token pair.
+
+        Args:
+            refresh_token: The refresh token obtained during sign-in.
+
+        Returns:
+            Response containing ``accessToken`` and ``refreshToken`` fields.
+
+        Note:
+            The GreenCityUser API exposes this as a GET request with the token
+            as a path parameter (``/ownSecurity/updateAccessToken/{refreshToken}``).
+            This is an existing API contract and cannot be changed on the client side.
+            Ensure the refresh token is treated as a secret and not persisted in logs.
+        """
+        return self._request(
+            method="GET",
+            endpoint=f"/updateAccessToken/{refresh_token}",
+        )

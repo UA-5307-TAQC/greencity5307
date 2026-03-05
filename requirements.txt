@@ -10,6 +10,7 @@ charset-normalizer==3.4.4
 colorama==0.4.6
 dill==0.4.1
 distlib==0.4.0
+execnet==2.1.1
 filelock==3.20.3
 h11==0.16.0
 identify==2.6.16
@@ -33,6 +34,7 @@ pylint==4.0.4
 pylint-pytest==1.1.8
 PySocks==1.7.1
 pytest==8.2.0
+pytest-xdist==3.8.0
 python-dotenv==1.2.1
 PyYAML==6.0.3
 requests==2.32.5

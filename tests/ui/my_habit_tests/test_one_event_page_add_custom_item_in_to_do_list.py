@@ -1,6 +1,4 @@
 """test add custom item into do_list."""
-import time
-
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 
@@ -28,8 +26,9 @@ def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
 
     one_habit_page = OneHabitPage(driver)
 
+    # Press the edit button; the input field becomes visible once the form expands.
+    # WebDriverWait inside add_element_into_list replaces the previous time.sleep(0.5).
     one_habit_page.press_to_do_list_edit_button()
-    time.sleep(0.5)
     new_item_text = "Eco Bag"
     one_habit_page.add_element_into_list(new_item_text)
 
