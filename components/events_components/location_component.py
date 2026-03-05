@@ -1,36 +1,46 @@
 """Component for Place / Online checkboxes."""
 
+import allure
 from selenium.webdriver.common.by import By
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
+
 
 class LocationComponent(BaseComponent):
     """Component for Place / Online checkboxes."""
 
-    checkbox_place = (
-        By.XPATH,
-        ".//mat-checkbox//label[contains(text(),'Place')]/preceding-sibling::input"
-    )
-    checkbox_online = (
-        By.XPATH,
-        ".//mat-checkbox//label[contains(text(),'Online')]/preceding-sibling::input"
-    )
+    locators = {
+        "checkbox_place": (By.XPATH,
+                ".//mat-checkbox//label[contains(text(),'Place')]/preceding-sibling::input"),
+        "checkbox_online": (By.XPATH,
+                ".//mat-checkbox//label[contains(text(),'Online')]/preceding-sibling::input"),
+    }
 
+    checkbox_place: CustomWebElement
+    checkbox_online: CustomWebElement
+
+    @allure.step("Set Place checkbox: {value}")
     def set_place(self, value: bool = True):
-        """Set the 'Place' checkbox to the given value."""
-        checkbox = self.root.find_element(*self.checkbox_place)
+        """Set the 'Place' checkbox."""
+        checkbox = self.checkbox_place
+
         if checkbox.is_selected() != value:
             checkbox.click()
 
+    @allure.step("Set Online checkbox: {value}")
     def set_online(self, value: bool = True):
-        """Set the 'Online' checkbox to the given value."""
-        checkbox = self.root.find_element(*self.checkbox_online)
+        """Set the 'Online' checkbox."""
+        checkbox = self.checkbox_online
+
         if checkbox.is_selected() != value:
             checkbox.click()
 
+    @allure.step("Check if Place checkbox is selected")
     def is_place(self) -> bool:
-        """Return True if the 'Place' checkbox is selected."""
-        return self.root.find_element(*self.checkbox_place).is_selected()
+        """Return True if Place checkbox is selected."""
+        return self.checkbox_place.is_selected()
 
+    @allure.step("Check if Online checkbox is selected")
     def is_online(self) -> bool:
-        """Return True if the 'Online' checkbox is selected."""
-        return self.root.find_element(*self.checkbox_online).is_selected()
+        """Return True if Online checkbox is selected."""
+        return self.checkbox_online.is_selected()
