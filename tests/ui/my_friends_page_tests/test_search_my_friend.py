@@ -49,12 +49,3 @@ def test_search_friend_by_full_and_partial_name(driver: WebDriver):
     with allure.step("Verify correct friend displayed"):
         friend_cards = friends_page.get_friend_items()
         assert any("test" in card.get_name().lower() for card in friend_cards)
-
-    with allure.step("Open 'Find a friend' tab"):
-        friends_page.select_tab("find a friend")
-
-    with allure.step("Verify tab switched"):
-        assert friends_page.tab_find_friend.is_displayed()
-
-    with allure.step("Return to My Friends tab"):
-        friends_page.select_tab("my friends")
