@@ -29,7 +29,7 @@ from utils.logger import logger
 def test_find_eco_news_by_page_request_with_invalid_query_params(page: int,
                                                                  size: int,
                                                                  sort: list[
-                                                                     str],
+                                                                     str] | None,
                                                                  message: str,
                                                                  status_code: int):
     """Test eco news request expecting error"""
@@ -46,15 +46,16 @@ def test_find_eco_news_by_page_request_with_invalid_query_params(page: int,
         assert response.status_code == status_code
 
     with allure.step("Validate proper response message"):
-        logger.info(response.text)
-        assert response.text == f'{{"message":"{message}"}}'
+        parsed_error = response.json()
+        logger.info(parsed_error)
+        assert parsed_error.get("message") == message
 
 
 @pytest.mark.parametrize(
     "page, size, tags, title, author_id, favorite",
     [
         (0, 20, None, None, None, False),
-        (10, 12, ['news','education'], None, None, False),
+        (10, 12, ['news', 'education'], None, None, False),
         (0, 30, None, 'Test', None, False),
         (0, 100, None, None, 1, False),
         (100, 100, None, None, None, False),
@@ -77,7 +78,7 @@ def test_find_eco_news_by_page_request(page: int,
                                        title: str,
                                        author_id: int,
                                        favorite: bool):
-    """Test like one news page like one news"""
+    """Validate 200 OK response and eco news JSON schema for find_eco_news_by_page with various filters."""
 
     client = EcoNewClient(base_url=Config.BASE_API_URL)
 
