@@ -32,7 +32,6 @@ class PersonalInfoComponent(BaseComponent):
 
         field = self.name
         wait.until(lambda d: field.get_attribute("value") != "")
-        # time.sleep(0.3)
 
         field.clear()
         wait.until(lambda d: field.get_attribute("value") == "")
