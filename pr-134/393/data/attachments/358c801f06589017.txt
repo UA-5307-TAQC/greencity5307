@@ -1,3 +1,0 @@
-2026-03-05 14:45:45,004 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} request_headers={'X-Request-ID': 'de025c57-a294-4e93-ac39-57d513604c83'} and kwargs: {'params': {'favorite': False, 'page': 1, 'size': 0}}
-2026-03-05 14:45:45,211 - GreenCityLogger - INFO - 400
-2026-03-05 14:45:45,211 - GreenCityLogger - INFO - {"message":"Page size must be greater than or equal to 1"}
