@@ -1,4 +1,5 @@
 """ OneHabitPage elements"""
+from typing import Self
 
 import allure
 from selenium.webdriver import Keys
@@ -81,13 +82,13 @@ class OneHabitPage(BasePage):
         return [element.text.strip() for element in elements]
 
     @allure.step("Click To-Do List edit button")
-    def press_to_do_list_edit_button(self):
+    def press_to_do_list_edit_button(self) -> Self:
         """start edit to do list"""
         self.to_do_list_edit_button.wait_and_click()
         return self
 
     @allure.step("Enter and add item '{message}' to the list")
-    def add_element_into_list(self, message: str):
+    def add_element_into_list(self, message: str) -> Self:
         """write element in list and add it"""
         self.custom_item_input.send_keys(message)
         self.custom_item_add.wait_and_click()
@@ -98,7 +99,7 @@ class OneHabitPage(BasePage):
         return self
 
     @allure.step("Save changes")
-    def save_element(self):
+    def save_element(self) -> Self:
         """save element"""
         self.save_button.wait_and_click()
 
@@ -124,13 +125,14 @@ class OneHabitPage(BasePage):
         return AllHabitPage(self.driver)
 
     @allure.step("Move slider to the right")
-    def move_slider_right(self, value: int):
+    def move_slider_right(self, value: int) -> Self:
         """Move slider using keyboard arrows"""
         for _ in range(value):
             self.duration_day_slider.send_keys(Keys.ARROW_RIGHT)
         return self
+
     @allure.step("Move slider to the left")
-    def move_slider_left(self,value: int):
+    def move_slider_left(self, value: int) -> Self:
         """Move slider using keyboard arrows"""
         for _ in range(value):
             self.duration_day_slider.send_keys(Keys.ARROW_LEFT)

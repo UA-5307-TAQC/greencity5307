@@ -1,4 +1,6 @@
 """Base page class for all page objects."""
+from typing import Self
+
 from selenium.common import NoSuchElementException, TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
@@ -22,9 +24,10 @@ class BasePage(Factory):
     _snack_bar_message: CustomWebElement
 
 
-    def navigate_to(self, url: str):
+    def navigate_to(self, url: str) -> Self:
         """Navigate to the specified URL."""
         self.driver.get(url)
+        return self
 
     def get_title(self) -> str:
         """Get the title of the current page."""
@@ -61,7 +64,7 @@ class BasePage(Factory):
         except TimeoutException:
             return ""
 
-    def wait_for_snack_bar_disappear(self) -> None:
+    def wait_for_snack_bar_disappear(self) -> Self:
         """Waits for snack bar message to disappear in order to click on the header."""
         locator_tuple = (By.CSS_SELECTOR, "div[matsnackbarlabel]")
 
@@ -74,11 +77,14 @@ class BasePage(Factory):
         self.get_wait().until(
             EC.invisibility_of_element_located(locator_tuple)
         )
+        return self
 
-    def refresh_page(self):
+    def refresh_page(self) -> Self:
         """Refreshes the current page in the browser."""
         self.driver.refresh()
+        return self
 
-    def go_back(self):
+    def go_back(self) -> Self:
         """Goes to the previous page of the browser."""
         self.driver.back()
+        return self
