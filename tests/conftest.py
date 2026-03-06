@@ -16,6 +16,7 @@ from data.config import Config
 from pages.common_pages.main_page import MainPage
 from utils.logger import logger
 from clients.own_security_client import OwnSecurityClient
+from clients.friends_client import FriendsClient
 
 
 @fixture(params=["chrome"], scope="function")
@@ -130,6 +131,23 @@ def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=rede
         find_friend_page.header.click_main_page_link()
 
     return _verify_is_added_friend
+
+@pytest.fixture(scope="function")
+def dynamic_friend_id(access_token):
+    """Fixture that returns a valid confirmed friend id for current user. """
+
+    client = FriendsClient(base_url=Config.BASE_API_URL, access_token=access_token)
+    response = client.get_all_friends()
+    assert response.status_code == 200, (f"Failed to fetch friends for fixture, "
+                                         f"status code: {response.status_code}")
+
+    data = response.json()
+    friends_list = data.get("page", [])
+
+    if not friends_list:
+        pytest.skip("Test skipped: No confirmed friends found for current user.")
+
+    return friends_list[0].get("id")
 
 
 @fixture(scope="function")

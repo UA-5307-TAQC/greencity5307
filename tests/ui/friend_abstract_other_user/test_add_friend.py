@@ -1,7 +1,7 @@
 """Module for testing button "Add friend" on other user's page."""
 
-from selenium.webdriver.remote.webdriver import WebDriver
 import allure
+from selenium.webdriver.remote.webdriver import WebDriver
 
 from data.config import Config
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
@@ -9,10 +9,8 @@ from pages.base_page import BasePage
 
 
 @allure.title("Add friend by clicking on button")
-@allure.description(
-    "This test verifies that the user can successfully send "
-    "friend request to the other user. "
-)
+@allure.description("This test verifies that the user can successfully send "
+                    "friend request to the other user. ")
 @allure.severity(allure.severity_level.NORMAL)
 def test_add_friend_by_clicking_on_button(driver: WebDriver):
     """TC-8"""
@@ -33,15 +31,6 @@ def test_add_friend_by_clicking_on_button(driver: WebDriver):
 
     with allure.step("User clicks add friend button"):
         friend_page.user_info_banner.click_add_friend()
-
-
-
-
-
-
-
-
-
 
 
 """"
