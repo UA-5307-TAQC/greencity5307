@@ -1,0 +1,26 @@
+2026-03-06 07:06:11,047 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 07:06:11,072 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:06:11,752 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 07:06:12,602 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Precondition: A target user 'Liubomyr Halamaha' exists in the system who is not yet in the user's friend list
+2026-03-06 07:06:12,611 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the my space link in the header
+2026-03-06 07:06:12,797 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on Add friends button on Profile Banner component
+2026-03-06 07:06:13,650 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the main page link in the header
+2026-03-06 07:06:13,736 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 1: Navigate to the GreenCity URL
+2026-03-06 07:06:13,785 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 2: Click on the 'My Space' section in the header
+2026-03-06 07:06:13,792 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the my space link in the header
+2026-03-06 07:06:14,311 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Checking if My Habit page is loaded
+2026-03-06 07:06:14,463 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 3: Click in the '+' icon in the 'My Friends' section within the profile information banner
+2026-03-06 07:06:14,471 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on Add friends button on Profile Banner component
+2026-03-06 07:06:14,692 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 4: Enter the target username into the Search input field
+2026-03-06 07:06:15,241 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get a friend name and city from a Friend card
+2026-03-06 07:06:15,279 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 5: Click the 'Add Friend' button on the found user's card
+2026-03-06 07:06:15,284 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click Add friend button on a Friend card
+2026-03-06 07:06:16,066 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 6: Refresh the page.
+2026-03-06 07:06:17,355 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 7: Enter the same target username into the Search input field.
+2026-03-06 07:06:17,908 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get a friend name and city from a Friend card
+2026-03-06 07:06:17,951 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 8: Click on the user card.
+2026-03-06 07:06:17,956 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on a Friend card
+2026-03-06 07:06:18,195 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 9: Click on the 'Cancel Request' button.
+2026-03-06 07:06:18,949 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 10: Navigate back to the previous page ('Find Friend' page).
+2026-03-06 07:06:19,099 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 11: Enter the same target username into the Search input field.
+2026-03-06 07:06:19,645 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get a friend name and city from a Friend card

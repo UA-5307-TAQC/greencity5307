@@ -1,0 +1,14 @@
+2026-03-06 07:06:54,837 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 07:06:54,848 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:06:55,553 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 07:06:56,403 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Go to Create Habit page
+2026-03-06 07:06:56,403 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking Add New Habit button on the My Habit page
+2026-03-06 07:06:56,597 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking Create Habit button on the All Habits page
+2026-03-06 07:06:56,723 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Go to Create Habit page
+2026-03-06 07:06:56,781 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on the description textarea and leave it empty
+2026-03-06 07:06:56,860 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Enter valid title and choose a tag
+2026-03-06 07:06:56,866 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Enter text into title field on Create Habit form
+2026-03-06 07:06:56,950 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Choose tags for habit on Create Habit form
+2026-03-06 07:06:57,016 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check if the description validation message is displayed
+2026-03-06 07:06:57,016 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get description validation
+2026-03-06 07:06:57,037 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check that submit button isn't enabled after leaving description textarea empty

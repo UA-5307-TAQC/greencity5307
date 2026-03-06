@@ -1,0 +1,10 @@
+2026-03-06 07:08:12,116 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Open Create Eco News page
+2026-03-06 07:08:12,139 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:08:12,852 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 07:08:13,647 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigating to the Eco News page
+2026-03-06 07:08:13,657 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the news link in the header
+2026-03-06 07:08:13,657 - GreenCityLogger - INFO - header_component.py  - click_new_link - Clicking the news link in the header.
+2026-03-06 07:08:13,803 - GreenCityLogger - INFO - header_component.py  - click_new_link - Successfully clicked the news link in the header.
+2026-03-06 07:08:13,810 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the create news button
+2026-03-06 07:08:13,811 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] KeyError: 'button_create_news_locator'
+2026-03-06 07:08:13,812 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] KeyError: 'button_create_news_locator'

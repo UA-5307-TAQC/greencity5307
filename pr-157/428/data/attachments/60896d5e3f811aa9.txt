@@ -1,0 +1,9 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Pre-condition: Ensure site is loaded in Ukrainian (UA)
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the language button in the header.
+INFO     GreenCityLogger:header_component.py:79 Clicking switch language button in the header.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 1: Switch language to English (EN) and ensure the main texttranslated to 'There are of us and today we'
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the language button in the header.
+INFO     GreenCityLogger:header_component.py:79 Clicking switch language button in the header.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 2: Switch language back to Ukrainian (UA) and ensure the main texttranslated to 'Нас і сьогодні ми'
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the language button in the header.
+INFO     GreenCityLogger:header_component.py:79 Clicking switch language button in the header.

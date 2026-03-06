@@ -1,0 +1,10 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Open main page and sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Link to my space page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the My Space link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the my space link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Open Friends page and switch to Requests tab
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Locate search input
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Save initial list size (needed for step 10)
+WARNING  GreenCityLogger:logger.py:44 [ALLURE STEP FAILED] Skipped: No friend requests available to validate search filtering/restoring.

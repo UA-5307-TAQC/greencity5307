@@ -1,0 +1,50 @@
+2026-03-06 07:05:09,757 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] User signs in with valid credentials
+2026-03-06 07:05:09,777 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:05:10,487 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 07:05:11,278 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] User opens Edit Profile page
+2026-03-06 07:05:11,307 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on Edit profile button on Profile Banner component
+2026-03-06 07:05:11,503 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] User updates personal information
+2026-03-06 07:05:11,504 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Fill Name field with value: 'Oleksandr'
+2026-03-06 07:05:12,139 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Fill City field with value: 'Харків' and select suggestion
+2026-03-06 07:05:22,432 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] TimeoutException: Message: 
+Stacktrace:
+#0 0x555a2eec3b6a <unknown>
+#1 0x555a2e8d6a32 <unknown>
+#2 0x555a2e92bd66 <unknown>
+#3 0x555a2e92bfa1 <unknown>
+#4 0x555a2e977144 <unknown>
+#5 0x555a2e974369 <unknown>
+#6 0x555a2e91dc0f <unknown>
+#7 0x555a2e91e9d1 <unknown>
+#8 0x555a2ee886b9 <unknown>
+#9 0x555a2ee8b5c1 <unknown>
+#10 0x555a2ee74e29 <unknown>
+#11 0x555a2ee8c17e <unknown>
+#12 0x555a2ee5b4b0 <unknown>
+#13 0x555a2eeb0578 <unknown>
+#14 0x555a2eeb074b <unknown>
+#15 0x555a2eec21a3 <unknown>
+#16 0x7fb32949caa4 <unknown>
+#17 0x7fb329529c6c <unknown>
+
+2026-03-06 07:05:22,432 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] TimeoutException: Message: 
+Stacktrace:
+#0 0x555a2eec3b6a <unknown>
+#1 0x555a2e8d6a32 <unknown>
+#2 0x555a2e92bd66 <unknown>
+#3 0x555a2e92bfa1 <unknown>
+#4 0x555a2e977144 <unknown>
+#5 0x555a2e974369 <unknown>
+#6 0x555a2e91dc0f <unknown>
+#7 0x555a2e91e9d1 <unknown>
+#8 0x555a2ee886b9 <unknown>
+#9 0x555a2ee8b5c1 <unknown>
+#10 0x555a2ee74e29 <unknown>
+#11 0x555a2ee8c17e <unknown>
+#12 0x555a2ee5b4b0 <unknown>
+#13 0x555a2eeb0578 <unknown>
+#14 0x555a2eeb074b <unknown>
+#15 0x555a2eec21a3 <unknown>
+#16 0x7fb32949caa4 <unknown>
+#17 0x7fb329529c6c <unknown>
+

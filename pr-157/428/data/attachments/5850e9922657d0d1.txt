@@ -1,0 +1,9 @@
+2026-03-06 07:08:39,149 - GreenCityLogger - INFO - [ALLURE STEP] Pre-condition: Ensure site is loaded in Ukrainian (UA)
+2026-03-06 07:08:39,194 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the language button in the header.
+2026-03-06 07:08:39,195 - GreenCityLogger - INFO - Clicking switch language button in the header.
+2026-03-06 07:08:39,894 - GreenCityLogger - INFO - [ALLURE STEP] Step 1: Switch language to English (EN) and ensure the main texttranslated to 'There are of us and today we'
+2026-03-06 07:08:39,901 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the language button in the header.
+2026-03-06 07:08:39,901 - GreenCityLogger - INFO - Clicking switch language button in the header.
+2026-03-06 07:08:40,204 - GreenCityLogger - INFO - [ALLURE STEP] Step 2: Switch language back to Ukrainian (UA) and ensure the main texttranslated to 'Нас і сьогодні ми'
+2026-03-06 07:08:40,209 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the language button in the header.
+2026-03-06 07:08:40,209 - GreenCityLogger - INFO - Clicking switch language button in the header.

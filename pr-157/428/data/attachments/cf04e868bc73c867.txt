@@ -1,0 +1,8 @@
+2026-03-06 07:08:17,139 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:08:17,865 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
+2026-03-06 07:08:18,644 - GreenCityLogger - INFO - [ALLURE STEP] Navigating to the Eco News page
+2026-03-06 07:08:18,650 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the news link in the header
+2026-03-06 07:08:18,650 - GreenCityLogger - INFO - Clicking the news link in the header.
+2026-03-06 07:08:18,829 - GreenCityLogger - INFO - Successfully clicked the news link in the header.
+2026-03-06 07:08:18,837 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the create news button
+2026-03-06 07:08:18,837 - GreenCityLogger - WARNING - [ALLURE STEP FAILED] KeyError: 'button_create_news_locator'

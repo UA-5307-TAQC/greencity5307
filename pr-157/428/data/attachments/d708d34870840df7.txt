@@ -1,0 +1,11 @@
+2026-03-06 07:08:58,494 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 07:08:58,511 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:08:59,728 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 07:09:00,526 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Pre-condition: Ensure the user is logged in
+2026-03-06 07:09:00,549 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 1: click on user menu, and ensure that 'Profile' and 'Sign out' buttons are enabled.
+2026-03-06 07:09:00,559 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the user menu in the header.
+2026-03-06 07:09:00,720 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 2: Click on 'Profile' option and verify redirection.
+2026-03-06 07:09:00,728 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the profile link in user menu in the header.
+2026-03-06 07:09:01,302 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Step 3: Click on 'Sign Out' link, and ensure it change url and make user logged out.
+2026-03-06 07:09:01,334 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the user menu in the header.
+2026-03-06 07:09:01,430 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the sign out link in user menu in the header.

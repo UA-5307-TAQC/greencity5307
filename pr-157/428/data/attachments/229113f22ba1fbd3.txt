@@ -1,0 +1,31 @@
+2026-03-06 07:08:22,715 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:08:23,898 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 07:08:24,654 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigating to the Eco News page
+2026-03-06 07:08:24,660 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the news link in the header
+2026-03-06 07:08:24,661 - GreenCityLogger - INFO - header_component.py  - click_new_link - Clicking the news link in the header.
+2026-03-06 07:08:24,845 - GreenCityLogger - INFO - header_component.py  - click_new_link - Successfully clicked the news link in the header.
+2026-03-06 07:08:25,030 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigate to OneNewsPage
+2026-03-06 07:08:25,193 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:25,230 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check if object is liked
+2026-03-06 07:08:25,267 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click like button
+2026-03-06 07:08:25,325 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:25,841 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:26,357 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:26,872 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:27,388 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:27,904 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:28,420 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:28,935 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:29,454 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:29,969 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:30,485 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:31,002 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:31,517 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:32,034 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:32,555 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:33,074 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:33,593 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:34,112 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:34,629 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:35,145 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count
+2026-03-06 07:08:35,660 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get likes count

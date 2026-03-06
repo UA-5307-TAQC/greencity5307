@@ -1,0 +1,49 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] User signs in with valid credentials
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] User opens Edit Profile page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Click on Edit profile button on Profile Banner component
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] User updates personal information
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Fill Name field with value: 'Hlib'
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Fill City field with value: 'Київ' and select suggestion
+WARNING  GreenCityLogger:logger.py:44 [ALLURE STEP FAILED] TimeoutException: Message: 
+Stacktrace:
+#0 0x555ccca42b6a <unknown>
+#1 0x555ccc455a32 <unknown>
+#2 0x555ccc4aad66 <unknown>
+#3 0x555ccc4aafa1 <unknown>
+#4 0x555ccc4f6144 <unknown>
+#5 0x555ccc4f3369 <unknown>
+#6 0x555ccc49cc0f <unknown>
+#7 0x555ccc49d9d1 <unknown>
+#8 0x555ccca076b9 <unknown>
+#9 0x555ccca0a5c1 <unknown>
+#10 0x555ccc9f3e29 <unknown>
+#11 0x555ccca0b17e <unknown>
+#12 0x555ccc9da4b0 <unknown>
+#13 0x555ccca2f578 <unknown>
+#14 0x555ccca2f74b <unknown>
+#15 0x555ccca411a3 <unknown>
+#16 0x7fd06c49caa4 <unknown>
+#17 0x7fd06c529c6c <unknown>
+
+WARNING  GreenCityLogger:logger.py:44 [ALLURE STEP FAILED] TimeoutException: Message: 
+Stacktrace:
+#0 0x555ccca42b6a <unknown>
+#1 0x555ccc455a32 <unknown>
+#2 0x555ccc4aad66 <unknown>
+#3 0x555ccc4aafa1 <unknown>
+#4 0x555ccc4f6144 <unknown>
+#5 0x555ccc4f3369 <unknown>
+#6 0x555ccc49cc0f <unknown>
+#7 0x555ccc49d9d1 <unknown>
+#8 0x555ccca076b9 <unknown>
+#9 0x555ccca0a5c1 <unknown>
+#10 0x555ccc9f3e29 <unknown>
+#11 0x555ccca0b17e <unknown>
+#12 0x555ccc9da4b0 <unknown>
+#13 0x555ccca2f578 <unknown>
+#14 0x555ccca2f74b <unknown>
+#15 0x555ccca411a3 <unknown>
+#16 0x7fd06c49caa4 <unknown>
+#17 0x7fd06c529c6c <unknown>

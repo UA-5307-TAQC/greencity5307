@@ -1,0 +1,14 @@
+2026-03-06 07:07:35,492 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:07:36,685 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
+2026-03-06 07:07:37,444 - GreenCityLogger - INFO - [ALLURE STEP] Get habit card component
+2026-03-06 07:07:37,515 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the edit icon on the habit card
+2026-03-06 07:07:37,663 - GreenCityLogger - INFO - [ALLURE STEP] Get current slider value
+2026-03-06 07:07:37,804 - GreenCityLogger - INFO - [ALLURE STEP] Move slider to the right
+2026-03-06 07:07:37,956 - GreenCityLogger - INFO - [ALLURE STEP] Get current slider value
+2026-03-06 07:07:37,967 - GreenCityLogger - INFO - [ALLURE STEP] Get current slider value
+2026-03-06 07:07:37,977 - GreenCityLogger - INFO - [ALLURE STEP] Move slider to the left
+2026-03-06 07:07:38,017 - GreenCityLogger - INFO - [ALLURE STEP] Get current slider value
+2026-03-06 07:07:38,029 - GreenCityLogger - INFO - [ALLURE STEP] Move slider to the left
+2026-03-06 07:07:39,862 - GreenCityLogger - INFO - [ALLURE STEP] Get current slider value
+2026-03-06 07:07:39,872 - GreenCityLogger - INFO - [ALLURE STEP] Move slider to the right
+2026-03-06 07:07:41,818 - GreenCityLogger - INFO - [ALLURE STEP] Get current slider value

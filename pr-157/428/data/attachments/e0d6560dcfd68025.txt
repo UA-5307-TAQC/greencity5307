@@ -1,0 +1,11 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Pre-condition: Ensure the user is logged in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 1: click on user menu, and ensure that 'Profile' and 'Sign out' buttons are enabled.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the user menu in the header.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 2: Click on 'Profile' option and verify redirection.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the profile link in user menu in the header.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 3: Click on 'Sign Out' link, and ensure it change url and make user logged out.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the user menu in the header.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the sign out link in user menu in the header.

@@ -1,0 +1,7 @@
+2026-03-06 07:04:14,695 - GreenCityLogger - INFO - [ALLURE STEP] Find eco news by page with filters: tags=None, title=None, author_id=None, favorite=False, page=0, size=20, sort=['not-created', 'not-created-2']
+2026-03-06 07:04:14,696 - GreenCityLogger - INFO - [ALLURE STEP] Send 'GET' request to ''
+2026-03-06 07:04:14,696 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '6296d2e5-75d9-4ac9-b5c5-51debc357910'} and kwargs: {'params': {'favorite': False, 'page': 0, 'size': 20, 'sort': 'not-created,not-created-2'}}
+2026-03-06 07:04:14,806 - GreenCityLogger - INFO - [ALLURE STEP] Check status code
+2026-03-06 07:04:14,806 - GreenCityLogger - INFO - 400
+2026-03-06 07:04:14,806 - GreenCityLogger - INFO - [ALLURE STEP] Validate proper response message
+2026-03-06 07:04:14,806 - GreenCityLogger - INFO - {'message': "Invalid value 'not-created-2' for orders given; Has to be either 'desc' or 'asc' (case insensitive)"}

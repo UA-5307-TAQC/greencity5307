@@ -1,0 +1,8 @@
+2026-03-06 07:04:16,663 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Find eco news by page with filters: tags=None, title=None, author_id=None, favorite=False, page=100, size=100, sort=None
+2026-03-06 07:04:16,664 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Send 'GET' request to ''
+2026-03-06 07:04:16,664 - GreenCityLogger - INFO - base_client.py  - _request - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'f4930f9e-03ad-48f5-acad-ea1f17a1e641'} and kwargs: {'params': {'favorite': False, 'page': 100, 'size': 100}}
+2026-03-06 07:04:16,775 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check status code
+2026-03-06 07:04:16,775 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request - 200
+2026-03-06 07:04:16,775 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Validate proper response json format
+2026-03-06 07:04:16,775 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request - {'page': [], 'totalElements': 1546, 'currentPage': 100, 'totalPages': 16, 'number': 100, 'hasPrevious': True, 'hasNext': False, 'first': False, 'last': True}
+2026-03-06 07:04:16,778 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request - ✅ JSON validation passed

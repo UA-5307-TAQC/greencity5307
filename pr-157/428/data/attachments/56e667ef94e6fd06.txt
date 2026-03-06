@@ -1,0 +1,50 @@
+2026-03-06 07:04:53,715 - GreenCityLogger - INFO - [ALLURE STEP] User signs in with valid credentials
+2026-03-06 07:04:53,736 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 07:04:54,470 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
+2026-03-06 07:04:55,295 - GreenCityLogger - INFO - [ALLURE STEP] User opens Edit Profile page
+2026-03-06 07:04:55,308 - GreenCityLogger - INFO - [ALLURE STEP] Click on Edit profile button on Profile Banner component
+2026-03-06 07:04:55,515 - GreenCityLogger - INFO - [ALLURE STEP] User updates personal information
+2026-03-06 07:04:55,515 - GreenCityLogger - INFO - [ALLURE STEP] Fill Name field with value: 'Hlib'
+2026-03-06 07:04:56,151 - GreenCityLogger - INFO - [ALLURE STEP] Fill City field with value: 'Київ' and select suggestion
+2026-03-06 07:05:06,378 - GreenCityLogger - WARNING - [ALLURE STEP FAILED] TimeoutException: Message: 
+Stacktrace:
+#0 0x555ccca42b6a <unknown>
+#1 0x555ccc455a32 <unknown>
+#2 0x555ccc4aad66 <unknown>
+#3 0x555ccc4aafa1 <unknown>
+#4 0x555ccc4f6144 <unknown>
+#5 0x555ccc4f3369 <unknown>
+#6 0x555ccc49cc0f <unknown>
+#7 0x555ccc49d9d1 <unknown>
+#8 0x555ccca076b9 <unknown>
+#9 0x555ccca0a5c1 <unknown>
+#10 0x555ccc9f3e29 <unknown>
+#11 0x555ccca0b17e <unknown>
+#12 0x555ccc9da4b0 <unknown>
+#13 0x555ccca2f578 <unknown>
+#14 0x555ccca2f74b <unknown>
+#15 0x555ccca411a3 <unknown>
+#16 0x7fd06c49caa4 <unknown>
+#17 0x7fd06c529c6c <unknown>
+
+2026-03-06 07:05:06,378 - GreenCityLogger - WARNING - [ALLURE STEP FAILED] TimeoutException: Message: 
+Stacktrace:
+#0 0x555ccca42b6a <unknown>
+#1 0x555ccc455a32 <unknown>
+#2 0x555ccc4aad66 <unknown>
+#3 0x555ccc4aafa1 <unknown>
+#4 0x555ccc4f6144 <unknown>
+#5 0x555ccc4f3369 <unknown>
+#6 0x555ccc49cc0f <unknown>
+#7 0x555ccc49d9d1 <unknown>
+#8 0x555ccca076b9 <unknown>
+#9 0x555ccca0a5c1 <unknown>
+#10 0x555ccc9f3e29 <unknown>
+#11 0x555ccca0b17e <unknown>
+#12 0x555ccc9da4b0 <unknown>
+#13 0x555ccca2f578 <unknown>
+#14 0x555ccca2f74b <unknown>
+#15 0x555ccca411a3 <unknown>
+#16 0x7fd06c49caa4 <unknown>
+#17 0x7fd06c529c6c <unknown>
+
