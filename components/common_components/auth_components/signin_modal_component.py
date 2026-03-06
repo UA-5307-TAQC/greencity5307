@@ -23,7 +23,9 @@ class SignInComponent(BaseComponent):
         "sign_in_with_google_button": (By.CLASS_NAME,"google-sign-in"),
         "sign_up_button": (By.XPATH,'//a[contains(text(), "Sign up")]'),
         "close_button": (By.CLASS_NAME,
-                         "close-modal-window")
+                         "close-modal-window"),
+        "email_error": (By.ID, "email-err-msg"),
+        "password_error": (By.ID, "pass-err-msg"),
     }
 
     email: CustomWebElement
@@ -33,6 +35,8 @@ class SignInComponent(BaseComponent):
     sign_in_with_google_button: CustomWebElement
     sign_up_button: CustomWebElement
     close_button: CustomWebElement
+    email_error: CustomWebElement
+    password_error: CustomWebElement
 
     @allure.step("Sign in")
     def sign_in(self, email: str, password: str):
@@ -64,3 +68,39 @@ class SignInComponent(BaseComponent):
             return True
         except (NoSuchElementException, StaleElementReferenceException, TimeoutException):
             return False
+
+    @allure.step("Clear email and password fields to trigger validation")
+    def clear_email_and_password(self):
+        """
+        Clears input fields and cycles focus to ensure 'onBlur'
+        validation is triggered on the frontend.
+        """
+        self.email.clear()
+        self.password.wait_and_click()
+        self.password.clear()
+        self.email.wait_and_click()
+        self.password.wait_and_click()
+        return self
+
+    @allure.step("Verify validation errors: "
+                 "Email='{error_email_text}',"
+                 "Password='{error_password_text}'")
+    def compare_error(self, error_email_text: str, error_password_text: str):
+        """
+        Waits for error messages to be visible and matches their text content.
+        """
+        wait = self.get_wait()
+        email_error_element = wait.until(
+            EC.visibility_of_element_located(self.locators["email_error"])
+        )
+        password_error_element = wait.until(
+            EC.visibility_of_element_located(self.locators["password_error"])
+        )
+        actual_email_error = email_error_element.text.strip()
+        actual_password_error = password_error_element.text.strip()
+        assert error_email_text.strip() == actual_email_error, (
+            f"Expected email error '{error_email_text}', but got '{actual_email_error}'"
+        )
+        assert error_password_text.strip() == actual_password_error, (
+            f"Expected password error '{error_password_text}', but got '{actual_password_error}'"
+        )

@@ -3,6 +3,7 @@ import allure
 from selenium.webdriver.common.by import By
 
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class LikesComponent(BaseComponent):
@@ -11,6 +12,9 @@ class LikesComponent(BaseComponent):
         "like_button": (By.TAG_NAME, "img"),
         "likes_count": (By.CSS_SELECTOR, ".like_wr > .numerosity_likes")
     }
+
+    like_button: CustomWebElement
+    likes_count: CustomWebElement
 
     __liked_img_src = "assets/img/comments/like.png"
 

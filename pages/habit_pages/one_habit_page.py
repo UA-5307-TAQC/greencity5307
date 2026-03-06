@@ -41,8 +41,9 @@ class OneHabitPage(BasePage):
         "custom_item_add": (By.CSS_SELECTOR, ".add-item-form .add-btn"),
 
         "cancel_button": (By.XPATH,
-                          "//app-habit-edit-to-do-list//button[contains(text(), 'Cancel')]"),
-        "save_button": (By.XPATH, "//app-habit-edit-to-do-list//button[contains(text(), 'Save')]"),
+                          "//app-habit-edit-to-do-list//button[contains(text(), 'Відмінити')]"),
+        "save_button": (By.XPATH,
+                        "//app-habit-edit-to-do-list//button[contains(text(), 'Зберегти')]"),
 
         # Invite friends
         "invite_friends_icon": (By.CSS_SELECTOR, ".icon-plus-grey"),
