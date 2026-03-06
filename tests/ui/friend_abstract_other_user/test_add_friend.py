@@ -31,38 +31,3 @@ def test_add_friend_by_clicking_on_button(driver_with_login: WebDriver):
             'After sending friend request, button text should be "Cancel request"'
         )
 
-
-""""
-
-@allure.title("Add friend by clicking on button")
-@allure.description("This test verifies that the user can successfully send "
-                    "friend request to the other user. ")
-@allure.severity(allure.severity_level.NORMAL)
-@allure.label("owner", "SidorovAI-224")
-@allure.testcase("TC-8")
-def test_add_friend_by_clicking_on_button(driver: WebDriver):
-
-    main_page = MainPage(driver)
-
-    sign_in_modal: SignInComponent = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(driver, Config.USER_EMAIL, Config.USER_PASSWORD)
-
-    my_space_page = main_page.go_to_my_space()
-    time.sleep(3)
-
-    friends_page = my_space_page.click_add_friend_plus()
-    time.sleep(3)
-    assert friends_page.is_page_opened(), "Friends page not opened"
-
-    friends_page.search_friend("BohdanTest")
-    time.sleep(3)
-
-    friend_card = friends_page.get_friend_card_by_name("BohdanTest")
-    time.sleep(3)
-    assert friend_card is not None, "Friend not found"
-
-    friend_page = friend_card.click_friend_card()
-    time.sleep(3)
-
-    assert friend_page.click_add_friend().lower() == "cancel request", "Button does not work"
-"""
