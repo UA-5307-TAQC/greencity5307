@@ -19,8 +19,8 @@ class _AllureStepLogger:
 
     name = "GreenCityAllureStepLogger"
 
-    def __init__(self, logger: logging.Logger) -> None:
-        self._logger = logger
+    def __init__(self, _logger: logging.Logger) -> None:
+        self._logger = _logger
 
     # -----------------------------------------------------------------
     # Allure plugin interface (AllureUserHooks)

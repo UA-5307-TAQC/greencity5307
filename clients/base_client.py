@@ -33,7 +33,9 @@ class BaseClient:
 
         Example::
 
-            client.set_token_refresher(lambda: security_client.refresh_token(rt).json()["accessToken"])
+            client.set_token_refresher(
+                lambda: security_client.refresh_token(rt).json()["accessToken"]
+            )
         """
         self._token_refresher = refresher
 

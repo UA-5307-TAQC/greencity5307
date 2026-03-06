@@ -1,7 +1,8 @@
 """This module contains the FriendsAbstractPage class,
 which represents the friends_abstract page of a website."""
-import allure
 from typing import Self
+
+import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 

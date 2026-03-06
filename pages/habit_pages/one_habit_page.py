@@ -1,7 +1,7 @@
 """ OneHabitPage elements"""
+from typing import Self
 
 import allure
-from typing import Self
 from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
