@@ -7,13 +7,9 @@ from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.habit_pages.one_habit_page import OneHabitPage
 
 
-def test_slider_keyboard_interaction(driver: WebDriver):
+def test_slider_keyboard_interaction(driver_with_login):
     """Check slider working"""
-    base_page = BasePage(driver)
-
-    sign_in_component = base_page.header.click_sign_in_link()
-
-    sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
+    driver = driver_with_login
 
     page = MyHabitPage(driver)
 
