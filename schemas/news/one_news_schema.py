@@ -118,13 +118,14 @@ one_news_properties.update({
     "source": {
         "type": ["string", "null"],
         "description": "Original source URL (can be null)",
+        "format": "uri"
     },
     "countOfEcoNews": {
         "type": "integer",
         "description": "Total count of eco news",
         "minimum": 0
     },
-    "favorite": {
+"favorite": {
         "type": "boolean",
         "description": "Whether the news is marked as favorite"
     }
