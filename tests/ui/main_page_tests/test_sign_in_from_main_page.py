@@ -42,5 +42,5 @@ def test_sign_in_from_main_page(driver: WebDriver) -> None:
     with allure.step("Step 9: Verify login button is displayed"):
         assert sign_in_modal.sign_in_button.is_displayed(), "Login button is not visible"
 
-    with allure.step("Step 10: Close modal or remain on login form"):
+    with allure.step("Step 10: Verify 'Sign in' modal remains open"):
         assert sign_in_modal.is_displayed(), "Sign in form is not accessible"

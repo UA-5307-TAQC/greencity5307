@@ -64,7 +64,7 @@ class MainPage(BasePage):
 
     def is_header_visible(self) -> bool:
         """Check if header is visible."""
-        return self.is_visible((By.XPATH, "//header[@role='banner']"))
+        return self.is_visible(BasePage.locators["header"])
 
     def is_navigation_menu_visible(self) -> bool:
         """Check if navigation menu is visible."""
