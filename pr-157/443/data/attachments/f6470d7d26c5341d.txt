@@ -1,0 +1,12 @@
+2026-03-06 14:54:15,905 - GreenCityLogger - INFO - Starting Smoke Test
+2026-03-06 14:54:15,905 - GreenCityLogger - INFO - [ALLURE STEP] Verify Main Page content
+2026-03-06 14:54:15,906 - GreenCityLogger - INFO - Checking 'There are' text on Main Page
+2026-03-06 14:54:15,939 - GreenCityLogger - INFO - [ALLURE STEP] Navigate to Eco News
+2026-03-06 14:54:15,939 - GreenCityLogger - INFO - Clicking 'News' link in header
+2026-03-06 14:54:15,952 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the news link in the header
+2026-03-06 14:54:15,952 - GreenCityLogger - INFO - Clicking the news link in the header.
+2026-03-06 14:54:16,083 - GreenCityLogger - INFO - Successfully clicked the news link in the header.
+2026-03-06 14:54:16,148 - GreenCityLogger - INFO - [ALLURE STEP] Navigate to Events
+2026-03-06 14:54:16,148 - GreenCityLogger - INFO - Clicking 'Events' link in header (from News page context)
+2026-03-06 14:54:16,188 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the event link in the header
+2026-03-06 14:54:16,379 - GreenCityLogger - WARNING - [ALLURE STEP FAILED] AttributeError: 'EventPage' object has no attribute 'main_header'

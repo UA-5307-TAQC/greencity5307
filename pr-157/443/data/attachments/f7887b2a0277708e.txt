@@ -1,0 +1,6 @@
+2026-03-06 14:49:22,948 - GreenCityLogger - INFO - [ALLURE STEP] Send 'POST' request to '/signIn'
+2026-03-06 14:49:22,948 - GreenCityLogger - INFO - Sending POST request to https://greencity-user.greencity.cx.ua/ownSecurity/signIn with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'f91687fe-0e6d-4526-906c-b24008baa978'} and kwargs: {'json': {'email': 'greencitytest69@hotmail.com', 'password': 'asweQA5346!)', 'projectName': 'GREENCITY'}}
+2026-03-06 14:49:23,313 - GreenCityLogger - INFO - [ALLURE STEP] Validate status code and response time
+2026-03-06 14:49:23,314 - GreenCityLogger - INFO - [ALLURE STEP] Validate response body data
+2026-03-06 14:49:23,314 - GreenCityLogger - INFO - [ALLURE STEP] Validate Access Token expiration
+2026-03-06 14:49:23,315 - GreenCityLogger - WARNING - [ALLURE STEP FAILED] Failed: Token is invalid or corrupted. Details: module 'jwt' has no attribute 'decode'

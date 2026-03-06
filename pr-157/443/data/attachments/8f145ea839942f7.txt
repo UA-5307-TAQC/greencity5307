@@ -1,0 +1,7 @@
+2026-03-06 14:49:30,252 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Find one eco news by 3 with filters: lang='en'
+2026-03-06 14:49:30,252 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Send 'GET' request to '/3'
+2026-03-06 14:49:30,252 - GreenCityLogger - INFO - base_client.py  - _request - Sending GET request to https://greencity.greencity.cx.ua/eco-news/3 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '26e28791-3c59-4567-ba04-c8c922d8401d'} and kwargs: {'params': {'lang': 'en'}}
+2026-03-06 14:49:30,299 - GreenCityLogger - INFO - test_get_eco_news_by_id.py  - test_get_eco_news_by_id - 200
+2026-03-06 14:49:30,300 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Validate proper response json format
+2026-03-06 14:49:30,300 - GreenCityLogger - INFO - test_get_eco_news_by_id.py  - test_get_eco_news_by_id - {'creationDate': '2025-08-21T11:39:54.098322Z', 'imagePath': None, 'id': 3, 'title': 'Test', 'content': '<p>Comment for test news.</p>', 'shortInfo': None, 'author': {'id': 3, 'name': 'AI Generated'}, 'likes': 0, 'dislikes': 0, 'countComments': 0, 'hidden': False, 'tagsEn': ['News'], 'tagsUk': ['Новини']}
+2026-03-06 14:49:30,302 - GreenCityLogger - INFO - test_get_eco_news_by_id.py  - test_get_eco_news_by_id - ✅ JSON validation passed

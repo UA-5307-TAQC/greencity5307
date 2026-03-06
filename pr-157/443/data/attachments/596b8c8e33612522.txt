@@ -1,0 +1,12 @@
+2026-03-06 14:50:32,480 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:50:33,186 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 14:50:33,999 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigating to the About Us page
+2026-03-06 14:50:34,005 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the about us link in the header
+2026-03-06 14:50:34,311 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Checking if Places page is loaded
+2026-03-06 14:50:34,401 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigating to the About Us page from Places page
+2026-03-06 14:50:34,407 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the about us link in the header
+2026-03-06 14:50:34,675 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigating to the About Us page from Friends page
+2026-03-06 14:50:34,681 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the about us link in the header
+2026-03-06 14:50:34,891 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Checking if Eco News page is opened
+2026-03-06 14:50:34,922 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Navigating to the About Us page from Eco News page
+2026-03-06 14:50:34,927 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the about us link in the header

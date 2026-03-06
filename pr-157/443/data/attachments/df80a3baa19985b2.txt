@@ -1,0 +1,4 @@
+2026-03-06 14:52:50,085 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:52:50,762 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clear email and password fields to trigger validation
+2026-03-06 14:52:51,089 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Verify validation errors: Email=''Введіть пошту.'',Password=''Це поле є обов'язковим''
+2026-03-06 14:52:51,138 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] AssertionError: Expected email error 'Введіть пошту.', but got 'Email is required.'

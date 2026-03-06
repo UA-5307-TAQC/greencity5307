@@ -1,0 +1,6 @@
+2026-03-06 14:53:26,441 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 14:53:26,452 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:53:27,645 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 14:53:28,442 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Go to My Space page
+2026-03-06 14:53:28,443 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check if the current day on the calendar is correct
+2026-03-06 14:53:28,452 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get current date on Calendar component

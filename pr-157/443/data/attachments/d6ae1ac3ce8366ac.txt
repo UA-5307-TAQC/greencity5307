@@ -1,0 +1,12 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Checking if Places page is loaded
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page from Places page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page from Friends page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Checking if Eco News page is opened
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page from Eco News page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header

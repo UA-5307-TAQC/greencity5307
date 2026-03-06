@@ -1,0 +1,20 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Pre-condition: ensure site is loaded, sign in, and land on My Space page.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 1: Click on 'Eco News', and ensure the site loaded on eco news page.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the Eco News page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the news link in the header
+INFO     GreenCityLogger:header_component.py:93 Clicking the news link in the header.
+INFO     GreenCityLogger:header_component.py:97 Successfully clicked the news link in the header.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 2: Click on 'Events', and ensure the site loaded on events page.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the Events page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the event link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 3: Click on 'Places', and ensure the site loaded on places page.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the Places page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the places link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 4: Click on 'About us', and ensure the site loaded on about us page.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page from Places page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 5: Click on 'Main page', and ensure the site loaded on my space page.
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the Main page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the main page link in the header

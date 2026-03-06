@@ -1,0 +1,10 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the 'Form habit' one button
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Checking if My Habit page is loaded
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Navigating to the About Us page from My Habit page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the about us link in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the 'Form habit' two button
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Checking if My Habit page is loaded

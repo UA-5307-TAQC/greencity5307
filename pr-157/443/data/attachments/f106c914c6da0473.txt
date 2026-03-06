@@ -1,0 +1,3 @@
+2026-03-06 14:54:10,743 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:54:11,944 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
+2026-03-06 14:54:12,727 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the saved link in the header

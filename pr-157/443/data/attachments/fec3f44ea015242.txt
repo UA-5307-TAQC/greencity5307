@@ -1,0 +1,10 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] User signs in with valid credentials
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] User opens Edit Profile page
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Click on Edit profile button on Profile Banner component
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] User updates privacy settings
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Set 'Show my location' to 'Показувати тільки мені'
+WARNING  GreenCityLogger:logger.py:44 [ALLURE STEP FAILED] NoSuchElementException: Message: Lazy resolution failed: Element via 'xpath'='//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select' not found.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+
+WARNING  GreenCityLogger:logger.py:44 [ALLURE STEP FAILED] NoSuchElementException: Message: Lazy resolution failed: Element via 'xpath'='//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select' not found.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception

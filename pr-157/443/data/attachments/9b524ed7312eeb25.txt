@@ -1,0 +1,7 @@
+2026-03-06 14:49:30,417 - GreenCityLogger - INFO - [ALLURE STEP] Find one eco news by 6 with filters: lang='en'
+2026-03-06 14:49:30,417 - GreenCityLogger - INFO - [ALLURE STEP] Send 'GET' request to '/6'
+2026-03-06 14:49:30,417 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news/6 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '4c113f67-2cfc-4d37-9382-4bf0228b29f6'} and kwargs: {'params': {'lang': 'en'}}
+2026-03-06 14:49:30,465 - GreenCityLogger - INFO - 200
+2026-03-06 14:49:30,465 - GreenCityLogger - INFO - [ALLURE STEP] Validate proper response json format
+2026-03-06 14:49:30,465 - GreenCityLogger - INFO - {'creationDate': '2025-08-21T15:13:50.72596Z', 'imagePath': None, 'id': 6, 'title': 'TEst6', 'content': '<p>testesttesttesttesttest</p>', 'shortInfo': None, 'author': {'id': 2, 'name': 'GREENCITY'}, 'likes': 0, 'dislikes': 0, 'countComments': 0, 'hidden': False, 'tagsEn': ['News'], 'tagsUk': ['Новини']}
+2026-03-06 14:49:30,468 - GreenCityLogger - INFO - ✅ JSON validation passed

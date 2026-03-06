@@ -1,0 +1,11 @@
+2026-03-06 14:51:06,213 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] User signs in with valid credentials
+2026-03-06 14:51:06,225 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:51:06,932 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 14:51:07,734 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] User opens Edit Profile page
+2026-03-06 14:51:07,744 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on Edit profile button on Profile Banner component
+2026-03-06 14:51:07,938 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] User updates privacy settings
+2026-03-06 14:51:07,938 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Set 'Show my location' to 'Показувати мені та друзям'
+2026-03-06 14:51:17,998 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] NoSuchElementException: Message: Lazy resolution failed: Element via 'xpath'='//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select' not found.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+
+2026-03-06 14:51:17,999 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] NoSuchElementException: Message: Lazy resolution failed: Element via 'xpath'='//div[contains(text(),'Показувати моє місцезнаходження')]/ancestor::li//mat-select' not found.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+

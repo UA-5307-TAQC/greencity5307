@@ -1,0 +1,13 @@
+2026-03-06 14:49:56,590 - GreenCityLogger - INFO - [ALLURE STEP] Navigating to the About Us page
+2026-03-06 14:49:56,603 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the about us link in the header
+2026-03-06 14:49:57,047 - GreenCityLogger - INFO - [ALLURE STEP] Checking if the sign-in modal is displayed
+2026-03-06 14:49:57,753 - GreenCityLogger - INFO - [ALLURE STEP] Closing the sign-in modal
+2026-03-06 14:50:08,564 - GreenCityLogger - INFO - [ALLURE STEP] Navigating to the About Us page
+2026-03-06 14:50:08,573 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the about us link in the header
+2026-03-06 14:50:08,812 - GreenCityLogger - INFO - [ALLURE STEP] Checking if the sign-in modal is displayed
+2026-03-06 14:50:08,835 - GreenCityLogger - INFO - [ALLURE STEP] Closing the sign-in modal
+2026-03-06 14:50:19,473 - GreenCityLogger - INFO - [ALLURE STEP] Navigating to the About Us page
+2026-03-06 14:50:19,479 - GreenCityLogger - INFO - [ALLURE STEP] Clicking the about us link in the header
+2026-03-06 14:50:19,668 - GreenCityLogger - INFO - [ALLURE STEP] Checking if Eco News page is opened
+2026-03-06 14:50:29,723 - GreenCityLogger - WARNING - [ALLURE STEP FAILED] NoSuchElementException: Message: Lazy resolution failed: Element via 'xpath'='//*[@id='main-content']/div/div[1]/div/a' not found.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+

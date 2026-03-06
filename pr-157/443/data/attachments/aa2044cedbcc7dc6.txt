@@ -1,0 +1,10 @@
+2026-03-06 14:52:53,724 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 14:52:53,734 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:52:54,418 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 14:52:55,237 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Get habit card component
+2026-03-06 14:52:55,246 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking the edit icon on the habit card
+2026-03-06 14:52:55,365 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click To-Do List edit button
+2026-03-06 14:52:55,567 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Enter and add item ''Eco Bag'' to the list
+2026-03-06 14:52:55,724 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Save changes
+2026-03-06 14:53:05,747 - GreenCityLogger - WARNING - logger.py  - stop_step - [ALLURE STEP FAILED] NoSuchElementException: Message: Lazy resolution failed: Element via 'xpath'='//app-habit-edit-to-do-list//button[contains(text(), 'Зберегти')]' not found.; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+

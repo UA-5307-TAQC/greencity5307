@@ -1,0 +1,7 @@
+2026-03-06 14:53:31,020 - GreenCityLogger - INFO - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 14:53:31,035 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:53:32,228 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
+2026-03-06 14:53:33,046 - GreenCityLogger - INFO - [ALLURE STEP] Go to My Space page
+2026-03-06 14:53:33,046 - GreenCityLogger - INFO - [ALLURE STEP] Click [Edit] button
+2026-03-06 14:53:33,056 - GreenCityLogger - INFO - [ALLURE STEP] Click on Edit profile button on Profile Banner component
+2026-03-06 14:53:33,238 - GreenCityLogger - INFO - [ALLURE STEP] Check if user is redirected to Edit Profile page

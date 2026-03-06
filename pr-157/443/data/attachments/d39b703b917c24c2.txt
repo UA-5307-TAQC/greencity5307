@@ -1,0 +1,7 @@
+2026-03-06 14:53:35,673 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
+2026-03-06 14:53:35,684 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Clicking signin button in the header
+2026-03-06 14:53:36,342 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Sign in
+2026-03-06 14:53:37,159 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Go to My Space page
+2026-03-06 14:53:37,159 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click [Add friends] button
+2026-03-06 14:53:37,169 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Click on Add friends button on Profile Banner component
+2026-03-06 14:53:37,285 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check if user is redirected to Find Friend page

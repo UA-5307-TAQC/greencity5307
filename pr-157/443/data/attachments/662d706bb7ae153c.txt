@@ -1,0 +1,8 @@
+2026-03-06 14:49:30,073 - GreenCityLogger - INFO - [ALLURE STEP] Find eco news by page with filters: tags=None, title='Not-exist', author_id=1000000, favorite=False, page=0, size=20, sort=None
+2026-03-06 14:49:30,073 - GreenCityLogger - INFO - [ALLURE STEP] Send 'GET' request to ''
+2026-03-06 14:49:30,073 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '00d84b50-2619-4e0d-8d89-a6f8d46ff287'} and kwargs: {'params': {'favorite': False, 'page': 0, 'size': 20, 'title': 'Not-exist', 'authorId': 1000000}}
+2026-03-06 14:49:30,122 - GreenCityLogger - INFO - [ALLURE STEP] Check status code
+2026-03-06 14:49:30,122 - GreenCityLogger - INFO - 200
+2026-03-06 14:49:30,122 - GreenCityLogger - INFO - [ALLURE STEP] Validate proper response json format
+2026-03-06 14:49:30,122 - GreenCityLogger - INFO - {'page': [], 'totalElements': 0, 'currentPage': 0, 'totalPages': 0, 'number': 0, 'hasPrevious': False, 'hasNext': False, 'first': True, 'last': True}
+2026-03-06 14:49:30,126 - GreenCityLogger - INFO - ✅ JSON validation passed

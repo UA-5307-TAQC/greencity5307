@@ -1,0 +1,5 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Find one eco news by 1 with filters: lang='uk'
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Send 'GET' request to '/1'
+INFO     GreenCityLogger:base_client.py:58 Sending GET request to https://greencity.greencity.cx.ua/eco-news/1 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '9c26aba4-7d94-4514-959c-4ee033e4ff6e'} and kwargs: {'params': {'lang': 'uk'}}
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:68 404
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:89 {'message': "Eco new doesn't exist by this id: 1"}

@@ -1,0 +1,3 @@
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
+INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Click on My events tab on My Space page
