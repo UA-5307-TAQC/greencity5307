@@ -1,15 +1,10 @@
 """tests for slider boundaries"""
-
-from selenium.webdriver.remote.webdriver import WebDriver
-
-from data.config import Config
-from pages.base_page import BasePage
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.habit_pages.one_habit_page import OneHabitPage
 
 
-def test_slider_keyboard_interaction(driver_with_login):
-    """Check slider working"""
+def test_slider_respects_boundaries(driver_with_login):
+    """Verify slider respects minimum and maximum boundaries when moved."""
     driver = driver_with_login
 
     page = MyHabitPage(driver)

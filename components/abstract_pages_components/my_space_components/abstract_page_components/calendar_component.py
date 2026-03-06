@@ -29,10 +29,24 @@ class CalendarComponent(BaseComponent):
     @allure.step("Get current date on Calendar component")
     def get_current_date(self) -> str:
         """Get current day, month and year."""
+        month_map = {
+            "Січень": 1, "Лютий": 2, "Березень": 3, "Квітень": 4,
+            "Травень": 5, "Червень": 6, "Липень": 7, "Серпень": 8,
+            "Вересень": 9, "Жовтень": 10, "Листопад": 11, "Грудень": 12,
+            "January": 1, "February": 2, "March": 3, "April": 4,
+            "May": 5, "June": 6, "July": 7, "August": 8,
+            "September": 9, "October": 10, "November": 11, "December": 12
+        }
+
         self.get_wait().until(EC.visibility_of(self.root))
         current_month, current_year = self.month_year.text.split()
         current_day = self.day.text
-        return f"{current_day} {current_month} {current_year}"
+
+        return {
+            "day": f"{int(current_day):02d}",
+            "month": f"{month_map.get(current_month):02d}",
+            "year": current_year
+        }
 
     @allure.step("Click next button on Calendar component")
     def click_next_btn(self, times: int):
