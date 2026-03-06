@@ -2,10 +2,7 @@
 import time
 
 import allure
-from selenium.webdriver.remote.webdriver import WebDriver
 
-from data.config import Config
-from pages.base_page import BasePage
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.habit_pages.one_habit_page import OneHabitPage
 
@@ -13,13 +10,9 @@ from pages.habit_pages.one_habit_page import OneHabitPage
 @allure.title("Add custom item into to_do_list")
 @allure.description("We check possibility add field into to do list of some special habit")
 @allure.severity(allure.severity_level.NORMAL)
-def test_one_event_page_add_custom_item_in_to_do_list(driver: WebDriver):
+def test_one_event_page_add_custom_item_in_to_do_list(driver_with_login):
     """test add custom item into do_list."""
-    base_page = BasePage(driver)
-
-    sign_in_component = base_page.header.click_sign_in_link()
-
-    sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
+    driver = driver_with_login
 
     page = MyHabitPage(driver)
 

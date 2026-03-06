@@ -81,6 +81,7 @@ one_news_base_properties = {
         "minimum": 0
     },
 }
+
 one_news_base_schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
@@ -103,6 +104,7 @@ one_news_get_by_id_properties.update({
         "description": "Describes if news is hidden",
     },
 })
+
 one_news_get_by_id_schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
@@ -125,11 +127,12 @@ one_news_properties.update({
         "description": "Total count of eco news",
         "minimum": 0
     },
-"favorite": {
+    "favorite": {
         "type": "boolean",
         "description": "Whether the news is marked as favorite"
     }
 })
+
 one_news_schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",

@@ -58,7 +58,8 @@ languages = ('en', 'uk')
 @allure.title(
     "Test eco news get request's response returns correct data format")
 def test_get_eco_news_by_id(news_id: int, lang: str):
-    """Verify eco news GET-by-id: 200 responses match the one-news schema, 400 returns a language-selection error, and 404 returns a not-found-by-id message."""
+    """Verify eco news GET-by-id: 200 responses match the one-news schema,
+     400 returns a language-selection error, and 404 returns a not-found-by-id message."""
 
     client = EcoNewClient(base_url=Config.BASE_API_URL)
 
