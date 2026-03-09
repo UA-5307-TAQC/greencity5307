@@ -1,59 +1,161 @@
 """Module contains PlacesSavedPage page object."""
 
+import allure
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
-from pages.base_page import BasePage
+from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract
 from utils.types import Locators
 
 
-class PlacesSavedPage(BasePage):
-    """Page Object for Map -> Saved Places (PlacesSaved)."""
+class PlacesSavedPage(SavedAbstract):
+    """Page Object for Saved -> Places page."""
+
+    title: Locators = (
+        By.XPATH,
+        "//p[contains(@class,'main-header')]"
+    )
+
+    places_tab_locator: Locators = (
+        By.XPATH,
+        "//button[normalize-space()='Places' or normalize-space()='Карта']"
+    )
+
+    search_place_input_locator: Locators = (
+        By.XPATH,
+        "//input[contains(@placeholder,'Searching for a place') "
+        "or contains(@placeholder,'Пошук місця')]"
+    )
+
+    choose_location_input_locator: Locators = (
+        By.XPATH,
+        "//input[contains(@placeholder,'Choose location') "
+        "or contains(@placeholder,'Оберіть місце')]"
+    )
 
     saved_places_chip_locator: Locators = (
         By.XPATH,
-        "//*[contains(.,'Збережені місця') or contains(.,'Saved places')]"
-        )
-
-    search_place_input_locator: Locators = (
-        By.CSS_SELECTOR,
-        "input[placeholder*='Пошук місця'], input[placeholder*='Search place']"
-        )
-    choose_place_input_locator: Locators = (
+        "//button[.//span[contains(., 'Saved Places') "
+        "or contains(., 'Збереженні місця')]]"
+    )
+# -----------------------------
+    shops_filter_locator: Locators = (
         By.XPATH,
-        "//input[contains(@placeholder,'Оберіть місце') or contains(@placeholder,'Choose place')]"
-        )
+        "//button[contains(., 'Shops') or contains(., 'Магазини')]"
+    )
 
-    add_place_btn_locator: Locators = (
+    restaurants_filter_locator: Locators = (
         By.XPATH,
-        "//button[contains(.,'Додати місце') or contains(.,'Add place')]"
-        )
+        "//button[contains(., 'Restaurants') or contains(., 'Ресторани')]"
+    )
 
+    recycling_points_filter_locator: Locators = (
+        By.XPATH,
+        "//button[contains(., 'Recycling') or contains(., 'Пункти приймання')]"
+    )
+
+    events_filter_locator: Locators = (
+        By.XPATH,
+        "//button[contains(., 'Events') or contains(., 'Події')]"
+    )
+
+    more_options_filter_locator: Locators = (
+        By.XPATH,
+        "//a[contains(., 'More Options') or contains(., 'Більше Опцій') or contains(., 'Більше')]"
+    )
+# -----------------------------
     left_panel_title_locator: Locators = (
         By.XPATH,
-        "//*[contains(.,'Популярні еко-місця') or contains(.,'Popular eco-places')]"
-        )
+        "//*[contains(normalize-space(),'Popular eco places') "
+        "or contains(normalize-space(),'Популярні еко-місця')]"
+    )
+# -----------------------------
+    map_section_locator: Locators = (
+        By.CSS_SELECTOR,
+        ".places-map"
+    )
+# -----------------------------
+    @allure.step("Checking if Saved Places page is opened")
+    def is_page_opened(self) -> bool:
+        """Check if Saved Places page is opened."""
+        try:
+            self.get_wait().until(EC.url_contains("places"))
+            self.get_wait().until(EC.url_contains("isBookmark=true"))
+            self.get_wait().until(
+                EC.visibility_of_element_located(self.search_place_input_locator)
+            )
+            self.get_wait().until(
+                EC.visibility_of_element_located(self.choose_location_input_locator)
+            )
+            return True
+        except TimeoutException:
+            return False
 
-    def click_saved_places_filter(self):
-        """Click 'Saved places' filter chip/tab."""
-        self.driver.find_element(*self.saved_places_chip_locator).click()
+    @allure.step("Get Saved page title")
+    def get_page_title_text(self) -> str:
+        """Return Saved page title text."""
+        return self.find(self.title).text
 
-    def is_saved_places_filter_active(self) -> bool:
-        """Check that Saved places filter is active (basic class/aria check)."""
-        el = self.driver.find_element(*self.saved_places_chip_locator)
-        cls = el.get_attribute("class") or ""
-        aria = (el.get_attribute("aria-selected") or "").lower()
-        return "active" in cls or "selected" in cls or aria == "true"
+    @allure.step("Check if Places tab is active")
+    def is_places_tab_active(self) -> bool:
+        """Check whether Places tab is active."""
+        element = self.find(self.places_tab_locator)
+        classes = element.get_attribute("class") or ""
+        aria_selected = (element.get_attribute("aria-selected") or "").lower()
+        return "active" in classes or "selected" in classes or aria_selected == "true"
 
-    def enter_search_place(self, text: str):
-        """Type into 'Search place' input."""
-        inp = self.driver.find_element(*self.search_place_input_locator)
-        inp.clear()
-        inp.send_keys(text)
+    @allure.step("Check if search input is visible")
+    def is_search_input_visible(self) -> bool:
+        """Check if search place input is visible."""
+        return self.is_visible(self.search_place_input_locator)
 
-    def is_add_place_button_visible(self) -> bool:
-        """Check Add place button is visible."""
-        return self.driver.find_element(*self.add_place_btn_locator).is_displayed()
+    @allure.step("Check if location input is visible")
+    def is_location_input_visible(self) -> bool:
+        """Check if choose location input is visible."""
+        return self.is_visible(self.choose_location_input_locator)
 
+    @allure.step("Check if Shops filter is visible")
+    def is_shops_filter_visible(self) -> bool:
+        """Check if Shops filter is visible."""
+        return self.is_visible(self.shops_filter_locator)
+
+    @allure.step("Check if Restaurants filter is visible")
+    def is_restaurants_filter_visible(self) -> bool:
+        """Check if Restaurants filter is visible."""
+        return self.is_visible(self.restaurants_filter_locator)
+
+    @allure.step("Check if Recycling Points filter is visible")
+    def is_recycling_points_filter_visible(self) -> bool:
+        """Check if Recycling Points filter is visible."""
+        return self.is_visible(self.recycling_points_filter_locator)
+
+    @allure.step("Check if Events filter is visible")
+    def is_events_filter_visible(self) -> bool:
+        """Check if Events filter is visible."""
+        return self.is_visible(self.events_filter_locator)
+
+    @allure.step("Check if Saved Places filter is visible")
+    def is_saved_places_filter_visible(self) -> bool:
+        """Check if Saved Places filter is visible."""
+        return self.is_visible(self.saved_places_chip_locator)
+
+    @allure.step("Check if More Options filter is visible")
+    def is_more_options_filter_visible(self) -> bool:
+        """Check if More Options filter is visible."""
+        return self.is_visible(self.more_options_filter_locator)
+
+    @allure.step("Check if map section is visible")
+    def is_map_section_visible(self) -> bool:
+        """Check if map section is visible."""
+        return self.is_visible(self.map_section_locator)
+
+    @allure.step("Get left panel title")
     def get_left_panel_title(self) -> str:
         """Return left panel title text."""
-        return self.driver.find_element(*self.left_panel_title_locator).text
+        return self.find(self.left_panel_title_locator).text
+
+    @allure.step("Open Places tab on Saved page")
+    def open_places_tab(self):
+        """Open Places tab on Saved page."""
+        self.find(self.places_tab_locator).click()
