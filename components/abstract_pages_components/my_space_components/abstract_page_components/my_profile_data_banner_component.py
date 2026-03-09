@@ -78,7 +78,7 @@ class MyProfileDataBannerComponent(BaseComponent):
         }
 
     @allure.step("Click View all friends link")
-    def click_view_all_friends(self):
+    def click_view_all_friends(self) -> "FriendsPage":
         """Navigate to Friends page from profile banner."""
         old_url = self.driver.current_url
 

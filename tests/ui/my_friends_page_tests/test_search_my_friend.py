@@ -15,20 +15,14 @@ from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpac
     "on Friends page."
 )
 @allure.severity(allure.severity_level.NORMAL)
-def test_search_friend_by_full_and_partial_name(driver: WebDriver):
+def test_search_friend_by_full_and_partial_name(driver_with_login: WebDriver):
     """TC-MF-01"""
 
-    base_page = BasePage(driver)
-
-    with allure.step("User signs in"):
-        sign_in_component = base_page.header.click_sign_in_link()
-        sign_in_component.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
-
     with allure.step("Open Friends page"):
-        my_space_page = MySpaceAbstractPage(driver)
+        my_space_page = MySpaceAbstractPage(driver_with_login)
         my_space_page.profile_banner.click_view_all_friends()
 
-        friends_page = FriendsPage(driver)
+        friends_page = FriendsPage(driver_with_login)
 
     with allure.step("Verify search field is visible"):
         assert friends_page.search_input.is_displayed()

@@ -15,10 +15,12 @@ class FriendsPage(BasePage):
     locators = {
         "back_btn": (By.CSS_SELECTOR, ".button-link"),
         "search_input": (By.CSS_SELECTOR, ".searchForm input.search"),
-        "tab_my_friends": (By.XPATH, "//a[contains(., 'My friends')]"),
-        "tab_find_friend": (By.XPATH, "//a[contains(., 'Find a friend')]"),
-        "tab_friend_requests": (By.XPATH, "//a[contains(., 'Friend requests')]"),
-        "friend_cards": (By.CSS_SELECTOR, ".friends-list .user-card")
+        "tab_my_friends": (By.XPATH, "//a[contains(., 'My friends') or contains(., 'Мої друзі')]"),
+        "tab_find_friend": (By.XPATH, "//a[contains(., 'Find a friend') "
+                                      "or contains(., 'Знайти друга')]"),
+        "tab_friend_requests": (By.XPATH, "//a[contains(., 'Friend requests') "
+                                          "or contains(., 'Запити в друзі')]"),
+        "friend_cards": (By.CSS_SELECTOR, ".friends-list .user-card", list[FriendItemComponent]),
     }
 
     back_btn: CustomWebElement
@@ -26,6 +28,7 @@ class FriendsPage(BasePage):
     tab_my_friends: CustomWebElement
     tab_find_friend: CustomWebElement
     tab_friend_requests: CustomWebElement
+    friend_cards: list[FriendItemComponent]
 
     @allure.step("Click Back button")
     def click_back(self):
@@ -55,5 +58,4 @@ class FriendsPage(BasePage):
     @allure.step("Get friend items")
     def get_friend_items(self) -> list[FriendItemComponent]:
         """Get friend items"""
-        elements = self.driver.find_elements(*self.locators["friend_cards"])
-        return [FriendItemComponent(el) for el in elements]
+        return self.friend_cards
