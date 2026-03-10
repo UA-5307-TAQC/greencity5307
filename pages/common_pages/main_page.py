@@ -11,6 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from components.common_components.auth_components.signin_modal_component import SignInComponent
 from pages.base_page import BasePage
 from pages.common_pages.about_us_page import AboutUsPage
+from pages.common_pages.ubc_courier_page import UBSCourierPage
 from pages.news_pages.eco_news_page import EcoNewsPage
 
 
@@ -36,6 +37,13 @@ class MainPage(BasePage):
         self.header.click_new_link()
         self.get_wait().until(EC.url_contains("news"))
         return EcoNewsPage(self.driver)
+
+    @allure.step("Navigating to the UBSCourier page")
+    def go_to_ubs_courier(self) -> UBSCourierPage:
+        """Navigate to the UBSCourier page."""
+        self.header.click_ubs_courier_link()
+        self.get_wait().until(EC.url_contains("ubs"))
+        return UBSCourierPage(self.driver)
 
     @allure.step("Navigating to the About Us page")
     def go_to_about_us(self) -> AboutUsPage:
