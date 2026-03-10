@@ -1,10 +1,10 @@
 """File to test email api client."""
 
 import allure
+import pytest
 from clients.email_client import EmailClient
 from data.config import Config
 from utils.logger import logger
-import pytest
 
 pytestmark = [
     allure.epic("GreenCity API"),
@@ -12,12 +12,12 @@ pytestmark = [
 ]
 
 
-
 @pytest.fixture
 def email_client(access_token):
     """Fixture to initialize and return the EmailClient."""
     with allure.step("Step 1: Initialize Email client with USER base url"):
         return EmailClient(base_url=Config.BASE_USER_API_URL, access_token=access_token)
+
 
 def verify_403_forbidden(response, endpoint_name: str):
     """Helper function to verify 403 Forbidden status and log the result."""
@@ -32,6 +32,7 @@ def verify_403_forbidden(response, endpoint_name: str):
             f"Expected 403 Forbidden, but got {response.status_code}. Response: {response.text}"
 
         logger.info(f"Security check passed successfully for {endpoint_name}.")
+
 
 @pytest.mark.parametrize(
     "method_name,payload,endpoint_name,story,title",
@@ -59,7 +60,7 @@ def verify_403_forbidden(response, endpoint_name: str):
             },
             "User Violation endpoint",
             "User Violation Notifications",
-            "Verify regular user CANNOT trigger a user violation email (Security Test)",
+            "Security: Verify regular user gets 403 when trying to send user violation email",
         ),
         (
             "send_report",
