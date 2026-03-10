@@ -11,6 +11,8 @@ pytestmark = [
     allure.feature("Email API")
 ]
 
+
+
 @pytest.fixture
 def email_client(access_token):
     """Fixture to initialize and return the EmailClient."""
@@ -31,224 +33,186 @@ def verify_403_forbidden(response, endpoint_name: str):
 
         logger.info(f"Security check passed successfully for {endpoint_name}.")
 
-@allure.story("Telegram feedback")
-@allure.title("Security: Verify regular user gets 403 when trying to send Telegram feedback email")
-def test_user_cannot_send_telegram_feedback(email_client):
-    """Negative test: verify 403 Forbidden when regular user tries to send telegram feedback."""
-    logger.info("Starting security test: verifying regular user cannot access telegram feedback endpoint.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "chatId": "123456789",
-            "name": "Oleksandr",
-            "rating": 5,
-            "comment": "Telegram feedback test.",
-            "subject": "New feedback from Telegram Bot."
-        }
-        response = email_client.send_telegram_feedback(payload=payload)
-
-    verify_403_forbidden(response, "Telegram feedback endpoint")
-
-
-@allure.story("User Violation Notifications")
-@allure.title("Verify regular user CANNOT trigger a user violation email (Security Test)")
-def test_send_user_violation(email_client):
-    """Negative test: verify 403 Forbidden when regular user tries to send violation email."""
-    logger.info("Starting security test: verifying regular user cannot access violation email endpoint.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "name": "Oleksandr",
-            "email": "greencitytest69@hotmail.com",
-            "language": "en",
-            "violationDescription": "Spamming the eco-news comments."
-        }
-        response = email_client.send_user_violation(payload=payload)
-
-    verify_403_forbidden(response, "User Violation endpoint")
-
-
-@allure.story("Report Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send report email")
-def test_user_cannot_send_report(email_client):
-    """Negative test: verifying regular user cannot access Send Report endpoint."""
-    logger.info("Starting security test: verifying regular user cannot access Send Report endpoint.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "subscribers": [
-                {
-                    "name": "Oleksandr",
-                    "email": "greencitytest69@hotmail.com",
-                    "language": "en",
-                    "unsubscribeToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                }
-            ],
-            "categoriesDtoWithPlacesDtoMap": {
-                "Recycling": [
+@pytest.mark.parametrize(
+    "method_name,payload,endpoint_name,story,title",
+    [
+        (
+            "send_telegram_feedback",
+            {
+                "chatId": "123456789",
+                "name": "Oleksandr",
+                "rating": 5,
+                "comment": "Telegram feedback test.",
+                "subject": "New feedback from Telegram Bot.",
+            },
+            "Telegram feedback endpoint",
+            "Telegram feedback",
+            "Security: Verify regular user gets 403 when trying to send Telegram feedback email",
+        ),
+        (
+            "send_user_violation",
+            {
+                "name": "Oleksandr",
+                "email": "greencitytest69@hotmail.com",
+                "language": "en",
+                "violationDescription": "Spamming the eco-news comments.",
+            },
+            "User Violation endpoint",
+            "User Violation Notifications",
+            "Verify regular user CANNOT trigger a user violation email (Security Test)",
+        ),
+        (
+            "send_report",
+            {
+                "subscribers": [
                     {
-                        "name": "Lviv Plastic Recycling Point.",
-                        "category": {
-                            "name": "Plastic",
-                            "parentCategoryId": 1
-                        }
+                        "name": "Oleksandr",
+                        "email": "greencitytest69@hotmail.com",
+                        "language": "en",
+                        "unsubscribeToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
                     }
                 ],
-                "Eco Shops": [
-                    {
-                        "name": "SoftServe Green Store",
-                        "category": {
-                            "name": "Eco Products",
-                            "parentCategoryId": 2
+                "categoriesDtoWithPlacesDtoMap": {
+                    "Recycling": [
+                        {
+                            "name": "Lviv Plastic Recycling Point.",
+                            "category": {
+                                "name": "Plastic",
+                                "parentCategoryId": 1,
+                            },
                         }
+                    ],
+                    "Eco Shops": [
+                        {
+                            "name": "SoftServe Green Store",
+                            "category": {
+                                "name": "Eco Products",
+                                "parentCategoryId": 2,
+                            },
+                        }
+                    ],
+                },
+                "periodicity": "IMMEDIATELY",
+            },
+            "Report endpoint",
+            "Report Notifications",
+            "Security: Verify regular user gets 403 when trying to send report email",
+        ),
+        (
+            "send_reason_of_deactivation",
+            {
+                "email": "greencitytest69@hotmail.com",
+                "name": "Oleksandr",
+                "deactivationReason": "User too long inactive.",
+                "lang": "en",
+            },
+            "Reason of deactivation endpoint",
+            "Account Deactivation Notifications",
+            "Security: Verify regular user gets 403 when trying to send deactivation reason email",
+        ),
+        (
+            "send_place_status_change",
+            {
+                "placeName": "Lviv Plastic Recycling Point.",
+                "newStatus": "PROPOSED",
+                "userName": "Oleksandr",
+                "email": "greencitytest69@hotmail.com"
+            },
+            "Place status change endpoint",
+            "Place Status Notifications",
+            "Security: Verify regular user gets 403 when trying to send place status change email",
+        ),
+        (
+            "send_message_of_account_activation",
+            {
+                "email": "greencitytest69@hotmail.com",
+                "name": "Oleksandr",
+                "lang": "en"
+            },
+            "Message of account activation endpoint",
+            "Account Activation Notifications",
+            "Security: Verify regular user gets 403 when trying to send activation message email",
+        ),
+        (
+            "send_interesting_eco_news",
+            {
+                "ecoNewsList": [
+                    {
+                        "ecoNewsId": 101,
+                        "imagePath": "https://greencity.cx.ua/assets/img/eco-news-1.jpg",
+                        "title": "Масове висадження дерев у Львові",
+                        "text": "Приєднуйтесь до нас цими вихідними, щоб висадити понад 500 дерев у центрі міста."
+                    }
+                ],
+                "subscribers": [
+                    {
+                        "name": "Denys",
+                        "email": "greencitytest69@hotmail.com",
+                        "language": "uk",
+                        "unsubscribeToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
                     }
                 ]
             },
-            "periodicity": "IMMEDIATELY"
-        }
-        response = email_client.send_report(payload=payload)
-
-    verify_403_forbidden(response, "Report endpoint")
-
-
-@allure.story("Account Deactivation Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send deactivation reason email")
-def test_user_cannot_send_deactivation_reason(email_client):
-    """Negative test: to verify that user cannot send deactivation reasons."""
-    logger.info("Negative test: to verify that user cannot send deactivation reasons.")
-
+            "Eco News endpoint",
+            "Eco News Notifications",
+            "Security: Verify regular user gets 403 when trying to send interesting Eco News email",
+        ),
+        (
+            "send_habit_notification",
+            {
+                "name": "Oleksandr",
+                "email": "greencitytest69@hotmail.com",
+            },
+            "Habit notifications endpoint",
+            "Habit Notifications",
+            "Security: Verify regular user gets 403 when trying to send habit notification email",
+        ),
+        (
+            "send_scheduled_notifications",
+            {
+                "username": "Oleksandr",
+                "userId": 1205,
+                "userUuid": "123e4567-e89b-12d3-a456-426614174000",
+                "baseLink": "https://greencity.cx.ua/",
+                "subject": "Important Notification from GreenCity",
+                "body": "This is a test notification body text.",
+                "language": "en",
+                "ubs": True
+            },
+            "Scheduled notification endpoint",
+            "Scheduled Notifications",
+            "Security: Verify regular user gets 403 when trying to trigger scheduled email notification",
+        ),
+        (
+            "send_green_office_notifications",
+            {
+                "username": "Oleksandr",
+                "userId": 1205,
+                "userUuid": "123e4567-e89b-12d3-a456-426614174000",
+                "baseLink": "https://greencity.cx.ua/",
+                "subject": "Important Notification from GreenCity",
+                "body": "This is a test notification body text.",
+                "language": "en",
+                "ubs": True
+            },
+            "Green office notification endpoint",
+            "Green Office Notifications",
+            "Security: Verify regular user gets 403 when trying to send Green Office notification",
+        )
+    ],
+)
+def test_user_cannot_send_email_endpoints(
+    email_client, method_name, payload, endpoint_name, story, title
+):
+    """Negative security tests: verify regular user receives 403 on restricted email endpoints."""
+    # Set Allure metadata dynamically per endpoint
+    allure.dynamic.story(story)
+    allure.dynamic.title(title)
+    logger.info(
+        "Starting security test: verifying regular user cannot access %s.",
+        endpoint_name,
+    )
     with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "email": "greencitytest69@hotmail.com",
-            "name": "Oleksandr",
-            "deactivationReason": "User too long inactive.",
-            "lang": "en"
-        }
-        response = email_client.send_reason_of_deactivation(payload=payload)
-
-    verify_403_forbidden(response, "Reason of deactivation endpoint")
-
-
-@allure.story("Place Status Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send place status change email")
-def test_user_cannot_send_place_status_change(email_client):
-    """Negative Test: verify that user cannot send place status change email."""
-    logger.info("Staring test to verify that user cannot send place status change email.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "placeName": "Lviv Plastic Recycling Point.",
-            "newStatus": "PROPOSED",
-            "userName": "Oleksandr",
-            "email": "greencitytest69@hotmail.com"
-        }
-        response = email_client.send_place_status_change(payload=payload)
-
-    verify_403_forbidden(response, "Place status change endpoint")
-
-
-@allure.story("Account Activation Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send activation message email")
-def test_user_cannot_send_activation_message(email_client):
-    """Negative test: verify that user cannot send activation message email."""
-    logger.info("Starting test to verify that user cannot send activation message email.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "email": "greencitytest69@hotmail.com",
-            "name": "Oleksandr",
-            "lang": "en"
-        }
-        response = email_client.send_message_of_account_activation(payload=payload)
-
-    verify_403_forbidden(response, "Message of account activation endpoint")
-
-
-@allure.story("Eco News Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send interesting Eco News email")
-def test_user_cannot_send_interesting_eco_news(email_client):
-    """Negative test: verify that user cannot send interesting eco news email."""
-    logger.info("Starting test to verify that user cannot send interesting eco news email.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "ecoNewsList": [
-                {
-                    "ecoNewsId": 101,
-                    "imagePath": "https://greencity.cx.ua/assets/img/eco-news-1.jpg",
-                    "title": "Масове висадження дерев у Львові",
-                    "text": "Приєднуйтесь до нас цими вихідними, щоб висадити понад 500 дерев у центрі міста."
-                }
-            ],
-            "subscribers": [
-                {
-                    "name": "Denys",
-                    "email": "greencitytest69@hotmail.com",
-                    "language": "uk",
-                    "unsubscribeToken": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-                }
-            ]
-        }
-        response = email_client.send_interesting_eco_news(payload=payload)
-
-    verify_403_forbidden(response, "Eco News endpoint")
-
-
-@allure.story("Habit Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send habit notification email")
-def test_send_habit_notification(email_client):
-    """Negative test: user cannot send habit notification email."""
-    logger.info("Starting test: verify system cannot send habit notification email.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "name": "Oleksandr",
-            "email": "greencitytest69@hotmail.com",
-        }
-        response = email_client.send_habit_notification(payload=payload)
-
-    verify_403_forbidden(response, "Habit notifications endpoint")
-
-
-@allure.story("Scheduled Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to trigger scheduled email notification")
-def test_user_cannot_send_scheduled_notification(email_client):
-    """Negative test: verify that user cannot send scheduled notification email."""
-    logger.info("Starting test to verify that user cannot send scheduled notification email.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload = {
-            "username": "Oleksandr",
-            "userId": 1205,
-            "userUuid": "123e4567-e89b-12d3-a456-426614174000",
-            "baseLink": "https://greencity.cx.ua/",
-            "subject": "Important Notification from GreenCity",
-            "body": "This is a test notification body text.",
-            "language": "en",
-            "ubs": True
-        }
-        response = email_client.send_scheduled_notifications(payload=payload)
-
-    verify_403_forbidden(response, "Scheduled notification endpoint")
-
-
-@allure.story("Green Office Notifications")
-@allure.title("Security: Verify regular user gets 403 when trying to send Green Office notification")
-def test_user_cannot_send_green_office_notification(email_client):
-    """Negative test: verify that user cannot send Green Office notification email."""
-    logger.info("Starting test to verify that user cannot send Green Office notification email.")
-
-    with allure.step("Step 2: Prepare payload and send POST request"):
-        payload ={
-            "username": "Oleksandr",
-            "userId": 1205,
-            "userUuid": "123e4567-e89b-12d3-a456-426614174000",
-            "baseLink": "https://greencity.cx.ua/",
-            "subject": "Important Notification from GreenCity",
-            "body": "This is a test notification body text.",
-            "language": "en",
-            "ubs": True
-        }
-        response = email_client.send_green_office_notifications(payload=payload)
-
-    verify_403_forbidden(response, "Green office notification endpoint")
+        client_method = getattr(email_client, method_name)
+        response = client_method(payload=payload)
+    verify_403_forbidden(response, endpoint_name)

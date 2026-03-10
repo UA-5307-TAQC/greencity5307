@@ -8,7 +8,7 @@ from clients.base_client import BaseClient
 class EmailClient(BaseClient):
     """Client for interacting with the Email API."""
 
-    def __init__(self, base_url, access_token):
+    def __init__(self, base_url, access_token=None):
         super().__init__(base_url=f"{base_url}/email", access_token=access_token)
 
     @allure.step("Send Telegram feedback email")
