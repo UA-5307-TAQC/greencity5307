@@ -83,3 +83,11 @@ class EcoNewClient(BaseClient):
             "ecoNewsId":news_id
         }
         return self._request("POST", f"/{news_id}/likes", params=params)
+
+    @allure.step("Add eco new to favorites.")
+    def add_to_favorites_eco_new_by_id(self, news_id):
+        """Add eco movie to favorites."""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/favorites", params=params)
