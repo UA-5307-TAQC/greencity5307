@@ -1,4 +1,5 @@
 """Client for interacting with the Eco News API, extending BaseClient for common functionality."""
+import json
 
 import allure
 from requests import Response
@@ -59,3 +60,18 @@ class EcoNewClient(BaseClient):
     def delete_eco_news_by_id(self, news_id: int) -> Response:
         """Delete eco new by id."""
         return self._request("DELETE", f"/{news_id}")
+
+    @allure.step("Update eco new with specified data")
+    def update_eco_news_by_id(self, news_id, data, image_file_path):
+        """Update eco new by id with specified data and image"""
+        with open(image_file_path, "rb") as img:
+            files = {
+                "image": ("image.jpg", img, "image/jpeg"),
+                "updateEcoNewsDto": (
+                    None,
+                    json.dumps(data),
+                    "application/json"
+                )
+            }
+
+            return self._request("PUT", f"/{news_id}", files=files)

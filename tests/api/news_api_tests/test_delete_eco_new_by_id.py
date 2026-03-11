@@ -1,9 +1,9 @@
 """Test for validation of DELETE request for delete of eco new."""
-from json import JSONDecodeError
-
+# pylint: disable=duplicate-code
 import allure
 import pytest
 from jsonschema import validate
+from jsonschema.exceptions import ValidationError
 
 from clients.eco_new_client import EcoNewClient
 from data.config import Config
@@ -26,8 +26,8 @@ def test_delete_eco_new_by_id(access_token, news_id: int):
             logger.info(parsed_data)
             try:
                 validate(instance=parsed_data, schema=one_news_get_by_id_schema)
-                logger.info("✅ JSON validation passed")
-            except JSONDecodeError as e:
+                logger.info("JSON validation passed")
+            except ValidationError as e:
                 allure.attach(str(e), name="Validation Error",
                               attachment_type=allure.attachment_type.TEXT)
                 pytest.fail(f"Response JSON does not match schema: {e}")
