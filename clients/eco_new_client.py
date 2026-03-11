@@ -75,3 +75,11 @@ class EcoNewClient(BaseClient):
             }
 
             return self._request("PUT", f"/{news_id}", files=files)
+
+    @allure.step("Like/remove like at eco new by id.")
+    def like_remove_like_eco_new_by_id(self, news_id):
+        """Check like or remove like for eco new by id"""
+        params={
+            "ecoNewsId":news_id
+        }
+        return self._request("POST", f"/{news_id}/likes", params=params)
