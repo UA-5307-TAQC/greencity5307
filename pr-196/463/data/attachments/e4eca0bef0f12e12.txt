@@ -1,0 +1,4 @@
+INFO     GreenCityLogger:base_client.py:35 Sending GET request to https://greencity.greencity.cx.ua/eco-news/56 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'c987f35c-2ad1-4d7c-b273-963ea12d34b8'} and kwargs: {'params': {'lang': 'en'}}
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:68 200
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:73 {'creationDate': '2025-09-05T13:29:28.239085Z', 'imagePath': None, 'id': 56, 'title': 'Test', 'content': '<p>Test content with 20 chars ut 5fa43d97-adea-4208-8.</p>', 'shortInfo': None, 'author': {'id': 9, 'name': 'JuliaTest'}, 'likes': 0, 'dislikes': 0, 'countComments': 0, 'hidden': False, 'tagsEn': ['News'], 'tagsUk': ['Новини']}
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:76 ✅ JSON validation passed
