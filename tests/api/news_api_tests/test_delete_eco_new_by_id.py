@@ -16,6 +16,9 @@ from utils.logger import logger
         "1", "32", "2", "77", "90"
     ]
 )
+@allure.feature("DeleteEcoNew")
+@allure.story("Delete new")
+@allure.title("Delete eco new by id.")
 def test_delete_eco_new_by_id(access_token, news_id: int):
     """Test for validation of correctness of DELETE request."""
     client = EcoNewClient(base_url=Config.BASE_API_URL, access_token=access_token)
