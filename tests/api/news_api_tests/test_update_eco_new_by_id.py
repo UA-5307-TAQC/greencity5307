@@ -76,9 +76,9 @@ def image_file():
     ],
 )
 
-@allure.feature("CreateEcoNews")
-@allure.story("Create new")
-@allure.title("Create eco new by applying valid parameters to the form.")
+@allure.feature("UpdateEcoNew")
+@allure.story("Update new")
+@allure.title("Update eco new by applying valid parameters to the form.")
 def test_update_eco_news_put_request_with_valid_data(news_id, data: dict, access_token):
     """Test create eco news request with valid data"""
     token = access_token
