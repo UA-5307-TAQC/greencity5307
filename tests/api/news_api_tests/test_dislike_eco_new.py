@@ -1,5 +1,5 @@
-"""Test validation of deletion from favorites of eco new"""
-
+"""Validation of request for dislike eco new"""
+# pylint: disable=duplicate-code
 import allure
 import pytest
 from jsonschema import validate, ValidationError
@@ -16,13 +16,13 @@ from utils.logger import logger
     ]
 )
 
-@allure.feature("DeleteFromFavoritesEcoNew")
-@allure.story("Deletion from favorites eco new")
-@allure.title("Deletion from favorites eco new by id.")
+@allure.feature("DislikeEcoNew")
+@allure.story("Dislike eco new")
+@allure.title("Dislike eco new by id.")
 def test_delete_from_favorites_by_id(news_id, access_token):
-    """Test of deletion from favorites of eco new"""
+    """Test of dislike of eco new"""
     client = EcoNewClient(base_url=Config.BASE_API_URL, access_token=access_token)
-    response = client.delete_from_favorites_eco_new_by_id(news_id=news_id)
+    response = client.dislike_eco_news_by_id(news_id=news_id)
     if response.status_code == 201:
         with allure.step("Validate proper response json format"):
             parsed_data = response.json()

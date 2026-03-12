@@ -99,3 +99,11 @@ class EcoNewClient(BaseClient):
             "ecoNewsId": news_id
         }
         return self._request("DELETE", f"/{news_id}/favorites", params=params)
+
+    @allure.step("Dislike/remove dislike on eco news")
+    def dislike_eco_news_by_id(self, news_id):
+        """Dislike/remove dislike on eco news"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/dislikes", params=params)
