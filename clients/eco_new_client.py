@@ -54,3 +54,8 @@ class EcoNewClient(BaseClient):
             params["lang"] = lang
 
         return self._request("GET", f"/{news_id}", params=params)
+
+    @allure.step("Delete eco new by id.")
+    def delete_eco_news_by_id(self, news_id: int) -> Response:
+        """Delete eco new by id."""
+        return self._request("DELETE", f"/{news_id}")
