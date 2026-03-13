@@ -1,6 +1,0 @@
-2026-03-13 15:29:44,163 - GreenCityLogger - INFO - test_smoke.py  - test_example_smoke - Starting Smoke Test
-2026-03-13 15:29:44,163 - GreenCityLogger - INFO - test_smoke.py  - test_example_smoke - Checking 'There are' text on Main Page
-2026-03-13 15:29:44,186 - GreenCityLogger - INFO - test_smoke.py  - test_example_smoke - Clicking 'News' link in header
-2026-03-13 15:29:44,210 - GreenCityLogger - INFO - header_component.py  - click_new_link - Clicking the news link in the header.
-2026-03-13 15:29:44,348 - GreenCityLogger - INFO - header_component.py  - click_new_link - Successfully clicked the news link in the header.
-2026-03-13 15:29:44,386 - GreenCityLogger - INFO - test_smoke.py  - test_example_smoke - Clicking 'Events' link in header (from News page context)

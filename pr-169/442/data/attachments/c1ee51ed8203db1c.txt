@@ -1,3 +1,0 @@
-2026-03-06 14:42:15,767 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news/1 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '1c656d03-6f42-4969-b1e0-b510c4f165f7'} and kwargs: {'params': {'lang': 'uk'}}
-2026-03-06 14:42:15,930 - GreenCityLogger - INFO - 404
-2026-03-06 14:42:15,931 - GreenCityLogger - INFO - {'message': "Eco new doesn't exist by this id: 1"}
