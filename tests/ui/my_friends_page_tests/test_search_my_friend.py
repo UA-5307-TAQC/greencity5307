@@ -3,8 +3,6 @@
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from data.config import Config
-from pages.base_page import BasePage
 from pages.abstract_pages.friends_abstract.my_friends_page import FriendsPage
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 

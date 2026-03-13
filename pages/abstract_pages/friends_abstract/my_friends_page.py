@@ -44,13 +44,13 @@ class FriendsPage(BasePage):
     @allure.step("Select tab: {tab_name}")
     def select_tab(self, tab_name: str):
         """Select tab"""
-        tab_name = tab_name.lower()
+        tab_name = tab_name.strip().lower()
 
-        if tab_name == "my friends":
+        if tab_name in ("my friends", "мої друзі"):
             self.tab_my_friends.click()
-        elif tab_name == "find a friend":
+        elif tab_name in ("find a friend", "знайти друга"):
             self.tab_find_friend.click()
-        elif tab_name == "friend requests":
+        elif tab_name in ("friend requests", "запити в друзі"):
             self.tab_friend_requests.click()
         else:
             raise ValueError(f"Unknown tab: {tab_name}")
