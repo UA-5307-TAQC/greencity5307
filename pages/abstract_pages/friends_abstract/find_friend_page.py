@@ -1,7 +1,6 @@
 """This module contains the page object for the find_friend page."""
 from selenium.webdriver.common.by import By
-import selenium.webdriver.support.expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException
 
 from pages.abstract_pages.friends_abstract.friends_abstract_page \
     import FriendsAbstractPage
@@ -31,13 +30,7 @@ class FindFriendPage(FriendsAbstractPage):
 
     def is_page_loaded(self) -> bool:
         """Verifies that Find Friend page loads by checking any friend card."""
-        try:
-            self.get_wait().until(
-                EC.visibility_of_element_located(self.locators["friend_card"][:2])
-            )
-            return True
-        except TimeoutException:
-            return False
+        return self._is_loaded_indicator(self.locators["friend_card"][:2])
 
     def get_first_card(self) -> FriendCardComponent | None:
         """Returns the first friend card if it exists."""
