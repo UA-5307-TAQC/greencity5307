@@ -6,7 +6,7 @@ from __future__ import annotations
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.common.exceptions import TimeoutException
 
 from components.base_component import BaseComponent
 from components.common_components.auth_components.signin_modal_component import \
@@ -198,12 +198,12 @@ class HeaderComponent(BaseComponent):
         self.user_menu_sign_out_link.wait_and_click()
         return MainPage(self.driver)
 
-    def is_user_menu_present(self):
+    def is_user_menu_present(self) -> bool:
         """Check if the user menu is present in the header."""
         try:
             self.get_wait(3).until(
                 EC.visibility_of(self.user_menu_profile_link)
             )
             return True
-        except TimeoutError:
+        except TimeoutException:
             return False
