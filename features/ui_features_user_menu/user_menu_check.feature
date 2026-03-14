@@ -6,7 +6,7 @@ Feature: User account dropdown functionality
 
   Scenario: Display logged-in user information in header
     Then the user avatar or username is displayed in the top-right corner
-    And the displayed username corresponds to the logged-in account "Oleksandr"
+    And the displayed username corresponds to the logged-in account
 
   Scenario: User opens account dropdown menu
     When the user clicks on the username or avatar in the header

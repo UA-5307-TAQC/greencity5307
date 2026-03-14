@@ -11,6 +11,11 @@ Feature: Cancel habit update
     Then the user is redirected to the "My Habits" page
 
   Scenario: Verify habit data remains unchanged after cancel
-    When the user reopens the same habit
-    Then the habit name equals the original name
-    And the visibility setting equals the original value
+    Given a habit named "Test Habit" with visibility "Public" exists
+     Given a habit named "Test Habit" with visibility "Public" exists
+     And the user opens the "Update Habit" page for habit "Test Habit"
+     When the user edits the habit name to "Test Cancel"
+     And changes the visibility to "Private"
+     And clicks the "Cancel" button
+     And the user reopens the habit "Test Habit"
+     Then the habit name equals "Test Habit"

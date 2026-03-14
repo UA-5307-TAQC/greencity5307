@@ -25,7 +25,7 @@ Feature: Mutual friends visibility on user profile
   Scenario: Verify scrolling or pagination of friends list
     Given the mutual friends list is displayed
     When the user scrolls the friends list
-    Then additional friends load or pagination works correctly
+    Then more mutual friends are visible in the list than before scrolling
 
   Scenario: Verify mutual friends tab after page refresh
     When the user refreshes the page

@@ -9,7 +9,7 @@ Feature: Update habit duration
     And changes the duration to "<duration>" days
     And clicks the "Save" button
     Then a success notification appears
-    And the habit "<habit_name>" displays duration "<duration> days"
+    And the habit "<habit_name>" displays duration "<duration>" days
 
     Examples:
       | habit_name | duration |

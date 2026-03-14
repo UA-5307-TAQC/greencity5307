@@ -1,7 +1,7 @@
 Feature: Website language switching
 
   Background:
-    Given the user opens the website "https://www.greencity.cx.ua/#/greenCity"
+    Given the user opens the website
     And the homepage loads successfully
 
   Scenario Outline: User switches website language

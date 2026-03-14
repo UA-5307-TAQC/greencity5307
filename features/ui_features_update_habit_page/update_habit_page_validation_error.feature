@@ -2,6 +2,7 @@ Feature: Description field validation in habit update form
 
   Background:
     Given the user is logged in
+    And the user has selected "English" language
     And the user is on the "Update Habit" page
 
   Scenario: Required field validation prevents saving
