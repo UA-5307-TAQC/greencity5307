@@ -1,0 +1,6 @@
+2026-03-15 10:02:18,205 - GreenCityLogger - INFO - Starting Smoke Test
+2026-03-15 10:02:18,205 - GreenCityLogger - INFO - Checking 'There are' text on Main Page
+2026-03-15 10:02:18,407 - GreenCityLogger - INFO - Clicking 'News' link in header
+2026-03-15 10:02:19,140 - GreenCityLogger - INFO - Clicking the news link in the header.
+2026-03-15 10:02:20,054 - GreenCityLogger - INFO - Successfully clicked the news link in the header.
+2026-03-15 10:02:20,102 - GreenCityLogger - INFO - Clicking 'Events' link in header (from News page context)
