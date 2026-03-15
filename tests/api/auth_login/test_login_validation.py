@@ -1,9 +1,9 @@
 """auth login validation"""
 import pytest
-import requests
 import jwt
 import allure
 from datetime import datetime
+from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 
 @allure.feature("Authentication")
@@ -11,28 +11,23 @@ from data.config import Config
 @allure.title("Verify successful login, response time, and token validity")
 def test_login_validation():
     """auth login validation"""
-    url = "https://greencity-user.greencity.cx.ua/ownSecurity/signIn"
 
-    with allure.step("Prepare request payload"):
-        payload = {
-            "email": f"{Config.USER_EMAIL}",
-            "password": f"{Config.USER_PASSWORD}",
-            "projectName": "GREENCITY"
-        }
-
-    with allure.step("Send POST request to login endpoint"):
-        response = requests.request("POST", url, json=payload)
+    client = OwnSecurityClient(f"{Config.BASE_USER_API_URL}")
+    response = client.sign_in(
+        email=Config.USER_EMAIL,
+        password=Config.USER_PASSWORD
+    )
 
     with allure.step("Validate status code and response time"):
         assert response.status_code == 200, f"Expected status code 200, but got {response.status_code}"
 
-        # response_time_ms = response.elapsed.total_seconds() * 1000
-        # assert response_time_ms < 600, f"API response is too slow! Time: {response_time_ms:.2f} ms"
+        response_time_ms = response.elapsed.total_seconds() * 1000
+        assert response_time_ms < 3000, f"API response is too slow! Time: {response_time_ms:.2f} ms"
 
     with allure.step("Validate response body data"):
         data = response.json()
-        assert data.get("userId") >= 0, "User ID is invalid or missing"
-        assert data.get("name") == "test", f"Expected user name 'test', but got '{data.get('name')}'"
+        assert data.get("userId") is not None and data.get("userId") >= 0, "User ID is invalid or missing"
+        assert data.get("name") == Config.USER_NAME, f"Expected {Config.USER_NAME}, but got '{data.get('name')}'"
         assert data.get("ownRegistrations") is True, "ownRegistrations flag should be True"
 
     with allure.step("Validate Access Token expiration"):
@@ -48,6 +43,5 @@ def test_login_validation():
             assert exp_timestamp is not None, "Token is valid, but missing expiration time ('exp' field)"
 
             assert datetime.now().timestamp() < exp_timestamp, f"Access token is already expired! (exp: {exp_timestamp})"
-
-        except jwt.exceptions.DecodeError as e:
+        except Exception as e:
             pytest.fail(f"Token is invalid or corrupted. Details: {e}")

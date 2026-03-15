@@ -20,6 +20,6 @@ def test_login_with_empty_fields_shows_validation_errors(driver: WebDriver):
     sign_in_component.clear_email_and_password()
 
     sign_in_component.compare_error(
-        error_email_text="Email is required.",
-        error_password_text="This field is required"
+        error_email_text="Введіть пошту.",
+        error_password_text="Це поле є обов'язковим"
     )

@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 
 from components.common_components.likes_component import LikesComponent
 from pages.base_page import BasePage
+from utils.custom_web_element import CustomWebElement
 
 
 class OneNewsPage(BasePage):
@@ -16,6 +17,14 @@ class OneNewsPage(BasePage):
         "main_text": (By.CSS_SELECTOR, ".ql-editor"),
         "comments_section": (By.TAG_NAME, "app-comments-container")
     }
+
+    tag: CustomWebElement
+    title: CustomWebElement
+    creation_date: CustomWebElement
+    author: CustomWebElement
+    likes: LikesComponent
+    main_text: CustomWebElement
+    comments_section: CustomWebElement
 
     def get_tag(self) -> str:
         """Gets tag text of the news page."""

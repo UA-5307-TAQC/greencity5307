@@ -2,7 +2,6 @@
 Component for Personal info section of profile edit page.
 """
 
-import time
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -29,10 +28,13 @@ class PersonalInfoComponent(BaseComponent):
     @allure.step("Fill Name field with value: {name}")
     def fill_name(self, name: str):
         """Fill the personal info field."""
+        wait = WebDriverWait(self.root.parent, 5)
+
         field = self.name
-        time.sleep(0.3)
+        wait.until(lambda d: field.get_attribute("value") != "")
 
         field.clear()
+        wait.until(lambda d: field.get_attribute("value") == "")
         field.send_keys(name)
         field.send_keys(Keys.TAB)
 
@@ -40,23 +42,33 @@ class PersonalInfoComponent(BaseComponent):
     def fill_city(self, city: str):
         """Fill the city field and select item."""
         wait = WebDriverWait(self.root.parent, 5)
+        field = self.city
 
-        self.city.click()
-        self.city.clear()
-        time.sleep(0.2)
-        self.city.send_keys(city)
+        field.click()
+        field.send_keys(Keys.CONTROL, "a")
+        field.send_keys(Keys.DELETE)
+
+        wait.until(lambda d: field.get_attribute("value") in ("", None))
+
+        for char in city:
+            field.send_keys(char)
+
+        wait.until(lambda d: field.get_attribute("value") == city)
 
         suggestion = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "mat-option")))
         suggestion.click()
-        self.city.send_keys(Keys.TAB)
+        field.send_keys(Keys.TAB)
 
     @allure.step("Fill Credo field with value: {text}")
     def fill_credo(self, text: str):
         """Fill the credo field."""
+        wait = WebDriverWait(self.root.parent, 5)
+
         field = self.credo
-        time.sleep(0.2)
 
         field.clear()
+        wait.until(lambda d: field.get_attribute("value") == "")
+
         field.send_keys(text)
         field.send_keys(Keys.TAB)
 

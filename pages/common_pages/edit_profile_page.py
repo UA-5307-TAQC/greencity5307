@@ -22,12 +22,11 @@ class ProfileEditPage(BasePage):
         "save_button": (By.CSS_SELECTOR, ".buttons .primary-global-button"),
         "personal_info": (By.CSS_SELECTOR, "div.wrapper", PersonalInfoComponent),
         "social_networks": (By.CSS_SELECTOR, "div.wrapper", SocialNetworksComponent),
-        "profile_privacy": (By.CSS_SELECTOR, "privacy-wrapper", ProfilePrivacyComponent),
+        "profile_privacy": (By.CSS_SELECTOR, ".privacy-wrapper", ProfilePrivacyComponent),
         "email_preferences": (By.CSS_SELECTOR, "email-preferences ng-pristine ng-valid ng-touched",
                               EmailPreferencesComponent),
     }
 
-    page_root: WebElement
     page_title: WebElement
     cancel_button: WebElement
     save_button: WebElement
