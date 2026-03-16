@@ -1,4 +1,7 @@
 """This module contains the page object for the find_friend page."""
+from typing import List
+import allure
+
 from selenium.webdriver.common.by import By
 import selenium.webdriver.support.expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
@@ -14,10 +17,12 @@ class FindFriendPage(FriendsAbstractPage):
     """Page object class for the Find Friend page."""
 
     locators = {
-        "friend_card": (By.CSS_SELECTOR, ".user-card", FriendCardComponent)
+        "friend_card": (By.CSS_SELECTOR, ".user-card", FriendCardComponent),
+        "cards": (By.CSS_SELECTOR, "div.friend-item-wrapper", List[FriendCardComponent])
     }
 
     friend_card: FriendCardComponent
+    cards: list[FriendCardComponent]
 
     _friend_card_by_name_pattern = ("//div[contains(@class, 'user-card')]"
                                     "[.//p[contains(@class, 'friend-name') "
@@ -32,9 +37,7 @@ class FindFriendPage(FriendsAbstractPage):
     def is_page_loaded(self) -> bool:
         """Verifies that Find Friend page loads by checking any friend card."""
         try:
-            self.get_wait().until(
-                EC.visibility_of_element_located(self.locators["friend_card"][:2])
-            )
+            self.get_wait().until(EC.visibility_of(self.cards))
             return True
         except TimeoutException:
             return False
@@ -45,3 +48,15 @@ class FindFriendPage(FriendsAbstractPage):
             return self.friend_card
         except NoSuchElementException:
             return None
+
+
+    def wait_for_list_to_load(self) -> None:
+        """Waits until at least one friend card is visible on the page."""
+        self.get_wait().until(EC.visibility_of_element_located(self.locators["cards"][:2]))
+
+
+    @allure.step("Get all friend cards on the Find Friend page")
+    def get_all_friend_cards(self) -> list[FriendCardComponent]:
+        """Returns all friend cards on the page."""
+        self.wait_for_list_to_load()
+        return self.cards
