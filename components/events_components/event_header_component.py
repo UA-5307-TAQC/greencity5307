@@ -37,7 +37,7 @@ class EventHeaderComponent(BaseComponent):
     @allure.step("Open duration dropdown")
     def open_duration_dropdown(self):
         """Open duration dropdown."""
-        self.duration.click()
+        self.duration_select.click()
 
     @allure.step("Select duration: {value}")
     def select_duration(self, value: str):
@@ -55,4 +55,4 @@ class EventHeaderComponent(BaseComponent):
     @allure.step("Get selected duration")
     def get_selected_duration(self) -> str:
         """Get selected duration."""
-        return self.duration.text.strip()
+        return self.duration_select.text.strip()
