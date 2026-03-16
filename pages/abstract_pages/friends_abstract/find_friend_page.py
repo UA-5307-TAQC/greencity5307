@@ -49,7 +49,6 @@ class FindFriendPage(FriendsAbstractPage):
         except NoSuchElementException:
             return None
 
-
     def wait_for_list_to_load(self) -> None:
         """Waits until at least one friend card is visible on the page."""
         self.get_wait().until(EC.visibility_of_element_located(self.locators["cards"][:2]))
