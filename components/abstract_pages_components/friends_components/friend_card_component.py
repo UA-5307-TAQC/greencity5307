@@ -71,7 +71,7 @@ class FriendCardComponent(BaseComponent):
 
 
     def has_add_user_btn(self) -> bool:
-        """Verifies if a friend card has a button to add a user to frineds."""
+        """Verifies if a friend card has a button to add a user to friends."""
         try:
             self.get_wait().until(EC.visibility_of_element_located(
                 self.locators["add_friend_btn"][:2])

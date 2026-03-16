@@ -57,7 +57,7 @@ class FindFriendPage(FriendsAbstractPage):
         self.get_wait().until(EC.visibility_of_element_located(self.locators["cards"][:2]))
 
 
-    allure.step("Get all friend cards on the Find Friend page")
+    @allure.step("Get all friend cards on the Find Friend page")
     def get_all_friend_cards(self) -> list[FriendCardComponent]:
         """Returns all friend cards on the page."""
         self.wait_for_list_to_load()
