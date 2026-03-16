@@ -3,7 +3,7 @@ Feature: Event Comments API functionality
   # TC-AEC-01
   Scenario: Unauthorized user cannot leave a comment on an event
     Given the user is not authenticated
-    When the user sends a POST request to add a comment to event
+    When the user sends a POST request to add a comment to event 31
     Then the response status code should be 401
 
   # TC-AEC-02

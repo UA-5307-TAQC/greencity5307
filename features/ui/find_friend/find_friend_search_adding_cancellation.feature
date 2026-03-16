@@ -2,7 +2,7 @@ Feature: Find Friend Functionality
 
   # TC-FF-01
   Scenario: User can send, persist, and cancel a friend request
-    Given the user is logged in to Greencity
+    Given the user is logged in to GreenCity
     And a target user "Liubomyr Halamaha" is not in the user's friend list
     And the user is on the "Find Friend" page
 
