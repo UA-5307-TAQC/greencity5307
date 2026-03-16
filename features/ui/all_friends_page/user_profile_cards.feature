@@ -6,7 +6,7 @@ Feature: User Profile Cards
 
   Background:
     Given I am a logged-in user
-    And a target user exists with no cards
+    And a target user with no cards exists
     And I navigate to the "Friend Profile" page of the target user
     And I open the "All Friends" tab
 

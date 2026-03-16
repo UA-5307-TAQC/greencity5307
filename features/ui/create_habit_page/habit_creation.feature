@@ -20,7 +20,7 @@ Feature: Habit Creation
     And I click the "Delete" button
 
   Scenario: Validation of mandatory "Title" field
-    When I fill in the "Description" field with "Test habit description"
+    When I fill in the "Description" textarea with "Test habit description"
     And I click on the "Testing" tag chip
     And I click the "Add Habit" button
     Then I should see an error message for "Title" field
