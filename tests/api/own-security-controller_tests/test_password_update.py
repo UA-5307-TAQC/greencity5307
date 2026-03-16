@@ -1,9 +1,12 @@
 """Test password update API"""
 import pytest
 import allure
+from jsonschema import validate, ValidationError
 
 from clients.own_security_client import OwnSecurityClient
 from data.config import Config
+from schemas.own_security.update_password_negatiev_scenarios import status_code_400_schema, status_code_401_schema
+
 
 @allure.title("Successful password update with valid and matching inputs")
 def test_password_update(access_token):
@@ -83,6 +86,15 @@ def test_password_update_negative_scenarios(
 
     with allure.step("Validate ERROR response schema and message"):
         data = response.json()
+        schema_to_validate = status_code_400_schema
+        if schema_to_validate:
+            try:
+                validate(instance=data, schema=schema_to_validate)
+            except ValidationError as e:
+                pytest.fail(
+                    f"JSON Schema validation failed for status {expected_status}: {e.message}\nPath: {list(e.path)}")
+
+    with allure.step("Validate ERROR response schema and message"):
 
         actual_error_message = str(data).lower()
         assert expected_error_text.lower() in actual_error_message, \
@@ -106,6 +118,16 @@ def test_password_update_unauthorized():
 
     with allure.step("Validate ERROR response schema and message"):
         data = response.json()
+        schema_to_validate = status_code_401_schema
+        if schema_to_validate:
+            try:
+                validate(instance=data, schema=schema_to_validate)
+            except ValidationError as e:
+                pytest.fail(
+                    f"JSON Schema validation failed for status {data.status_code}: {e.message}\nPath: {list(e.path)}")
+
+
+    with allure.step("Validate ERROR response schema and message"):
 
         actual_error_message = str(data).lower()
         expected_error_text = "unauthorized"
