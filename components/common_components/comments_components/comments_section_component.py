@@ -12,7 +12,7 @@ class CommentsSectionComponent(BaseComponent):
     """Comments section component class."""
 
     locators = {
-        "comments_count": (By.ID, "#total-count"),
+        "comments_count": (By.ID, "total-count"),
         "comments_form": (By.CSS_SELECTOR,
                           ".main-wrapper.wrapper-comment"
                           ".ng-untouched.ng-pristine.ng-submitted"
