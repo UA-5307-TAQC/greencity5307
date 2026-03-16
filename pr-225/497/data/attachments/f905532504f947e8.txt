@@ -1,3 +1,0 @@
-2026-03-16 15:02:06,240 - GreenCityLogger - INFO - base_client.py  - _request - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '15c828d7-02f9-4f6f-93c7-9975ceab3ece'} and kwargs: {'params': {'favorite': False, 'page': 0, 'size': 0}}
-2026-03-16 15:02:06,476 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request_with_invalid_query_params - 400
-2026-03-16 15:02:06,477 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request_with_invalid_query_params - {'message': 'Page size must be greater than or equal to 1'}
