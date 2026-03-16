@@ -29,7 +29,7 @@ class CreateEventPage(BasePage):
         "publish_button": (By.CSS_SELECTOR, "div.submit-container button.primary-global-button"),
         "cancel_button": (By.CSS_SELECTOR, "div.submit-container button.tertiary-global-button"),
         "online_link_block": (By.XPATH,
-            "//div[contains(@class,'d-flex') and .//input[@formcontrolname='onlineLink']]",
+            ".//div[contains(@class,'d-flex') and .//input[@formcontrolname='onlineLink']]",
             OnlineLinkComponent),
     }
 
