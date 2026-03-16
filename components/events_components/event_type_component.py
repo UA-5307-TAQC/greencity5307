@@ -16,8 +16,7 @@ class EventTypeComponent(BaseComponent):
 
     locators = {
         "event_type_select": (By.CSS_SELECTOR, "mat-select[formcontrolname='open']"),
-        "invite_select": (By.XPATH,
-                          "//mat-label[text()='Invite']/ancestor::mat-form-field//mat-select"),
+        "invite_select": (By.CSS_SELECTOR, "mat-select[formcontrolname='invite']"),
         "dropdown_options": (By.XPATH, "//mat-option//span"),
     }
 
