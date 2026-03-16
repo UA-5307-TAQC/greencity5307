@@ -31,9 +31,9 @@ class FriendAbstractPage(BasePage):
     mutual_friends_tab: CustomWebElement
 
 
-    allure.step("Click on the All Friends tab")
+    @allure.step("Click on the All Friends tab")
     def click_all_friends_tab(self) -> "AllFriendsPage":
-        """Click all friedns tab."""
+        """Click all friends tab."""
         from pages.abstract_pages.friend_abstract_users.all_friends_page \
           import AllFriendsPage # pylint: disable=import-outside-toplevel
         self.all_friends_tab.wait_and_click()

@@ -4,11 +4,11 @@ import pytest
 import allure
 
 from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage
-from pages.abstract_pages.friend_abstract_users.all_habits_page import AllHabitsPage
+from pages.abstract_pages.friend_abstract_users.all_friends_page import AllFriendsPage
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
 
-def find_user_by_friend_count(page: FindFriendPage, driver, expect_empty: bool = True) ->  AllHabitsPage | None:
+def find_user_by_friend_count(page: FindFriendPage, driver, expect_empty: bool = True) ->  AllFriendsPage | None:
     """Iterates through friend cards on the Find Friend page
     to find a user with a specific friend count state."""
     num_of_cards = len(page.get_all_friend_cards())

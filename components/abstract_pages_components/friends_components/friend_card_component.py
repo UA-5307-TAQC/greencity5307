@@ -51,9 +51,7 @@ class FriendCardComponent(BaseComponent):
     def has_username(self) -> bool:
         """Verifies if a friend card has a user name."""
         try:
-            self.get_wait().until(EC.visibility_of_element_located(
-                self.locators["friend_name"][:2])
-            )
+            self.get_wait().until(EC.visibility_of(self.friend_name))
             return True
         except TimeoutException:
             return False
@@ -62,20 +60,16 @@ class FriendCardComponent(BaseComponent):
     def has_user_city(self) -> bool:
         """Verifies if a friend card has a user city."""
         try:
-            self.get_wait().until(EC.visibility_of_element_located(
-                self.locators["friend_city"][:2])
-            )
+            self.get_wait().until(EC.visibility_of(self.friend_city))
             return True
         except TimeoutException:
             return False
 
 
     def has_add_user_btn(self) -> bool:
-        """Verifies if a friend card has a button to add a user to frineds."""
+        """Verifies if a friend card has a button to add a user to friends."""
         try:
-            self.get_wait().until(EC.visibility_of_element_located(
-                self.locators["add_friend_btn"][:2])
-            )
+            self.get_wait().until(EC.visibility_of(self.add_friend_btn))
             return True
         except TimeoutException:
             return False

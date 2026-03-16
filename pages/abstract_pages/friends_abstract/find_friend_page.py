@@ -53,11 +53,11 @@ class FindFriendPage(FriendsAbstractPage):
 
 
     def wait_for_list_to_load(self) -> None:
-        """Waits until all friend cards are loaded on the page."""
+        """Waits until at least one friend card is visible on the page."""
         self.get_wait().until(EC.visibility_of_element_located(self.locators["cards"][:2]))
 
 
-    allure.step("Get all friend cards on the Find Friend page")
+    @allure.step("Get all friend cards on the Find Friend page")
     def get_all_friend_cards(self) -> list[FriendCardComponent]:
         """Returns all friend cards on the page."""
         self.wait_for_list_to_load()
