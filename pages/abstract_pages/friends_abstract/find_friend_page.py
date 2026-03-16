@@ -37,7 +37,9 @@ class FindFriendPage(FriendsAbstractPage):
     def is_page_loaded(self) -> bool:
         """Verifies that Find Friend page loads by checking any friend card."""
         try:
-            self.get_wait().until(EC.visibility_of(self.cards))
+            self.get_wait().until(
+                EC.visibility_of_element_located(self.locators["friend_card"][:2])
+            )
             return True
         except TimeoutException:
             return False
@@ -46,7 +48,7 @@ class FindFriendPage(FriendsAbstractPage):
         """Returns the first friend card if it exists."""
         try:
             return self.friend_card
-        except NoSuchElementException:
+        except (NoSuchElementException, TimeoutException):
             return None
 
     def wait_for_list_to_load(self) -> None:

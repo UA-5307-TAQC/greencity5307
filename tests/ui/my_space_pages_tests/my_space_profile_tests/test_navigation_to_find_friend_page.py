@@ -17,4 +17,4 @@ def test_navigation_to_find_friend_page(driver_with_login):
 
     with allure.step("Check if user is redirected to Find Friend page"):
         url = driver.current_url
-        assert "/friends/recommended" in url, f"Expected to be on Fiend Friend page, but was at: {url}"
+        assert "/friends/recommended" in url, f"Expected to be on Find Friend page, but was at: {url}"

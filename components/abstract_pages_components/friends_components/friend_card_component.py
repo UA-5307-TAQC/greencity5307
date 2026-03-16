@@ -5,7 +5,7 @@ import allure
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from pages.abstract_pages.friend_abstract_users.all_habits_page import AllHabitsPage
 from components.base_component import BaseComponent
@@ -53,7 +53,7 @@ class FriendCardComponent(BaseComponent):
         try:
             self.get_wait().until(EC.visibility_of(self.friend_name))
             return True
-        except TimeoutException:
+        except (NoSuchElementException, TimeoutException):
             return False
 
 
@@ -62,14 +62,14 @@ class FriendCardComponent(BaseComponent):
         try:
             self.get_wait().until(EC.visibility_of(self.friend_city))
             return True
-        except TimeoutException:
+        except (NoSuchElementException, TimeoutException):
             return False
 
 
-    def has_add_user_btn(self) -> bool:
+    def has_add_friend_btn(self) -> bool:
         """Verifies if a friend card has a button to add a user to friends."""
         try:
             self.get_wait().until(EC.visibility_of(self.add_friend_btn))
             return True
-        except TimeoutException:
+        except (NoSuchElementException, TimeoutException):
             return False

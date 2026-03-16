@@ -3,7 +3,7 @@ import allure
 
 from selenium.webdriver.common.by import By
 import selenium.webdriver.support.expected_conditions as EC
-from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from pages.base_page import BasePage
 from components.abstract_pages_components.friend_users_components.user_info_banner_component \
@@ -34,8 +34,9 @@ class FriendAbstractPage(BasePage):
     @allure.step("Click on the All Friends tab")
     def click_all_friends_tab(self) -> "AllFriendsPage":
         """Click the All Friends tab."""
-        from pages.abstract_pages.friend_abstract_users.all_friends_page \
-          import AllFriendsPage # pylint: disable=import-outside-toplevel
+        from pages.abstract_pages.friend_abstract_users.all_friends_page import (  # pylint: disable=import-outside-toplevel
+            AllFriendsPage,
+        )
         self.all_friends_tab.wait_and_click()
         return AllFriendsPage(self.driver)
 
@@ -47,5 +48,5 @@ class FriendAbstractPage(BasePage):
         try:
             self.get_wait().until(EC.visibility_of(self.user_info_banner))
             return True
-        except TimeoutException:
+        except (NoSuchElementException, TimeoutException):
             return False
