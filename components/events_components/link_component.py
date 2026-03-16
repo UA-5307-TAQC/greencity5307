@@ -14,8 +14,7 @@ class OnlineLinkComponent(BaseComponent):
     """Component for Online link section."""
     locators = {
         "link_input": (By.CSS_SELECTOR, "input[formcontrolname='onlineLink']"),
-        "apply_all_days_checkbox": (By.XPATH,
-            "//label[contains(., 'Застосувати на всі дні заходу')]/ancestor::mat-checkbox")
+        "apply_all_days_checkbox": (By.CSS_SELECTOR, "mat-checkbox[formcontrolname='applyAllDays']")
     }
 
     link_input: CustomWebElement
@@ -33,7 +32,7 @@ class OnlineLinkComponent(BaseComponent):
         input_field.clear()
         input_field.send_keys(link)
 
-    @allure.step("Get online event link: {link}")
+    @allure.step("Get online event link")
     def get_link(self) -> str:
         """Return online event link."""
         return self.link_input.get_attribute("value")
