@@ -54,3 +54,9 @@ class EcoNewClient(BaseClient):
             params["lang"] = lang
 
         return self._request("GET", f"/{news_id}", params=params)
+
+    @allure.step("Get recommended eco news")
+    def get_recommended_eco_news(self, news_id):
+        """Get recommended eco news request"""
+        params = {"newsId": news_id}
+        return self._request("GET", f"/{news_id}/recommended", params=params )
