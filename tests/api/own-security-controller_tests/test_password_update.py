@@ -2,14 +2,14 @@
 import pytest
 import allure
 
-from clients.user_security_client import UserSecurityClient
+from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 
 @allure.title("Successful password update with valid and matching inputs")
 def test_password_update(access_token):
     """Test successful password update and safely restore original state"""
 
-    client = UserSecurityClient(Config.BASE_USER_API_URL, access_token)
+    client = OwnSecurityClient(Config.BASE_USER_API_URL, access_token)
 
     try:
         with allure.step("Send PUT request to change password"):
@@ -69,7 +69,7 @@ def test_password_update_negative_scenarios(
 ):
     """Test various validation errors during password update"""
 
-    client = UserSecurityClient(Config.BASE_USER_API_URL, access_token)
+    client = OwnSecurityClient(Config.BASE_USER_API_URL, access_token)
 
     with allure.step(f"Send PUT request with parameters for: {scenario_name}"):
         response = client.change_password(
@@ -92,7 +92,7 @@ def test_password_update_negative_scenarios(
 @allure.title("Unsuccessful password update attempt without authentication (401)")
 def test_password_update_unauthorized():
     """Test that unauthenticated users cannot access the change password endpoint"""
-    client = UserSecurityClient(Config.BASE_USER_API_URL, access_token=None)
+    client = OwnSecurityClient(Config.BASE_USER_API_URL, access_token=None)
 
     with allure.step("Send PUT request without Authorization header"):
         response = client.change_password(
