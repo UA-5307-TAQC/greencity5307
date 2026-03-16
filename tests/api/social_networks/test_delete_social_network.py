@@ -1,7 +1,7 @@
-"""Validation  request for social networks image"""
+"""Social network delete by id verification"""
 # pylint: disable=duplicate-code
-import pytest
 import allure
+import pytest
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
 
@@ -12,17 +12,17 @@ from utils.logger import logger
 
 
 @pytest.mark.parametrize(
-    "image_url " ,[
-        "https://picsum.photos/200",
-        "https://picsum.photos/200",
-        "https://picsum.photos/200",
-        "https://picsum.photos/200"
+    "network_id " ,[
+        "1",
+        "2",
+        "3",
+        "4"
     ]
 )
 @allure.feature("SocialNetwork")
-@allure.title("Check user access for image of social network.")
-def test_social_networks_get_image(image_url,  access_token):
-    """Testing of social networks image get request"""
+@allure.title("Check user access to the deletion of social media.")
+def test_social_networks_delete_by_id(network_id, access_token):
+    """Test for deletion of social_network by id verification"""
     token = access_token
 
     with allure.step("Create social networks client"):
@@ -30,9 +30,8 @@ def test_social_networks_get_image(image_url,  access_token):
             base_url=Config.BASE_USER_API_URL,
             access_token=token
         )
-    image_url = "https://picsum.photos/200"
 
-    response = client.get_image_social_networks(url=image_url)
+    response = client.delete_social_network_by_id(network_id=network_id)
 
     if response.status_code == 200:
         with allure.step("Validate proper response json format"):
