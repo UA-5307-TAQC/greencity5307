@@ -1,0 +1,4 @@
+2026-03-17 09:32:35,326 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news/56 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '3c5ff1b7-31f7-47e6-a68a-459c34fa8fe3'} and kwargs: {'params': {'lang': 'uk'}}
+2026-03-17 09:32:35,556 - GreenCityLogger - INFO - 200
+2026-03-17 09:32:35,556 - GreenCityLogger - INFO - {'creationDate': '2025-09-05T13:29:28.239085Z', 'imagePath': None, 'id': 56, 'title': 'Test', 'content': '<p>Test content with 20 chars ut 5fa43d97-adea-4208-8.</p>', 'shortInfo': None, 'author': {'id': 9, 'name': 'JuliaTest'}, 'likes': 0, 'dislikes': 0, 'countComments': 0, 'hidden': False, 'tagsEn': ['News'], 'tagsUk': ['Новини']}
+2026-03-17 09:32:35,558 - GreenCityLogger - INFO - ✅ JSON validation passed
