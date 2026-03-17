@@ -25,3 +25,14 @@ class SocialNetworkClient(BaseClient):
             endpoint="/image",
             params=params
         )
+
+    def delete_social_network_by_id(self, network_id):
+        """Delete social network by id"""
+
+        params = network_id
+
+        return self._request(
+            method="DELETE",
+            endpoint="",
+            params=params
+        )
