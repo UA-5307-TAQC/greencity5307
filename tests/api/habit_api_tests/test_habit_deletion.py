@@ -21,6 +21,7 @@ def test_habit_deletion_with_correct_assigned_id(habit_manager, assign_habit, ha
 
     with allure.step("1. Find habit assign id for deletion"):
         habit_assign_id = find_assigned_id(habit_id)
+        assert habit_assign_id is not None, "Assigned habit id not found for deletion"
 
     with allure.step(f"2. Delete assigned habit with assigned id={habit_assign_id} and check that the response code is 200"):
         response = client.delete_habit_assign(habit_assign_id)
@@ -30,9 +31,9 @@ def test_habit_deletion_with_correct_assigned_id(habit_manager, assign_habit, ha
         assert response.text == ""
 
 
-@allure.title("Test habit deletion without loging and correct assigned id")
+@allure.title("Test habit deletion without logging and correct assigned id")
 def test_habit_deletion_without_loging(assign_habit, clean_habit):
-    """Test habit deletion without loging"""
+    """Test habit deletion without logging"""
     with allure.step("Create Habit Assign client"):
         client = HabitAssignClient(base_url=Config.BASE_API_URL)
 
@@ -44,18 +45,22 @@ def test_habit_deletion_without_loging(assign_habit, clean_habit):
 
     with allure.step("1. Find habit assign id for deletion"):
         habit_assign_id = find_assigned_id(CORRECT_HABIT_ID)
+        assert habit_assign_id is not None, "Assigned habit id not found for deletion"
 
     with allure.step(f"2. Send request to delete assigned habit with assigned id={habit_assign_id} and check that the response code is 401"):
         response = client.delete_habit_assign(habit_assign_id)
         assert response.status_code == 401
 
     with allure.step(f"Post-condition: Find assigned id for habit with id={habit_assign_id} and register for cleanup"):
+        assert habit_assign_id is not None and isinstance(habit_assign_id, int), (
+            f"Expected a valid integer habit_assign_id for cleanup, got {habit_assign_id!r}"
+        )
         habits_to_delete.append(habit_assign_id)
 
 
 @allure.title("Test habit deletion with incorrect habit assigned id")
 def test_habit_deletion_with_incorrect_assigned_id(habit_assign_client):
-    "Test habit deletion with incorrect habit assigned id"
+    """Test habit deletion with incorrect habit assigned id"""
     client = habit_assign_client
 
     with allure.step(f"1. Delete assigned habit with assigned habit id={INCORRECT_HABIT_ASSIGNED_ID} and check that the response code is 404"):
