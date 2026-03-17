@@ -1,3 +1,0 @@
-2026-03-17 09:23:34,166 - GreenCityLogger - INFO - Clicking switch language button in the header.
-2026-03-17 09:23:36,528 - GreenCityLogger - INFO - Clicking switch language button in the header.
-2026-03-17 09:23:36,808 - GreenCityLogger - INFO - Clicking switch language button in the header.
