@@ -53,7 +53,7 @@ def test_password_update(access_token):
         (
             "Empty confirm password",
             "StrongPass1!", "",
-            400, "must not be blank" # ВИПРАВЛЕНО ТУТ
+            400, "must not be blank"
         ),
         (
             "Password too short",
