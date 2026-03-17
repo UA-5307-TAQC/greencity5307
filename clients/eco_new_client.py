@@ -60,7 +60,7 @@ class EcoNewClient(BaseClient):
         """Get recommended eco news request"""
         params = {"newsId": news_id}
         return self._request("GET", f"/{news_id}/recommended", params=params )
-      
+
     @allure.step("Check if user liked eco new request")
     def user_like_eco_news_by_id(self, news_id, user_id) -> Response:
         """Check if user liked eco new"""
