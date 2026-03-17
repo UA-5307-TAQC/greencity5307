@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 from pages.common_pages.places_page import PlacesPage
+from pages.events_pages.create_update_event_page import CreateEventPage
 from utils.custom_web_element import CustomWebElement
 
 
@@ -14,10 +15,12 @@ class EventPage(BasePage):
     """Page object for the event page."""
 
     locators = {
-        "main_header_locator": (By.CSS_SELECTOR, ".top-header>.main-header")
+        "main_header_locator": (By.CSS_SELECTOR, ".top-header>.main-header"),
+        "create_event_button": (By.CSS_SELECTOR, "div.create button.m-btn"),
     }
 
     main_header_locator: CustomWebElement
+    create_event_button: CustomWebElement
 
     @allure.step("Navigating to the Places page")
     def go_to_places(self) -> "PlacesPage":
@@ -27,3 +30,12 @@ class EventPage(BasePage):
             EC.url_contains("places")
         )
         return PlacesPage(self.driver)
+
+    @allure.step("Click Create Event button")
+    def click_create_event(self) -> "CreateEventPage":
+        """Click 'Create event' button."""
+        self.create_event_button.click()
+
+        self.get_wait().until(EC.url_contains("create"))
+
+        return CreateEventPage(self.driver)
