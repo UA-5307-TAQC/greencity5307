@@ -29,7 +29,8 @@ def test_password_update(access_token):
             assert response_time_ms < 3000, f"API response is too slow! Time: {response_time_ms:.2f} ms"
 
         with allure.step("Validate response body is empty or empty JSON"):
-            assert response.text in ["", "{}"], f"Expected empty body or '{{}}', but got: {response.text}"
+            body = response.text.strip()
+            assert body in ["", "{}"], f"Expected empty body or '{{}}', but got: {response.text}"
 
     finally:
         with allure.step("Teardown: Restore original password from Config"):
@@ -53,7 +54,7 @@ def test_password_update(access_token):
         (
             "Empty confirm password",
             "StrongPass1!", "",
-            400, "must not be blank" # ВИПРАВЛЕНО ТУТ
+            400, "must not be blank"
         ),
         (
             "Password too short",
