@@ -12,7 +12,7 @@ from utils.logger import logger
 
 @pytest.mark.parametrize(
     "news_id", [
-        "1", "32", "2", "77", "90"
+        1, 32, 2, 77, 90
     ]
 )
 
@@ -20,7 +20,7 @@ from utils.logger import logger
 @allure.story("Get summary eco new")
 @allure.title("Get summary eco new by id.")
 def test_eco_new_summary(news_id, access_token):
-    """Test of dislike of eco new"""
+    """Test eco news summary retrieval by id (GET /eco-news/{id}/summary)"""
     client = EcoNewClient(base_url=Config.BASE_API_URL, access_token=access_token)
     response = client.get_summary_eco_new(news_id=news_id)
     if response.status_code == 200:
