@@ -12,7 +12,7 @@ from utils.logger import logger
 
 
 @pytest.mark.parametrize(
-    "network_id " ,[
+    "network_id", [
         "1",
         "2",
         "3",
@@ -61,4 +61,6 @@ def test_social_networks_delete_by_id(network_id, access_token):
         logger.info(parsed_data)
         assert parsed_data.get("error") == "Internal Server Error"
     else:
-        assert False, "Other error"
+        pytest.fail(
+            f"Unexpected response status code {response.status_code}: {response.text}"
+        )
