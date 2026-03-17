@@ -12,6 +12,11 @@ class CommentsSectionComponent(BaseComponent):
     """Comments section component class."""
 
     locators = {
+        "input": (By.ID, "#total-count"),
+        "submit_button": (By.CSS_SELECTOR,
+                          ".main-wrapper.wrapper-comment"
+                          ".ng-untouched.ng-pristine.ng-submitted"
+                          ".ng-invalid"),
         "comments_count": (By.ID, "total-count"),
         "comments_form": (By.CSS_SELECTOR,
                           ".main-wrapper.wrapper-comment"
@@ -20,6 +25,8 @@ class CommentsSectionComponent(BaseComponent):
                           CommentsFormComponent),
     }
 
+    input: CustomWebElement
+    submit_button: CustomWebElement
     comments_count: CustomWebElement
     comments_form: CommentsFormComponent
 
