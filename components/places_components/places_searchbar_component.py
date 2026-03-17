@@ -4,6 +4,7 @@ from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 
 from components.base_component import BaseComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class PlacesSearchbarComponent(BaseComponent):
@@ -18,6 +19,10 @@ class PlacesSearchbarComponent(BaseComponent):
                             ".choose-location-input"
                             ".cdk-text-field-autofill-monitored"),
     }
+
+    search_icon: CustomWebElement
+    searchbar: CustomWebElement
+    choose_location: CustomWebElement
 
     def click_search_icon(self):
         """Click search_icon button."""
