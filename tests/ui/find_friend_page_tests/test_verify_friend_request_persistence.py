@@ -31,7 +31,7 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
 
         # Expected result:
         # The "My Space" page loads successfully.
-        assert my_habit_page.is_page_loaded(), "'My Space' page did not load successfully."
+        assert my_habit_page.wait_page_loaded(), "'My Space' page did not load successfully."
 
     with allure.step("Step 3: "
                      "Click on the '+' (plus) icon in the 'My friends' section "
@@ -97,7 +97,7 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
         )
 
         # Expected result: The user is successfully logged in. The Profile page loads successfully.
-        assert profile_page.is_page_loaded()
+        assert profile_page.wait_page_loaded()
 
     with allure.step("Step 10:"
                      "Click on the '+' (plus) icon in the 'My friends'"
