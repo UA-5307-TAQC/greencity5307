@@ -1,5 +1,6 @@
 """This module contains the SavedAbstract class,
 which represents the saved_abstract page of a website."""
+from typing import Self
 from selenium.webdriver.common.by import By
 
 from components.abstract_pages_components.saved_tabs_component import SavedTabsComponent
@@ -20,7 +21,7 @@ class SavedAbstract(BasePage):
         tabs_root = self.driver.find_element(*self.locators["tabs_container"])
         return SavedTabsComponent(tabs_root)
 
-    def go_to_tab(self, tab_name: str):
+    def go_to_tab(self, tab_name: str) -> Self:
         """Navigate to a specific tab on the saved abstract page."""
         tabs = self.get_tabs_component()
         tabs.click_tab_by_name(tab_name)

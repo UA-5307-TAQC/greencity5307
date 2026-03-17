@@ -25,6 +25,9 @@ def driver(request):
     Parametrized pytest fixture that returns a Selenium WebDriver for Chrome and Firefox.
     - Param values: "chrome" or "firefox"
     - Set `HEADLESS` env var to `1` or `true` to enable headless mode.
+
+    pytest-xdist compatibility: each worker process gets its own browser instance
+    because the fixture is function-scoped.  No shared state exists between workers.
     """
     allure.dynamic.parameter("browser", request.param)
     browser = request.param
@@ -152,7 +155,12 @@ def dynamic_friend_id(access_token):
 
 @fixture(scope="function")
 def access_token():
-    """Fixture that logs in the user for api tests."""
+    """Fixture that logs in the user for API tests and returns the access token.
+
+    The returned dict contains both ``accessToken`` and ``refreshToken`` so
+    that callers can set up automatic token refresh via
+    ``BaseClient.set_token_refresher()``.
+    """
     client = OwnSecurityClient(Config.BASE_USER_API_URL)
     response = client.sign_in(
         email=Config.USER_EMAIL,
@@ -162,9 +170,44 @@ def access_token():
     assert response.status_code == 200, \
         f"Login failed. Status: {response.status_code}. Response body: {response.text}"
 
-
-    auth_token = response.json().get("accessToken")
+    body = response.json()
+    auth_token = body.get("accessToken")
     assert auth_token, \
         f"Login response does not contain access token. Response body: {response.text}"
 
     return auth_token
+
+
+@fixture(scope="function")
+def auth_tokens():
+    """Fixture that returns both access and refresh tokens for API tests.
+
+    Use this fixture when you need to configure automatic JWT token refresh
+    on an API client::
+
+        def test_example(auth_tokens):
+            client = EcoNewClient(Config.BASE_API_URL, auth_tokens["accessToken"])
+            security = OwnSecurityClient(Config.BASE_USER_API_URL)
+            client.set_token_refresher(
+                lambda: security.refresh_token(auth_tokens["refreshToken"]).json()["accessToken"]
+            )
+    """
+    security_client = OwnSecurityClient(Config.BASE_USER_API_URL)
+    response = security_client.sign_in(
+        email=Config.USER_EMAIL,
+        password=Config.USER_PASSWORD
+    )
+
+    assert response.status_code == 200, \
+        f"Login failed. Status: {response.status_code}. Response body: {response.text}"
+
+    body = response.json()
+    assert body.get("accessToken"), \
+        f"Login response does not contain accessToken. Response body: {response.text}"
+    assert body.get("refreshToken"), \
+        f"Login response does not contain refreshToken. Response body: {response.text}"
+
+    return {
+        "accessToken": body["accessToken"],
+        "refreshToken": body["refreshToken"],
+    }
