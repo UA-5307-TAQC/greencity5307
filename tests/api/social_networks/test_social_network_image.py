@@ -3,7 +3,7 @@
 import pytest
 import allure
 from jsonschema.exceptions import ValidationError
-from jsonschema.validators import validate
+from jsonschema import validate
 
 from clients.social_network_client import SocialNetworkClient
 from data.config import Config
