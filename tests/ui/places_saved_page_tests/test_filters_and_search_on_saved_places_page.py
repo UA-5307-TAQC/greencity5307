@@ -15,7 +15,6 @@ from pages.common_pages.main_page import MainPage
 def test_filters_and_search_controls_on_saved_places_page(driver: WebDriver):
     """Test visibility of filters and search controls on Saved Places page."""
     with allure.step("Open GreenCity main page"):
-        driver.get(Config.BASE_UI_URL)
         main_page = MainPage(driver)
         assert main_page.is_page_opened()
 

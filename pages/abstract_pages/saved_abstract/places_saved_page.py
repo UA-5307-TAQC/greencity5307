@@ -37,7 +37,7 @@ class PlacesSavedPage(SavedAbstract):
     saved_places_chip_locator: Locators = (
         By.XPATH,
         "//button[.//span[contains(., 'Saved Places') "
-        "or contains(., 'Збереженні місця')]]"
+        "or contains(., 'Saved places') or contains(., 'Збережені місця')]]"
     )
 # -----------------------------
     shops_filter_locator: Locators = (
