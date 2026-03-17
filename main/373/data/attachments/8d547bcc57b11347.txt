@@ -1,3 +1,0 @@
-INFO     GreenCityLogger:base_client.py:37 Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json'} request_headers={'X-Request-ID': '4bc05c7f-ee63-4de5-9f9e-eed80d0b91f7'} and kwargs: {'params': {'favorite': False, 'page': 1, 'size': 101}}
-INFO     GreenCityLogger:test_eco_news_get_client_request.py:37 400
-INFO     GreenCityLogger:test_eco_news_get_client_request.py:41 {"message":"Page size must be less than or equal to 100"}
