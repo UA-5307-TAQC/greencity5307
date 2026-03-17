@@ -1,6 +1,5 @@
 """Client for social networks requests validation"""
 from clients.base_client import BaseClient
-from requests import Response
 
 
 class SocialNetworkClient(BaseClient):
@@ -14,7 +13,7 @@ class SocialNetworkClient(BaseClient):
             access_token=access_token
         )
 
-    def get_image_social_networks(self, url: str) -> Response:
+    def get_image_social_networks(self, url: str) :
         """Get valid image path for social networks request"""
 
         params = {
