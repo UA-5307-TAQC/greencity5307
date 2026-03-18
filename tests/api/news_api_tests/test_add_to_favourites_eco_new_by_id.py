@@ -10,15 +10,19 @@ from utils.logger import logger
 
 
 @pytest.mark.parametrize(
-    "news_id", [
-        "1", "32", "2", "77", "90"
+    "news_id, status_code, message", [
+        ("1", 404, "Eco new doesn't exist by this id: 1"),
+        ("32", 400, "User has already added this eco new to favorites."),
+        ("2", 404, "Eco new doesn't exist by this id: 2"),
+        ( "77", 404, "Eco new doesn't exist by this id: 77"),
+        ("90", 400, "User has already added this eco new to favorites.")
     ]
 )
 
 @allure.feature("AddToFavoritesEcoNew")
 @allure.story("Add to favorites eco new")
 @allure.title("Add to favorites eco new by id.")
-def test_add_to_favorites_by_id(news_id, access_token):
+def test_add_to_favorites_by_id(news_id, status_code, message, access_token):
     """Test of addition to favorites of eco new"""
     client = EcoNewClient(base_url=Config.BASE_API_URL, access_token=access_token)
     response = client.add_to_favorites_eco_new_by_id(news_id=news_id)
@@ -31,26 +35,15 @@ def test_add_to_favorites_by_id(news_id, access_token):
                 logger.info("JSON validation passed")
             except ValidationError as e:
                 allure.attach(str(e), name="Validation Error",
-                              attachment_type=allure.attachment_type.TEXT)
+                      attachment_type=allure.attachment_type.TEXT)
                 pytest.fail(f"Response JSON does not match schema: {e}")
-    elif response.status_code == 200:
-        with allure.step("Validate proper response json format"):
-            assert not response.text
-    elif response.status_code == 400:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data["message"] == "User has already added this eco new to favorites."
-    elif response.status_code == 404:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data["message"] == f"Eco new doesn\'t exist by this id: {news_id}"
-    elif response.status_code == 403:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data["error"] == "Forbidden"
-    elif response.status_code == 500:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data.get("error") == "Internal Server Error"
+            else:
+                pytest.fail(f"Response JSON does not match schema: {status_code}")
+
     else:
-        assert False, "Other error"
+        assert response.status_code == status_code, \
+            f"Expected status code {status_code}, got {response.status_code}"
+        parsed_data = response.json()
+        logger.info(parsed_data)
+        assert parsed_data["message"] == message, \
+            f"Expected message '{message}', got '{parsed_data["message"]}'"
