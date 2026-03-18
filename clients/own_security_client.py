@@ -28,11 +28,11 @@ class OwnSecurityClient(BaseClient):
             json=payload
         )
 
-    def change_password(self,password,confirm_password):
+    def change_password(self, password: str, confirm_password: str):
         """Change the password of the user."""
-        payload ={
-            "password":password,
-            "confirmPassword":confirm_password
+        payload = {
+            "password": password,
+            "confirmPassword": confirm_password
         }
         return self._request(
             method="PUT",

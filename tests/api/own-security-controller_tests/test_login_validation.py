@@ -30,6 +30,12 @@ def test_login_validation():
 
     with allure.step("Validate response body data"):
         data = response.json()
+
+        try:
+            validate(instance=data, schema=signin_success_schema)
+        except ValidationError as e:
+            pytest.fail(f"Response body does not match signin_success_schema: {e.message}")
+
         assert data.get("userId") is not None and data.get("userId") >= 0, "User ID is invalid or missing"
         assert data.get("name") == Config.USER_NAME, f"Expected {Config.USER_NAME}, but got '{data.get('name')}'"
         assert data.get("ownRegistrations") is True, "ownRegistrations flag should be True"

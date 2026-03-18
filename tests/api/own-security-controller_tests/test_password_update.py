@@ -125,7 +125,7 @@ def test_password_update_unauthorized():
                 validate(instance=data, schema=schema_to_validate)
             except ValidationError as e:
                 pytest.fail(
-                    f"JSON Schema validation failed for status {data.status_code}: {e.message}\nPath: {list(e.path)}")
+                    f"JSON Schema validation failed for status {response.status_code}: {e.message}\nPath: {list(e.path)}")
 
 
     with allure.step("Validate ERROR response schema and message"):
