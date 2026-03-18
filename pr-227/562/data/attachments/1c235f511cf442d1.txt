@@ -1,0 +1,1 @@
+2026-03-18 17:30:52,614 - GreenCityLogger - INFO - Sending POST request to https://greencity.greencity.cx.ua/habit/assign/27 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'f5e2445e-aba3-4c12-adc0-49023563f7c8'} and kwargs: {}
