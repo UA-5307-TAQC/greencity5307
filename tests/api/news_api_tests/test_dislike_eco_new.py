@@ -11,47 +11,42 @@ from utils.logger import logger
 
 
 @pytest.mark.parametrize(
-    "news_id", [
-        "1", "32", "2", "77", "90"
-    ]
+    "news_id, status_code, message", [
+        ("1", 404, "Eco new doesn't exist by this id: 1"),
+        ("32", 200, ""),
+        ("2", 404, "Eco new doesn't exist by this id: 2"),
+        ( "77", 404, "Eco new doesn't exist by this id: 77"),
+        ("90", 200, "")
+]
+
 )
 
 @allure.feature("DislikeEcoNew")
 @allure.story("Dislike eco new")
 @allure.title("Dislike eco new by id.")
-def test_delete_from_favorites_by_id(news_id, access_token):
+def test_dislike_eco_new(news_id, status_code, message, access_token):
     """Test of dislike of eco new"""
     client = EcoNewClient(base_url=Config.BASE_API_URL, access_token=access_token)
     response = client.dislike_eco_news_by_id(news_id=news_id)
-    if response.status_code == 201:
-        with allure.step("Validate proper response json format"):
-            parsed_data = response.json()
-            logger.info(parsed_data)
-            try:
-                validate(instance=parsed_data, schema=one_news_get_by_id_schema)
-                logger.info("JSON validation passed")
-            except ValidationError as e:
-                allure.attach(str(e), name="Validation Error",
-                              attachment_type=allure.attachment_type.TEXT)
-                pytest.fail(f"Response JSON does not match schema: {e}")
-    elif response.status_code == 200:
-        with allure.step("Validate proper response json format"):
-            assert not response.text
-    elif response.status_code == 400:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data["message"] == "User has already added this eco new to favorites."
-    elif response.status_code == 404:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data["message"] == f"Eco new doesn\'t exist by this id: {news_id}"
-    elif response.status_code == 403:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data["error"] == "Forbidden"
-    elif response.status_code == 500:
-        parsed_data = response.json()
-        logger.info(parsed_data)
-        assert parsed_data.get("error") == "Internal Server Error"
+    if response.status_code == 200:
+        if response.content:
+            with allure.step("Validate proper response json format"):
+                parsed_data = response.json()
+                logger.info(parsed_data)
+                try:
+                    validate(instance=parsed_data, schema=one_news_get_by_id_schema)
+                    logger.info("JSON validation passed")
+                except ValidationError as e:
+                    allure.attach(str(e), name="Validation Error",
+                          attachment_type=allure.attachment_type.TEXT)
+                    pytest.fail(f"Response JSON does not match schema: {e}")
+                else:
+                    pytest.fail(f"Response JSON does not match schema: {status_code}")
+
     else:
-        assert False, "Other error"
+        assert response.status_code == status_code, \
+            f"Expected status code {status_code}, got {response.status_code}"
+        parsed_data = response.json()
+        logger.info(parsed_data)
+        assert parsed_data["message"] == message, \
+            f"Expected message '{message}', got '{parsed_data["message"]}"
