@@ -6,8 +6,6 @@ from clients.habit_assign_client import HabitAssignClient
 
 CORRECT_HABIT_IDS = [30, 31]
 CORRECT_HABIT_ID = 26
-INCORRECT_HABIT_ASSIGNED_ID = 0
-
 
 @allure.title("Test habit deletion with correct habit assigned id")
 @pytest.mark.parametrize("habit_id", CORRECT_HABIT_IDS)
@@ -21,7 +19,7 @@ def test_habit_deletion_with_correct_assigned_id(habit_manager, assign_habit, ha
 
     with allure.step("1. Find habit assign id for deletion"):
         habit_assign_id = find_assigned_id(habit_id)
-        assert habit_assign_id is not None, "Assigned habit id not found for deletion"
+        assert habit_assign_id is not None, f"There is no assigned id fot habit id = {habit_id}"
 
     with allure.step(f"2. Delete assigned habit with assigned id={habit_assign_id} and check that the response code is 200"):
         response = client.delete_habit_assign(habit_assign_id)
@@ -45,7 +43,7 @@ def test_habit_deletion_without_loging(assign_habit, clean_habit):
 
     with allure.step("1. Find habit assign id for deletion"):
         habit_assign_id = find_assigned_id(CORRECT_HABIT_ID)
-        assert habit_assign_id is not None, "Assigned habit id not found for deletion"
+        assert habit_assign_id is not None, f"There is no assigned id fot habit id = {CORRECT_HABIT_ID}"
 
     with allure.step(f"2. Send request to delete assigned habit with assigned id={habit_assign_id} and check that the response code is 401"):
         response = client.delete_habit_assign(habit_assign_id)
@@ -58,11 +56,17 @@ def test_habit_deletion_without_loging(assign_habit, clean_habit):
         habits_to_delete.append(habit_assign_id)
 
 
-@allure.title("Test habit deletion with incorrect habit assigned id")
-def test_habit_deletion_with_incorrect_assigned_id(habit_assign_client):
+@allure.title("Test habit deletion with incorrect data")
+@pytest.mark.parametrize("incorrect_data, status_code",
+                         [
+                            pytest.param(0, 404, id="incorrect habit assigned id"),
+                            pytest.param("habitId", 400, id="incorrect data type")
+                         ]
+)
+def test_habit_deletion_with_incorrect_data(habit_assign_client, incorrect_data, status_code):
     """Test habit deletion with incorrect habit assigned id"""
     client = habit_assign_client
 
-    with allure.step(f"1. Delete assigned habit with assigned habit id={INCORRECT_HABIT_ASSIGNED_ID} and check that the response code is 404"):
-        response = client.delete_habit_assign(INCORRECT_HABIT_ASSIGNED_ID)
-        assert response.status_code == 404
+    with allure.step(f"1. Delete assigned habit with assigned habit id={incorrect_data} and check that the code is {status_code}"):
+        response = client.delete_habit_assign(incorrect_data)
+        assert response.status_code == status_code

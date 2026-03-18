@@ -7,9 +7,9 @@ from clients.habit_assign_client import HabitAssignClient
 from schemas.habits.assigned_habit_schema import assigned_habit_schema
 
 CORRECT_HABIT_IDS = [1, 21]
-CORRECT_HABIT_ID = 21
+HABIT_ID = 21
 INCORRECT_HABIT_ID = -3
-PRE_ASSIGNED_HABIT_ID = 24
+HABIT_ID_TO_ASSIGN = 24
 
 
 @allure.title("Test habit assignment with login and correct id")
@@ -26,7 +26,7 @@ def test_habit_assignment_with_correct_id(clean_habit, habit_id):
 
     with allure.step(f"Post-condition: Find assigned id for habit with id={habit_id} and register for cleanup"):
         assigned_id = find_assigned_id(habit_id)
-        assert assigned_id is not None
+        assert assigned_id is not None, f"There is no assigned id fot habit id = {habit_id}"
         habits_to_delete.append(assigned_id)
 
     with allure.step("Validate response json schema for habit assignment"):
@@ -41,7 +41,7 @@ def test_habit_assignment_without_login():
         client = HabitAssignClient(base_url=Config.BASE_API_URL)
 
     with allure.step(f"1. Send request to assign the habit and check that the response code is 401"):
-        response = client.assign_habit_with_default_properties(CORRECT_HABIT_ID)
+        response = client.assign_habit_with_default_properties(HABIT_ID)
         assert response.status_code == 401
 
 
@@ -53,16 +53,16 @@ def test_pre_assigned_habit_assignment(assign_habit, clean_habit):
     habits_to_delete = clean_habit.habits_to_delete
     find_assigned_id = clean_habit.find
 
-    with allure.step(f"Pre-condition: Assign habit with id={PRE_ASSIGNED_HABIT_ID}"):
-        assign_habit(PRE_ASSIGNED_HABIT_ID)
+    with allure.step(f"Pre-condition: Assign habit with id={HABIT_ID_TO_ASSIGN}"):
+        assign_habit(HABIT_ID_TO_ASSIGN), "Assigned id is None"
 
-    with allure.step(f"1. Assign to the habit  with id={PRE_ASSIGNED_HABIT_ID} and check that the response code is 400"):
-        response = client.assign_habit_with_default_properties(PRE_ASSIGNED_HABIT_ID)
+    with allure.step(f"1. Assign to the habit  with id={HABIT_ID_TO_ASSIGN} and check that the response code is 400"):
+        response = client.assign_habit_with_default_properties(HABIT_ID_TO_ASSIGN)
         assert response.status_code == 400
 
-    with allure.step(f"Post-condition: Find assigned id for habit with id={PRE_ASSIGNED_HABIT_ID} and register for cleanup"):
-        assigned_id = find_assigned_id(PRE_ASSIGNED_HABIT_ID)
-        assert assigned_id is not None
+    with allure.step(f"Post-condition: Find assigned id for habit with id={HABIT_ID_TO_ASSIGN} and register for cleanup"):
+        assigned_id = find_assigned_id(HABIT_ID_TO_ASSIGN)
+        assert assigned_id is not None, f"There is no assigned id fot habit id = {HABIT_ID_TO_ASSIGN}"
         habits_to_delete.append(assigned_id)
 
 
