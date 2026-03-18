@@ -55,7 +55,7 @@ class EcoNewClient(BaseClient):
 
         return self._request("GET", f"/{news_id}", params=params)
 
-<<<<<<< 197-test-case-likeunlike-sci-news-api-test
+
     @allure.step("Like/remove like at eco new by id.")
     def like_remove_like_eco_new_by_id(self, news_id):
         """Check like or remove like for eco new by id"""
@@ -63,7 +63,7 @@ class EcoNewClient(BaseClient):
             "ecoNewsId": news_id
         }
         return self._request("POST", f"/{news_id}/likes", params=params)
-=======
+
     @allure.step("Check if user liked eco new request")
     def user_like_eco_news_by_id(self, news_id, user_id) -> Response:
         """Check if user liked eco new"""
@@ -72,4 +72,3 @@ class EcoNewClient(BaseClient):
             "userId" : user_id
         }
         return self._request("GET", f"/{news_id}/likes/{user_id}", params=params)
->>>>>>> main
