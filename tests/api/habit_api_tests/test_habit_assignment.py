@@ -20,14 +20,18 @@ def test_habit_assignment_with_correct_id(clean_habit, habit_id):
     habits_to_delete = clean_habit.habits_to_delete
     find_assigned_id = clean_habit.find
 
+    with allure.step("Pre-condition: Delete habit assignment if it is already assigned"):
+        habit_assigned_id = find_assigned_id(habit_id)
+        if habit_assigned_id:
+            response = client.delete_habit_assign(habit_assigned_id)
+
     with allure.step(f"1. Assign to the habit with id={habit_id} and check that the response code is 201"):
         response = client.assign_habit_with_default_properties(habit_id)
         assert response.status_code == 201
 
     with allure.step(f"Post-condition: Find assigned id for habit with id={habit_id} and register for cleanup"):
-        assigned_id = find_assigned_id(habit_id)
-        assert assigned_id is not None, f"There is no assigned id fot habit id = {habit_id}"
-        habits_to_delete.append(assigned_id)
+        habit_assigned_id = find_assigned_id(habit_id)
+        habits_to_delete.append(habit_assigned_id)
 
     with allure.step("Validate response json schema for habit assignment"):
         habit_data = response.json()

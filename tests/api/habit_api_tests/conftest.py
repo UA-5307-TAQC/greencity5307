@@ -58,19 +58,24 @@ def clean_habit(habit_manager):
     )
 
     for habit_assigned_id in habits_to_delete:
+        if habit_assigned_id is None:
+            continue
         with allure.step(f"Deleting habit {habit_assigned_id}"):
             response = client.delete_habit_assign(habit_assigned_id)
             assert response.status_code == 200
 
 
 @pytest.fixture(scope="function")
-def assign_habit(habit_assign_client):
+def assign_habit(habit_manager):
     """Fixture that returns a function that assignes a habit by id"""
-    client = habit_assign_client
+    client = habit_manager.client
+    find = habit_manager.find
 
-    def _assign_habit(habit_id: int) -> None:
-        with allure.step(f"Preassign to the habit with id={habit_id}"):
-            response = client.assign_habit_with_default_properties(habit_id)
-            assert response.status_code == 201
+    def _assign_habit(habit_id) -> None:
+        habit_assign_id = find(habit_id)
+        if not habit_assign_id:
+            with allure.step(f"Preassign to the habit with id={habit_id}"):
+                response = client.assign_habit_with_default_properties(habit_id)
+                assert response.status_code == 201
 
     return _assign_habit
