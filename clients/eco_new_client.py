@@ -56,6 +56,7 @@ class EcoNewClient(BaseClient):
 
         return self._request("GET", f"/{news_id}", params=params)
 
+<<<<<<< 195-test-case-update-eco-news-by-id
     @allure.step("Update eco new with specified data")
     def update_eco_news_by_id(self, news_id, data, image_file_path):
         """Update eco new by id with specified data and image"""
@@ -70,3 +71,13 @@ class EcoNewClient(BaseClient):
             }
 
             return self._request("PUT", f"/{news_id}", files=files)
+=======
+    @allure.step("Check if user liked eco new request")
+    def user_like_eco_news_by_id(self, news_id, user_id) -> Response:
+        """Check if user liked eco new"""
+        params = {
+            "ecoNewsId" : news_id,
+            "userId" : user_id
+        }
+        return self._request("GET", f"/{news_id}/likes/{user_id}", params=params)
+>>>>>>> main
