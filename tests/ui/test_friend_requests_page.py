@@ -1,4 +1,4 @@
-from pages.friend_requests_page import FriendRequestsPage
+from pages.abstract_pages.friends_abstract.friend_requests_page import FriendRequestsPage
 
 def test_friend_requests_tab_opens(driver):
     page = FriendRequestsPage(driver)
