@@ -27,7 +27,7 @@ class EcoNewsPage(BasePage):
 
         "news_cards": (
             By.CSS_SELECTOR,
-            "app-news-list li.ng-star-inserted, app-news-list-gallery-view li.ng-star-inserted",
+            "li.gallery-view-li-active, li.list-view-li-active",
             List[NewsCardBaseComponent],
         ),
         "news_cards_raw": (
