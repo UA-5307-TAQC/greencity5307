@@ -1,25 +1,23 @@
 """Comments section component."""
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
 from components.base_component import BaseComponent
-from utils.types import Locators
+from utils.custom_web_element import CustomWebElement
 
 
 class CommentsFormComponent(BaseComponent):
     """Comments section component class."""
-    input_locator: Locators = (By.CSS_SELECTOR,
-                               ".comment-textarea-wrapper>.comment-textarea")
-    submit_button_locator: Locators = (By.CSS_SELECTOR,
-                                       ".input-submit > .primary-global-button")
 
-    def __init__(self, root: WebElement):
-        super().__init__(root)
-        self.input = self.root.find_element(
-            *self.input_locator)
-        self.submit_button = self.root.find_element(
-            *self.submit_button_locator)
+    locators = {
+        "input": (By.CSS_SELECTOR,
+                  ".comment-textarea-wrapper>.comment-textarea"),
+        "submit_button": (By.CSS_SELECTOR,
+                          ".input-submit > .primary-global-button"),
+    }
+
+    input: CustomWebElement
+    submit_button: CustomWebElement
 
     def type_input(self, text: str):
         """Type the input text into the component."""

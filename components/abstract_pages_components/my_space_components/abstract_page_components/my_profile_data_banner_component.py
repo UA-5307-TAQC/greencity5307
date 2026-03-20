@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
 from pages.common_pages.edit_profile_page import ProfileEditPage
+from pages.abstract_pages.friends_abstract.my_friends_page import FriendsPage
 from utils.custom_web_element import CustomWebElement
 
 
@@ -21,7 +22,8 @@ class MyProfileDataBannerComponent(BaseComponent):
         "habits_in_prog": (By.XPATH, ".//div[@class='chain'][2]/p[1]"),
         "news": (By.XPATH, ".//div[@class='chain'][3]/p[1]"),
         "events": (By.XPATH, ".//div[@class='chain'][4]/p[1]"),
-        "add_friends_btn": (By.CSS_SELECTOR, "div.add-friends")
+        "add_friends_btn": (By.CSS_SELECTOR, "div.add-friends"),
+        "view_all_friends_link": (By.CSS_SELECTOR, "a.text-more"),
     }
 
     edit_btn: CustomWebElement
@@ -31,6 +33,7 @@ class MyProfileDataBannerComponent(BaseComponent):
     news: CustomWebElement
     events: CustomWebElement
     add_friends_btn: CustomWebElement
+    view_all_friends_link: CustomWebElement
 
     @allure.step("Click on Edit profile button on Profile Banner component")
     def click_edit_btn(self) -> ProfileEditPage:
@@ -73,3 +76,14 @@ class MyProfileDataBannerComponent(BaseComponent):
             "published news": self.news.text,
             "organized and attended events": self.events.text
         }
+
+    @allure.step("Click View all friends link")
+    def click_view_all_friends(self) -> "FriendsPage":
+        """Navigate to Friends page from profile banner."""
+        old_url = self.driver.current_url
+
+        self.view_all_friends_link.wait_and_click()
+
+        self.get_wait().until(EC.url_changes(old_url))
+
+        return FriendsPage(self.root.parent)
