@@ -1,4 +1,0 @@
-2026-03-05 10:30:43,148 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'b3f84003-0d70-4904-970a-a789056e3540'} and kwargs: {'params': {'favorite': False, 'page': 100, 'size': 100}}
-2026-03-05 10:30:43,410 - GreenCityLogger - INFO - 200
-2026-03-05 10:30:43,410 - GreenCityLogger - INFO - {'page': [], 'totalElements': 836, 'currentPage': 100, 'totalPages': 9, 'number': 100, 'hasPrevious': True, 'hasNext': False, 'first': False, 'last': True}
-2026-03-05 10:30:43,413 - GreenCityLogger - INFO - ✅ JSON validation passed
