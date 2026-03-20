@@ -6,7 +6,7 @@ from __future__ import annotations
 import allure
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
-
+from selenium.common.exceptions import TimeoutException
 
 from components.base_component import BaseComponent
 from components.common_components.auth_components.signin_modal_component import \
@@ -33,7 +33,6 @@ class HeaderComponent(BaseComponent):
         "ubs_courier_link": (By.XPATH, ".//a[contains(@href, 'ubs')]"),
         "places_link": (By.XPATH, "//div/nav/ul/li[3]/a"),
         "logo_link": (By.CSS_SELECTOR, ".header_logo"),
-        "_username": (By.CSS_SELECTOR, ".body-2.user-name"),
         "user_menu": (By.XPATH, "//*[@id='header_user-wrp']"),
         "user_menu_profile_link": (By.XPATH,
                                    "//*[@id='header_user-wrp']/ul/li[@role='navigation']"),
@@ -54,7 +53,6 @@ class HeaderComponent(BaseComponent):
     ubs_courier_link: CustomWebElement
     places_link: CustomWebElement
     logo_link: CustomWebElement
-    _username: CustomWebElement
     user_menu: CustomWebElement
     user_menu_profile_link: CustomWebElement
     user_menu_sign_out_link: CustomWebElement
@@ -178,7 +176,7 @@ class HeaderComponent(BaseComponent):
     def get_signed_in_user_name(self):
         """Get the username of the signed-in user from the header."""
         username_element = self.get_wait().until(
-            EC.visibility_of(self._username)
+            EC.visibility_of(self.user_menu)
         )
         return username_element.text
 
@@ -199,3 +197,13 @@ class HeaderComponent(BaseComponent):
             MainPage  # pylint: disable=import-outside-toplevel
         self.user_menu_sign_out_link.wait_and_click()
         return MainPage(self.driver)
+
+    def is_user_menu_present(self) -> bool:
+        """Check if the user menu is present in the header."""
+        try:
+            self.get_wait(3).until(
+                EC.visibility_of(self.user_menu_profile_link)
+            )
+            return True
+        except TimeoutException:
+            return False
