@@ -29,7 +29,8 @@ def test_password_update(access_token):
             assert response_time_ms < 3000, f"API response is too slow! Time: {response_time_ms:.2f} ms"
 
         with allure.step("Validate response body is empty or empty JSON"):
-            assert response.text in ["", "{}"], f"Expected empty body or '{{}}', but got: {response.text}"
+            body = response.text.strip()
+            assert body in ["", "{}"], f"Expected empty body or '{{}}', but got: {response.text}"
 
     finally:
         with allure.step("Teardown: Restore original password from Config"):
@@ -124,7 +125,7 @@ def test_password_update_unauthorized():
                 validate(instance=data, schema=schema_to_validate)
             except ValidationError as e:
                 pytest.fail(
-                    f"JSON Schema validation failed for status {data.status_code}: {e.message}\nPath: {list(e.path)}")
+                    f"JSON Schema validation failed for status {response.status_code}: {e.message}\nPath: {list(e.path)}")
 
 
     with allure.step("Validate ERROR response schema and message"):
