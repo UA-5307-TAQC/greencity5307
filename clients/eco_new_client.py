@@ -55,9 +55,45 @@ class EcoNewClient(BaseClient):
 
         return self._request("GET", f"/{news_id}", params=params)
 
+    @allure.step("Get recommended eco news")
+    def get_recommended_eco_news(self, news_id: int) -> Response:
+        """Get recommended eco news request"""
+        params = {"newsId": news_id}
+        return self._request("GET", f"/{news_id}/recommended", params=params )
+
+    @allure.step("Get content and source of eco new by id ")
+    def get_summary_eco_new(self, news_id: int) -> Response:
+        """Get eco new content and source as a summary"""
+        params = {"ecoNewsId" : news_id}
+        return self._request("GET", f"/{news_id}/summary", params=params)
+
+    @allure.step("Dislike/remove dislike on eco news")
+    def dislike_eco_news_by_id(self, news_id: int) -> Response:
+        """Dislike/remove dislike on eco news"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/dislikes", params=params)
+
+    @allure.step("Deletion from favourites eco new by id")
+    def delete_from_favorites_eco_new_by_id(self, news_id: int) -> Response:
+        """Delete from favourites eco new by id"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("DELETE", f"/{news_id}/favorites", params=params)
+
+    @allure.step("Add eco new to favorites.")
+    def add_to_favorites_eco_new_by_id(self, news_id: int) -> Response:
+        """Add eco movie to favorites."""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/favorites", params=params)
+
 
     @allure.step("Like/remove like at eco new by id.")
-    def like_remove_like_eco_new_by_id(self, news_id):
+    def like_remove_like_eco_new_by_id(self, news_id: int) -> Response:
         """Check like or remove like for eco new by id"""
         params = {
             "ecoNewsId": news_id
@@ -65,7 +101,7 @@ class EcoNewClient(BaseClient):
         return self._request("POST", f"/{news_id}/likes", params=params)
 
     @allure.step("Check if user liked eco new request")
-    def user_like_eco_news_by_id(self, news_id, user_id) -> Response:
+    def user_like_eco_news_by_id(self, news_id: int, user_id: int) -> Response:
         """Check if user liked eco new"""
         params = {
             "ecoNewsId" : news_id,
