@@ -1,3 +1,0 @@
-2026-03-18 17:28:27,777 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news/56 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '8b145f6f-9fdc-4f3d-8960-52fd0b509f39'} and kwargs: {'params': {'lang': 'not-exist'}}
-2026-03-18 17:28:27,870 - GreenCityLogger - INFO - 400
-2026-03-18 17:28:27,871 - GreenCityLogger - INFO - {'message': "Select correct language: 'en' or 'ua'"}
