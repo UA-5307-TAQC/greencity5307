@@ -5,7 +5,7 @@ from jsonschema import validate, ValidationError
 
 from clients.own_security_client import OwnSecurityClient
 from data.config import Config
-from schemas.own_security.update_password_negatiev_scenarios import status_code_400_schema, status_code_401_schema
+from schemas.own_security.update_password_negative_scenarios import status_code_400_schema, status_code_401_schema
 
 
 @allure.title("Successful password update with valid and matching inputs")
@@ -53,7 +53,7 @@ def test_password_update(access_token):
         (
             "Empty confirm password",
             "StrongPass1!", "",
-            400, "must not be blank" # ВИПРАВЛЕНО ТУТ
+            400, "must not be blank"
         ),
         (
             "Password too short",
