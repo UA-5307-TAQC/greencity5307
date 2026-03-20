@@ -1,5 +1,5 @@
 # Documentation-only feature file for saved abstract navigation.
-# 
+#
 # This file is intentionally limited to comments and does not define any
 # executable Gherkin Features or Scenarios. It serves as high-level
 # documentation for expected navigation behavior in the "saved abstracts"
