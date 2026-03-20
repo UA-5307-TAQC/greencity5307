@@ -1,4 +1,4 @@
-"""Social Networks schema"""
+"""Social network schemas"""
 social_networks_image_schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
