@@ -1,0 +1,4 @@
+INFO     GreenCityLogger:base_client.py:35 Sending GET request to https://greencity.greencity.cx.ua/eco-news/7 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'd184291a-d569-4990-9889-206709f1bb5b'} and kwargs: {'params': {'lang': 'en'}}
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:68 200
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:73 {'creationDate': '2025-08-21T17:09:28.698505Z', 'imagePath': None, 'id': 7, 'title': 'News from User', 'content': '<p>Test news from User.</p>', 'shortInfo': None, 'author': {'id': 38, 'name': 'Rostyslav'}, 'likes': 0, 'dislikes': 0, 'countComments': 0, 'hidden': False, 'tagsEn': ['News', 'Initiatives'], 'tagsUk': ['Новини']}
+INFO     GreenCityLogger:test_get_eco_news_by_id.py:76 ✅ JSON validation passed
