@@ -67,6 +67,14 @@ class EcoNewClient(BaseClient):
         params = {"ecoNewsId" : news_id}
         return self._request("GET", f"/{news_id}/summary", params=params)
 
+    @allure.step("Dislike/remove dislike on eco news")
+    def dislike_eco_news_by_id(self, news_id: int) -> Response:
+        """Dislike/remove dislike on eco news"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/dislikes", params=params)
+
     @allure.step("Check if user liked eco new request")
     def user_like_eco_news_by_id(self, news_id, user_id) -> Response:
         """Check if user liked eco new"""
