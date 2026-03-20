@@ -8,7 +8,7 @@ from pages.base_page import BasePage
 from utils.types import Locators
 
 
-class FriendRequestsPage(BasePage): # pylint: disable=too-many-public-methods
+class FriendRequestsPage(BasePage):  # pylint: disable=too-many-public-methods
     """Page Object for Friends -> Requests page (Factory style)."""
 
     title_locator: Locators = (
