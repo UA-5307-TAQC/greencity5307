@@ -82,3 +82,13 @@ class BasePage(Factory):
     def go_back(self):
         """Goes to the previous page of the browser."""
         self.driver.back()
+
+    def _is_loaded_indicator(self, locator):
+        """Waits for some element, to check if page is loaded."""
+        try:
+            self.get_wait().until(
+                EC.visibility_of_element_located(locator)
+            )
+            return True
+        except TimeoutException:
+            return False

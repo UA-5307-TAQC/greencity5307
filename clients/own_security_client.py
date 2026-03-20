@@ -1,8 +1,8 @@
 """Module that contains client for interacting with the Own Security API,
 extending BaseClient for common functionality."""
-from clients.base_client import BaseClient
-from requests import Response
 import allure
+from requests import Response
+from clients.base_client import BaseClient
 
 
 class OwnSecurityClient(BaseClient):
