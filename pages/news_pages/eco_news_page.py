@@ -126,9 +126,9 @@ class EcoNewsPage(BasePage):
 
     @allure.step("Check news feed container is visible")
     def is_feed_visible(self) -> bool:
-        """Return True if main header container is visible."""
+        """Return True if news feed container is visible."""
         return self.get_wait().until(
-            EC.visibility_of_element_located(self.locators["main_header"])
+            EC.visibility_of_element_located(self.locators["news_feed_container"])
         ).is_displayed()
 
 
