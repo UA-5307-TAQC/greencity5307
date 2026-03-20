@@ -1,6 +1,7 @@
 """This module contains the MainPage class, which represents the main page of the application.
 It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
+from time import sleep
 
 import allure
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
@@ -35,6 +36,7 @@ class MainPage(BasePage):
         """Navigate to the Eco News page."""
         self.header.click_new_link()
         self.get_wait().until(EC.url_contains("news"))
+        sleep(3)
         return EcoNewsPage(self.driver)
 
     @allure.step("Navigating to the About Us page")

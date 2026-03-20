@@ -22,6 +22,7 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     news_page = main_page.go_to_eco_news()
     # get random number to get random news_card
     news_cards = news_page.news_cards
+    assert len(news_cards) > 0, "There are no news cards on the news page"
     num = random.randint(0, len(news_cards) - 1)
     one_news_page = news_cards[num].navigate_to_one_news_page(driver)
     # get count of likes
