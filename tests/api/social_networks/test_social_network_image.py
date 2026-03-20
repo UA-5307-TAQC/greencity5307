@@ -1,4 +1,4 @@
-"""Validation  request for social networks image"""
+"""Validation request for social networks image"""
 # pylint: disable=duplicate-code
 import pytest
 import allure
