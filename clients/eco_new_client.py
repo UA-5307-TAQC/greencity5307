@@ -120,6 +120,11 @@ class EcoNewClient(BaseClient):
 
             return self._request("PUT", f"/{news_id}", files=files)
 
+    @allure.step("Delete eco new by id.")
+    def delete_eco_news_by_id(self, news_id: int) -> Response:
+        """Delete eco new by id."""
+        return self._request("DELETE", f"/{news_id}")
+
     @allure.step("Check if user liked eco new request")
     def user_like_eco_news_by_id(self, news_id: int, user_id: int) -> Response:
         """Check if user liked eco new"""
