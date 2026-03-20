@@ -83,6 +83,14 @@ class EcoNewClient(BaseClient):
         }
         return self._request("DELETE", f"/{news_id}/favorites", params=params)
 
+    @allure.step("Add eco new to favorites.")
+    def add_to_favorites_eco_new_by_id(self, news_id: int) -> Response:
+        """Add eco movie to favorites."""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/favorites", params=params)
+
     @allure.step("Check if user liked eco new request")
     def user_like_eco_news_by_id(self, news_id: int, user_id: int) -> Response:
         """Check if user liked eco new"""
