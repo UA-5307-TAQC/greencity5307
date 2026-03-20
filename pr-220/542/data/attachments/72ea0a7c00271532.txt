@@ -1,3 +1,0 @@
-INFO     GreenCityLogger:base_client.py:35 Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '084575b2-aa16-4e3e-a1c7-1fbcc597a27d'} and kwargs: {'params': {'favorite': False, 'page': 0, 'size': 20, 'sort': 'not-created'}}
-INFO     GreenCityLogger:test_find_eco_news_by_page.py:45 400
-INFO     GreenCityLogger:test_find_eco_news_by_page.py:50 {'message': 'Unsupported value for sorting: [not-created]'}
