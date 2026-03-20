@@ -173,9 +173,7 @@ class FriendRequestsPage(BasePage):  # pylint: disable=too-many-public-methods
 
     def open_requests_tab(self) -> None:
         """Open 'Requests' tab."""
-        self.get_wait().until(EC.element_to_be_clickable(
-            self.locators["requests_tab"])).click()
-        self.get_wait().until(EC.url_contains("/friends/requests"))
+        self.click_requests_tab()
 
     def open_my_friends_tab(self) -> None:
         """Open 'My Friends' tab."""
