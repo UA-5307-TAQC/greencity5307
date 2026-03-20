@@ -5,25 +5,20 @@ import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
-from data.config import Config
-from pages.common_pages.main_page import MainPage
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
 
 @allure.title("Test like one news on one news page")
-def test_one_news_page_like_one_news(driver: WebDriver):
+def test_one_news_page_like_one_news(driver_with_login: WebDriver):
     """Test like one news page like one news"""
 
-    # open main page
-    main_page = MainPage(driver)
-    # sign in
-    sign_in_modal = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
     # link to news page
-    news_page = main_page.go_to_eco_news()
+    news_page = MyHabitPage(driver_with_login).header.click_new_link()
     # get random number to get random news_card
     news_cards = news_page.news_cards
     num = random.randint(0, len(news_cards) - 1)
-    one_news_page = news_cards[num].navigate_to_one_news_page(driver)
+    one_news_page = news_cards[num].navigate_to_one_news_page(
+        driver_with_login)
     # get count of likes
     likes_count = one_news_page.likes.get_likes_count()
     # Check if news are already liked
@@ -31,7 +26,7 @@ def test_one_news_page_like_one_news(driver: WebDriver):
     # Click news like button
     one_news_page.likes.click_like_button()
     # wait likes count to update
-    WebDriverWait(driver, 10).until(
+    WebDriverWait(driver_with_login, 10).until(
         lambda driver: likes_count != one_news_page.likes.get_likes_count()
     )
     # Get updated count of likes
