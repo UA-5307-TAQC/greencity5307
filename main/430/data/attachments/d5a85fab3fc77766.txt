@@ -1,3 +1,0 @@
-2026-03-06 12:53:46,103 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'e9e16673-48ee-462a-9846-7ed3ca058c54'} and kwargs: {'params': {'favorite': False, 'page': 0, 'size': 20, 'sort': 'not-created,not-created-2'}}
-2026-03-06 12:53:46,466 - GreenCityLogger - INFO - 400
-2026-03-06 12:53:46,467 - GreenCityLogger - INFO - {'message': "Invalid value 'not-created-2' for orders given; Has to be either 'desc' or 'asc' (case insensitive)"}
