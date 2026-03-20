@@ -3,8 +3,12 @@ import pytest
 import jwt
 import allure
 from datetime import datetime
+
+from jsonschema import validate, ValidationError
+
 from clients.own_security_client import OwnSecurityClient
 from data.config import Config
+from schemas.own_security.signin_success_schema import signin_success_schema
 
 @allure.feature("Authentication")
 @allure.story("User Login")
@@ -26,6 +30,12 @@ def test_login_validation():
 
     with allure.step("Validate response body data"):
         data = response.json()
+
+        try:
+            validate(instance=data, schema=signin_success_schema)
+        except ValidationError as e:
+            pytest.fail(f"Response body does not match signin_success_schema: {e.message}")
+
         assert data.get("userId") is not None and data.get("userId") >= 0, "User ID is invalid or missing"
         assert data.get("name") == Config.USER_NAME, f"Expected {Config.USER_NAME}, but got '{data.get('name')}'"
         assert data.get("ownRegistrations") is True, "ownRegistrations flag should be True"
@@ -41,7 +51,7 @@ def test_login_validation():
             allure.attach(str(decoded), name="Decoded Token Payload", attachment_type=allure.attachment_type.TEXT)
 
             assert exp_timestamp is not None, "Token is valid, but missing expiration time ('exp' field)"
-
+            
             assert datetime.now().timestamp() < exp_timestamp, f"Access token is already expired! (exp: {exp_timestamp})"
         except Exception as e:
             pytest.fail(f"Token is invalid or corrupted. Details: {e}")

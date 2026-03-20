@@ -2,6 +2,7 @@
 summary_eco_new_schema = {
     "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
+    "additionalProperties": False,
     "required": [
         "content"
     ],

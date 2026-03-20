@@ -55,11 +55,18 @@ class EcoNewClient(BaseClient):
 
         return self._request("GET", f"/{news_id}", params=params)
 
+    @allure.step("Get recommended eco news")
+    def get_recommended_eco_news(self, news_id):
+        """Get recommended eco news request"""
+        params = {"newsId": news_id}
+        return self._request("GET", f"/{news_id}/recommended", params=params )
+
     @allure.step("Get content and source of eco new by id ")
     def get_summary_eco_new(self, news_id):
         """Get eco new content and source as a summary"""
         params = {"ecoNewsId" : news_id}
         return self._request("GET", f"/{news_id}/summary", params=params)
+
     @allure.step("Check if user liked eco new request")
     def user_like_eco_news_by_id(self, news_id, user_id) -> Response:
         """Check if user liked eco new"""
