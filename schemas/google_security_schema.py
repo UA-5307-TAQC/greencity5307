@@ -23,7 +23,7 @@ google_security_schema = {
             "type": "string"
         },
         "ownRegistrations" : {
-            "type": True
+            "type": "boolean"
         },
     }
 }
