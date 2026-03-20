@@ -1,3 +1,4 @@
+@fixture.browser
 Feature: Website language switching
 
   Background:
