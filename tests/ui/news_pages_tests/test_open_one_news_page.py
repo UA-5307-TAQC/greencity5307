@@ -6,7 +6,6 @@ from allure_commons.types import AttachmentType
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from data.config import Config
-from pages.common_pages.main_page import MainPage
 from pages.news_pages.eco_news_page import EcoNewsPage
 from pages.news_pages.one_news_page import OneNewsPage
 
@@ -15,16 +14,10 @@ from pages.news_pages.one_news_page import OneNewsPage
 @allure.feature("Eco News")
 @allure.story("Open One News page")
 @allure.title("TC-EN-02: Open Eco News article and verify details")
-def test_open_eco_news_article_and_verify_details(driver: WebDriver) -> None:
+def test_open_eco_news_article_and_verify_details(driver_with_login: WebDriver) -> None:
     """TC-EN-02: Open Eco News article and verify One News page details are displayed."""
     try:
-        with allure.step("Step 1: Open GreenCity website"):
-            driver.get(Config.BASE_UI_URL)
-
-        with allure.step("Precondition: Login"):
-            main_page = MainPage(driver)
-            sign_in_modal = main_page.header.click_sign_in_link()
-            sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
+        driver = driver_with_login
 
         with allure.step("Step 2: Navigate to Eco News page"):
             driver.get(f"{Config.BASE_UI_URL}/news")
