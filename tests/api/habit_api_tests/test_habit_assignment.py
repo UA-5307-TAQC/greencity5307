@@ -1,3 +1,5 @@
+"""POST /habit/assign/{habitId}"""
+
 import allure
 import pytest
 from jsonschema import validate
@@ -49,7 +51,6 @@ def test_habit_assignment_without_login():
         assert response.status_code == 401
 
 
-
 @allure.title("Test habit assignment with already assigned habit id")
 def test_pre_assigned_habit_assignment(assign_habit, clean_habit):
     """Test habit assignment with already assigned habit id"""
@@ -68,7 +69,6 @@ def test_pre_assigned_habit_assignment(assign_habit, clean_habit):
         assigned_id = find_assigned_id(HABIT_ID_TO_ASSIGN)
         assert assigned_id is not None, f"There is no assigned id fot habit id = {HABIT_ID_TO_ASSIGN}"
         habits_to_delete.append(assigned_id)
-
 
 
 @allure.title("Test habit assignment with login and incorrect id")
