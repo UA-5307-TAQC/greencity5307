@@ -40,13 +40,14 @@ def current_website_language(context: behave.runner.Context, current_language: s
     main_page = MainPage(context.browser)
 
     # determine if English
-    is_eng = main_page.header.is_language_english()
-    if current_language in ("EN") and is_eng:
-        return
-    main_page.header.switch_language()
+    expected_text = "Нас і сьогодні ми" if current_language == "UA" else "There are of us and today we"
 
-    WebDriverWait(context.browser, Config.EXPLICITLY_WAIT).until(
-        lambda drv: main_page.header.language_option.text.strip() != "")
+    if main_page.there_are.text != expected_text:
+        main_page.header.switch_language()
+        main_page.get_wait().until(
+            lambda drv: main_page.there_are.text == expected_text,
+            message=f"Failed to switch language to {current_language}"
+        )
 
 
 @when("the user opens the language switcher")
