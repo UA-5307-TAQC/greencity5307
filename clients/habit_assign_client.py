@@ -36,18 +36,22 @@ class HabitAssignClient(BaseClient):
         )
 
 
-    def get_one_habit_assignment_for_current_user(self, habit_assign_id: int, lang: str = "en-GB")  -> Response:
-            """Get habit assign"""
+    def get_one_habit_assignment_for_current_user(
+        self,
+        habit_assign_id: int,
+        lang: str = "en-GB"
+    )  -> Response:
+        """Get habit assign"""
 
-            params = {
-                "lang": lang
-            }
+        params = {
+            "lang": lang
+        }
 
-            return self._request(
-                method="GET",
-                endpoint=f"/{habit_assign_id}",
-                params=params
-            )
+        return self._request(
+            method="GET",
+            endpoint=f"/{habit_assign_id}",
+            params=params
+        )
 
 
     def delete_habit_assign(self, habit_assign_id: int) -> Response:
