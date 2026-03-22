@@ -38,11 +38,12 @@ class OneHabitPage(BasePage):
         "del_button": (By.CSS_SELECTOR, ".del-btn"),
         "custom_item_input": (By.CSS_SELECTOR, ".add-field"),
         "custom_item_add": (By.CSS_SELECTOR, ".add-item-form .add-btn"),
-
         "cancel_button": (By.XPATH,
-                          "//app-habit-edit-to-do-list//button[contains(text(), 'Відмінити')]"),
+                          "//app-habit-edit-to-do-list//button[contains(text(), 'Відмінити') "
+                          "or contains(text(), 'Cancel')]"),
         "save_button": (By.XPATH,
-                        "//app-habit-edit-to-do-list//button[contains(text(), 'Зберегти')]"),
+                "//app-habit-edit-to-do-list//button[contains(text(), 'Зберегти') "
+                "or contains(text(), 'Save')]"),
 
         # Invite friends
         "invite_friends_icon": (By.CSS_SELECTOR, ".icon-plus-grey"),
