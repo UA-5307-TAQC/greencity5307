@@ -5,7 +5,6 @@
     :synopsis: """
 from behave import given, when, then
 from selenium.webdriver.support import expected_conditions as EC
-from data.config import Config
 from pages.common_pages.main_page import MainPage
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 

@@ -12,11 +12,12 @@ from pages.abstract_pages.friend_abstract_users.mutual_friends_page import Mutua
 @given('User B exists in the system')
 @given('User C is a friend of both User A and User B')
 def step_data_setup(context):
-    pass
+    """Step data setup."""
 
 
 @given("User A is on User B's profile page")
 def step_navigate_to_user_b_profile(context):
+    """Navigation to User A's profile page."""
     context.browser.get(
         "https://www.greencity.cx.ua/#/greenCity/profile/1205/friends/Denys/933?tab=Mutual%20friends"
     )
@@ -26,36 +27,39 @@ def step_navigate_to_user_b_profile(context):
 
 @when('the user opens the "Friends" section on User B\'s profile')
 def step_open_friends_section(context):
-    pass
+    """Open the "Friends" section on User B's profile page."""
 
 
 @when('selects "All Friends"')
 def step_select_all_friends(context):
+    """Select all friends list."""
     mutual_page = MutualFriendsPage(context.browser)
     mutual_page.click_all_friends_tab()
 
 
 @then("the list of User B's friends is displayed")
 def step_friends_list_displayed(context):
+    """Friends list is displayed."""
     mutual_page = MutualFriendsPage(context.browser)
     assert mutual_page.has_mutual_friends(), "Friends list is completely empty!"
 
 
 @then('the tabs "All Friends" and "Mutual Friends" are visible')
 def step_tabs_visible(context):
+    """Tabs are visible."""
     mutual_page = MutualFriendsPage(context.browser)
-    # Звертаємось напряму до лінивих властивостей!
     assert mutual_page.all_friends_tab.is_displayed(), "'All Friends' tab is missing"
     assert mutual_page.mutual_friends_tab.is_displayed(), "'Mutual Friends' tab is missing"
 
 
 @when('the user views the "Mutual Friends" tab')
 def step_view_mutual_friends_tab(context):
-    pass
+    """View the "Mutual Friends" tab."""
 
 
 @then('the mutual friends counter displays "{expected_count}"')
 def step_verify_mutual_friends_counter(context, expected_count):
+    """Verify the mutual friends counter displays "{expected_count}"."""
     mutual_page = MutualFriendsPage(context.browser)
     actual_count = mutual_page.get_mutual_friends_count()
     assert actual_count == expected_count, f"Expected counter: {expected_count}, Got: {actual_count}"
@@ -65,18 +69,21 @@ def step_verify_mutual_friends_counter(context, expected_count):
 
 @when('the user clicks on the "Mutual Friends" tab')
 def step_click_mutual_friends_tab(context):
+    """Click the "Mutual Friends" tab."""
     mutual_page = MutualFriendsPage(context.browser)
     mutual_page.click_mutual_friends_tab()
 
 
 @then('the tab becomes active')
 def step_tab_becomes_active(context):
+    """Tab becomes active."""
     mutual_page = MutualFriendsPage(context.browser)
     assert mutual_page.is_mutual_friends_tab_active(), "Mutual Friends tab did not become active!"
 
 
 @then('User C is displayed in the friends list')
 def step_user_c_displayed(context):
+    """User C's profile is visible."""
     mutual_page = MutualFriendsPage(context.browser)
     names = mutual_page.friends_list_component.get_all_friend_names()
     assert len(names) > 0, "No mutual friends found in the list!"
@@ -84,6 +91,7 @@ def step_user_c_displayed(context):
 
 @then("User C's profile picture is visible")
 def step_user_c_picture_visible(context):
+    """User C's profile picture is visible."""
     mutual_page = MutualFriendsPage(context.browser)
     is_visible = mutual_page.friends_list_component.is_first_friend_avatar_visible()
     assert is_visible, "First mutual friend's avatar is missing!"
@@ -93,11 +101,13 @@ def step_user_c_picture_visible(context):
 
 @given('the mutual friends list is displayed')
 def step_mutual_friends_displayed(context):
+    """Mutual Friends tab is displayed."""
     context.execute_steps('When the user clicks on the "Mutual Friends" tab')
 
 
 @when('the user scrolls the friends list')
 def step_scroll_friends_list(context):
+    """Scroll the friends list."""
     mutual_page = MutualFriendsPage(context.browser)
     context.initial_count = len(mutual_page.friends_list_component.get_all_friend_names())
     context.browser.execute_script("window.scrollTo(0, document.body.scrollHeight);")
@@ -105,6 +115,7 @@ def step_scroll_friends_list(context):
 
 @then('more mutual friends are visible in the list than before scrolling')
 def step_more_friends_visible(context):
+    """Check if more friends are visible in the list than before scrolling."""
     mutual_page = MutualFriendsPage(context.browser)
     new_count = len(mutual_page.friends_list_component.get_all_friend_names())
 
@@ -121,11 +132,13 @@ def step_more_friends_visible(context):
 
 @when('the user refreshes the page')
 def step_refresh_page(context):
+    """Refresh the page."""
     context.browser.refresh()
 
 
 @then('the profile page reloads successfully')
 def step_page_reloads(context):
+    """Profile page reloads successfully."""
     mutual_page = MutualFriendsPage(context.browser)
     mutual_page.get_wait().until(
         lambda d: mutual_page.has_mutual_friends(),
@@ -135,5 +148,6 @@ def step_page_reloads(context):
 
 @then('the "Mutual Friends" tab is still accessible')
 def step_mutual_tab_accessible(context):
+    """Mutual Friends tab is still accessible."""
     mutual_page = MutualFriendsPage(context.browser)
     assert mutual_page.mutual_friends_tab.is_displayed(), "Tab is missing after refresh!"
