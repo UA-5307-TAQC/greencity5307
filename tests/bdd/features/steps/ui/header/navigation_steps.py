@@ -45,13 +45,13 @@ def step_click_header_link(context, link_name):
     """User clicks on the header navigation"""
     my_space_page = MySpaceAbstractPage(context.browser)
 
-    if link_name == "Eco-news":
+    if link_name == "Eco News":
         context.current_page = my_space_page.header.click_new_link()
     elif link_name == "Events":
         context.current_page = my_space_page.header.click_event_link()
     elif link_name == "Places":
         context.current_page = my_space_page.header.click_places_link()
-    elif link_name == "About us":
+    elif link_name == "About Us":
         context.current_page = my_space_page.header.click_about_us_link()
     else:
         raise ValueError(f"Unknown menu link: {link_name}")
@@ -77,7 +77,8 @@ def step_redirect_page(context, page_name):
         "Map": "places",
         "About Us": "about",
         "Homepage": "greenCity",
-        "My Space": "profile",
+        ("My Space", "Personal Account"): "profile",
+        "UBS Courier": "ubs",
     }
 
     expected_part = page_to_url_part.get(page_name)
@@ -105,7 +106,7 @@ def step_page_title(context, expected_title):
     """Check if the page title is equal to '{expected_title}'"""
     actual_text = context.current_page.main_header.text
     localized_titles = {
-        "Eco news": ("Eco News", "Еко новини"),
+        "Eco News": ("Eco News", "Еко новини"),
         "Events": ("Events", "Події"),
         "Places": ("Places", "Карта"),
         "About Us": ("About Us", "Про Нас"),

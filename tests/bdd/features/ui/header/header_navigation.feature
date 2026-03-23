@@ -6,10 +6,10 @@ Feature: Header navigation functionality
     And the header navigation menu is visible
 
   Scenario: User navigates to Eco News page
-    When the user clicks on "Eco-news" in the header navigation
+    When the user clicks on "Eco News" in the header navigation
     Then the user is redirected to the Eco News page
     And the URL contains "/news"
-    And the page title is "Eco news"
+    And the page title is "Eco News"
 
   Scenario: User navigates to Events page
     When the user clicks on "Events" in the header navigation
@@ -22,7 +22,7 @@ Feature: Header navigation functionality
     And the map component is visible
 
   Scenario: User navigates to About Us page
-    When the user clicks on "About us" in the header navigation
+    When the user clicks on "About Us" in the header navigation
     Then the user is redirected to the About Us page
     And the project information is displayed
 
