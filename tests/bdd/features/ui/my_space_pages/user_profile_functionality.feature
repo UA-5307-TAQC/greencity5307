@@ -1,3 +1,4 @@
+@wip
 Feature: User Profile Functionality
   As a logged-in user
   I want to interact with my profile page

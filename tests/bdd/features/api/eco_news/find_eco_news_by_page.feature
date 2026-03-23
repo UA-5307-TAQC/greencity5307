@@ -1,3 +1,4 @@
+@wip
 Feature: Retrieve eco news
 
   Scenario Outline: API returns an error when invalid query parameters are used

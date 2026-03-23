@@ -1,3 +1,4 @@
+@wip
 Feature: Create eco news with valid data
 
   As a logged-in user

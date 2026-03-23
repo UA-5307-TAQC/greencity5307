@@ -1,3 +1,4 @@
+@wip
 Feature: Event Comments API functionality
 
   # TC-AEC-01

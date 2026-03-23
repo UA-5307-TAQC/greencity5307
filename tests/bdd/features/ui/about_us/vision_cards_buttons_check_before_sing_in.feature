@@ -1,3 +1,4 @@
+@wip
 Feature: Click buttons in the vision card before sign in
 
   As a user

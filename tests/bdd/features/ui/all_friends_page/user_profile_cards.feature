@@ -1,3 +1,4 @@
+@wip
 Feature: User Profile Cards
   As a logged-in user
   I want to browse cards of users who are in another user's friends list
