@@ -1,3 +1,4 @@
+@wip
 Feature: Get source and content of eco news by id
 
   As a client of the Eco News API

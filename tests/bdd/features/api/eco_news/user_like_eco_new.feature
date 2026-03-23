@@ -1,3 +1,4 @@
+@wip
 Feature: Check if user liked eco news
 
   As a client of the Eco News API

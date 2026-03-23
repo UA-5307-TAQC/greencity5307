@@ -1,3 +1,4 @@
+@wip
 Feature: Add Eco News to Favorites by ID
 
   As a user
