@@ -1,5 +1,7 @@
 """Module that contains client for interacting with the Own Security API,
 extending BaseClient for common functionality."""
+import allure
+from requests import Response
 from clients.base_client import BaseClient
 
 
@@ -26,4 +28,17 @@ class OwnSecurityClient(BaseClient):
             method="POST",
             endpoint="/signIn",
             json=payload
+        )
+
+    @allure.step("Change password")
+    def change_password(self, password: str, confirm_password: str) -> Response:
+        """Change the password of the user."""
+        payload = {
+            "password": password,
+            "confirmPassword": confirm_password,
+        }
+        return self._request(
+            method="PUT",
+            endpoint="/changePassword",
+            json=payload,
         )
