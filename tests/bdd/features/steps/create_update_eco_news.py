@@ -8,117 +8,110 @@ from data.config import Config
 from pages.common_pages.main_page import MainPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
 
+
 @given("the user is logged in")
-def user_logged_in(driver):
-    """User log in given"""
-    main_page = MainPage(driver)
+def user_logged_in(context):
+    """Log in the user using valid credentials."""
+    main_page = MainPage(context.browser)
     sign_in_modal = main_page.header.click_sign_in_link()
     sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
+
 @given("the CreateUpdateEcoNewsPage is open")
-def open_create_eco_news_page(driver):
-    """Verification of opened create eco news page"""
-    page = CreateUpdateEcoNewsPage(driver)
-    assert page.is_page_opened()
-    return page
+def open_create_eco_news_page(context):
+    """Open Create Eco News page and verify it is loaded."""
+    context.page = CreateUpdateEcoNewsPage(context.browser)
+    assert context.page.is_page_opened()
 
 
 @then("the page header should be visible")
-def verify_page_header():
-    """Verify page header"""
-    assert open_create_eco_news_page.is_page_opened()
+def verify_page_header(context):
+    """Verify that the page header is visible."""
+    assert context.page.is_page_opened()
 
 
 @then("the submit button should be disabled")
-def verify_submit_button_disabled():
-    """Verification of submit button disabled"""
-    assert not open_create_eco_news_page.submit_button.is_enabled()
-
+def verify_submit_button_disabled(context):
+    """Verify that the submit button is initially disabled."""
+    assert not context.page.submit_button.is_enabled()
 
 
 @when("I enter an empty title")
-def enter_empty_title():
-    """Enter empty title"""
-    form = open_create_eco_news_page.get_form()
-    form.enter_title("")
+def enter_empty_title(context):
+    """Enter an empty title into the form."""
+    context.form = context.page.get_form()
+    context.form.enter_title("")
 
 
 @when('I enter title "Save the Planet"')
-def enter_valid_title():
-    """Enter valid title"""
-    form = open_create_eco_news_page.get_form()
-    form.enter_title("Save the Planet")
+def enter_valid_title(context):
+    """Enter a valid title into the form."""
+    context.form = context.page.get_form()
+    context.form.enter_title("Save the Planet")
 
 
 @when("I enter empty tags")
-def enter_empty_tags():
-    """Enter empty tags"""
-    form = open_create_eco_news_page.get_form()
-    form.enter_tags("")
+def enter_empty_tags(context):
+    """Enter empty tags into the form."""
+    context.form.enter_tags("")
 
 
 @when('I enter tags "Eco, Nature"')
-def enter_valid_tags():
-    """Enter valid tags"""
-    form = open_create_eco_news_page.get_form()
-    form.enter_tags("Eco, Nature")
+def enter_valid_tags(context):
+    """Enter valid tags into the form."""
+    context.form.enter_tags("Eco, Nature")
 
 
 @when('I enter source "Green Blog"')
-def enter_source():
-    """Enter invalid source"""
-    form = open_create_eco_news_page.get_form()
-    form.enter_source("Green Blog")
+def enter_source(context):
+    """Enter a source value into the form."""
+    context.form.enter_source("Green Blog")
 
 
 @when("I enter content with less than 300 characters")
-def enter_short_content():
-    """Enter invalid content"""
-    form = open_create_eco_news_page.get_form()
-    form.enter_content("Too short content")
+def enter_short_content(context):
+    """Enter invalid short content (less than required length)."""
+    context.form.enter_content("Too short content")
 
 
 @when("I enter content with more than 300 characters")
-def enter_valid_content():
-    """Enter valid content"""
-    form = open_create_eco_news_page.get_form()
+def enter_valid_content(context):
+    """Enter valid content exceeding 300 characters."""
     content = "Eco " * 100  # >300 chars
-    form.enter_content(content)
+    context.form.enter_content(content)
 
 
 @when("I click the submit button")
-def click_submit():
-    """Click submit button"""
-    open_create_eco_news_page.click_submit()
-
+def click_submit(context):
+    """Click the submit button."""
+    context.page.click_submit()
 
 
 @then("the form should not be submitted")
-def verify_form_not_submitted():
-    """Verify form is not submitted"""
-    assert open_create_eco_news_page.is_page_opened()
+def verify_form_not_submitted(context):
+    """Verify that the form submission did not occur."""
+    assert context.page.is_page_opened()
 
 
 @then("the submit button should remain disabled")
-def verify_submit_still_disabled():
-    """Verify submit button is disabled"""
-    assert not open_create_eco_news_page.submit_button.is_enabled()
+def verify_submit_still_disabled(context):
+    """Verify that the submit button is still disabled."""
+    assert not context.page.submit_button.is_enabled()
 
 
 @then('the "Create Eco News" page should still be open')
-def verify_still_on_page():
-    """Verify page is still opened"""
-    assert open_create_eco_news_page.is_page_opened()
+def verify_still_on_page(context):
+    """Verify the user remains on the Create Eco News page."""
+    assert context.page.is_page_opened()
 
 
 @then("the form should be submitted")
-def verify_form_submitted(driver):
-    """Verify form is submitted"""
-    # depends on real behavior (URL change / redirect)
-    assert "eco-news" in driver.current_url
+def verify_form_submitted(context):
+    """Verify that the form was successfully submitted."""
+    assert "eco-news" in context.browser.current_url
 
 
 @when("I click the cancel button")
-def click_cancel():
-    """Click cancel button"""
-    open_create_eco_news_page.click_cancel()
+def click_cancel(context):
+    """Click the cancel button."""
+    context.page.click_cancel()
