@@ -9,9 +9,12 @@ from selenium.common.exceptions import TimeoutException
 
 from components.news_components.button_create_new_component import CreateNewButtonComponent
 from components.news_components.news_card_base_component import NewsCardBaseComponent
+
 from pages.base_page import BasePage
 from pages.events_pages.event_page import EventPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
+from pages.news_pages.one_news_page import OneNewsPage
+
 from utils.custom_web_element import CustomWebElement
 
 
@@ -123,9 +126,9 @@ class EcoNewsPage(BasePage):
 
     @allure.step("Check news feed container is visible")
     def is_feed_visible(self) -> bool:
-        """Return True if main header container is visible."""
+        """Return True if news feed container is visible."""
         return self.get_wait().until(
-            EC.visibility_of_element_located(self.locators["main_header"])
+            EC.visibility_of_element_located(self.locators["news_feed_container"])
         ).is_displayed()
 
 
@@ -203,3 +206,24 @@ class EcoNewsPage(BasePage):
             return True
         except TimeoutException:
             return False
+    # TC-EN-02: Open Eco News article and verify details #162
+    @allure.step("Open first news card")
+    def open_first_news_card(self) -> OneNewsPage:
+        """Open the first visible news card."""
+        self.wait_cards_present()
+        first_card = self.get_cards_raw()[0]
+        first_card.click()
+        return OneNewsPage(self.driver)
+
+    @allure.step("Get first news card title")
+    def get_first_card_title(self) -> str:
+        """Return title text of the first visible news card."""
+        self.wait_cards_present()
+        first_card = self.get_cards_raw()[0]
+        titles = first_card.find_elements(*self.locators["card_title_relative"])
+
+        for title in titles:
+            text = title.text.strip()
+            if text:
+                return text
+        return ""
