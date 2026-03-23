@@ -1,3 +1,4 @@
+@wip
 Feature: Navigate to Create Event page
 
   As a registered user

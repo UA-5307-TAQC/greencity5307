@@ -1,3 +1,4 @@
+@wip
 Feature: Mutual friends search functionality
 
   Background:

@@ -26,7 +26,7 @@ Feature: Header navigation functionality
     Then the user is redirected to the About Us page
     And the project information is displayed
 
-  Scenario: User returns to Homepage via GreenCity logo
+  Scenario: User navigates to Home page via GreenCity logo
     When the user clicks the "GreenCity" logo in the header
     Then the user is redirected to the Homepage
     And the landing page content is displayed

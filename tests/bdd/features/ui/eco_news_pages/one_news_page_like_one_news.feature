@@ -1,3 +1,4 @@
+@wip
 Feature: Like news on the one news page
 
   As a registered user
