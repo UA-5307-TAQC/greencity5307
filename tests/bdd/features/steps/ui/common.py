@@ -40,7 +40,9 @@ def current_website_language(context: behave.runner.Context, current_language: s
     main_page = MainPage(context.browser)
 
     # determine if English
-    expected_text = "Нас і сьогодні ми" if current_language == "UA" else "There are of us and today we"
+    expected_text = ("Нас і сьогодні ми"
+                     if current_language == "UA"
+                     else "There are of us and today we")
 
     if main_page.there_are.text != expected_text:
         main_page.header.switch_language()

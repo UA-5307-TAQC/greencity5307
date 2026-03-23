@@ -1,3 +1,4 @@
+# pylint: disable=not-callable, unused-argument
 """
 .. module:: Dropdown menu
     :platform: Unix
@@ -20,7 +21,8 @@ def step_user_successfully_logged_in(context):
 
     main_page.get_wait().until(
         EC.url_contains("profile"),
-        message=f"URL did not change to profile after login. Current URL: {context.browser.current_url}"
+        message=("URL did not change to profile after login. Current URL: "
+                 f"{context.browser.current_url}")
     )
 
 

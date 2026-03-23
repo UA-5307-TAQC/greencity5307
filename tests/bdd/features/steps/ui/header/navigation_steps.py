@@ -1,13 +1,13 @@
+# pylint: disable=not-callable, unused-argument
 """
 .. module:: Header navigation
     :platform: Unix
     :synopsis: """
 from behave import given, when, then
+from selenium.webdriver.support import expected_conditions as EC
 from data.config import Config
 from pages.common_pages.main_page import MainPage
-from pages.abstract_pages.my_space_abstract.my_space_abstract_page \
-    import (MySpaceAbstractPage)
-from selenium.webdriver.support import expected_conditions as EC
+from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 
 
 @given('the user is signed in')
@@ -33,6 +33,7 @@ def step_user_on_page(context):
 
 @given('the header navigation menu is visible')
 def step_header_visible(context):
+    """User clicks on the header navigation"""
     main_page = MainPage(context.browser)
     assert main_page.header.is_displayed(), "Header is not visible"
 
@@ -86,7 +87,9 @@ def step_redirect_page(context, page_name):
 
     main_page.get_wait().until(
         EC.url_contains(expected_part),
-        message=f"Expected to be redirected to '{page_name}' page, but URL did not contain '{expected_part}'. Current URL: {context.browser.current_url}"
+        message=(f"Expected to be redirected to '{page_name}' page,"
+                 f" but URL did not contain '{expected_part}'. "
+                 f"Current URL: {context.browser.current_url}")
     )
 
 
@@ -140,6 +143,7 @@ def step_about_us_info(context):
 
 @then('the user is redirected to the Homepage')
 def step_redirect_homepage(context):
+    """Redirect the user to the Homepage"""
     assert "greenCity" in context.browser.current_url, "URL does not contain 'greenCity'"
 
 

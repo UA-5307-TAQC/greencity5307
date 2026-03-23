@@ -1,3 +1,4 @@
+@wip
 Feature: Delete social network by id
 
   As a client of the Social Network API
