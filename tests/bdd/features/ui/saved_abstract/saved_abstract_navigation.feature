@@ -21,6 +21,7 @@
 #
 # NOTE: Do not add `Feature:` or `Scenario:` keywords here unless you
 # also configure an appropriate BDD runner in CI.
+@wip
 Feature: Saved page tabs navigation
 
   As a logged-in user

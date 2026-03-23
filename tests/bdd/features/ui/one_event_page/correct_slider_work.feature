@@ -1,4 +1,3 @@
-@TC-0033
 Feature: Habit Duration Customization
   As a GreenCity user
   I want to adjust the duration of my habits using a slider

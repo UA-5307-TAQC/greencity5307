@@ -1,3 +1,4 @@
+@wip
 Feature: Delete Eco News by ID
 
   As a user

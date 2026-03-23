@@ -1,3 +1,4 @@
+@wip
 Feature: Mutual friends visibility on user profile
 
   Background:

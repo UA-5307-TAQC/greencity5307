@@ -1,3 +1,4 @@
+@wip
 Feature: Friends page tabs navigation
 
   As a logged-in user

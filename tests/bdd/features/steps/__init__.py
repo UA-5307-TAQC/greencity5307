@@ -1,3 +1,5 @@
-"""Common init"""
+"""
+@description: """
 # pylint: disable=import-error
-from one_event_page import *
+from ui import *
+from api import *

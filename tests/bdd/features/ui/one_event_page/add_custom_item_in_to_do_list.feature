@@ -1,4 +1,3 @@
-@TC-0031
 Feature: Custom To-Do List Items in Habits
   As a GreenCity user
   I want to add custom items to my habit's To-Do list

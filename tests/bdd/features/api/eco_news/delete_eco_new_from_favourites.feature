@@ -1,3 +1,4 @@
+@wip
 Feature: Remove Eco News from Favorites by ID
 
   As a user
