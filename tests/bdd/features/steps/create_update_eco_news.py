@@ -4,17 +4,9 @@
     :synopsis: """
 from behave import given, when, then
 
-from data.config import Config
-from pages.common_pages.main_page import MainPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
 
 
-@given("the user is logged in")
-def user_logged_in(context):
-    """Log in the user using valid credentials."""
-    main_page = MainPage(context.browser)
-    sign_in_modal = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
 
 @given("the CreateUpdateEcoNewsPage is open")

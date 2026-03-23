@@ -4,17 +4,12 @@
     :synopsis: """
 from behave import given, when, then
 
-from data.config import Config
+
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
-from pages.common_pages.main_page import MainPage
 
 
-@given("the user is logged in")
-def user_logged_in(context):
-    """Log in the user using valid credentials."""
-    main_page = MainPage(context.browser)
-    sign_in_modal = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
+
+
 
 
 @given("the Friends page is opened")

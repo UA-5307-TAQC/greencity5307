@@ -6,16 +6,10 @@ from behave import given, when, then
 
 from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract
 from pages.common_pages.main_page import MainPage
-from data.config import Config
 
 
-@given("the user is logged in")
-def user_logged_in(context):
-    """Log in the user using valid credentials."""
-    main_page = MainPage(context.browser)
 
-    sign_in_modal = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
+
 
 
 @given("the Saved page is opened")
