@@ -1,23 +1,9 @@
 """Step definitions for testing the habit duration slider."""
 
-import time
-
 # pylint: disable=not-callable
 
 from behave import given, then, when
-
-from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.habit_pages.one_habit_page import OneHabitPage
-
-
-@given('the user has opened a habit card')
-def step_impl_open_habit(context):
-    """Open a habit card from the user's space to edit its details."""
-    driver = context.browser
-    page = MyHabitPage(driver)
-
-    habit_card = page.get_habit_card()
-    habit_card.click_edit_habit()
 
 
 @given('the duration slider is initially set to the default value of "{expected_value}"')
@@ -87,10 +73,7 @@ def step_impl_adjust_slider(context, target_days):
     elif difference < 0:
         one_habit_page.move_slider_left(abs(difference))
 
-    time.sleep(0.5)  # Даємо UI час оновитися
-
-
-@then('the habit duration should be successfully updated to "{expected_days}" days')
+@then('the habit duration indicator should display "{expected_days}" days')
 def step_impl_verify_updated_duration(context, expected_days):
     """Verify that the slider has successfully updated to the chosen duration."""
     driver = context.browser

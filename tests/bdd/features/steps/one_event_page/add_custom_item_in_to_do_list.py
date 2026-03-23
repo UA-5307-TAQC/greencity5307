@@ -4,33 +4,9 @@ import time
 
 # pylint: disable=not-callable
 
-from behave import given, then, when
+from behave import then, when
 
-from data.config import Config
-from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
-from pages.common_pages.main_page import MainPage
 from pages.habit_pages.one_habit_page import OneHabitPage
-
-
-@given('the user is successfully logged in')
-def logged_in(context):
-    """Perform user login via the main page header."""
-    driver = context.browser
-
-    main_page = MainPage(driver)
-    sign_in_modal = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
-
-
-@given('the user has opened a specific habit')
-def step_impl_habit(context):
-    """Open a specific habit card for editing."""
-    driver = context.browser
-
-    page = MyHabitPage(driver)
-    habit_card = page.get_habit_card()
-    habit_card.click_edit_habit()
-    time.sleep(1)
 
 
 @when('the user adds a custom item "{item_name}" to the To-Do list')

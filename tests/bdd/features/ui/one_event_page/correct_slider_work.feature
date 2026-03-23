@@ -6,7 +6,7 @@ Feature: Habit Duration Customization
 
   Background:
     Given the user is successfully logged in
-    And the user has opened a habit card
+    And the user has opened a specific habit
     And the duration slider is initially set to the default value of "7"
 
   Scenario: Slider stops at the boundaries (Min and Max)
