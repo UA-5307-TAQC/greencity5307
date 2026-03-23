@@ -68,7 +68,26 @@ def step_click_logo(context):
 @then('the user is redirected to the {page_name} page')
 def step_redirect_page(context, page_name):
     """Redirect the user to the '{page_name}' page"""
-    pass
+    main_page = MainPage(context.browser)
+
+    page_to_url_part = {
+        "Eco News": "news",
+        "Events": "events",
+        "Map": "places",
+        "About Us": "about",
+        "Homepage": "greenCity",
+        "My Space": "profile",
+    }
+
+    expected_part = page_to_url_part.get(page_name)
+
+    if expected_part is None:
+        raise ValueError(f"Unknown page name for redirection check: '{page_name}'")
+
+    main_page.get_wait().until(
+        EC.url_contains(expected_part),
+        message=f"Expected to be redirected to '{page_name}' page, but URL did not contain '{expected_part}'. Current URL: {context.browser.current_url}"
+    )
 
 
 @then('the URL contains "{url_part}"')
@@ -82,7 +101,14 @@ def step_url_contains(context, url_part):
 def step_page_title(context, expected_title):
     """Check if the page title is equal to '{expected_title}'"""
     actual_text = context.current_page.main_header.text
-    assert actual_text in ("Eco news", "Еко новини"), f"Actual header text: {actual_text}"
+    localized_titles = {
+        "Eco news": ("Eco News", "Еко новини"),
+        "Events": ("Events", "Події"),
+        "Places": ("Places", "Карта"),
+        "About Us": ("About Us", "Про Нас"),
+    }
+    acceptable_titles = localized_titles.get(expected_title, (expected_title,))
+    assert actual_text in acceptable_titles, f"Actual header text: {actual_text}"
 
 
 @then('the page content is loaded successfully')
@@ -102,7 +128,13 @@ def step_map_visible(context):
 @then('the project information is displayed')
 def step_about_us_info(context):
     """Check if the project information is displayed"""
-    actual_text = context.current_page.section_header_one.text
+    page = context.current_page
+
+    page.get_wait().until(
+        lambda d: page.section_header_one.text.strip() != "",
+        message="About Us header text did not load in time"
+    )
+    actual_text = page.section_header_one.text.strip()
     assert actual_text in ("About Us", "Про Нас"), f"Actual text: {actual_text}"
 
 
