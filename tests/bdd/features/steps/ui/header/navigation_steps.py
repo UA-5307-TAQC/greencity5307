@@ -10,14 +10,6 @@ from pages.common_pages.main_page import MainPage
 from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 
 
-@given('the user is signed in')
-def step_user_signed_in(context):
-    """Get driver from context and make login."""
-    main_page = MainPage(context.browser)
-
-    sign_in_form = main_page.header.click_sign_in_link()
-    sign_in_form.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD).wait_page_loaded()
-
 @given('the user is on the "My Space" page')
 def step_user_on_page(context):
     """Check if the user on the right page."""

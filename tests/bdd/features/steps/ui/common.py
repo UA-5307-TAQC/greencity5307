@@ -8,6 +8,7 @@ from time import sleep
 import behave
 from behave import given, when, then, step
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from data.config import Config
 from pages.common_pages.main_page import MainPage
@@ -96,3 +97,18 @@ def step_impl(context: behave.runner.Context, menu_text: str):
 
     actual = main_page.header.new_link.text.strip()
     assert actual == menu_text, f"Expected menu text '{menu_text}', got actual '{actual}'"
+
+@given('the user is signed in')
+@given('the user is successfully logged in')
+@given('User A is logged into the system')
+def step_user_successfully_logged_in(context):
+    """Get driver from context and make login."""
+    main_page = MainPage(context.browser)
+    sign_in_form = main_page.header.click_sign_in_link()
+    sign_in_form.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD).wait_page_loaded()
+
+    main_page.get_wait().until(
+        EC.url_contains("profile"),
+        message=("URL did not change to profile after login. Current URL: "
+                 f"{context.browser.current_url}")
+    )
