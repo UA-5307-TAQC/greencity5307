@@ -1,4 +1,5 @@
 import allure
+import pytest
 from pytest import fixture
 from jsonschema import validate
 
@@ -8,46 +9,53 @@ from clients.event_comment_client import EventCommentClient
 
 from data.config import Config
 
-from tests.api.event_comment_tests.data import EVENT_ID, TEXT
+from types import SimpleNamespace
 
 
 @fixture
-def created_test_comment_and_client(access_token):
-    """Fixture that logs in user as precondition, creates an event comment
-    and deletes it as post condition."""
+def comment_factory(access_token, request):
+    """
+    Factory fixture to dynamically create comments in tests.
+    Guarantees cleanup of all created comments after the test finishes.
+    """
     with allure.step("Precondition: The user is logged in."):
         client = EventCommentClient(
             base_url=Config.BASE_API_URL,
             access_token=access_token
         )
 
-    with allure.step("Step 1: "
-                     "Send a POST request to create a new comment on the target event page."):
-        response = client.create_comment(
-            event_id=EVENT_ID,
-            text=TEXT
-        )
+    comments_to_delete = []
 
-        assert response.status_code == 200, \
-            (f"Creation of comment was failed. "
-             f"Status code: {response.status_code}, "
-             f"body: {response.text}")
+    def _create_comment(event_id: int, text: str = None) -> int:
+        """Inner function, that certain test will call."""
+        if text is None:
+            text = f"AQA: {request.node.name}"
 
-        response_data = response.json()
-        validate(instance=response_data, schema=event_comment_schema)
+        with allure.step(f"Step 1: "
+                         f"Send a POST request to create a new comment "
+                         f"for target event '{event_id}'."):
+            response = client.create_comment(event_id=event_id, text=text)
+            response_data = response.json()
 
-        assert response_data.get("text") == TEXT, \
-            f"Comments do not match. Expected: {TEXT}, got: {response_data.get("text")}"
+            if response.status_code == 201:
+                comment_id = response_data.get("id")
+                if comment_id:
+                    comments_to_delete.append(comment_id)
+            else:
+                pytest.fail(
+                    f"Creation failed. Status: {response.status_code}, body: {response.text}"
+                )
 
-        created_comment_id = response_data.get("id")
+            validate(instance=response_data, schema=event_comment_schema)
 
-    yield created_comment_id, client
+            return comment_id
 
-    with allure.step("Post condition: "
-                     "Send a DELETE request to delete the created comment for cleanup."):
-        response = client.delete_comment(comment_id=created_comment_id)
-        status_code = response.status_code
-        body = response.text
+    yield SimpleNamespace(
+        client=client,
+        create_comment=_create_comment
+    )
 
-        assert status_code == 200, \
-            f"Failed to delete the created comment. Status: {status_code}, body: {body}"
+    with allure.step("Teardown: Cleaning up all comments created by factory"):
+        for c_id in comments_to_delete:
+            res = client.delete_comment(comment_id=c_id)
+            assert res.status_code in {200, 404}

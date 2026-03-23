@@ -1,14 +1,21 @@
 import allure
 from jsonschema import validate
 
+from clients.event_comment_client import EventCommentClient
+
 from schemas.event_comment.event_comment_schema import event_comment_schema
+
+from tests.api.event_comment_tests.data import EVENT_ID
 
 
 @allure.title("Verify that user cannot like or dislike own comments.")
-def test_verify_user_cannot_like_dislike_own_event_comment(created_test_comment_and_client):
+def test_verify_user_cannot_like_dislike_own_event_comment(comment_factory):
     # Precondition: The user is logged in.
     # Post condition: Send a DELETE request to delete the created comment for cleanup.
-    created_comment_id, client = created_test_comment_and_client
+    client: EventCommentClient = comment_factory.client
+    created_comment_id = comment_factory.create_comment(
+        event_id=EVENT_ID
+    )
 
     with allure.step("Step 2: "
                      "Send a POST request to like created previously comment."):
