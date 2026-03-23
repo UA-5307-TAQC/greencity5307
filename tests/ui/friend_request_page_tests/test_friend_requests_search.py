@@ -9,7 +9,7 @@ from data.config import Config
 from pages.abstract_pages.friends_abstract.friend_requests_page import FriendRequestsPage
 from pages.common_pages.main_page import MainPage
 
-@allure.title("Search friend requests by partial username")
+@allure.title("TC-FR-01: Search friend requests by partial username")
 @allure.feature("Friends")
 @allure.story("Friend Requests - Search")
 def test_search_requests_by_partial_username(driver: WebDriver):
