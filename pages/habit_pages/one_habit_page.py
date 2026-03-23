@@ -42,8 +42,8 @@ class OneHabitPage(BasePage):
                           "//app-habit-edit-to-do-list//button[contains(text(), 'Відмінити') "
                           "or contains(text(), 'Cancel')]"),
         "save_button": (By.XPATH,
-                "//app-habit-edit-to-do-list//button[contains(text(), 'Зберегти') "
-                "or contains(text(), 'Save')]"),
+                          "//app-habit-edit-to-do-list//button[contains(text(), 'Зберегти') "
+                          "or contains(text(), 'Save')]"),
 
         # Invite friends
         "invite_friends_icon": (By.CSS_SELECTOR, ".icon-plus-grey"),

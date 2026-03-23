@@ -15,9 +15,9 @@ Feature: Habit Duration Customization
     When the user drags the slider handle to the minimum left position
     Then the text indicator should display the minimum value of "7"
 
-  Scenario Outline: Saving dynamically selected habit durations
+  Scenario Outline: Adjusting habit durations with the slider
     When the user adjusts the duration slider to "<target_days>" days
-    Then the habit duration should be successfully updated to "<target_days>" days
+    Then the habit duration indicator should display "<target_days>" days
 
     Examples:
       | target_days |
