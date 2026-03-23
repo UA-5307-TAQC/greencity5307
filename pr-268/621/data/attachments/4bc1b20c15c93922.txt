@@ -1,0 +1,25 @@
+2026-03-23 11:11:15,908 - GreenCityLogger - INFO - header_component.py  - click_new_link - Clicking the news link in the header.
+2026-03-23 11:11:16,029 - GreenCityLogger - INFO - header_component.py  - click_new_link - Successfully clicked the news link in the header.
+2026-03-23 11:11:16,533 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:16,559 - GreenCityLogger - INFO - likes_component.py  - check_like_status - Like status: False
+2026-03-23 11:11:16,647 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:17,162 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:17,678 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:18,193 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:18,709 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:19,225 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:19,740 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:20,256 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:20,772 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:21,288 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:21,804 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:22,320 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:22,836 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:23,354 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:23,877 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:24,400 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:24,916 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:25,432 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:25,948 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:26,464 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0
+2026-03-23 11:11:26,980 - GreenCityLogger - INFO - likes_component.py  - get_likes_count - Current likes: 0

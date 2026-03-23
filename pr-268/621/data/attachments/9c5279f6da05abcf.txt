@@ -1,0 +1,3 @@
+2026-03-23 11:04:33,626 - GreenCityLogger - INFO - base_client.py  - _request - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'ae1f47d8-7c00-480c-ae51-31febc277d4d'} and kwargs: {'params': {'favorite': False, 'page': -1, 'size': 20}}
+2026-03-23 11:04:33,805 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request_with_invalid_query_params - 400
+2026-03-23 11:04:33,805 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request_with_invalid_query_params - {'message': 'page must be a positive number'}
