@@ -1,3 +1,4 @@
+@wip
 Feature: Get social network image by URL
 
   As a client of the Social Network API

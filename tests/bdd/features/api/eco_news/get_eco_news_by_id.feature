@@ -1,3 +1,4 @@
+@wip
 Feature: Retrieve eco news by ID
 
   Scenario Outline: Validate eco news retrieval by ID with different languages

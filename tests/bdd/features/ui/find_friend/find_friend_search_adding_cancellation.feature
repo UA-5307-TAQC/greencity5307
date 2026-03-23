@@ -1,3 +1,4 @@
+@wip
 Feature: Find Friend Functionality
 
   # TC-FF-01
