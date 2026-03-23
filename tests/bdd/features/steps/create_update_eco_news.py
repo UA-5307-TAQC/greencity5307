@@ -4,106 +4,119 @@
     :synopsis: """
 from behave import given, when, then
 
+from components.common_components.auth_components.signin_modal_component import SignInComponent
+from data.config import Config
+from pages.common_pages.main_page import MainPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
+from pages.news_pages.eco_news_page import EcoNewsPage
 
 
+@given("the user is on the main page")
+def step_open_main_page(context):
+    """Open Main page"""
+    context.main_page = MainPage(context.browser)
 
 
-@given("the CreateUpdateEcoNewsPage is open")
-def open_create_eco_news_page(context):
-    """Open Create Eco News page and verify it is loaded."""
-    context.page = CreateUpdateEcoNewsPage(context.browser)
-    assert context.page.is_page_opened()
+@given("the user is logged in with valid credentials")
+def step_login(context):
+    """login with valid credentials"""
+    context.main_page = MainPage(context.browser)
+
+    sign_in_modal: SignInComponent = context.main_page.header.click_sign_in_link()
+    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
 
 
-@then("the page header should be visible")
-def verify_page_header(context):
-    """Verify that the page header is visible."""
-    assert context.page.is_page_opened()
+@when("the user navigates to Eco News page")
+def step_go_to_eco_news(context):
+    """Navigate to Eco News"""
+    context.main_page = MainPage(context.browser)
+    context.main_page.go_to_eco_news()
 
+
+@when("the user clicks on create news button")
+def step_click_create_news(context):
+    """Click create new button"""
+    context.news_page = EcoNewsPage(context.browser)
+    context.news_page.click_create_button()
+
+
+@then("the Create Eco News page should be opened")
+def step_verify_create_page_opened(context):
+    """Create Eco News page is opened"""
+    context.create_news_page = CreateUpdateEcoNewsPage(context.browser)
+    assert context.create_news_page.is_page_opened(), \
+        "Create Eco News page is not opened"
+
+
+@when("the user fills the eco news form with valid data")
+def step_fill_form_valid(context):
+    """Fulfilling the form with valid parameters"""
+    context.title = "Save the Planet"
+    context.tags = ("Events", "News")
+    context.source = "https://saving-planet.org/"
+    context.content = "Eco content" * 30
+
+    context.form = context.create_news_page.get_form()
+
+    context.form.fill_form(
+        title=context.title,
+        tags=context.tags,
+        source=context.source,
+        content=context.content
+    )
+
+
+@then("the form fields should contain entered data")
+def step_verify_form_data(context):
+    """Verify entered data"""
+    assert context.form.get_title() == context.title
+    assert context.form.get_source() == context.source
+    assert context.form.get_content() == context.content
+
+
+@when("the user submits the eco news form")
+def step_submit_form(context):
+    """Submit of form"""
+    context.create_news_page.click_submit()
+
+
+@then("the Create Eco News page should remain opened after submission")
+def step_verify_after_submit(context):
+    """Verify if Create Eco News page still remains after submission of form"""
+    assert context.create_news_page.is_page_opened(), \
+        "Create Eco News page is not opened after submit"
+
+@when("the user fills the eco news form with invalid data")
+def step_fill_invalid_form(context):
+    """Fulfilling the form with not valid data"""
+    context.title = ""
+    context.tags = ()
+    context.source = "invalid-url"
+    context.content = "Eco content"
+
+    context.form = context.create_news_page.get_form()
+
+    context.form.fill_form(
+        title=context.title,
+        tags=context.tags,
+        source=context.source,
+        content=context.content
+    )
+
+@then("the form fields should contain entered invalid data")
+def step_verify_invalid_form(context):
+    """Verification of invalid data"""
+    assert context.form.get_title() == context.title
+    assert context.form.get_source() == context.source
+    assert context.form.get_content() == context.content
+
+@when("the user tries to submit the eco news form")
+def step_try_submit(context):
+    """Try to click submit after invalid data enter"""
+    context.create_news_page.click_submit()
 
 @then("the submit button should be disabled")
-def verify_submit_button_disabled(context):
-    """Verify that the submit button is initially disabled."""
-    assert not context.page.submit_button.is_enabled()
-
-
-@when("I enter an empty title")
-def enter_empty_title(context):
-    """Enter an empty title into the form."""
-    context.form = context.page.get_form()
-    context.form.enter_title("")
-
-
-@when('I enter title "Save the Planet"')
-def enter_valid_title(context):
-    """Enter a valid title into the form."""
-    context.form = context.page.get_form()
-    context.form.enter_title("Save the Planet")
-
-
-@when("I enter empty tags")
-def enter_empty_tags(context):
-    """Enter empty tags into the form."""
-    context.form.enter_tags("")
-
-
-@when('I enter tags "Eco, Nature"')
-def enter_valid_tags(context):
-    """Enter valid tags into the form."""
-    context.form.enter_tags("Eco, Nature")
-
-
-@when('I enter source "Green Blog"')
-def enter_source(context):
-    """Enter a source value into the form."""
-    context.form.enter_source("Green Blog")
-
-
-@when("I enter content with less than 300 characters")
-def enter_short_content(context):
-    """Enter invalid short content (less than required length)."""
-    context.form.enter_content("Too short content")
-
-
-@when("I enter content with more than 300 characters")
-def enter_valid_content(context):
-    """Enter valid content exceeding 300 characters."""
-    content = "Eco " * 100  # >300 chars
-    context.form.enter_content(content)
-
-
-@when("I click the submit button")
-def click_submit(context):
-    """Click the submit button."""
-    context.page.click_submit()
-
-
-@then("the form should not be submitted")
-def verify_form_not_submitted(context):
-    """Verify that the form submission did not occur."""
-    assert context.page.is_page_opened()
-
-
-@then("the submit button should remain disabled")
-def verify_submit_still_disabled(context):
-    """Verify that the submit button is still disabled."""
-    assert not context.page.submit_button.is_enabled()
-
-
-@then('the "Create Eco News" page should still be open')
-def verify_still_on_page(context):
-    """Verify the user remains on the Create Eco News page."""
-    assert context.page.is_page_opened()
-
-
-@then("the form should be submitted")
-def verify_form_submitted(context):
-    """Verify that the form was successfully submitted."""
-    assert "eco-news" in context.browser.current_url
-
-
-@when("I click the cancel button")
-def click_cancel(context):
-    """Click the cancel button."""
-    context.page.click_cancel()
+def step_verify_submit_disabled(context):
+    """Check of submit button disabled"""
+    assert context.create_news_page.is_submit_button_disabled(), \
+        "Submit button is enabled for invalid data"

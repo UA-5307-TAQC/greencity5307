@@ -2,123 +2,127 @@
 """ :module:: about_us
     :platform: Unix
     :synopsis: """
-from behave import given, when, then
+from behave import  when, then
 
 from components.common_components.auth_components.signin_modal_component import SignInComponent
-from data.config import Config
-from pages.abstract_pages.friends_abstract.friends_abstract_page import FriendsAbstractPage
+
+
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.common_pages.about_us_page import AboutUsPage
+
 from pages.common_pages.main_page import MainPage
 from pages.common_pages.places_page import PlacesPage
 from pages.news_pages.eco_news_page import EcoNewsPage
 
 
-@given('the user is logged in')
-def user_logged_in(context):
-    """Log in a user using valid credentials."""
-    driver = context.browser
+@when("the user navigates to About Us page")
+def step_go_to_about_us(context):
+    """Navigation to About us page"""
+    context.main_page = MainPage(context.browser)
+    context.main_page.go_to_about_us()
 
-    main_page = MainPage(driver)
-    sign_in_modal = main_page.header.click_sign_in_link()
-    sign_in_modal.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD)
-
-
-@given('the About Us page is opened')
-def open_about_us_page(context):
-    """Open the About Us page and verify it is loaded."""
-    driver = context.browser
-    context.about_us_page = AboutUsPage(driver)
-    assert context.about_us_page.is_page_opened()
+@then('the About Us page should be opened')
+def step_verify_about_us(context):
+    """Verification of About Us opened"""
+    context.about_page = AboutUsPage(context.browser)
+    assert context.about_page.is_page_opened(), "About Us page is not opened"
 
 
-@then("the About Us page header should be visible")
-def verify_about_us_opened(context):
-    """Verify that the main header on the About Us page is visible."""
-    assert context.about_us_page.section_header_one.is_displayed()
+@when('the user clicks the first "Form Habit" button')
+def step_click_first_habit_button(context):
+    """Click of first Form habit button"""
+    context.about_page = AboutUsPage(context.browser)
+    context.about_page.click_section_button_form_habit_one()
 
 
-@when('I click the first "Form Habit" button')
-def click_first_form_habit(context):
-    """Click the first 'Form Habit' button and store resulting page."""
-    context.habit_page = context.about_us_page.click_section_button_form_habit_one()
+@then("the My Habit page should be opened")
+def step_verify_my_habit_page_opened(context):
+    """Verification My Habit page is opened """
+    context.my_habit_page = MyHabitPage(context.browser)
+    assert context.my_habit_page.wait_page_loaded(), "My Habit page is not opened"
+
+@when("the user navigates back to About Us page")
+def step_navigate_back_to_about_us_form_habit(context):
+    """Navigation back to the About Us"""
+    # Reuse MyHabitPage method to go back
+    context.my_habit_page = MyHabitPage(context.browser)
+    context.my_habit_page.go_to_about_us()
+
+@when('the user clicks the second "Form Habit" button')
+def step_click_second_habit_button(context):
+    """Click second Form Habit button"""
+    context.about_page = AboutUsPage(context.browser)
+    context.about_page.click_section_button_form_habit_two()
 
 
-@when('I click the second "Form Habit" button')
-def click_second_form_habit(context):
-    """Click the second 'Form Habit' button and store resulting page."""
-    context.habit_page = context.about_us_page.click_section_button_form_habit_two()
+@when('the user clicks Vision Card button {card_number:d} without signing in')
+def step_click_vision_card_without_sign_in(context, card_number):
+    """Click vision card button before sing in"""
+    context.about_page = AboutUsPage(context.browser)
+    if card_number == 3:
+        context.about_page.click_vision_card_button_without_sign_in(card_number)
+    else:
+        context.about_page.click_vision_card_button_without_sign_in(card_number)
 
 
-@then("the My Habits page should be opened")
-def verify_my_habits_opened(context):
-    """Verify that the My Habits page is opened."""
-    assert isinstance(context.habit_page, MyHabitPage)
+@then("the Sign In modal should be displayed")
+def step_verify_sign_in_modal(context):
+    """Verify sing in modal is opened"""
+    context.sign_in_modal = SignInComponent(context.browser)
+    assert context.sign_in_modal.is_displayed(), "Sign In modal is not opened"
 
 
-@when('I click the "Find Eco Places" button')
-def click_find_places(context):
-    """Click the 'Find Eco Places' button."""
-    context.places_page = context.about_us_page.click_vision_card_button(index=1)
+@then("the user closes the Sign In modal")
+def step_close_sign_in_modal(context):
+    """Close sing in modal"""
+    context.sign_in_modal = SignInComponent(context.browser)
+    context.sign_in_modal.close_sign_in()
+
+
+@then("the Main page should be opened")
+def step_verify_main_page(context):
+    """Verify Main page is opened"""
+    context.main_page = MainPage(context.browser)
+    assert context.main_page.is_page_opened(), "Main page is not opened after closing Sign In modal"
+
+@then("the Eco News page should be opened")
+def step_verify_news_page(context):
+    """Verify Eco News page opened"""
+    context.news_page = EcoNewsPage(context.browser)
+    assert context.news_page.is_header_visible(), "Eco News page is not opened"
+
+
+@when('the user clicks Vision Card button {card_number:d}')
+def step_click_vision_card_signed_in(context, card_number):
+    """Click vision card button after sing in"""
+    if card_number == 1:
+        context.about_page.click_vision_card_button(card_number)
+    elif card_number in (2,4):
+        context.about_page.click_vision_card_button(card_number)
+    elif card_number == 3:
+        context.about_page.click_vision_card_button(card_number)
+    else:
+        raise ValueError(f"Invalid Vision Card number: {card_number}")
 
 
 @then("the Places page should be opened")
-def verify_places_page(context):
-    """Verify that the Places page is opened."""
-    assert isinstance(context.places_page, PlacesPage)
+def step_verify_places_page(context):
+    """Verify Places page is opened """
+    context.places_page = PlacesPage(context.browser)
+    assert context.places_page.is_page_loaded(), "Places page is not opened"
 
 
-@when('I click the "Find People" button')
-def click_find_people(context):
-    """Click the 'Find People' button."""
-    context.friends_page = context.about_us_page.click_vision_card_button(index=2)
+@then("the user navigates back to About Us page")
+def step_navigate_back_to_about_us(context):
+    """Navigate back to about us from singed in vision cards links"""
+    if hasattr(context, "places_page"):
+        context.about_page = context.places_page.go_to_about_us()
+        del context.places_page
+    elif hasattr(context, "friends_page"):
+        context.about_page = context.friends_page.go_to_about_us()
+        del context.friends_page
+    elif hasattr(context, "news_page"):
+        context.about_page = context.news_page.go_to_about_us()
+        del context.news_page
 
-
-@then("the Friends page should be opened")
-def verify_friends_page(context):
-    """Verify that the Friends page is opened."""
-    assert isinstance(context.friends_page, FriendsAbstractPage)
-
-
-@when('I click the "Get Inspired" button')
-def click_get_inspired(context):
-    """Click the 'Get Inspired' button."""
-    context.news_page = context.about_us_page.click_vision_card_button(index=3)
-
-
-@then("the Eco News page should be opened")
-def verify_news_page(context):
-    """Verify that the Eco News page is opened."""
-    assert isinstance(context.news_page, EcoNewsPage)
-
-
-@when('I click the "Find Eco Places" button before sign in')
-def click_places_no_auth(context):
-    """Attempt to open Places page without authentication."""
-    context.modal = context.about_us_page.click_vision_card_button_without_sign_in(1)
-
-
-@when('I click the "Find People" button before sign in')
-def click_people_no_auth(context):
-    """Attempt to open Friends page without authentication."""
-    context.modal = context.about_us_page.click_vision_card_button_without_sign_in(2)
-
-
-@when('I click the "Get Inspired" button before sign in')
-def click_news_no_auth(context):
-    """Attempt to open News page without authentication."""
-    context.modal = context.about_us_page.click_vision_card_button_without_sign_in(3)
-
-
-@then("the Sign In modal should be opened")
-def verify_sign_in_modal(context):
-    """Verify that the Sign In modal is displayed."""
-    modal = SignInComponent(context.browser)
-    assert modal.is_displayed()
-
-
-@then("I return to the About Us page")
-def return_to_about_us(context):
-    """Navigate back and verify the About Us page is opened again."""
-    context.browser.back()
-    assert context.about_us_page.is_page_opened()
+    assert context.about_page.is_page_loaded(), "About Us page is not opened"
