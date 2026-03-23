@@ -1,13 +1,15 @@
-@wip
 Feature: Like news on the one news page
 
   As a registered user
   I want to like or unlike a news article
   So that the like counter updates correctly
 
+  Background:
+    Given the user is signed in
+    And the user is on the "My Space" page
+    And the header navigation menu is visible
+
   Scenario: User likes or unlikes a news article from the one news page
-    Given the user opens the main page
-    And the user signs in with valid credentials
     When the user navigates to the Eco News page
     And the user opens a random news article
     Then the user sees the current number of likes
