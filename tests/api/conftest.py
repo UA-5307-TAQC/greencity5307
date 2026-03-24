@@ -6,9 +6,8 @@ from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 
 
-@pytest.fixture(scope="function")
-def access_token():
-    """Fixture that logs in the user for api tests."""
+def login_user():
+    """Function that logs in the user and returns auth token."""
     client = OwnSecurityClient(Config.BASE_USER_API_URL)
     response = client.sign_in(
         email=Config.USER_EMAIL,
@@ -23,6 +22,18 @@ def access_token():
         f"Login response does not contain access token. Response body: {response.text}"
 
     return auth_token
+
+
+@pytest.fixture(scope="function")
+def access_token():
+    """Fixture that logs in the user for api tests in test function scope."""
+    return login_user()
+
+
+@pytest.fixture(scope="module")
+def module_access_token():
+    """Fixture that logs in the user for api tests in test module scope."""
+    return login_user()
 
 
 @pytest.fixture(scope="function")
