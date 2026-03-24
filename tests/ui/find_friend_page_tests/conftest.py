@@ -1,27 +1,26 @@
 """Conftest file with fixtures for FindFriend tests."""
+import allure
 from pytest import fixture
 
-from pages.common_pages.main_page import MainPage
+from tests.api.conftest import access_token
 
-from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage
+from clients.friends_client import FriendsClient
+
+from data.config import Config
+
+TARGET_USER_ID = 31
 
 
 @fixture(scope="function")
-def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=redefined-outer-name
-    """Fixture that verifies, that the user was not added to the friends list."""
-    def _verify_is_added_friend(name):
-        main_page = MainPage(driver_with_login)
-        my_habit_page = main_page.header.click_my_space_link()
-        my_friend_page = my_habit_page.profile_banner.click_view_all_friends()
-        my_friend_page.select_tab("Find a friend")
-        find_friend_page = FindFriendPage(driver_with_login)
-        find_friend_page.search_friend(name)
-        friend_card = find_friend_page.get_friend_card_by_name(name)
-
-        if friend_card.add_friend_btn.text == "Cancel request":
-            friend_card.click_add_friend_btn()
-            find_friend_page.wait_for_snack_bar_disappear()
-
-        find_friend_page.header.click_main_page_link()
-
-    return _verify_is_added_friend
+def target_user_not_added_to_friends(access_token):
+    """API Fixture that verifies if friend request was sent to the target user."""
+    with allure.step(f"Precondition: A target user exists in the system "
+                     f"who is not yet in the user's friend list"):
+        client = FriendsClient(
+            base_url=Config.BASE_API_URL,
+            access_token=access_token
+        )
+        response = client.cancel_request(friend_id=TARGET_USER_ID)
+        status_code = response.status_code
+        assert status_code in {200, 404}, \
+            f"Failed to prep state. Status: {response.status_code}, Body: {response.text}"

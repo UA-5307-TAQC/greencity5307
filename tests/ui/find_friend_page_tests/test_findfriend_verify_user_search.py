@@ -2,7 +2,7 @@ import allure
 
 from data.config import Config
 
-from pages.common_pages.main_page import MainPage
+from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
 from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage
 
 
@@ -10,17 +10,14 @@ from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPag
 def test_find_friend_verify_user_search_friend_request(driver_with_login, target_user_not_added_to_friends):
     target_user_name = "Liubomyr Halamaha"
 
-    with allure.step(f"Precondition: A target user '{target_user_name}' exists in the system "
-                     f"who is not yet in the user's friend list"):
-        target_user_not_added_to_friends(target_user_name)
-
     with allure.step("Step 1: Navigate to the GreenCity URL"):
-        main_page = MainPage(driver_with_login)
-        user_name_from_header = main_page.header.get_signed_in_user_name()
+        main_page = MySpaceAbstractPage(driver_with_login).header.click_logo()
 
         # Expected result:
         # The main page loads successfully. The user is logged in.
         assert main_page.is_loaded()
+
+        user_name_from_header = main_page.header.get_signed_in_user_name()
         assert user_name_from_header in [Config.USER_NAME, "Hlib", "Oleksandr"], \
             f"The expected user is not signed in. Found user: '{user_name_from_header}'"
 
