@@ -22,3 +22,5 @@ class Config: # pylint: disable=too-few-public-methods
     USER_EMAIL = os.getenv("USER_EMAIL")
     USER_PASSWORD = os.getenv("USER_PASSWORD")
     USER_NAME = os.getenv("USER_NAME")
+    MAILOSAUR_API_KEY = os.getenv("MAILOSAUR_API_KEY")
+    MAILOSAUR_SERVER_ID = os.getenv("MAILOSAUR_SERVER_ID")
