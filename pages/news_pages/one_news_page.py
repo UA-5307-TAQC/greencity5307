@@ -10,6 +10,7 @@ from utils.custom_web_element import CustomWebElement
 
 class OneNewsPage(BasePage):
     """Page object for the One News page."""
+
     locators = {
         "tag": (By.CSS_SELECTOR, ".tags > .tags-item"),
         "title": (By.CSS_SELECTOR, ".news-title.word-wrap"),
@@ -17,7 +18,7 @@ class OneNewsPage(BasePage):
         "author": (By.CSS_SELECTOR, ".news-info > .news-info-author"),
         "likes": (By.CSS_SELECTOR, ".news-info > .like_wr", LikesComponent),
         "main_text": (By.CSS_SELECTOR, ".ql-editor"),
-        "comments_section": (By.TAG_NAME, "app-comments-container")
+        "comments_section": (By.TAG_NAME, "app-comments-container"),
     }
 
     tag: CustomWebElement
