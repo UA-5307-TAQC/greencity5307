@@ -18,10 +18,11 @@ ignore-paths=
 [MESSAGES CONTROL]
 disable=
     cyclic-import,
-    too-few-public-methods
+    too-few-public-methods,
+    E1102
 
 [FORMAT]
-max-line-length=100
+max-line-length=120
 
 [DESIGN]
 max-args=10

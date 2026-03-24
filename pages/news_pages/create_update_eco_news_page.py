@@ -13,7 +13,7 @@ from pages.base_page import BasePage
 class CreateUpdateEcoNewsPage(BasePage):
     """Page object for the create_update_eco_news page."""
     locators = {
-        "page_title": (By.XPATH, "//*[@id='main-content']/div/div[1]"),
+        "page_title": (By.XPATH, "//*[@id='main-content']/div/div[1]/h2"),
         "form": (By.XPATH, "//*[@id='main-content']//form"),
 
         "cancel_button": (By.XPATH, "//button[contains(text(),'Cancel')]"),

@@ -47,5 +47,6 @@ eco_news_response_schema = {
             "items": one_news_schema,
             "description": "List of news items on current page"
         }
-    }
+    },
+    "additionalProperties": False
 }

@@ -2,10 +2,11 @@
 from typing import List
 
 import allure
-from selenium.common.exceptions import TimeoutException
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
 
 from components.news_components.button_create_new_component import CreateNewButtonComponent
 from components.news_components.news_card_base_component import NewsCardBaseComponent
@@ -130,7 +131,6 @@ class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
         return self.get_wait().until(
             EC.visibility_of_element_located(self.locators["main_header"])
         ).is_displayed()
-
 
     @allure.step("Wait at least one news card is present")
     def wait_cards_present(self) -> None:
