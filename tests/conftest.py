@@ -4,68 +4,14 @@ import logging
 from datetime import datetime
 
 import allure
-import pytest
-
 from allure_commons.types import AttachmentType
-from pytest import fixture
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options as ChromeOptions
-from selenium.webdriver.firefox.options import Options as FirefoxOptions
 
-from data.config import Config
-from pages.common_pages.main_page import MainPage
+from pytest import fixture, hookimpl
+
 from utils.logger import logger
-from clients.own_security_client import OwnSecurityClient
 
 
-@fixture(params=["chrome"], scope="function")
-def driver(request):
-    """
-    Parametrized pytest fixture that returns a Selenium WebDriver for Chrome and Firefox.
-    - Param values: "chrome" or "firefox"
-    - Set `HEADLESS` env var to `1` or `true` to enable headless mode.
-    """
-    allure.dynamic.parameter("browser", request.param)
-    browser = request.param
-    headless_flag = Config.HEADLESS
-
-    drv = None
-    match browser:
-        case "firefox":
-            opts = FirefoxOptions()
-            if headless_flag:
-                opts.headless = True
-            drv = webdriver.Firefox(options=opts)
-        case "chrome":
-            opts = ChromeOptions()
-            if headless_flag:
-                opts.add_argument("--headless=new")
-            opts.add_argument(f"--lang={Config.BROWSER_LANG}")
-            opts.add_argument("--no-sandbox")
-            opts.add_argument("--disable-gpu")
-            opts.add_argument("--window-size=1920,1080")
-            drv = webdriver.Chrome(options=opts)
-    drv.implicitly_wait(Config.IMPLICITLY_WAIT)
-    drv.get(Config.BASE_UI_URL)
-
-    yield drv
-
-    drv.quit()
-
-
-@pytest.fixture(scope="function")
-# pylint: disable=redefined-outer-name
-def driver_with_login(driver):
-    """Fixture that logs in the user before yielding the WebDriver."""
-
-    with allure.step(f"Logging in the user with email: {Config.USER_EMAIL}"):
-        main_page = MainPage(driver)
-        sign_in_form = main_page.header.click_sign_in_link()
-        sign_in_form.sign_in(Config.USER_EMAIL, Config.USER_PASSWORD).wait_page_loaded()
-    yield driver
-
-
-@pytest.hookimpl(hookwrapper=True)
+@hookimpl(hookwrapper=True)
 # pylint: disable=redefined-outer-name
 def pytest_runtest_makereport(item):
     """Hook to make screenshots and attach them to allure"""
@@ -111,42 +57,3 @@ def capture_logs_to_allure():
 
     logger.removeHandler(ch)
     log_capture_string.close()
-
-
-@fixture(scope="function")
-def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=redefined-outer-name
-    """Fixture that verifies, that the user was not added to the friends list."""
-    def _verify_is_added_friend(name):
-        main_page = MainPage(driver_with_login)
-        my_habit_page = main_page.header.click_my_space_link()
-        find_friend_page = my_habit_page.profile_banner.click_add_friends_btn()
-        find_friend_page.search_friend(name)
-        friend_card = find_friend_page.get_friend_card_by_name(name)
-
-        if friend_card.add_friend_btn.text == "Cancel request":
-            friend_card.click_add_friend_btn()
-            find_friend_page.wait_for_snack_bar_disappear()
-
-        find_friend_page.header.click_main_page_link()
-
-    return _verify_is_added_friend
-
-
-@fixture(scope="function")
-def access_token():
-    """Fixture that logs in the user for api tests."""
-    client = OwnSecurityClient(Config.BASE_USER_API_URL)
-    response = client.sign_in(
-        email=Config.USER_EMAIL,
-        password=Config.USER_PASSWORD
-    )
-
-    assert response.status_code == 200, \
-        f"Login failed. Status: {response.status_code}. Response body: {response.text}"
-
-
-    auth_token = response.json().get("accessToken")
-    assert auth_token, \
-        f"Login response does not contain access token. Response body: {response.text}"
-
-    return auth_token

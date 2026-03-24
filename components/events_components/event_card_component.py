@@ -2,6 +2,7 @@
 from typing import List
 
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import TimeoutException
 
 from components.base_component import BaseComponent
 
@@ -83,7 +84,13 @@ class EventCardComponent(BaseComponent):
 
     def is_saved(self) -> bool:
         """Check if the event is saved."""
-        return "flag-active" in self.save_flag.get_attribute("class")
+        try:
+            self.get_wait(timeout=2).until(
+                lambda _: "flag-active" in self.save_flag.get_attribute("innerHTML")
+            )
+            return True
+        except TimeoutException:
+            return False
 
     @property
     def tags(self):

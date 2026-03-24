@@ -23,6 +23,8 @@ class HeaderComponent(BaseComponent):
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
     my_space_tab_locator: Locators = (By.XPATH,
                                       ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]")
+    ubs_courier_link_locator: Locators = (By.XPATH,
+                                    ".//a[@href='#/ubs']")
 
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self) -> "MySpaceAbstractPage":
@@ -55,6 +57,16 @@ class HeaderComponent(BaseComponent):
         ).click()
         return EventPage(self.root.parent)
 
+    @allure.step("Clicking the UBSCourier link in the header")
+    def click_ubs_courier_link(self) -> "UBSCourierPage":
+        """Click the UBSCourier link in the header and return an instance of the UBSCourierPage."""
+        from pages.common_pages.ubc_courier_page import \
+            UBSCourierPage  # pylint: disable=import-outside-toplevel
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.ubs_courier_link_locator)
+        ).click()
+        return UBSCourierPage(self.root.parent)
+
     @allure.step("Clicking sign in button in the header")
     def click_sign_in_link(self) -> SignInComponent:
         """Click the sign in link in the header and return an instance of the SignInComponent."""
@@ -62,3 +74,33 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.sign_in_link_locator)
         ).click()
         return SignInComponent(self.root.parent)
+
+    @allure.step("Clicking the places link in the header")
+    def click_places_link(self) -> "PlacesPage":
+        """Click the places link in the header and return an instance of the PlacesPage."""
+        from pages.common_pages.places_page import \
+            PlacesPage  # pylint: disable=import-outside-toplevel
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.places_link_locator)
+        ).click()
+        return PlacesPage(self.root.parent)
+
+    @allure.step("Clicking the about us link in the header")
+    def click_about_us_link(self) -> "AboutUsPage":
+        """Click the about us link in the header and return an instance of the AboutUsPage."""
+        from pages.common_pages.about_us_page import \
+            AboutUsPage  # pylint: disable=import-outside-toplevel
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.about_us_link_locator)
+        ).click()
+        return AboutUsPage(self.root.parent)
+
+    @allure.step("Clicking the GreenCity logo in the header")
+    def click_logo(self) -> "MainPage":
+        """Click the logo in the header and return an instance of the MainPage."""
+        from pages.common_pages.main_page import \
+            MainPage  # pylint: disable=import-outside-toplevel
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.logo_locator)
+        ).click()
+        return MainPage(self.root.parent)

@@ -22,7 +22,7 @@ def create_habit_page_context(driver_with_login):
 
 
 @pytest.fixture(scope="function")
-def driver_delete_habit_after(create_habit_page_context):
+def delete_habit_after(create_habit_page_context):
     """Fixture to delete the created habit after the test."""
     yield create_habit_page_context
 
