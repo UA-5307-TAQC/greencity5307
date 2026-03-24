@@ -106,13 +106,13 @@ def test_create_eco_news_and_verify_it_appears_in_feed(
                 f"Created news article page did not open. "
                 f"Current URL: {driver.current_url}"
             )
-            assert one_news_page.get_title().strip() == news_title, (
+            assert one_news_page.title.text.strip() == news_title, (
                 "Opened article title does not match created news title."
             )
-            assert one_news_page.get_main_text().strip(), (
+            assert one_news_page.main_text.text.strip(), (
                 "Opened article main text is empty."
             )
-            assert one_news_page.get_creation_date().strip(), (
+            assert one_news_page.creation_date.text.strip(), (
                 "Opened article creation date is empty."
             )
 

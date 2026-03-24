@@ -233,6 +233,7 @@ class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
     @allure.step("Check if news with title '{title}' is present in feed")
     def is_news_present_in_feed(self, title: str) -> bool:
         """Check if news with given title is present in the feed."""
+        self.wait_cards_present()
         cards = self.get_cards_raw()
         for card in cards:
             titles = card.find_elements(*self.locators["card_title_relative"])
