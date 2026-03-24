@@ -11,7 +11,7 @@ from mailosaur.models import SearchCriteria
 def test_signup_and_verify():
     client = OwnSecurityClient(Config.BASE_USER_API_URL)
 
-    server_id = "hgteg6fv"
+    server_id = Config.MAILOSAUR_SERVER_ID
     test_email = f"oleg{int(time.time())}@{server_id}.mailosaur.net"
     test_name = "Oleg1324"
 
@@ -32,21 +32,23 @@ def test_signup_and_verify():
 
         email = mailosaur.messages.get(server_id, criteria)
 
+        assert getattr(email, "html", None) is not None, "HTML content not found in verification email"
+        assert getattr(email.html, "links", None), "No links found in verification email"
         verification_link = email.html.links[0].href
-        assert verification_link is not None, "Verification link not found in email"
+        assert verification_link, "Verification link not found in email"
 
     with allure.step("3. Verify user via GET request"):
-        verify_response = requests.get(verification_link)
+        verify_response = requests.get(verification_link, timeout=10)
 
         assert verify_response.status_code == 200, f"Verification failed with status {verify_response.status_code}"
 
-    # with allure.step("4. Verify user can sign in after confirmation"):
-    #     login_response = client.sign_in(
-    #         email=test_email,
-    #         password=Config.USER_PASSWORD
-    #     )
-    #
-    #     assert login_response.status_code == 200, f"Login failed after verification. Response: {login_response.text}"
-    #
-    #     auth_token = login_response.json().get("accessToken")
-    #     assert auth_token is not None, "Login response does not contain access token"
+    with allure.step("4. Verify user can sign in after confirmation"):
+        login_response = client.sign_in(
+            email=test_email,
+            password=Config.USER_PASSWORD
+        )
+
+        assert login_response.status_code == 200, f"Login failed after verification. Response: {login_response.text}"
+
+        auth_token = login_response.json().get("accessToken")
+        assert auth_token is not None, "Login response does not contain access token"
