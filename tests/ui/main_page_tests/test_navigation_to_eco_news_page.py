@@ -45,4 +45,5 @@ def test_navigation_to_eco_news_page(driver: WebDriver) -> None:
         assert eco_news_page.is_title_visible(), "Eco News page title is not visible"
 
     with allure.step("Step 10: Verify news feed is visible"):
-        assert eco_news_page.is_news_feed_visible(), "Eco News content is not visible"
+        eco_news_page.wait_cards_present()
+        assert eco_news_page.get_cards_count() > 0, "Eco News content is not visible"

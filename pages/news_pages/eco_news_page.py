@@ -277,7 +277,7 @@ class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
     @allure.step("Checking if Eco News feed is visible")
     def is_news_feed_visible(self) -> bool:
         """Check if Eco News feed is visible."""
-        return self.main_header.is_displayed()
+        return self.is_feed_visible()
 
     def get_current_url(self) -> str:
         """Get current page URL."""
