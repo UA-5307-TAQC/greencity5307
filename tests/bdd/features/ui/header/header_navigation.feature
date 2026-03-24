@@ -1,7 +1,7 @@
 Feature: Header navigation functionality
 
   Background:
-    Given the user is signed in
+    Given the user is successfully logged in
     And the user is on the "My Space" page
     And the header navigation menu is visible
 

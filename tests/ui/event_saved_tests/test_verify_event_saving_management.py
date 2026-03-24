@@ -14,6 +14,8 @@ from data.config import Config
 
 from clients.event_client import EventClient
 
+from tests.api.conftest import access_token
+
 EVENT_CARD_NAME = "Some Event"
 EVENT_ID = 36
 

@@ -1,22 +1,24 @@
-@wip
 Feature: Friends page tabs navigation
 
-  As a logged-in user
-  I want to navigate through the tabs on the Friends page
-  So that I can manage friends, requests, and find new friends
+  As a signed-in user
+  I want to navigate through tabs on the Friends page
+  So that I can view My Friends, Find Friends, and Friend Requests
 
   Background:
-    Given the user is logged in
-    And the Friends page is opened
+    Given the user is on the main page
+    And the user is logged in with valid credentials
 
-  Scenario: Navigate to My Friends tab
-    When I click the "My Friends" button
-    Then the My Friends tab should be opened
 
-  Scenario: Navigate to Friend Requests tab
-    When I click the "Friend Request" button
-    Then the Friend Requests tab should be opened
+  Scenario: Navigate through Friends page tabs
+    When the user navigates to My Space page
+    And the user goes to the Friends tab
+    Then the Friends page should be opened
 
-  Scenario: Navigate to Find a Friend tab
-    When I click the "Find a Friend" button
-    Then the Find a Friend tab should be opened
+    When the user goes to "My Friends" tab at friends page
+    Then the "My Friends" tab at friends page should be active
+
+    When the user goes to "Find Friends" tab at friends page
+    Then the "Find Friends" tab at friends page should be active
+
+    When the user goes to "Friend Requests" tab at friends page
+    Then the "Friend Requests" tab at friends page should be active

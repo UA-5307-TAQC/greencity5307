@@ -22,7 +22,7 @@ class MyProfileDataBannerComponent(BaseComponent):
         "habits_in_prog": (By.XPATH, ".//div[@class='chain'][2]/p[1]"),
         "news": (By.XPATH, ".//div[@class='chain'][3]/p[1]"),
         "events": (By.XPATH, ".//div[@class='chain'][4]/p[1]"),
-        "add_friends_btn": (By.CSS_SELECTOR, "div.add-friends"),
+        "add_friends_btn": (By.CSS_SELECTOR, "div.add-friends > a"),
         "view_all_friends_link": (By.CSS_SELECTOR, "a.text-more"),
     }
 
