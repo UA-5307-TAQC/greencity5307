@@ -59,3 +59,8 @@ class FriendsPage(BasePage):
     def get_friend_items(self) -> list[FriendItemComponent]:
         """Get friend items"""
         return self.friend_cards
+
+    @allure.step("")
+    def is_page_loaded(self):
+        """Checks if the 'My friends' page is loaded."""
+        return self._is_loaded_indicator(self.locators["search_input"][:2])

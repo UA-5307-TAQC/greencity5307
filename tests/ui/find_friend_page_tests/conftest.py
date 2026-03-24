@@ -3,6 +3,8 @@ from pytest import fixture
 
 from pages.common_pages.main_page import MainPage
 
+from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage
+
 
 @fixture(scope="function")
 def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=redefined-outer-name
@@ -10,7 +12,9 @@ def target_user_not_added_to_friends(driver_with_login):  # pylint: disable=rede
     def _verify_is_added_friend(name):
         main_page = MainPage(driver_with_login)
         my_habit_page = main_page.header.click_my_space_link()
-        find_friend_page = my_habit_page.profile_banner.click_add_friends_btn()
+        my_friend_page = my_habit_page.profile_banner.click_view_all_friends()
+        my_friend_page.select_tab("Find a friend")
+        find_friend_page = FindFriendPage(driver_with_login)
         find_friend_page.search_friend(name)
         friend_card = find_friend_page.get_friend_card_by_name(name)
 
