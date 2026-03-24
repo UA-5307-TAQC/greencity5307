@@ -17,7 +17,7 @@ class SavedAbstract(BasePage):
 
     def get_tabs_component(self) -> SavedTabsComponent:
         """Return an instance of the SavedTabsComponent."""
-        tabs_root = self.driver.find_element(*self.locators["tabs_container"])
+        tabs_root = self.driver.find_element(*SavedAbstract.locators["tabs_container"])
         return SavedTabsComponent(tabs_root)
 
     def go_to_tab(self, tab_name: str):

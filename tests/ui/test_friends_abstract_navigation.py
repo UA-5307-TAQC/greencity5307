@@ -15,7 +15,7 @@ from pages.common_pages.main_page import MainPage
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.label("owner", "vitalina.kliuieva")
 @allure.testcase("TC-101")
-def test_create_eco_news_with_invalid_data(driver):
+def test_friends_abstract_navigation(driver):
     """
         TC-102
         Title: Navigate through tabs

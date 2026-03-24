@@ -1,9 +1,9 @@
 """Page object for the My Events page."""
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
 
 from pages.base_page import BasePage
 from pages.events_pages.create_update_event_page import CreateEventPage
+from utils.custom_web_element import CustomWebElement
 
 
 class MyEventsPage(BasePage):
@@ -17,10 +17,10 @@ class MyEventsPage(BasePage):
         "offline_checkbox": (By.ID, "mat-mdc-checkbox-24-input"),
     }
 
-    add_event_button: WebElement
-    favorites_toggle: WebElement
-    online_checkbox: WebElement
-    offline_checkbox: WebElement
+    add_event_button: CustomWebElement
+    favorites_toggle: CustomWebElement
+    online_checkbox: CustomWebElement
+    offline_checkbox: CustomWebElement
 
     def navigate_to_add_event_page(self) -> CreateEventPage:
         """Navigate to the add event page."""

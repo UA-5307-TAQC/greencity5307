@@ -2,8 +2,10 @@
  which represents the friend card on a web page."""
 
 import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
 from components.base_component import BaseComponent
 from pages.abstract_pages.friend_abstract_users.friend_abstract_page import FriendAbstractPage
@@ -16,7 +18,7 @@ class FriendCardComponent(BaseComponent):
     locators = {
         "friend_name": (By.CSS_SELECTOR, "p.friend-name"),
         "friend_city": (By.CSS_SELECTOR, "p.friend-city"),
-        "add_friend_btn": (By.CSS_SELECTOR, ".friend-btn")
+        "add_friend_btn": (By.CSS_SELECTOR, "div.friend-btn")
     }
 
     friend_name: CustomWebElement
@@ -42,3 +44,30 @@ class FriendCardComponent(BaseComponent):
         """Click on a friend card."""
         self.friend_name.wait_and_click()
         return FriendAbstractPage(self.driver)
+
+
+    def has_username(self) -> bool:
+        """Verifies if a friend card has a user name."""
+        try:
+            self.get_wait().until(EC.visibility_of(self.friend_name))
+            return True
+        except (NoSuchElementException, TimeoutException):
+            return False
+
+
+    def has_user_city(self) -> bool:
+        """Verifies if a friend card has a user city."""
+        try:
+            self.get_wait().until(EC.visibility_of(self.friend_city))
+            return True
+        except (NoSuchElementException, TimeoutException):
+            return False
+
+
+    def has_add_friend_btn(self) -> bool:
+        """Verifies if a friend card has a button to add a user to friends."""
+        try:
+            self.get_wait().until(EC.visibility_of(self.add_friend_btn))
+            return True
+        except (NoSuchElementException, TimeoutException):
+            return False

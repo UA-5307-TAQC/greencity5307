@@ -7,7 +7,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 
 from data.config import Config
 from pages.common_pages.main_page import MainPage
-from pages.friend_requests_page import FriendRequestsPage
+from pages.abstract_pages.friends_abstract.friend_requests_page import FriendRequestsPage
 
 
 @pytest.mark.ui
