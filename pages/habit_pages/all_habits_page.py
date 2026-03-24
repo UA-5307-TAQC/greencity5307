@@ -68,8 +68,7 @@ class AllHabitPage(BasePage):
     @allure.step("Get all habit cards on All Habits page")
     def get_all_habit_cards(self) -> List[HabitCardComponent]:
         """Returns a list of habit cards."""
-        self.get_wait().until(
+        elements = self.get_wait().until(
             EC.visibility_of_any_elements_located(self.habit_cards_locator)
         )
-        elements = self.driver.find_elements(*self.habit_cards_locator)
         return [HabitCardComponent(el) for el in elements]
