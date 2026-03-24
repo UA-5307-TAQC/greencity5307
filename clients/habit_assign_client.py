@@ -40,7 +40,7 @@ class HabitAssignClient(BaseClient):
         self,
         habit_assign_id: int,
         lang: str = "en-GB"
-    )  -> Response:
+    ) -> Response:
         """Get habit assign"""
 
         params = {

@@ -69,8 +69,8 @@ def validate_json():
 
                 report_lines = []
                 for i, err in enumerate(err_list, 1):
-                        path = " -> ".join(map(str, list(err.path)[1:])) or "root"
-                        report_lines.append(f"{i}. [{path}] -> {err.message} (Actual: {err.instance})")
+                    path = " -> ".join(map(str, list(err.path)[1:])) or "root"
+                    report_lines.append(f"{i}. [{path}] -> {err.message} (Actual: {err.instance})")
 
                 allure.attach(
                     "\n".join(report_lines),
@@ -78,6 +78,6 @@ def validate_json():
                     attachment_type=allure.attachment_type.TEXT
                 )
 
-            assert False, f"JSON validation failed. Found {len(grouped_errors)} schema errors"
+            pytest.fail(f"JSON validation failed. Found {len(grouped_errors)} schema errors")
 
     return _log_json_errors

@@ -27,6 +27,7 @@ def test_get_all_habit_assignments_success(
     with allure.step(f"Pre-condition: Assign habit with id={CORRECT_HABIT_ID}"):
         assign_habit(CORRECT_HABIT_ID)
         habit_assign_id = clean_habit.find(CORRECT_HABIT_ID)
+        assert habit_assign_id is not None
         clean_habit.habits_to_delete.append(habit_assign_id)
 
     with allure.step("1. Send request to get all habit assignments with supported lang code"):
