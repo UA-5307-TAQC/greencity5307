@@ -1,0 +1,2 @@
+2026-03-24 10:39:41,731 - GreenCityLogger - INFO - header_component.py  - click_new_link - Clicking the news link in the header.
+2026-03-24 10:39:41,838 - GreenCityLogger - INFO - header_component.py  - click_new_link - Successfully clicked the news link in the header.
