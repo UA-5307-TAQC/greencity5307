@@ -16,7 +16,6 @@ from pages.common_pages.places_page import PlacesPage
 def test_saved_places_page_opens_correctly(driver: WebDriver):
     """Test opening Saved Places page and verifying its main elements."""
     with allure.step("Open GreenCity main page"):
-        driver.get(Config.BASE_UI_URL)
         main_page = MainPage(driver)
         assert main_page.is_page_opened()
 

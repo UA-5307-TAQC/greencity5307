@@ -37,7 +37,7 @@ class PlacesPage(BasePage):
         saved_places_page = PlacesSavedPage(self.driver)
         saved_places_page.open_places_tab()
 
-        self.get_wait().until(EC.url_contains("places"))
+        self.get_wait().until(EC.url_contains("section=places"))
         self.get_wait().until(
             EC.visibility_of_element_located(saved_places_page.search_place_input_locator)
         )
