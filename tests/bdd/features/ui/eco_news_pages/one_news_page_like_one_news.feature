@@ -12,7 +12,8 @@ Feature: Like news on the one news page
   Scenario: User likes or unlikes a news article from the one news page
     When the user navigates to the Eco News page
     And the user opens a random news article
-    Then the user sees the current number of likes
+    Then the system checks that the user is not the author of the news
+    And the user sees the current number of likes
     When the user clicks the like button
     Then the like counter should update accordingly
     And if the article was previously liked the counter decreases by 1

@@ -1,10 +1,15 @@
 """Steps for one_news_page_like_one_news bdd test"""
 import random
 
+import allure
 from behave import when, then
 from selenium.webdriver.support.wait import WebDriverWait
 
+from clients.eco_new_client import EcoNewClient
+from clients.own_security_client import OwnSecurityClient
+from data.config import Config
 from pages.common_pages.main_page import MainPage
+from utils.logger import logger
 
 
 @when("the user navigates to the Eco News page")
@@ -22,8 +27,44 @@ def step_open_random_news_article(context):
     assert len(news_cards) > 0, "There are no news cards on the news page"
 
     num = random.randint(0, len(news_cards) - 1)
-    context.one_news_page = news_cards[num].navigate_to_one_news_page(
-        context.browser)
+    context.one_news_page = news_cards[num].navigate_to_one_news_page()
+
+
+@then("the system checks that the user is not the author of the news")
+def step_check_user_not_author(context):
+    """Check via API if user is author and skip if true"""
+
+    with allure.step("Get user id via API"):
+        client = OwnSecurityClient(Config.BASE_USER_API_URL)
+        response = client.sign_in(
+            email=Config.USER_EMAIL,
+            password=Config.USER_PASSWORD
+        )
+        assert response.status_code == 200
+
+        context.user_id = response.json().get("userId")
+        logger.info("User id: %s", context.user_id)
+
+    with allure.step("Get news id from URL"):
+        current_url = context.browser.current_url
+        context.news_id = current_url.split("/")[-1]
+        logger.info("News id: %s", context.news_id)
+
+    with allure.step("Get author id via API"):
+        news_client = EcoNewClient(Config.BASE_API_URL)
+        news_response = news_client.find_eco_news_by_id(
+            news_id=context.news_id
+        )
+
+        context.author_id = news_response.json().get("author").get("id")
+        logger.info("Author id: %s", context.author_id)
+
+    with allure.step("Compare user and author"):
+        user_is_author = context.user_id == context.author_id
+        logger.info("User is author: %s", user_is_author)
+
+        if user_is_author:
+            context.scenario.skip("User is author of the news")
 
 
 @then("the user sees the current number of likes")
