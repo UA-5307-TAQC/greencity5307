@@ -1,22 +1,17 @@
 """Module for test like one news page like one news"""
+from time import sleep
 
 import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from data.config import Config
-from pages.common_pages.main_page import MainPage
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
 
 @allure.title("Test add event link in my events page")
-def test_add_event_link_in_my_events_page(driver: WebDriver):
+def test_add_event_link_in_my_events_page(driver_with_login: WebDriver):
     """Test like one news page like one news"""
 
-    # open main page
-    main_page = MainPage(driver)
-    # sign in
-    sign_in_modal = main_page.header.click_sign_in_link()
-    my_habits_page = sign_in_modal.sign_in(Config.USER_EMAIL,
-                                           Config.USER_PASSWORD)
+    my_habits_page = MyHabitPage(driver_with_login)
     # check language
     my_events_page = my_habits_page.click_my_events_tab()
     # link to CreateEventPage

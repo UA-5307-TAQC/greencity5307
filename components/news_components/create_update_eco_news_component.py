@@ -67,19 +67,18 @@ class CreateUpdateEcoNewsTagsComponent(BaseComponent):
     selected_tag_button: CustomWebElement
 
 
-    @allure.step("Select multiple tags")
+    @allure.step("Select tag")
     def select_tag(self, tag_name: str):
         """Select a tag by name."""
-        uk_tags = ["новини","події","освіта","ініціативи", "реклама"]
-        if tag_name in uk_tags:
-            mapping = {
-                "news": "новини",
-                "events": "події",
-                "education": "освіта",
-                "initiatives": "ініціативи",
-                "ads": "реклама"
-            }
-            tag_name = mapping.get(tag_name.lower(), tag_name)
+        mapping = {
+            "news": "новини",
+            "events": "події",
+            "education": "освіта",
+            "initiatives": "ініціативи",
+            "ads": "реклама",
+        }
+
+        tag_name = mapping.get(tag_name.strip().lower(), tag_name)
 
         buttons = self.root.find_elements(By.TAG_NAME, "button")
 
@@ -162,4 +161,16 @@ class CreateUpdateEcoNewsFormComponent(BaseComponent):
         self.enter_title(title)
         self.get_tags_input().select_multiple_tags(*tags)
         self.enter_source(source)
+        self.enter_content(content)
+
+    @allure.step("Fill mandatory eco news form fields")
+    def fill_mandatory_fields(
+        self,
+        title: str,
+        tags: tuple,
+        content: str,
+    ) -> None:
+        """Fill only mandatory fields of eco news form."""
+        self.enter_title(title)
+        self.get_tags_input().select_multiple_tags(*tags)
         self.enter_content(content)

@@ -1,8 +1,6 @@
 """Client for interacting with the Habit API, extending BaseClient for common functionality."""
 
 from requests import Response
-
-from data.config import Config
 from clients.base_client import BaseClient
 
 
@@ -24,7 +22,7 @@ class HabitAssignClient(BaseClient):
         )
 
 
-    def get_all_assigned_habits(self, lang: str = Config.BROWSER_LANG) -> Response:
+    def get_all_habit_assignments_for_current_user(self, lang: str = "en-GB") -> Response:
         """Find all assigned habits"""
 
         params = {
@@ -34,6 +32,24 @@ class HabitAssignClient(BaseClient):
         return self._request(
             method="GET",
             endpoint="/allForCurrentUser",
+            params=params
+        )
+
+
+    def get_one_habit_assignment_for_current_user(
+        self,
+        habit_assign_id: int,
+        lang: str = "en-GB"
+    ) -> Response:
+        """Get habit assign"""
+
+        params = {
+            "lang": lang
+        }
+
+        return self._request(
+            method="GET",
+            endpoint=f"/{habit_assign_id}",
             params=params
         )
 

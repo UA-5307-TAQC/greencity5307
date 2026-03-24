@@ -17,7 +17,6 @@ def test_sign_in_from_main_page(driver: WebDriver) -> None:
         assert driver is not None, "Browser was not opened"
 
     with allure.step("Step 2: Open GreenCity website"):
-        driver.get(Config.BASE_UI_URL)
         main_page = MainPage(driver)
 
     with allure.step("Step 3: Verify main page is displayed"):
