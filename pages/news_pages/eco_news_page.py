@@ -2,6 +2,7 @@
 from typing import List
 
 import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -18,7 +19,7 @@ from pages.news_pages.one_news_page import OneNewsPage
 from utils.custom_web_element import CustomWebElement
 
 
-class EcoNewsPage(BasePage):
+class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
     """Page object for the Eco News page."""
 
     locators = {
@@ -30,7 +31,7 @@ class EcoNewsPage(BasePage):
 
         "news_cards": (
             By.CSS_SELECTOR,
-            "li.gallery-view-li-active, li.list-view-li-active",
+            "app-news-list li.ng-star-inserted, app-news-list-gallery-view li.ng-star-inserted",
             List[NewsCardBaseComponent],
         ),
         "news_cards_raw": (
@@ -126,11 +127,10 @@ class EcoNewsPage(BasePage):
 
     @allure.step("Check news feed container is visible")
     def is_feed_visible(self) -> bool:
-        """Return True if news feed container is visible."""
+        """Return True if main header container is visible."""
         return self.get_wait().until(
-            EC.visibility_of_element_located(self.locators["news_feed_container"])
+            EC.visibility_of_element_located(self.locators["main_header"])
         ).is_displayed()
-
 
     @allure.step("Wait at least one news card is present")
     def wait_cards_present(self) -> None:
@@ -206,6 +206,7 @@ class EcoNewsPage(BasePage):
             return True
         except TimeoutException:
             return False
+
     # TC-EN-02: Open Eco News article and verify details #162
     @allure.step("Open first news card")
     def open_first_news_card(self) -> OneNewsPage:
@@ -227,3 +228,38 @@ class EcoNewsPage(BasePage):
             if text:
                 return text
         return ""
+
+    # TC-EN-03: Create Eco News and verify it appears in the feed #163
+    @allure.step("Check if news with title '{title}' is present in feed")
+    def is_news_present_in_feed(self, title: str) -> bool:
+        """Check if news with given title is present in the feed."""
+        self.wait_cards_present()
+        cards = self.get_cards_raw()
+        for card in cards:
+            titles = card.find_elements(*self.locators["card_title_relative"])
+            for item in titles:
+                if item.text.strip() == title.strip():
+                    return True
+        return False
+
+    @allure.step("Open news card with title '{title}'")
+    def open_news_by_title(self, title: str) -> OneNewsPage:
+        """Open news card with the given title."""
+        cards = self.get_cards_raw()
+        for card in cards:
+            titles = card.find_elements(*self.locators["card_title_relative"])
+            for item in titles:
+                if item.text.strip() == title.strip():
+                    item.click()
+                    return OneNewsPage(self.driver)
+        raise ValueError(f"News with title '{title}' was not found in feed.")
+
+    @allure.step("Scroll until news with title '{title}' is found")
+    def scroll_until_news_found(self, title: str, attempts: int = 5) -> bool:
+        """Scroll several times until news with given title is found."""
+        for _ in range(attempts):
+            if self.is_news_present_in_feed(title):
+                return True
+            self.scroll_to_bottom()
+            self.wait_cards_present()
+        return False
