@@ -90,9 +90,10 @@ class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
 
     @allure.step("Checking if Eco News page is opened")
     def is_page_opened(self) -> bool:
-        """Check if the page is opened."""
+        """Check if the Eco News page is opened."""
         self.get_wait().until(EC.url_contains("news"))
-        return self.button_create_news.is_displayed()
+        self.get_wait().until(EC.visibility_of(self.title))
+        return self.title.is_displayed()
 
     @allure.step("Checking if Eco News page is loaded")
     def is_page_loaded(self) -> bool:
@@ -263,3 +264,21 @@ class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
             self.scroll_to_bottom()
             self.wait_cards_present()
         return False
+
+    def is_loaded(self) -> bool:
+        """Backward-compatible alias."""
+        return self.is_page_opened()
+
+    @allure.step("Checking if Eco News page title is visible")
+    def is_title_visible(self) -> bool:
+        """Check if Eco News page title is visible."""
+        return self.title.is_displayed()
+
+    @allure.step("Checking if Eco News feed is visible")
+    def is_news_feed_visible(self) -> bool:
+        """Check if Eco News feed is visible."""
+        return self.is_feed_visible()
+
+    def get_current_url(self) -> str:
+        """Get current page URL."""
+        return self.driver.current_url
