@@ -9,7 +9,6 @@ Feature: Navigate to Create Event page
     And the user is on the "My Space" page
     And the header navigation menu is visible
 
-  @fixture.driver_with_login
   Scenario: User opens the Create Event page from My Events tab
     When the user navigates to the My Events tab
     And the user clicks the "Add Event" link
