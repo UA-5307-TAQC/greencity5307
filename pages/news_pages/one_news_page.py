@@ -1,11 +1,9 @@
 """This module contains the OneNewsPage class, which represents the One News page of the website."""
-import allure
 from selenium.webdriver.common.by import By
 
 from components.common_components.likes_component import LikesComponent
 from pages.base_page import BasePage
 from utils.custom_web_element import CustomWebElement
-from utils.logger import logger
 
 
 class OneNewsPage(BasePage):
@@ -27,10 +25,3 @@ class OneNewsPage(BasePage):
     likes: LikesComponent
     main_text: CustomWebElement
     comments_section: CustomWebElement
-
-    @allure.step("Get news author")
-    def get_author(self) -> bool:
-        """Check if object is liked"""
-        author = self.author.text
-        logger.info("Author: %s", author)
-        return author
