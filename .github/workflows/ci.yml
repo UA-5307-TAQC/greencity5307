@@ -17,6 +17,10 @@ jobs:
     if: github.event.pull_request.draft == false || github.event_name == 'push'
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        python-version: ['3.12']
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,18 +28,17 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          cache: 'pip'
+          python-version: ${{ matrix.python-version }}
+          cache: pip
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run pylint
         run: pylint .
 
   tests:
-    name: Run ${{ matrix.test_type }}
+    name: ${{ matrix.test_type }} (py${{ matrix.python-version }})
     if: github.event.pull_request.draft == false || github.event_name == 'push'
     runs-on: ubuntu-latest
     needs: lint
@@ -43,6 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        python-version: ['3.11', '3.12']
         test_type: [pytest, behave]
 
     steps:
@@ -52,12 +56,11 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-          cache: 'pip'
+          python-version: ${{ matrix.python-version }}
+          cache: pip
 
       - name: Install dependencies
-        run: |
-          pip install -r requirements.txt
+        run: pip install -r requirements.txt
 
       - name: Run tests
         id: run-tests
@@ -65,7 +68,7 @@ jobs:
           set +e
 
           if [ "${{ matrix.test_type }}" = "pytest" ]; then
-            pytest -v
+            pytest -v --alluredir=allure-results
           else
             behave
           fi
@@ -90,8 +93,9 @@ jobs:
       - name: Upload Allure results
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-${{ matrix.test_type }}
+          name: allure-results-${{ matrix.test_type }}-py${{ matrix.python-version }}
           path: allure-results
+          if-no-files-found: ignore
 
   report:
     runs-on: ubuntu-latest
@@ -121,7 +125,7 @@ jobs:
 
       - name: Generate Allure report
         id: allure-report
-        uses: simple-elf/allure-report-action@master
+        uses: allure-framework/allure-action@v2
         with:
           allure_results: allure-results
           gh_pages: gh-pages
