@@ -7,3 +7,4 @@ from . import eco_news
 from . import one_event_page
 from . import create_habit
 from . import mutual_friends
+from . import all_friends_page

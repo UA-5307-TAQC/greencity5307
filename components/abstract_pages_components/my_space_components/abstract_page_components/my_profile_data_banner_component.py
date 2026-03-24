@@ -4,6 +4,7 @@
 import allure
 
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
@@ -24,6 +25,7 @@ class MyProfileDataBannerComponent(BaseComponent):
         "events": (By.XPATH, ".//div[@class='chain'][4]/p[1]"),
         "add_friends_btn": (By.CSS_SELECTOR, "div.add-friends > a"),
         "view_all_friends_link": (By.CSS_SELECTOR, "a.text-more"),
+        "friends_images_block": (By.CSS_SELECTOR, "div.friends-images")
     }
 
     edit_btn: CustomWebElement
@@ -34,6 +36,7 @@ class MyProfileDataBannerComponent(BaseComponent):
     events: CustomWebElement
     add_friends_btn: CustomWebElement
     view_all_friends_link: CustomWebElement
+    friends_images_block: CustomWebElement
 
     @allure.step("Click on Edit profile button on Profile Banner component")
     def click_edit_btn(self) -> ProfileEditPage:
@@ -77,8 +80,9 @@ class MyProfileDataBannerComponent(BaseComponent):
             "organized and attended events": self.events.text
         }
 
+
     @allure.step("Click View all friends link")
-    def click_view_all_friends(self) -> "FriendsPage":
+    def click_view_all_friends(self) -> FriendsPage:
         """Navigate to Friends page from profile banner."""
         old_url = self.driver.current_url
 
@@ -87,3 +91,13 @@ class MyProfileDataBannerComponent(BaseComponent):
         self.get_wait().until(EC.url_changes(old_url))
 
         return FriendsPage(self.root.parent)
+
+
+    @allure.step("Check that friends images block exists")
+    def friends_images_exist(self) -> bool:
+        """Check that friends images block exists"""
+        try:
+            _ = self.friends_images_block
+            return True
+        except NoSuchElementException:
+            return False
