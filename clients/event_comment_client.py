@@ -39,13 +39,9 @@ class EventCommentClient(BaseClient):
 
     def delete_comment(self, comment_id: int):
         """Delete a specific comment by id."""
-        payload = {
-            "commentId": comment_id
-        }
         return self._request(
             method="DELETE",
-            endpoint=f"/comments/{comment_id}",
-            json=payload
+            endpoint=f"/comments/{comment_id}"
         )
 
     def get_comments_count(self, event_id: int):
@@ -54,4 +50,37 @@ class EventCommentClient(BaseClient):
             method="GET",
             endpoint=f"/{event_id}/comments/count",
             timeout=self.timeout
+        )
+
+    def like_comment(self, comment_id: int):
+        """Like/unlike a specific comment by id."""
+        return self._request(
+            method="POST",
+            endpoint=f"/comments/likeV2/{comment_id}"
+        )
+
+    def dislike_comment(self, comment_id: int):
+        """Dislike/remove dislike on comment."""
+        return self._request(
+            method="POST",
+            endpoint=f"/comments/dislikeV2/{comment_id}"
+        )
+
+    def get_comment_info(self, comment_id: int):
+        """Gets a specific comment's info by id."""
+        return self._request(
+            method="GET",
+            endpoint=f"/comments/{comment_id}"
+        )
+
+    def get_comments_from_event(self, event_id: int, page: int = 0, size: int = 5):
+        """Gets all active comments from event page (without replies) by id."""
+        params = {
+            "page": page,
+            "size": size
+        }
+        return self._request(
+            method="GET",
+            endpoint=f"/{event_id}/comments",
+            params=params
         )
