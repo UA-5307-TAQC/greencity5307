@@ -23,6 +23,8 @@ class HeaderComponent(BaseComponent):
                                       ".header_navigation-menu-right-list > .header_sign-in-link")
     my_space_tab_locator: Locators = (By.XPATH,
                                       ".//a[contains(.,'Мій кабінет') or contains(., 'My space')]")
+    ubs_courier_link_locator: Locators = (By.XPATH,
+                                    ".//a[@href='#/ubs']")
 
     @allure.step("Clicking the My Space link in the header")
     def click_my_space(self) -> "MySpaceAbstractPage":
@@ -54,6 +56,16 @@ class HeaderComponent(BaseComponent):
             EC.element_to_be_clickable(self.event_link_locator)
         ).click()
         return EventPage(self.root.parent)
+
+    @allure.step("Clicking the UBSCourier link in the header")
+    def click_ubs_courier_link(self) -> "UBSCourierPage":
+        """Click the UBSCourier link in the header and return an instance of the UBSCourierPage."""
+        from pages.common_pages.ubc_courier_page import \
+            UBSCourierPage  # pylint: disable=import-outside-toplevel
+        WebDriverWait(self.root.parent, 10).until(
+            EC.element_to_be_clickable(self.ubs_courier_link_locator)
+        ).click()
+        return UBSCourierPage(self.root.parent)
 
     @allure.step("Clicking sign in button in the header")
     def click_sign_in_link(self) -> SignInComponent:

@@ -2,10 +2,10 @@
 It inherits from the BasePage class and provides specific locators
 and methods for interacting with the main page elements."""
 import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 from utils.types import Locators
@@ -13,20 +13,43 @@ from utils.types import Locators
 
 class UBSCourierPage(BasePage):
     """Page object for the UBSCourier page."""
-    there_are_locator: Locators = (By.CSS_SELECTOR, "#stats > h2")
-    section_text_locator: Locators = (By.CSS_SELECTOR, "section > h2:first-child")
+
+    nowaste_shop_locator: Locators = (
+        By.CSS_SELECTOR,
+        "section.our-partners-section a[href*='shop.nowaste']"
+    )
+
+    nowaste_locator: Locators = (
+        By.CSS_SELECTOR,
+        "section.our-partners-section a[href='https://nowaste.com.ua/']"
+    )
+
+    goto_locator: Locators = (
+        By.CSS_SELECTOR,
+        "section.our-partners-section a[href*='goto.recycling']"
+    )
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-        self.there_are: WebElement = self.driver.find_element(*self.there_are_locator)
-        self.section_text: WebElement = self.driver.find_element(*self.section_text_locator)
 
-    @allure.step("Navigating to the Main page")
-    def go_to_main_page(self) -> "MainPage":
-        """Navigate to the Main page."""
-        from pages.common_pages.main_page import MainPage # pylint: disable=import-outside-toplevel
-        self.header.click_main_page_link()
-        self.get_wait().until(
-            EC.url_contains("greenCity")
-        )
-        return MainPage(self.driver)
+        self.nowaste_shop_button: WebElement = self.driver.find_element(*self.nowaste_shop_locator)
+        self.nowaste_button: WebElement = self.driver.find_element(*self.nowaste_locator)
+        self.goto_button: WebElement = self.driver.find_element(*self.goto_locator)
+
+    @allure.step("Click Nowaste shop partner")
+    def click_nowaste_shop(self):
+        """Open Nowaste shop."""
+        self.nowaste_shop_button.click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    @allure.step("Click Nowaste partner")
+    def click_nowaste(self):
+        """Open Nowaste website."""
+        self.nowaste_button.click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
+
+    @allure.step("Click GoTo Recycling partner")
+    def click_goto(self):
+        """Open GoTo Recycling Instagram."""
+        self.goto_button.click()
+        self.driver.switch_to.window(self.driver.window_handles[-1])
