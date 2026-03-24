@@ -113,7 +113,7 @@ jobs:
 
       - name: Merge Allure results
         run: |
-          mkdir allure-results
+          mkdir -p allure-results
           find allure-results-merged -type f -name "*.json" -exec cp {} allure-results \;
 
       - name: Get Allure history
@@ -126,6 +126,7 @@ jobs:
       - name: Generate Allure report
         id: allure-report
         uses: allure-framework/allure-action@v0
+        continue-on-error: true
         with:
           allure_results: allure-results
           gh_pages: gh-pages
@@ -133,8 +134,8 @@ jobs:
           allure_history: allure-history
           subfolder: ${{ github.event_name == 'pull_request' && format('pr-{0}', github.event.number) || 'main' }}
 
-      - name: Fix ownership
-        run: sudo chown -R $USER:$USER allure-history
+      - name: Ensure allure-history exists
+        run: mkdir -p allure-history
 
       - name: Generate index.html
         run: |
