@@ -1,0 +1,152 @@
+[
+  {
+    "createDateTime": "2026-03-16T16:44:42.897033Z",
+    "duration": 14,
+    "habit": {
+      "defaultDuration": 14,
+      "amountAcquiredUsers": null,
+      "habitTranslation": {
+        "name": "ergergfe",
+        "description": "efefefsfewdwdadwadaDA",
+        "habitItem": "Item",
+        "languageCode": "en"
+      },
+      "id": 415,
+      "image": "https://csb10032000a548f571.blob.core.windows.net/allfiles/f415c10d-18a9-4f29-b006-b6c09bdbdbebhabit-2.png",
+      "complexity": 2,
+      "tags": [
+        "Smart consuming",
+        "Testing",
+        "Resource saving"
+      ],
+      "toDoListItems": [],
+      "customToDoListItems": null,
+      "isCustomHabit": null,
+      "usersIdWhoCreatedCustomHabit": null,
+      "habitAssignStatus": null,
+      "isAssigned": null,
+      "isFavorite": null,
+      "likes": 0,
+      "dislikes": 0
+    },
+    "userToDoListItems": null,
+    "habitStatusCalendarDtoList": [],
+    "habitStreak": 0,
+    "id": 399,
+    "lastEnrollmentDate": "2026-03-16T16:44:42.897052Z",
+    "status": "INPROGRESS",
+    "userId": 1205,
+    "workingDays": 0,
+    "progressNotificationHasDisplayed": null,
+    "friendsIdsTrackingHabit": []
+  },
+  {
+    "createDateTime": "2026-03-20T12:36:10.064683Z",
+    "duration": 17,
+    "habit": {
+      "defaultDuration": 17,
+      "amountAcquiredUsers": null,
+      "habitTranslation": {
+        "name": "234r",
+        "description": "asdfasdfasdfasdfasdf",
+        "habitItem": "Item",
+        "languageCode": "en"
+      },
+      "id": 36,
+      "image": "https://csb10032000a548f571.blob.core.windows.net/allfiles/53ecb018-4a4a-496a-8eb7-1f853a78e167123123.jpg",
+      "complexity": 1,
+      "tags": [
+        "Testing"
+      ],
+      "toDoListItems": [],
+      "customToDoListItems": null,
+      "isCustomHabit": null,
+      "usersIdWhoCreatedCustomHabit": null,
+      "habitAssignStatus": null,
+      "isAssigned": null,
+      "isFavorite": null,
+      "likes": 0,
+      "dislikes": 0
+    },
+    "userToDoListItems": null,
+    "habitStatusCalendarDtoList": [],
+    "habitStreak": 0,
+    "id": 645,
+    "lastEnrollmentDate": "2026-03-22T12:11:57.599514Z",
+    "status": "INPROGRESS",
+    "userId": 1205,
+    "workingDays": 0,
+    "progressNotificationHasDisplayed": null,
+    "friendsIdsTrackingHabit": []
+  },
+  {
+    "createDateTime": "2026-03-24T15:52:29.505035Z",
+    "duration": 14,
+    "habit": {
+      "defaultDuration": 14,
+      "amountAcquiredUsers": null,
+      "habitTranslation": {
+        "name": "Sorting out rubbish",
+        "description": "Description",
+        "habitItem": "Item",
+        "languageCode": "en"
+      },
+      "id": 25,
+      "image": "https://csb10032000a548f571.blob.core.windows.net/allfiles/photo_2021-06-01_15-39-56.jpg",
+      "complexity": 3,
+      "tags": [
+        "Recycling/Waste sorting"
+      ],
+      "toDoListItems": [
+        {
+          "id": 6435,
+          "text": "Waste systems for pull-out fronts",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 6436,
+          "text": "Waste systems for hinged doors",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 6437,
+          "text": "Double Recycling Pedal Bin",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 6438,
+          "text": "3 Section Recycling Pedal Bin",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 6439,
+          "text": "Totem Waste & Recycling Bins",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 6440,
+          "text": "Food Waste Caddy",
+          "status": "ACTIVE"
+        }
+      ],
+      "customToDoListItems": null,
+      "isCustomHabit": null,
+      "usersIdWhoCreatedCustomHabit": null,
+      "habitAssignStatus": null,
+      "isAssigned": null,
+      "isFavorite": null,
+      "likes": 0,
+      "dislikes": 0
+    },
+    "userToDoListItems": null,
+    "habitStatusCalendarDtoList": [],
+    "habitStreak": 0,
+    "id": 1073,
+    "lastEnrollmentDate": "2026-03-24T15:52:29.505037Z",
+    "status": "INPROGRESS",
+    "userId": 1205,
+    "workingDays": 0,
+    "progressNotificationHasDisplayed": null,
+    "friendsIdsTrackingHabit": []
+  }
+]
