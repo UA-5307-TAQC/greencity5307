@@ -42,3 +42,17 @@ class OwnSecurityClient(BaseClient):
             endpoint="/changePassword",
             json=payload,
         )
+
+    def sign_up(self,name: str, email: str, password: str):
+        """Signs up a new user."""
+        payload = {
+          "name": name,
+          "email": email,
+          "password": password,
+          "isUbs": True
+        }
+        return self._request(
+            method="POST",
+            endpoint="/signUp",
+            json=payload
+        )
