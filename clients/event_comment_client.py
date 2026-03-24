@@ -84,3 +84,11 @@ class EventCommentClient(BaseClient):
             endpoint=f"/{event_id}/comments",
             params=params
         )
+
+    def update_comment(self, comment_id: int, new_text: str):
+        """Updates specific comment by id."""
+        return self._request(
+            method="PATCH",
+            endpoint=f"/comments/{comment_id}",
+            json=new_text
+        )
