@@ -61,3 +61,37 @@ class MainPage(BasePage):
         self.get_wait().until(EC.url_contains("isBookmark=true"))
         from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract # pylint: disable=import-outside-toplevel
         return SavedAbstract(self.driver)
+
+    def is_header_visible(self) -> bool:
+        """Check if page header is visible."""
+        return self.is_visible((By.XPATH, "//header[@role='banner']"))
+
+    def is_navigation_menu_visible(self) -> bool:
+        """Check if main navigation menu elements are visible."""
+        try:
+            return (
+                self.header.new_link.is_displayed()
+                and self.header.event_link.is_displayed()
+                and self.header.about_us_link.is_displayed()
+            )
+        except (NoSuchElementException, StaleElementReferenceException):
+            return False
+
+    def is_logo_visible(self) -> bool:
+        """Check if logo in header is visible."""
+        try:
+            return self.header.logo_link.is_displayed()
+        except (NoSuchElementException, StaleElementReferenceException):
+            return False
+
+    def scroll_down_page(self) -> None:
+        """Scroll page down."""
+        self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight / 2);")
+
+    def get_scroll_position(self) -> int:
+        """Get current vertical scroll position."""
+        return self.driver.execute_script("return window.pageYOffset;")
+
+    def get_current_url(self) -> str:
+        """Get current page URL."""
+        return self.driver.current_url

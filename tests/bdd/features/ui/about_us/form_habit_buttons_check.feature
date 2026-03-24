@@ -1,20 +1,18 @@
-@wip
-Feature: About Us page "Form Habit" buttons verification
+Feature: About Us page Form Habit buttons
 
-  As a logged-in user
-  I want to verify the "Form Habit" buttons
-  So that they navigate correctly to the My Habits page
+  As a registered user
+  I want to click the "Form Habit" buttons on the About Us page
+  So that I can navigate to the My Habit page
 
   Background:
-    Given the user is logged in
-    And the About Us page is opened
+    Given the user is on the main page
+    And the user is logged in with valid credentials
 
-  Scenario: Click first "Form Habit" button
-    When I click the first "Form Habit" button
-    Then the My Habits page should be opened
-    And I return to the About Us page
+  Scenario: Verify "Form Habit" buttons navigate to My Habit page
+    When the user navigates to About Us page
+    And the user clicks the first "Form Habit" button
+    Then the My Habit page should be opened
 
-  Scenario: Click second "Form Habit" button
-    When I click the second "Form Habit" button
-    Then the My Habits page should be opened
-    And I return to the About Us page
+    When the user navigates back to About Us page
+    And the user clicks the second "Form Habit" button
+    Then the My Habit page should be opened
