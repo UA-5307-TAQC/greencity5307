@@ -10,7 +10,7 @@ from schemas.event_comment.event_comment_schema import event_comment_schema
 from tests.api.event_comment_tests.data import EVENT_ID, TEXT
 
 
-@pytest.mark.xfail(reason="Bug: Backend saves PATCH payload with JSON literal quotes included")
+@pytest.mark.xfail(reason="Bug: Backend saves PATCH payload with JSON literal quotes included", strict=True)
 @allure.title("Verify user can successfully update their own event comment")
 def test_verify_user_can_update_own_event_comment(comment_factory):
     # Precondition: The user is logged in.
