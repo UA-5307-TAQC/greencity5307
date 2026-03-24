@@ -60,7 +60,7 @@ class FriendsPage(BasePage):
         """Get friend items"""
         return self.friend_cards
 
-    @allure.step("")
-    def is_page_loaded(self):
+    @allure.step("Check My Friends page is loaded")
+    def is_page_loaded(self) -> bool:
         """Checks if the 'My friends' page is loaded."""
         return self._is_loaded_indicator(self.locators["search_input"][:2])
