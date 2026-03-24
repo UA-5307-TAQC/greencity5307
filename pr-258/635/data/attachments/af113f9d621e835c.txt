@@ -1,0 +1,1 @@
+INFO     GreenCityLogger:base_client.py:35 Sending GET request to https://greencity.greencity.cx.ua/habit/assign/allForCurrentUser with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '5a4b72ff-a5fb-401b-a297-3b021350d6b1'} and kwargs: {'params': {'lang': 'en'}}
