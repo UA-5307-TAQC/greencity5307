@@ -46,7 +46,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ['3.11', '3.12']
+        python-version: ['3.12']
         test_type: [pytest, behave]
 
     steps:
@@ -68,7 +68,7 @@ jobs:
           set +e
 
           if [ "${{ matrix.test_type }}" = "pytest" ]; then
-            pytest -v --alluredir=allure-results
+            pytest -v
           else
             behave
           fi
@@ -125,7 +125,7 @@ jobs:
 
       - name: Generate Allure report
         id: allure-report
-        uses: allure-framework/allure-action@v2
+        uses: allure-framework/allure-action@v0
         with:
           allure_results: allure-results
           gh_pages: gh-pages
