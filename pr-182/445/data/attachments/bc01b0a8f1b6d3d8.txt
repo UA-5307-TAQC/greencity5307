@@ -1,3 +1,0 @@
-2026-03-09 16:12:43,925 - GreenCityLogger - INFO - header_component.py  - switch_language - Clicking switch language button in the header.
-2026-03-09 16:12:44,674 - GreenCityLogger - INFO - header_component.py  - switch_language - Clicking switch language button in the header.
-2026-03-09 16:12:44,823 - GreenCityLogger - INFO - header_component.py  - switch_language - Clicking switch language button in the header.
