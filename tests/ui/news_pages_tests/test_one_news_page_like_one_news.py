@@ -44,7 +44,7 @@ def test_one_news_page_like_one_news(driver_with_login: WebDriver):
         assert len(news_cards) > 0, "There are no news cards on the news page"
         # get random number to get random news_card
         num = random.randint(0, len(news_cards) - 1)
-        one_news_page = news_cards[0].navigate_to_one_news_page()
+        one_news_page = news_cards[num].navigate_to_one_news_page()
 
     with allure.step("Get news id"):
         one_news_page_url = driver_with_login.current_url
