@@ -1,0 +1,25 @@
+INFO     GreenCityLogger:header_component.py:91 Clicking the news link in the header.
+INFO     GreenCityLogger:header_component.py:95 Successfully clicked the news link in the header.
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:31 Like status: False
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
+INFO     GreenCityLogger:likes_component.py:38 Current likes: 0
