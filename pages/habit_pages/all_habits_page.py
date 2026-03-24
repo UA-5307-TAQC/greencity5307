@@ -69,6 +69,6 @@ class AllHabitPage(BasePage):
     def get_all_habit_cards(self) -> List[HabitCardComponent]:
         """Returns a list of habit cards."""
         elements = self.get_wait().until(
-        EC.visibility_of_any_elements_located(self.habit_cards_locator)
+            EC.visibility_of_any_elements_located(self.habit_cards_locator)
         )
         return [HabitCardComponent(el) for el in elements]

@@ -81,6 +81,7 @@ def check_all_habits_page_redirection(context):
 def check_first_habit_on_all_habits_page(context, expected_title):
     """Check the first habit card"""
     habit_cards = context.all_habits_page.get_all_habit_cards()
+    assert habit_cards, "No habit cards found on the 'All Habits' page; expected at least one habit to verify its title"
     actual_title = habit_cards[0].get_habit_info()["title"]
     assert actual_title == expected_title, f"Expected '{expected_title}', but got '{actual_title}'"
     context.first_habit_card = habit_cards[0]
@@ -120,7 +121,7 @@ def check_add_habit_button_not_clickable(context):
     habit_basic_form = context.create_habit_page.basic_form
     submit_btn = habit_basic_form.add_habit_btn
     assert not submit_btn.is_enabled(), \
-            "Add Habit button shouldn't be enabled - title field is empty"
+            "Add Habit button shouldn't be enabled when mandatory fields are empty or invalid"
 
 
 @when('I click on the "Description" textarea')
