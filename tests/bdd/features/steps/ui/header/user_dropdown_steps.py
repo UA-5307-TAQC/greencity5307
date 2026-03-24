@@ -55,7 +55,7 @@ def step_dropdown_expands(context):
 def step_option_visible(context, option):
     """Check if option is visible."""
     main_page = MainPage(context.browser)
-    if option == "Profile":
+    if option == "Personal Account":
         assert main_page.header.user_menu_profile_link.is_displayed()
         assert main_page.header.user_menu_profile_link.is_enabled()
     elif option == "Sign out":
@@ -74,23 +74,23 @@ def step_dropdown_is_open(context):
     main_page.header.click_user_menu()
 
 
-@when('the user clicks on "Profile"')
+@when('the user clicks on "Personal Account"')
 def step_click_dropdown_profile(context):
-    """Click on "Profile" option."""
+    """Click on "Personal Account" option."""
     main_page = MainPage(context.browser)
 
     context.initial_url = context.browser.current_url
     main_page.header.click_user_menu_profile_link()
 
 
-@then('the profile/settings page loads successfully')
+@then('the ubs courier page loads successfully')
 def step_profile_loads(context):
     """Check if profile settings page loads successfully."""
     main_page = MainPage(context.browser)
 
     main_page.get_wait().until(
         EC.url_contains("orders"),
-        message=f"Did not redirect to the orders/profile page. Current URL: {context.browser.current_url}"
+        message=f"Did not redirect to the ubs courier page. Current URL: {context.browser.current_url}"
     )
     assert "orders" in context.browser.current_url
 
