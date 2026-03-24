@@ -11,6 +11,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from data.config import Config
+from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 from pages.common_pages.main_page import MainPage
 
 
@@ -97,6 +98,16 @@ def step_impl(context: behave.runner.Context, menu_text: str):
 
     actual = main_page.header.new_link.text.strip()
     assert actual == menu_text, f"Expected menu text '{menu_text}', got actual '{actual}'"
+
+
+@given('the user has opened a specific habit')
+def step_impl_habit(context):
+    """Open a specific habit card for editing."""
+    driver = context.browser
+
+    page = MyHabitPage(driver)
+    habit_card = page.get_habit_card()
+    habit_card.click_edit_habit()
 
 @given('the user is signed in')
 @given('the user is successfully logged in')
