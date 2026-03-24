@@ -1,3 +1,4 @@
+# pylint: disable=not-callable, unused-argument
 """
 .. module:: Header navigation
     :platform: Unix
