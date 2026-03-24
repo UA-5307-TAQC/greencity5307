@@ -23,7 +23,7 @@ def habit_manager(habit_assign_client):
 
     def _find(habit_id: int) -> int | None:
         with allure.step("Get all assigned habits"):
-            response = client.get_all_assigned_habits()
+            response = client.get_all_habit_assignments_for_current_user()
             assert response.status_code == 200, (
                 f"Failed to get assigned habits: {response.status_code} - {response.text}"
             )
