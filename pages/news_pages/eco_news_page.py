@@ -2,6 +2,7 @@
 from typing import List
 
 import allure
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
@@ -9,13 +10,16 @@ from selenium.common.exceptions import TimeoutException
 
 from components.news_components.button_create_new_component import CreateNewButtonComponent
 from components.news_components.news_card_base_component import NewsCardBaseComponent
+
 from pages.base_page import BasePage
 from pages.events_pages.event_page import EventPage
 from pages.news_pages.create_update_eco_news_page import CreateUpdateEcoNewsPage
+from pages.news_pages.one_news_page import OneNewsPage
+
 from utils.custom_web_element import CustomWebElement
 
 
-class EcoNewsPage(BasePage):
+class EcoNewsPage(BasePage): # pylint: disable=too-many-public-methods
     """Page object for the Eco News page."""
 
     locators = {
@@ -27,7 +31,7 @@ class EcoNewsPage(BasePage):
 
         "news_cards": (
             By.CSS_SELECTOR,
-            "li.gallery-view-li-active, li.list-view-li-active",
+            "app-news-list li.ng-star-inserted, app-news-list-gallery-view li.ng-star-inserted",
             List[NewsCardBaseComponent],
         ),
         "news_cards_raw": (
@@ -86,9 +90,10 @@ class EcoNewsPage(BasePage):
 
     @allure.step("Checking if Eco News page is opened")
     def is_page_opened(self) -> bool:
-        """Check if the page is opened."""
+        """Check if the Eco News page is opened."""
         self.get_wait().until(EC.url_contains("news"))
-        return self.button_create_news.is_displayed()
+        self.get_wait().until(EC.visibility_of(self.title))
+        return self.title.is_displayed()
 
     @allure.step("Checking if Eco News page is loaded")
     def is_page_loaded(self) -> bool:
@@ -127,7 +132,6 @@ class EcoNewsPage(BasePage):
         return self.get_wait().until(
             EC.visibility_of_element_located(self.locators["main_header"])
         ).is_displayed()
-
 
     @allure.step("Wait at least one news card is present")
     def wait_cards_present(self) -> None:
@@ -203,3 +207,78 @@ class EcoNewsPage(BasePage):
             return True
         except TimeoutException:
             return False
+
+    # TC-EN-02: Open Eco News article and verify details #162
+    @allure.step("Open first news card")
+    def open_first_news_card(self) -> OneNewsPage:
+        """Open the first visible news card."""
+        self.wait_cards_present()
+        first_card = self.get_cards_raw()[0]
+        first_card.click()
+        return OneNewsPage(self.driver)
+
+    @allure.step("Get first news card title")
+    def get_first_card_title(self) -> str:
+        """Return title text of the first visible news card."""
+        self.wait_cards_present()
+        first_card = self.get_cards_raw()[0]
+        titles = first_card.find_elements(*self.locators["card_title_relative"])
+
+        for title in titles:
+            text = title.text.strip()
+            if text:
+                return text
+        return ""
+
+    # TC-EN-03: Create Eco News and verify it appears in the feed #163
+    @allure.step("Check if news with title '{title}' is present in feed")
+    def is_news_present_in_feed(self, title: str) -> bool:
+        """Check if news with given title is present in the feed."""
+        self.wait_cards_present()
+        cards = self.get_cards_raw()
+        for card in cards:
+            titles = card.find_elements(*self.locators["card_title_relative"])
+            for item in titles:
+                if item.text.strip() == title.strip():
+                    return True
+        return False
+
+    @allure.step("Open news card with title '{title}'")
+    def open_news_by_title(self, title: str) -> OneNewsPage:
+        """Open news card with the given title."""
+        cards = self.get_cards_raw()
+        for card in cards:
+            titles = card.find_elements(*self.locators["card_title_relative"])
+            for item in titles:
+                if item.text.strip() == title.strip():
+                    item.click()
+                    return OneNewsPage(self.driver)
+        raise ValueError(f"News with title '{title}' was not found in feed.")
+
+    @allure.step("Scroll until news with title '{title}' is found")
+    def scroll_until_news_found(self, title: str, attempts: int = 5) -> bool:
+        """Scroll several times until news with given title is found."""
+        for _ in range(attempts):
+            if self.is_news_present_in_feed(title):
+                return True
+            self.scroll_to_bottom()
+            self.wait_cards_present()
+        return False
+
+    def is_loaded(self) -> bool:
+        """Backward-compatible alias."""
+        return self.is_page_opened()
+
+    @allure.step("Checking if Eco News page title is visible")
+    def is_title_visible(self) -> bool:
+        """Check if Eco News page title is visible."""
+        return self.title.is_displayed()
+
+    @allure.step("Checking if Eco News feed is visible")
+    def is_news_feed_visible(self) -> bool:
+        """Check if Eco News feed is visible."""
+        return self.is_feed_visible()
+
+    def get_current_url(self) -> str:
+        """Get current page URL."""
+        return self.driver.current_url

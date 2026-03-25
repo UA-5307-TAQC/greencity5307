@@ -9,6 +9,7 @@ from utils.logger import logger
 
 languages = ('en', 'uk')
 
+
 @pytest.mark.parametrize(
     "news_id, lang",
     [
@@ -72,7 +73,8 @@ def test_get_eco_news_by_id(news_id: int, lang: str):
             parsed_data = response.json()
             logger.info(parsed_data)
             try:
-                validate(instance=parsed_data, schema=one_news_get_by_id_schema)
+                validate(instance=parsed_data,
+                         schema=one_news_get_by_id_schema)
                 logger.info("✅ JSON validation passed")
             except Exception as e:
                 logger.error(f"❌ JSON validation failed: {e}")
@@ -83,10 +85,12 @@ def test_get_eco_news_by_id(news_id: int, lang: str):
         parsed_data = response.json()
         logger.info(parsed_data)
         # message contains `ua`, but should contain `uk`, this is API problem
-        assert parsed_data["message"] == "Select correct language: \'en\' or \'ua\'"
+        assert parsed_data[
+                   "message"] == "Select correct language: \'en\' or \'ua\'"
     elif status_code == 404:
         parsed_data = response.json()
         logger.info(parsed_data)
-        assert parsed_data["message"] == f"Eco new doesn\'t exist by this id: {news_id}"
+        assert parsed_data[
+                   "message"] == f"Eco new doesn\'t exist by this id: {news_id}"
     else:
-        assert False, "Other error"
+        pytest.fail("Other error")

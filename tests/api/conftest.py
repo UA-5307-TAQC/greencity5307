@@ -1,4 +1,9 @@
+import json
+from collections import defaultdict
+from jsonschema import Draft7Validator
+
 import pytest
+import allure
 
 from clients.friends_client import FriendsClient
 from clients.own_security_client import OwnSecurityClient
@@ -6,9 +11,8 @@ from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 
 
-@pytest.fixture(scope="function")
-def access_token():
-    """Fixture that logs in the user for api tests."""
+def login_user():
+    """Function that logs in the user and returns auth token."""
     client = OwnSecurityClient(Config.BASE_USER_API_URL)
     response = client.sign_in(
         email=Config.USER_EMAIL,
@@ -23,6 +27,18 @@ def access_token():
         f"Login response does not contain access token. Response body: {response.text}"
 
     return auth_token
+
+
+@pytest.fixture(scope="function")
+def access_token():
+    """Fixture that logs in the user for api tests in test function scope."""
+    return login_user()
+
+
+@pytest.fixture(scope="module")
+def module_access_token():
+    """Fixture that logs in the user for api tests in test module scope."""
+    return login_user()
 
 
 @pytest.fixture(scope="function")
@@ -41,3 +57,38 @@ def dynamic_friend_id(access_token):
         pytest.skip("Test skipped: No confirmed friends found for current user.")
 
     return friends_list[0].get("id")
+
+
+@pytest.fixture(scope="function")
+def validate_json():
+    def _log_json_errors(schema, data):
+        allure.attach(
+            json.dumps(data, indent=2),
+            name="Full Response Body",
+            attachment_type=allure.attachment_type.JSON
+        )
+        validator = Draft7Validator(schema)
+        errors = list(validator.iter_errors(data))
+
+        if errors:
+            grouped_errors = defaultdict(list)
+            for err in errors:
+                index = err.path[0] if err.path else "General"
+                grouped_errors[index].append(err)
+
+            for index, err_list in grouped_errors.items():
+
+                report_lines = []
+                for i, err in enumerate(err_list, 1):
+                    path = " -> ".join(map(str, list(err.path)[1:])) or "root"
+                    report_lines.append(f"{i}. [{path}] -> {err.message} (Actual: {err.instance})")
+
+                allure.attach(
+                    "\n".join(report_lines),
+                    name=f"JSON Schema Mismatch: Record #{index}",
+                    attachment_type=allure.attachment_type.TEXT
+                )
+
+            pytest.fail(f"JSON validation failed. Found {len(grouped_errors)} schema errors")
+
+    return _log_json_errors

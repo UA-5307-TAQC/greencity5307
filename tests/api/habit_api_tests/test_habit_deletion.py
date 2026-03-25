@@ -1,3 +1,5 @@
+"""DELETE /habit/assign/delete/{habitAssignId}"""
+
 import allure
 import pytest
 
@@ -6,6 +8,7 @@ from clients.habit_assign_client import HabitAssignClient
 
 CORRECT_HABIT_IDS = [30, 31]
 CORRECT_HABIT_ID = 26
+
 
 @allure.title("Test habit deletion with correct habit assigned id")
 @pytest.mark.parametrize("habit_id", CORRECT_HABIT_IDS)
