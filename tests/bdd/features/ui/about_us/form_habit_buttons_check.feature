@@ -1,4 +1,4 @@
-Feature: New header
+Feature: New suer puper feature
 
   As a registered user
   I want to click the "Form Habit" buttons on the About Us page
