@@ -19,3 +19,13 @@ class FactOfTheDayClient(BaseClient):
             method="GET",
             endpoint="/fact-of-the-day/random"
         )
+
+    @allure.step("Get random fact of the day by tags for user {user_id}")
+    def get_random_fact_by_tags(self, user_id: int):
+        """Fetch random fact of the day based on user tags"""
+
+        return self._request(
+            method="GET",
+            endpoint="/fact-of-the-day/random/by-tags",
+            params={"userId": user_id}
+        )
