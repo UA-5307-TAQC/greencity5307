@@ -11,8 +11,12 @@ Feature: User Profile Functionality
     When I click the "Edit Profile" button
     Then I should be redirected to the "Edit Profile" page
 
-  Scenario: Redirect to the Friends page
-    When I click the friends action on my profile banner
+  Scenario: Redirect to the My Friends page
+    When I click the "See all" link on my profile banner
+    Then I should be redirected to the appropriate friends page
+
+  Scenario: Redirect to the Find Friends page
+    When I click the "Add friends" button on my profile banner
     Then I should be redirected to the appropriate friends page
 
   Scenario: Display the current date on the calendar

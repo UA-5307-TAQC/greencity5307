@@ -1,4 +1,5 @@
 import allure
+import pytest
 
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
@@ -19,9 +20,4 @@ def test_navigation_to_friends_page(driver_with_login):
             url = driver.current_url
             assert "/friends" in url, f"Expected to be on My Friends page, but was at: {url}"
     else:
-        with allure.step("Click [Add friends] if user has no friends"):
-            profile_banner.click_add_friends_btn()
-
-        with allure.step("Check if user is redirected to Find Friend page"):
-            url = driver.current_url
-            assert "/friends/recommended" in url, f"Expected to be on Find Friend page, but was at: {url}"
+        pytest.skip("Skip test because there is no 'See all' link")
