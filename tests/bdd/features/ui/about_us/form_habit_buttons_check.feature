@@ -1,4 +1,4 @@
-Feature: Check Form Habit buttons navigation
+Feature: New feature 100% percent
 
   As a registered user
   I want to click the "Form Habit" buttons on the About Us page
