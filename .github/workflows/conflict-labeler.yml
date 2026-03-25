@@ -9,7 +9,7 @@ on:
     types: [opened, synchronize, reopened]
 
 permissions:
-  pull-requests: write # Дозвіл на додавання/видалення міток у PR
+  pull-requests: write
 
 jobs:
   label-conflicts:
