@@ -1,56 +1,32 @@
-Feature: About Us page Vision Card buttons after sign-in
+Feature: About Us page Vision Card buttons before sign-in
 
-  As a signed-in user
+  As a user who is not signed in
   I want to click the buttons on the Vision Cards
-  So that I can navigate to the corresponding pages
-
-  Background:
-    Given the user is on the main page
-    And the user is logged in with valid credentials
+  So that I can see either the sign-in modal or navigate to News page
 
 
-  Scenario: Verify Vision Card buttons after
-
-  Scenario: Verify Vision Card buttons after sign-in
+  Scenario: Verify Vision Card buttons without sign-in
     When the user navigates to About Us page
     Then the About Us page should be opened
 
-    When the user clicks Vision Card button 1
-    Then the Places page should be opened
+    When the user clicks Vision Card button 1 without signing in
+    Then the Sign In modal should be displayed
+    And the user closes the Sign In modal
+    Then the Main page should be opened
     And the user navigates back to About Us page
 
-
-  Scenario: Verify Vision Card buttons after sign-in
-    When the user navigates to About Us page
-    Then the About Us page should be opened
-
-    When the user clicks Vision Card button 1
-    Then the Places page should be opened
+    When the user clicks Vision Card button 2 without signing in
+    Then the Sign In modal should be displayed
+    And the user closes the Sign In modal
+    Then the Main page should be opened
     And the user navigates back to About Us page
 
-
-  Scenario: Verify Vision Card buttons after sign-in
-    When the user navigates to About Us page
-    Then the About Us page should be opened
-
-    When the user clicks Vision Card button 1
-    Then the Places page should be opened
-    And the user navigates back to About Us page
- sign-in
-    When the user navigates to About Us page
-    Then the About Us page should be opened
-
-    When the user clicks Vision Card button 1
-    Then the Places page should be opened
-    And the user navigates back to About Us page
-
-    When the user clicks Vision Card button 2
-    Then the Friends page should be opened
-    And the user navigates back to About Us page
-
-    When the user clicks Vision Card button 3
+    When the user clicks Vision Card button 3 without signing in
     Then the Eco News page should be opened
     And the user navigates back to About Us page
 
-    When the user clicks Vision Card button 4
-    Then the Friends page should be opened
+    When the user clicks Vision Card button 4 without signing in
+    Then the Sign In modal should be displayed
+    And the user closes the Sign In modal
+    Then the Main page should be opened
+    And the user navigates back to About Us page
