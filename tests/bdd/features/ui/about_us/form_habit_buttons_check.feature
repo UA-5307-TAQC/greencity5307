@@ -1,4 +1,4 @@
-Feature: New suer puper feature
+Feature: About Us page Form Habit buttons
 
   As a registered user
   I want to click the "Form Habit" buttons on the About Us page
