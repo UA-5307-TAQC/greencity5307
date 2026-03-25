@@ -1,4 +1,4 @@
-Feature: New feature 100% percent
+Feature: Completely different text to trigger conflict
 
   As a registered user
   I want to click the "Form Habit" buttons on the About Us page
