@@ -16,3 +16,28 @@ Feature: About Us page Form Habit buttons
     When the user navigates back to About Us page
     And the user clicks the second "Form Habit" button
     Then the My Habit page should be opened
+
+  Scenario: Verify "Form Habit" buttons navigate to My Habit page
+    When the user navigates to About Us page
+    And the user clicks the first "Form Habit" button
+    Then the My Habit page should be opened
+
+    When the user navigates back to About Us page
+    And the user clicks the second "Form Habit" button
+    Then the My Habit page should be opened
+  Scenario: Verify "Form Habit" buttons navigate to My Habit page
+    When the user navigates to About Us page
+    And the user clicks the first "Form Habit" button
+    Then the My Habit page should be opened
+
+    When the user navigates back to About Us page
+    And the user clicks the second "Form Habit" button
+    Then the My Habit page should be opened
+  Scenario: Verify "Form Habit" buttons navigate to My Habit page
+    When the user navigates to About Us page
+    And the user clicks the first "Form Habit" button
+    Then the My Habit page should be opened
+
+    When the user navigates back to About Us page
+    And the user clicks the second "Form Habit" button
+    Then the My Habit page should be opened
