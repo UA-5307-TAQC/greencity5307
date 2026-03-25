@@ -8,14 +8,25 @@ from behave import when, then
 
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
-@when('I click the friends action on my profile banner')
-def click_correct_friend_button(context):
-    """Click button that redirects user to the friends page"""
+@when('I click the "See all" link on my profile banner')
+def click_see_all_link(context):
+    """Click 'See all' link that redirects user to the My Friends page"""
     my_habit_page = MyHabitPage(context.browser)
     profile_banner = my_habit_page.profile_banner
     if profile_banner.friends_images_exist():
         profile_banner.click_view_all_friends()
         context.expected_path = "/friends"
+    else:
+        context.scenario.skip("Skip test because there is no 'See all' link")
+
+
+@when('I click the "Add friends" button on my profile banner')
+def click_add_friend_button(context):
+    """Click 'Add friends' button that redirects user to the my Find Friends page"""
+    my_habit_page = MyHabitPage(context.browser)
+    profile_banner = my_habit_page.profile_banner
+    if profile_banner.friends_images_exist():
+        context.scenario.skip("Skip test because there is no [Add friends]")
     else:
         profile_banner.click_add_friends_btn()
         context.expected_path = "/friends/recommended"
