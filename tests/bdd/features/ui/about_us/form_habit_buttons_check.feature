@@ -1,4 +1,4 @@
-Feature: 100%conf
+Feature: New header
 
   As a registered user
   I want to click the "Form Habit" buttons on the About Us page
