@@ -1,4 +1,4 @@
-Feature: About Us page Form Habit buttons
+Feature: User clicks Form Habit buttons to see My Habit page
 
   As a registered user
   I want to click the "Form Habit" buttons on the About Us page
