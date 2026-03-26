@@ -43,7 +43,7 @@ def test_get_user_dto_by_principal_from_access_token(access_token):
 @allure.feature("user-controller")
 @allure.story("Get User dto by principal (email) from access token")
 @allure.title("Verify response with wrong access token")
-def test_get_user_dto_by_principal_from_access_token():
+def test_get_user_dto_by_principal_from_not_valid_access_token():
     """Test get user dto by principal from access token"""
 
     client = UserClient(access_token="not_access_token")

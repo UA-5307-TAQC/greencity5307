@@ -23,7 +23,7 @@ def pytest_runtest_makereport(item):
 
         if web_driver:
             try:
-                test_name = item.name
+                test_name = item.name_schema
                 timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
                 allure.attach(
                     web_driver.get_screenshot_as_png(),

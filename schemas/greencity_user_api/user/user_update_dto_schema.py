@@ -1,13 +1,11 @@
 """User update dto schema"""
+from schemas.greencity_user_api.user.common import name_schema
 
 user_update_dto_schema = {
+    "$schema": "http://json-schema.org/draft-07/schema#",
     "type": "object",
     "properties": {
-        "name": {
-            "type": "string",
-            "pattern": r"^(?!.*\.\.)(?!.*\.$)(?!.*\-\-)(?=[ЄІЇҐЁєіїґёА-Яа-яA-Za-z])"
-                       r"[ЄІЇҐЁєіїґёА-Яа-яA-Za-z0-9\s\-'\"’.ʼ]{1,30}(?<![ЭэЁёъЪЫы])$"
-        },
+        **name_schema,
         "emailNotification": {
             "type": "string",
             "enum": [
