@@ -46,6 +46,5 @@ def test_update_social_network_image_forbidden(access_token):
         logger.info("Response json: %s", response_json)
         assert response_json is not None
         assert isinstance(response_json, dict)
-
-        if "error" in response_json:
-            assert response_json["error"] == "Forbidden"
+        assert "error" in response_json, "Expected 'error' field in response JSON"
+        assert response_json["error"] == "Forbidden"

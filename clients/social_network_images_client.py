@@ -16,6 +16,6 @@ class SocialNetworkImagesClient(BaseClient):
         """Update social network image"""
         return self._request(
             method="PUT",
-            endpoint="/",
+            endpoint="",
             json=body
         )
