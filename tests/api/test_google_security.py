@@ -27,19 +27,19 @@ def test_google_security(project_name: str, lang: str,
 
     response = client.get_google_security(project_name, lang)
 
-    if response.status_code == status_code:
-        with allure.step("Validate proper response json format"):
-            parsed_data = response.json()
-            logger.info(parsed_data)
-            try:
-                validate(instance=parsed_data, schema=google_security_schema)
-                logger.info("JSON validation passed")
-            except ValidationError as e:
-                allure.attach(str(e), name="Validation Error",
-                      attachment_type=allure.attachment_type.TEXT)
-                pytest.fail(f"Response JSON does not match schema: {e}")
-            else:
-                pytest.fail(f"Response JSON does not match schema: {status_code}")
+    assert response.status_code == status_code, f"Expected status code {status_code}, got {response.status_code}"
+    with allure.step("Validate proper response json format"):
+        parsed_data = response.json()
+        logger.info(parsed_data)
+        try:
+            validate(instance=parsed_data, schema=google_security_schema)
+            logger.info("JSON validation passed")
+        except ValidationError as e:
+            allure.attach(str(e), name="Validation Error",
+                  attachment_type=allure.attachment_type.TEXT)
+            pytest.fail(f"Response JSON does not match schema: {e}")
+        else:
+            pytest.fail(f"Response JSON does not match schema: {status_code}")
 
     assert response.status_code == status_code, \
         f"Expected status code {status_code}, got {response.status_code}"

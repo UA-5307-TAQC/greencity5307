@@ -1,45 +1,19 @@
-@wip
-Feature: Delete Eco News by ID
+Feature: Delete Eco News
 
-  As a user
-  I want to delete an eco news item by its ID
-  So that unnecessary or outdated news can be removed
+  As an authorized user
+  I want to delete eco news by id
+  So that I can remove unwanted content
 
-  Background:
-    Given the environment variable "BASE_API_URL" is configured
-    And EcoNewsClient is created using Config.BASE_API_URL
-
-  Scenario Outline: Delete eco news by id
-    When I send a DELETE request to "/<news_id>"
-    Then the response status code should be returned
+  Scenario Outline: Delete eco news by id with invalid or restricted access
+    Given I am an authorized user
+    When I send request to delete eco news with id "<news_id>"
+    Then the response status code should be <status_code>
+    And the response message get/delete request should be "<message>"
 
     Examples:
-      | news_id |
-      | 1       |
-      | 32      |
-      | 2       |
-      | 77      |
-      | 90      |
-
-  Scenario: Successfully delete eco news
-    Given a valid eco news id
-    When I send a DELETE request to "/<news_id>"
-    And the response status code is 200
-    Then the response body should match "one_news_get_by_id_schema"
-
-  Scenario: User has no permission to delete eco news
-    Given a valid eco news id
-    When I send a DELETE request to "/<news_id>"
-    And the response status code is 400
-    Then the response body should contain message "Current user has no permission for this action"
-
-  Scenario: Eco news does not exist
-    Given a non-existing eco news id
-    When I send a DELETE request to "/<news_id>"
-    And the response status code is 404
-    Then the response body should contain message "Eco new doesn't exist by this id: {news_id}"
-
-  Scenario: Unexpected status code
-    When I send a DELETE request to "/<news_id>"
-    And the response status code is not one of [200, 400, 404]
-    Then the test should fail with message "Other error"
+      | news_id | status_code | message                                             |
+      | 1       | 404         | Eco new doesn't exist by this id: 1                 |
+      | 32      | 400         | Current user has no permission for this action      |
+      | 2       | 404         | Eco new doesn't exist by this id: 2                 |
+      | 77      | 404         | Eco new doesn't exist by this id: 77                |
+      | 90      | 400         | Current user has no permission for this action      |

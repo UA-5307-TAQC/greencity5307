@@ -67,23 +67,27 @@ class MainPage(BasePage):
         """Navigate to the Saved page."""
         self.header.click_saved_link()
         self.get_wait().until(EC.url_contains("isBookmark=true"))
-        from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract # pylint: disable=import-outside-toplevel
+        from pages.abstract_pages.saved_abstract.saved_abstract import SavedAbstract  # pylint: disable=import-outside-toplevel
         return SavedAbstract(self.driver)
 
     def is_header_visible(self) -> bool:
-        """Check if page header is visible."""
-        return self.is_visible((By.XPATH, "//header[@role='banner']"))
+        """Check if header is visible."""
+        return self.is_visible(BasePage.locators["header"][:2])
 
     def is_navigation_menu_visible(self) -> bool:
-        """Check if main navigation menu elements are visible."""
+        """Check if navigation menu is visible."""
         try:
             return (
-                self.header.new_link.is_displayed()
-                and self.header.event_link.is_displayed()
-                and self.header.about_us_link.is_displayed()
+                    self.header.new_link.is_displayed()
+                    and self.header.event_link.is_displayed()
+                    and self.header.about_us_link.is_displayed()
             )
         except (NoSuchElementException, StaleElementReferenceException):
             return False
+
+    def get_current_url(self) -> str:
+        """Get current page URL."""
+        return self.driver.current_url
 
     def is_logo_visible(self) -> bool:
         """Check if logo in header is visible."""
@@ -99,7 +103,3 @@ class MainPage(BasePage):
     def get_scroll_position(self) -> int:
         """Get current vertical scroll position."""
         return self.driver.execute_script("return window.pageYOffset;")
-
-    def get_current_url(self) -> str:
-        """Get current page URL."""
-        return self.driver.current_url

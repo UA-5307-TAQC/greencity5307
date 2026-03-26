@@ -2,7 +2,6 @@
 
 import allure
 import pytest
-from jsonschema import validate
 
 from data.config import Config
 from clients.habit_assign_client import HabitAssignClient
@@ -16,7 +15,7 @@ HABIT_ID_TO_ASSIGN = 24
 
 @allure.title("Test habit assignment with login and correct id")
 @pytest.mark.parametrize("habit_id", CORRECT_HABIT_IDS)
-def test_habit_assignment_with_correct_id(clean_habit, habit_id):
+def test_habit_assignment_with_correct_id(clean_habit, habit_id, validate_json):
     """Test habit assignment with correct id"""
     client = clean_habit.client
     habits_to_delete = clean_habit.habits_to_delete
@@ -37,7 +36,7 @@ def test_habit_assignment_with_correct_id(clean_habit, habit_id):
 
     with allure.step("Validate response json schema for habit assignment"):
         habit_data = response.json()
-        validate(instance=habit_data, schema=assigned_habit_schema)
+        validate_json(assigned_habit_schema, habit_data)
 
 
 @allure.title("Test habit assignment without login and correct id")

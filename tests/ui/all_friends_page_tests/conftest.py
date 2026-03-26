@@ -35,8 +35,12 @@ def find_friend_page_context(driver_with_login):
     with allure.step("Navigate to Find Friend page"):
         my_habit_page = MyHabitPage(driver)
         profile_banner = my_habit_page.profile_banner
-        find_friend_page = profile_banner.click_add_friends_btn()
-        return SimpleNamespace(page = find_friend_page, driver = driver_with_login)
+        if profile_banner.friends_images_exist():
+            my_friends_page = profile_banner.click_view_all_friends()
+            find_friend_page = my_friends_page.select_tab("find a friend")
+        else:
+            find_friend_page = profile_banner.click_add_friends_btn()
+    return SimpleNamespace(page = find_friend_page, driver = driver_with_login)
 
 
 @pytest.fixture(scope="function")
