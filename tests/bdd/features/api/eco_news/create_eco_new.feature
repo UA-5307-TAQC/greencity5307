@@ -5,7 +5,8 @@ Feature: Create Eco News
   So that I can publish new articles
 
   Scenario Outline: Create eco news with valid data
-    Given Get Create Eco News client
+    Given the user is authorized
+    And Get Create Eco News client
     When I send POST request to create eco news with data:
     """
     <data>

@@ -3,14 +3,12 @@ import tempfile
 import json
 import allure
 from behave import given, when, then
-
 from jsonschema import validate, ValidationError
 
 from PIL import Image
 
 from clients.create_eco_news_client import CreateEcoNewsClient
 from clients.eco_new_client import EcoNewClient
-from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 from schemas.news.one_news_schema import one_news_get_by_id_schema
 from schemas.news.summary_eco_new_schema import summary_eco_new_schema
@@ -32,27 +30,15 @@ def validate_schema(data, schema):
         allure.attach(str(e), name="Validation Error",
                       attachment_type=allure.attachment_type.TEXT)
 
-def login_user():
-    """log in of the user"""
-    client = OwnSecurityClient(Config.BASE_USER_API_URL)
-    response = client.sign_in(
-        email=Config.USER_EMAIL,
-        password=Config.USER_PASSWORD
-    )
 
-    assert response.status_code == 200, \
-        f"Login failed. Status: {response.status_code}. Response body: {response.text}"
-
-    auth_token = response.json().get("accessToken")
-    assert auth_token, \
-        f"Login response does not contain access token. Response body: {response.text}"
-
-    return auth_token
-
-@given("I am an authorized user")
-def step_authorized_user(context):
-    """Authorization of the user"""
-    context.access_token = login_user()
+@given('Get EcoNewsClient')
+def step_get_eco_news_client(context):
+    """ Get EcoNewsClient """
+    data = {
+        "base_url": Config.BASE_API_URL,
+    }
+    if hasattr(context, "access_token"):
+        data["access_token"] = context.access_token
     context.client = EcoNewClient(
         base_url=Config.BASE_API_URL,
         access_token=context.access_token
@@ -62,7 +48,11 @@ def step_authorized_user(context):
 @given("Get Create Eco News client")
 def step_get_create_eco_news_client(context):
     """Get create eco news client"""
-    context.access_token = login_user()
+    data = {
+        "base_url": Config.BASE_API_URL,
+    }
+    if hasattr(context, "access_token"):
+        data["access_token"] = context.access_token
     context.client = CreateEcoNewsClient(
         base_url=Config.BASE_API_URL,
         access_token=context.access_token
@@ -215,9 +205,3 @@ def step_validate_message_for_list(context, message):
 
         assert any(message in msg for msg in messages if msg), \
         f"Expected '{message}' in one of {messages}"
-
-
-@then("the response body should be empty")
-def step_empty_body(context):
-    """Response body is empty"""
-    assert not context.response.content, "Expected empty response body"

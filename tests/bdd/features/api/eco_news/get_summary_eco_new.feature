@@ -5,7 +5,8 @@ Feature: Get Eco News Summary
   So that I can view a short version of the article
 
   Scenario Outline: Get eco news summary by id
-    Given I am an authorized user
+    Given the user is authorized
+    And Get EcoNewsClient
     When I send request to get summary of eco news with id "<news_id>"
     Then the response status code should be <status_code>
     And the response message should be <message>

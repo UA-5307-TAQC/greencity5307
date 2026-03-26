@@ -5,7 +5,8 @@ Feature: Delete Eco News from Favorites
   So that I can manage my saved content
 
   Scenario Outline: Delete eco news from favorites by id
-    Given I am an authorized user
+    Given the user is authorized
+    And Get EcoNewsClient
     When I send request to delete eco news with id "<news_id>" from favorites
     Then the response status code should be <status_code>
     And the response message should be <message>

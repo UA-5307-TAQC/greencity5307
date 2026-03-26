@@ -5,7 +5,8 @@ Feature: Add Eco News to Favorites
   So that I can save interesting articles
 
   Scenario Outline: Add eco news to favorites by id
-    Given I am an authorized user
+    Given the user is authorized
+    And Get EcoNewsClient
     When I send request to add eco news with id "<news_id>" to favorites
     Then the response status code should be <status_code>
     And the response message should be <message>

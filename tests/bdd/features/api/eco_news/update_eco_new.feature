@@ -1,10 +1,11 @@
 Feature: Update Eco News
 
   Scenario Outline: Update eco news with valid data
-    Given I am an authorized user
-    When I send PUT request to update eco news with id <news_id> and <data>:
-    Then the response status code should be <status_code>
-    And the response message should be <message>
+    Given the user is authorized
+    And Get EcoNewsClient
+    When I send PUT request to update eco news with id <news_id> and <data>
+    Then the response status code should be 200
+    And the response should match schema eco_news
 
     Examples:
       | news_id | data | status_code | message |
@@ -14,7 +15,8 @@ Feature: Update Eco News
 
 
   Scenario Outline: Update eco news with invalid data
-    Given I am an authorized user
+    Given the user is authorized
+    And Get EcoNewsClient
     When I send PUT request to update eco news with id <news_id> and <data>:
     Then the response status code should be <status_code>
     And the response message should be <message>

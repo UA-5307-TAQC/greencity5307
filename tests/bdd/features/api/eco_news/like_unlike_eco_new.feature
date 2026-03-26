@@ -5,7 +5,8 @@ Feature: Like or Unlike Eco News
   So that I can manage my reactions
 
   Scenario Outline: Like or unlike eco news by id
-    Given I am an authorized user
+    Given the user is authorized
+    And Get EcoNewsClient
     When I send request to like or unlike eco news with id "<news_id>"
     Then the response status code should be <status_code>
     And the response message should be <message>
