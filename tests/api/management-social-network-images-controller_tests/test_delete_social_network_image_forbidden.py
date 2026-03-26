@@ -39,5 +39,9 @@ def test_delete_social_network_image_forbidden(access_token):
         assert response_json is not None
         assert isinstance(response_json, dict)
 
-        if "error" in response_json:
-            assert response_json["error"] == "Forbidden"
+        assert "error" in response_json, (
+            f'Expected "error" key in response body, got: {response_json}'
+        )
+        assert response_json["error"] == "Forbidden", (
+            f'Expected error "Forbidden", got: {response_json["error"]!r}'
+        )
