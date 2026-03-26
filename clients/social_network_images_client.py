@@ -26,3 +26,10 @@ class SocialNetworkImagesClient(BaseClient):
             endpoint="",
             json=body
         )
+    def create_social_network_image(self, body):
+        """Create social network image"""
+        return self._request(
+            method="POST",
+            endpoint="/",
+            json=body
+        )
