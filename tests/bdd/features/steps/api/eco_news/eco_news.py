@@ -98,7 +98,7 @@ def step_get_recommended(context, news_id):
     context.response = context.client.get_recommended_eco_news(news_id=news_id)
 
 
-@when('I send PUT request to update eco news with id "<news_id>" and "<data>":')
+@when('I send PUT request to update eco news with id {news_id} and {data}')
 def step_update_with_data(context, news_id, data):
     """Update eco new request"""
     context.response = context.client.update_eco_news_by_id(
@@ -149,7 +149,7 @@ def step_validate_list_schema(context, schema_name):
         validate_schema(item, schema)
 
 
-@then('the response message should be "{message}"')
+@then('the response message should be {message}')
 def step_validate_message(context, message):
     """Validation of message"""
     parsed_data = context.response.json()
