@@ -15,7 +15,6 @@ from pages.common_pages.main_page import MainPage
 def test_switch_to_places_tab_on_saved_page(driver: WebDriver):
     """Test switching to Places tab on Saved page."""
     with allure.step("Open GreenCity main page"):
-        driver.get(Config.BASE_UI_URL)
         main_page = MainPage(driver)
         assert main_page.is_page_opened()
 
