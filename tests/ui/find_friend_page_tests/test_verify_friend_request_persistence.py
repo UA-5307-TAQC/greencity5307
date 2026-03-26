@@ -5,23 +5,23 @@ from data.config import Config
 
 from pages.common_pages.main_page import MainPage
 
+from pages.abstract_pages.my_space_abstract.my_space_abstract_page import MySpaceAbstractPage
+from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage
+
 
 @allure.title("Verify Friend Request Persistence After User Logout and Login")
 def test_find_friend_verify_persistence_after_logout(driver_with_login, target_user_not_added_to_friends):
     """Test case that verifies a sent friend request remains active after the user logs out and logs back in."""
     target_user_name = "Liubomyr Halamaha"
 
-    with allure.step(f"Precondition: A target user '{target_user_name}' exists in the system "
-                     f"who is not yet in the user's friend list."):
-        target_user_not_added_to_friends(target_user_name)
-
     with allure.step("Step 1: "
                      "Navigate to the Greencity URL."):
-        main_page = MainPage(driver_with_login)
-        user_name_from_header = main_page.header.get_signed_in_user_name()
+        main_page = MySpaceAbstractPage(driver_with_login).header.click_logo()
 
         # Expected result: The Home page loads successfully.
         assert main_page.is_loaded()
+
+        user_name_from_header = main_page.header.get_signed_in_user_name()
         assert user_name_from_header in [Config.USER_NAME, "Hlib", "Oleksandr"], \
             f"The expected user is not signed in. Found user: '{user_name_from_header}'"
 
@@ -34,15 +34,23 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
         assert my_habit_page.wait_page_loaded(), "'My Space' page did not load successfully."
 
     with allure.step("Step 3: "
-                     "Click on the '+' (plus) icon in the 'My friends' section "
+                     "Click on the 'See all' link in the 'My friends' section "
                      "within the profile information block."):
-        find_friend_page = my_habit_page.profile_banner.click_add_friends_btn()
+        my_friends_page = my_habit_page.profile_banner.click_view_all_friends()
 
         # Expected result:
-        # The "Find Friend" page loads successfully.
-        assert find_friend_page.is_page_loaded(), "'Find Friend' page did not load successfully"
+        # The "My Friends" page loads successfully.
+        assert my_friends_page.is_page_loaded(), "'My Friends' page did not load successfully"
 
-    with allure.step("Step 4: "
+    with allure.step("Step 4: Click on 'Find a friend' tab on 'My Friends' page."):
+        my_friends_page.select_tab("Find a friend")
+        find_friend_page = FindFriendPage(driver_with_login)
+
+        # Expected result:
+        # The "Find a friend" page loads successfully.
+        assert find_friend_page.is_page_loaded()
+
+    with allure.step("Step 5: "
                      "Enter the target user name into the Search input field."):
         find_friend_page.search_friend(target_user_name)
 
@@ -52,7 +60,7 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
         assert user_friend_card.get_friend_info()["name"] == target_user_name, \
             "The target user was not found."
 
-    with allure.step("Step 5: "
+    with allure.step("Step 6: "
                      "Click the 'Add Friend' button on the found user's card."):
         user_friend_card = find_friend_page.get_friend_card_by_name(target_user_name)
         user_friend_card.click_add_friend_btn()
@@ -65,14 +73,14 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
         assert user_friend_card.add_friend_btn.text == "Cancel request", \
             "The label of the button did not change."
 
-    with allure.step("Step 6: "
+    with allure.step("Step 7: "
                      "Click on the User Profile icon (dropdown) in the header."):
         find_friend_page.header.click_user_menu()
 
         # Expected result: The user menu dropdown opens. The "Sign out" option is visible.
         assert find_friend_page.header.is_user_menu_present()
 
-    with allure.step("Step 7: "
+    with allure.step("Step 8: "
                      "Click the 'Sign out' button."):
         find_friend_page.header.click_user_menu_sign_out_link()
 
@@ -81,14 +89,14 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
         main_page = MainPage(driver_with_login)
         assert main_page.is_loaded()
 
-    with allure.step("Step 8:"
+    with allure.step("Step 9:"
                      "Click the 'Sign in' button in the header."):
         sign_in_window = main_page.header.click_sign_in_link()
 
         # Expected result: The "Sign in" modal window appears.
         assert sign_in_window.is_displayed()
 
-    with allure.step("Step 9:"
+    with allure.step("Step 10:"
                      "Enter the valid email address and password "
                      "into the Sign In fields, and click the 'Sign in' button."):
         profile_page = sign_in_window.sign_in(
@@ -99,15 +107,24 @@ def test_find_friend_verify_persistence_after_logout(driver_with_login, target_u
         # Expected result: The user is successfully logged in. The Profile page loads successfully.
         assert profile_page.wait_page_loaded()
 
-    with allure.step("Step 10:"
-                     "Click on the '+' (plus) icon in the 'My friends'"
-                     " section within the profile information block."):
-        find_friend_page = profile_page.profile_banner.click_add_friends_btn()
+    with allure.step("Step 11:"
+                     "Click on the 'See all' link in the 'My friends' section "
+                     "within the profile information block."):
+        my_friends_page = my_habit_page.profile_banner.click_view_all_friends()
 
-        # Expected result: The "Find Friend" page loads successfully.
+        # Expected result:
+        # The "My Friends" page loads successfully.
+        assert my_friends_page.is_page_loaded(), "'My Friends' page did not load successfully"
+
+    with allure.step("Step 12: Click on 'Find a friend' tab on 'My Friends' page."):
+        my_friends_page.select_tab("Find a friend")
+        find_friend_page = FindFriendPage(driver_with_login)
+
+        # Expected result:
+        # The "Find a friend" page loads successfully.
         assert find_friend_page.is_page_loaded()
 
-    with allure.step("Step 11: "
+    with allure.step("Step 13: "
                      "Enter the same target user name into the Search input field."):
         find_friend_page.search_friend(target_user_name)
 

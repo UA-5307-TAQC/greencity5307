@@ -81,7 +81,26 @@ Quick start (Windows PowerShell)
    pytest tests/ui/test_example.py::test_name -q
    ```
 
-Linting and pre-commit hooks
+Running Behave (BDD) tests
+--------------------------
+
+This repository also contains BDD-style tests implemented with Behave under
+`tests/bdd/features`. Use the following PowerShell examples to run them locally.
+
+Run a single feature file (pretty formatter):
+
+```powershell
+behave tests/bdd/features/ui/header/change_language.feature
+```
+
+Run all BDD features (parallel tools or formatters can be added separately):
+
+```powershell
+cd C:\data\github\UA5307TAQC\greencity5307
+behave
+```
+
+# Linting and pre-commit hooks
 
 This repository includes:
 - `.pylintrc` — basic pylint configuration
