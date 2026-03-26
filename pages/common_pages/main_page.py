@@ -72,7 +72,7 @@ class MainPage(BasePage):
 
     def is_header_visible(self) -> bool:
         """Check if header is visible."""
-        return self.is_visible(BasePage.locators["header"])
+        return self.is_visible(BasePage.locators["header"][:2])
 
     def is_navigation_menu_visible(self) -> bool:
         """Check if navigation menu is visible."""
