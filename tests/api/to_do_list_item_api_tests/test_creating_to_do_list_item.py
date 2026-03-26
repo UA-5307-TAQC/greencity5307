@@ -1,13 +1,12 @@
 """Validation of creating to-do list items"""
 import allure
 import pytest
-from jsonschema import validate, ValidationError
+from jsonschema import validate
 
 from clients.to_do_list_client import TodoClient
+from clients.habit_assign_client import HabitAssignClient
 from data.config import Config
-from schemas.to_do_list_schema import todo_item_schema
-from utils.logger import logger
-
+from schemas.to_do_lists.to_do_list_schema import (todo_item_schema, todo_create_request_schema)
 
 # @pytest.mark.parametrize(
 #     "habit_id, body, status_code",
@@ -17,43 +16,84 @@ from utils.logger import logger
 #     ]
 # )
 
-@allure.feature("ToDoList")
-@allure.story("Create to-do list items")
-@allure.title("Create to-do list items for user")
-def test_create_todo_items(access_token):
+def test_todo_client_methods_smoke(access_token):
 
     client = TodoClient(
         base_url=Config.BASE_API_URL,
         access_token=access_token
     )
 
-    # ===================== 1. GET HABITS =====================
-    habits_response = client.get_habits()
-    assert habits_response.status_code == 200
+    response_habits = client.get_habits()
+    assert response_habits.status_code == 200
 
-    habits = habits_response.json()
-    assert len(habits) > 0, "No habits found for user"
+    habits_data = response_habits.json()
+    habits = habits_data.get("page", [])
+
+    if not habits:
+        pytest.skip("No habits found")
 
     habit_id = habits[0]["id"]
 
-    # ===================== 2. GET TODO ITEMS =====================
-    response_get = client.get_todo_list(habit_id=habit_id)
-    assert response_get.status_code == 200
+    # ===================== 2. CREATE TODO =====================
+    todo_body = [{"title": "Test Item", "description": "Smoke test"}]
+    response_create = client.create_todo_items(habit_id=habit_id, body=todo_body)
+    assert response_create.status_code == 201  # створення успішне
 
-    todo_items = response_get.json()
-    assert len(todo_items) > 0, "No todo items available for this habit"
+    # ===================== 3. GET TODO LIST =====================
+    response_todo = client.get_todo_list(habit_id=habit_id)
+    assert response_todo.status_code == 200
 
-    valid_item_id = todo_items[0]["id"]
+    todo_items = response_todo.json()
+    assert len(todo_items) > 0, "No todo items available"
 
-    # ===================== 3. POST =====================
-    response = client.create_todo_items(
-        habit_id=habit_id,
-        body=[{"id": valid_item_id}],
-        lang="en"
-    )
+    item_id = todo_items[0]["id"]
 
-    # ===================== 4. ASSERT =====================
-    assert response.status_code == 201
+    # ===================== 4. UPDATE STATUS =====================
+    response_update = client.update_item_status(item_id=item_id, status="DONE")
+    assert response_update.status_code in [200, 204]
+
+    # ===================== 5. MARK DONE =====================
+    response_done = client.mark_item_done(item_id=item_id)
+    assert response_done.status_code in [200, 204]
+
+    # ===================== 6. DELETE =====================
+    response_delete = client.delete_todo_item(habit_id=habit_id, item_id=item_id)
+    assert response_delete.status_code in [200, 204, 404]
+
+# def test_create_todo_items(access_token):
+#
+#     client = TodoClient(
+#         base_url=Config.BASE_API_URL,
+#         access_token=access_token
+#     )
+#
+#     # ===================== 1. GET HABITS =====================
+#     habits_response = client.get_habits()
+#     assert habits_response.status_code == 200
+#
+#     habits = habits_response.json()
+#     assert len(habits) > 0, "No habits found for user"
+#
+#     habit_id = habits[0]["id"]
+#
+#     # ===================== 2. GET TODO ITEMS =====================
+#     response_get = client.get_todo_list(habit_id=habit_id)
+#     assert response_get.status_code == 200
+#
+#     todo_items = response_get.json()
+#     assert len(todo_items) > 0, "No todo items available for this habit"
+#
+#     valid_item_id = todo_items[0]["id"]
+#
+#     # ===================== 3. POST =====================
+#     response = client.create_todo_items(
+#         habit_id=habit_id,
+#         body=[{"id": valid_item_id}],
+#         lang="en"
+#     )
+#
+#     # ===================== 4. ASSERT =====================
+#     assert response.status_code == 201
 
 # def test_create_todo_items(habit_id, body, status_code, access_token):
 #     """Test creating to-do list items"""

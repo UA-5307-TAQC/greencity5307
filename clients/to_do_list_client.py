@@ -10,18 +10,16 @@ class TodoClient(BaseClient):
 
     def __init__(self, base_url, access_token=None):
         super().__init__(
-            base_url=f"{base_url}/user/to-do-list-items",
+            base_url=base_url,
             access_token=access_token
         )
-
-    # ===================== CREATE =====================
 
     @allure.step("Create to-do list items for habitId={habit_id}")
     def create_todo_items(self, habit_id: int, body: list, lang: str = "en") -> Response:
         """Create to-do list items for habitId"""
         return self._request(
             method="POST",
-            endpoint="",
+            endpoint="/user/to-do-list-items",
             params={
                 "habitId": habit_id,
                 "lang": lang
@@ -29,8 +27,29 @@ class TodoClient(BaseClient):
             json=body
         )
 
-    # ===================== GET =====================
-
+#     def __init__(self, base_url, access_token=None):
+#         super().__init__(
+#             base_url=f"{base_url}/user/to-do-list-items",
+#             access_token=access_token
+#         )
+#
+#     # ===================== CREATE =====================
+#
+#     @allure.step("Create to-do list items for habitId={habit_id}")
+#     def create_todo_items(self, habit_id: int, body: list, lang: str = "en") -> Response:
+#         """Create to-do list items for habitId"""
+#         return self._request(
+#             method="POST",
+#             endpoint="",
+#             params={
+#                 "habitId": habit_id,
+#                 "lang": lang
+#             },
+#             json=body
+#         )
+#
+#     # ===================== GET =====================
+#
     @allure.step("Get to-do list by habitId={habit_id}")
     def get_todo_list(self, habit_id: int, lang: str = "en") -> Response:
         """Get to-do list by habitId"""
@@ -100,6 +119,6 @@ class TodoClient(BaseClient):
         """
         return self._request(
             method="GET",
-            endpoint="/habits",
+            endpoint="/habit",
             params={"lang": lang}
         )
