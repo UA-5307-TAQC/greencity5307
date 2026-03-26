@@ -90,9 +90,3 @@ def remove_habit_assignment(context):
     assigned_id = get_assigned_id(context.client, context.habit_id)
     response = context.client.delete_habit_assign(assigned_id)
     assert response.status_code == 200
-
-
-@then('the response body should be empty')
-def check_response_is_empty(context):
-    """Validate that the response body for habit deletion is empty"""
-    assert context.response.text == ""

@@ -142,9 +142,3 @@ def step_validate_message(context, message):
     parsed_data = context.response.json()
     assert parsed_data["message"] == message, \
         f"Expected '{message}', got '{parsed_data['message']}'"
-
-
-@then("the response body should be empty")
-def step_empty_body(context):
-    """Response body is empty"""
-    assert not context.response.content, "Expected empty response body"

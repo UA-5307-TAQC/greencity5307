@@ -77,3 +77,10 @@ def check_response_code(context, expected_code):
     """Check response status code"""
     actual_code = context.response.status_code
     assert actual_code == expected_code, f"Code is {actual_code}"
+
+
+@then("the response body should be empty")
+def step_empty_body(context):
+    """Response body is empty"""
+    content = context.response.text.strip()
+    assert content == "", f"Content is empty. Response body: {content}"
