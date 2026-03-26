@@ -33,13 +33,12 @@ todo_item_single_schema = {
             "enum": ["ACTIVE", "DONE", "INPROGRESS"]
         }
     },
-    "additionalProperties": False
+    "additionalProperties": True
 }
 
 
 todo_item_schema = {
     "type": "array",
-    "minItems": 1,
     "items": todo_item_single_schema
 }
 
