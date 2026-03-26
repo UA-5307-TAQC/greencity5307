@@ -11,7 +11,7 @@ from data.config import Config
 
 
 @given('a target user with "{friend_id}" has no friend request')
-def step_target_user_has_no_friend_request(friend_id):
+def step_target_user_has_no_friend_request(context, friend_id):  # pylint: disable=unused-argument
     """Given a target user with "<friend_id>" has no friend request."""
     own_client = OwnSecurityClient(base_url=Config.BASE_USER_API_URL)
     response = own_client.sign_in(
@@ -50,28 +50,31 @@ def step_user_is_on_find_friend_page(context):
     assert my_friends_page.is_page_loaded(), "'My Friends' page did not load successfully"
 
     my_friends_page.select_tab("Find a friend")
+
     find_friend_page = FindFriendPage(context.browser)
-    assert find_friend_page.is_page_loaded()
-    context.find_friend_page = find_friend_page
+    assert find_friend_page.is_page_loaded(), "'Find Friend' page did not load successfully"
+    context.current_page = find_friend_page
 
 
 @when('the user searches for "{target_user}"')
+@when('searches for "{target_user}" again')
 def step_user_searches_for_target_user(context, target_user):
-    """When the user searches for "<target_user>"."""
-    find_friend_page = context.find_friend_page
-
+    """When the user searches for target_user."""
+    find_friend_page = context.current_page
     find_friend_page.search_friend(target_user)
-    user_friend_card = find_friend_page.get_friend_card_by_name(target_user)
 
+    user_friend_card = find_friend_page.get_friend_card_by_name(target_user)
     assert user_friend_card.get_friend_info()["name"] == target_user, \
-        "The target user was not found."
+        f"The target user '{target_user}' was not found."
+
     context.target_user = target_user
+    context.user_friend_card = user_friend_card
 
 
 @when('clicks the "Add Friend" button on the user card')
 def step_click_add_friend_button(context):
     """And clicks the "Add Friend" button on the user card."""
-    find_friend_page = context.find_friend_page
+    find_friend_page = context.current_page
 
     user_friend_card = find_friend_page.get_friend_card_by_name(context.target_user)
     user_friend_card.click_add_friend_btn()
@@ -79,97 +82,69 @@ def step_click_add_friend_button(context):
     context.user_friend_card = user_friend_card
 
 
-@then('the notification "Friend request sent" should appear')
-def step_notification_should_appear(context):
-    """Then the notification "Friend request sent" should appear."""
-    find_friend_page = context.find_friend_page
-    assert find_friend_page.get_alert_msg() == "Friend request sent", \
-        "A notification message did not appear."
+@then('the notification "{expected_msg}" should appear')
+def step_notification_should_appear(context, expected_msg):
+    """Then the notification as expected should appear."""
+    page = context.current_page
+
+    actual_msg = page.get_alert_msg()
+    assert actual_msg == expected_msg, \
+        f"Expected notification '{expected_msg}', but got '{actual_msg}'."
 
 
-@then('the button on the user card should change to "Cancel request"')
-def step_button_on_the_user_card_should_change(context):
-    """And the button on the user card should change to "Cancel request"."""
-    user_friend_card = context.user_friend_card
-    assert user_friend_card.add_friend_btn.text == "Cancel request", \
-        "The label of the button did not change."
+@then('the button on the user card should change to "{expected_text}"')
+@then('the button on the user card should still be "{expected_text}"')
+@then('the button on the user card should be "{expected_text}"')
+def step_button_on_the_user_card_should_change(context, expected_text):
+    """And the button on the user card should change to expected."""
+    actual_text = context.user_friend_card.add_friend_btn.text
+    assert actual_text == expected_text, \
+        (f"The label of button should be {expected_text}. "
+         f"Got: {actual_text}")
 
 
 @when('the user refreshes the "Find a friend" page')
 def step_user_refreshes_the_page(context):
     """When the user refreshes the "Find a friend" page."""
-    find_friend_page = context.find_friend_page
+    find_friend_page = context.current_page
     find_friend_page.refresh_page()
     assert find_friend_page.is_page_loaded(), "'Find Friend' page did not load successfully."
-
-
-@when('searches for "{target_user}" again')
-def step_searches_for_target_user_again(context, target_user):
-    """And searches for "<target_user>" again."""
-    find_friend_page = context.find_friend_page
-    find_friend_page.search_friend(target_user)
-
-    user_friend_card = find_friend_page.get_friend_card_by_name(target_user)
-    assert user_friend_card.get_friend_info()["name"] == target_user, \
-        "The target user was not found."
-    context.user_friend_card = user_friend_card
-
-
-@then('the button on the user card should still be "Cancel request"')
-def step_button_should_still_be_cancel(context):
-    """Then the button on the user card should still be "Cancel request"."""
-    assert context.user_friend_card.add_friend_btn.text == "Cancel request", \
-        "The label of the button was changed after reloading of the page."
 
 
 @when('the user opens the profile of "{target_user}"')
 def step_user_opens_profile_of_target_user(context, target_user):
     """When the user opens the profile of "<target_user>"."""
-    find_friend_page = context.find_friend_page
+    find_friend_page = context.current_page
     friend_card = find_friend_page.get_friend_card_by_name(target_user)
     user_all_habits_page = friend_card.click_friend_card()
 
     assert user_all_habits_page.user_info_banner.is_loaded(), \
         "'All Habits' page of the User Profile page was not loaded."
     context.user_all_habits_page = user_all_habits_page
+    context.current_page = user_all_habits_page
 
 
-@then('the button on the profile page should be "Cancel request"')
-def step_button_on_profile_should_be_cancel(context):
-    """Then the button on the profile page should be "Cancel request"."""
-    assert context.user_all_habits_page.user_info_banner.friend_btn.text == "Cancel request"
+@then('the button on the profile page should be "{expected_text}"')
+@then('the button on the profile page should change to "{expected_text}"')
+def step_button_on_profile_should_be_cancel(context, expected_text):
+    """Then the button on the profile page should be as expected."""
+    assert context.current_page.user_info_banner.friend_btn.text == expected_text, \
+        (f"The label of button should be {expected_text}. "
+         f"Got: {context.current_page.user_info_banner.friend_btn.text}")
 
 
 @when('the user clicks the "Cancel request" button on the profile page')
 def step_user_clicks_cancel_request(context):
     """When the user clicks the "Cancel request" button on the profile page."""
-    context.user_all_habits_page.user_info_banner.click_cancel_request()
-
-
-@then('the notification "Your friend request has been canceled" should appear')
-def step_notification_canceled_should_appear(context):
-    """Then the notification "Your friend request has been canceled" should appear."""
-    assert context.user_all_habits_page.get_alert_msg() == "Your friend request has been canceled", \
-        "The notification message did not appear"
-
-
-@then('the button on the profile page should change to "Add friend"')
-def step_button_on_profile_page_should_change(context):
-    """And the button on the profile page should change to "Add friend"."""
-    assert context.user_all_habits_page.user_info_banner.friend_btn.text == "Add friend"
+    context.current_page.user_info_banner.click_cancel_request()
 
 
 @when('the user navigates back to the "Find Friend" page')
 def step_user_navigates_back_to_find_friend_page(context):
     """When the user navigates back to the "Find Friend" page."""
-    context.user_all_habits_page.go_back()
+    context.current_page.go_back()
 
     find_friend_page = FindFriendPage(context.browser)
     assert find_friend_page.is_page_loaded(), \
         "'Find Friend' page did not load successfully."
-
-
-@then('the button on the user card should be "Add friend"')
-def step_button_on_user_card_should_be_add_friend(context):
-    """Then the button on the user card should be "Add friend"."""
-    assert context.user_friend_card.add_friend_btn.text == "Add friend"
+    context.current_page = find_friend_page
