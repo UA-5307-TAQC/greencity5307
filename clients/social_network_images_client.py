@@ -12,33 +12,32 @@ class SocialNetworkImagesClient(BaseClient):
             access_token=access_token
         )
 
-    def get_all_social_network_images(self):
-        """Get all social network images"""
-        return self._request(
-            method="GET",
-            endpoint=""
-        )
+  def get_all_social_network_images(self):
+      return self.request(
+          method="GET",
+          endpoint=""
+      )
 
-    def create_social_network_image(self, body):
-        """Create social network image"""
-        return self._request(
-            method="POST",
-            endpoint="/",
-            json=body
-        )
 
-    def update_social_network_image(self, body):
-        """Update social network image"""
-        return self._request(
-            method="PUT",
-            endpoint="/",
-            json=body
-        )
+  def create_social_network_image(self, body):
+      return self.request(
+          method="POST",
+          endpoint="/",
+          json=body
+      )
 
-    def delete_social_network_image(self, image_id):
-        """Delete social network image"""
-        return self._request(
-            method="DELETE",
-            endpoint="/delete",
-            params={"id": image_id}
-        )
+
+  def update_social_network_image(self, body):
+      return self.request(
+          method="PUT",
+          endpoint="/",
+          json=body
+      )
+
+
+  def delete_social_network_image(self, image_id):
+      return self.request(
+          method="DELETE",
+          endpoint="/delete",
+          params={"id": image_id}
+      )

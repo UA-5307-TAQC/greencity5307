@@ -5,6 +5,7 @@ import pytest
 
 from data.config import Config
 from clients.habit_assign_client import HabitAssignClient
+from clients.social_network_images_client import SocialNetworkImagesClient
 
 
 @pytest.fixture(scope="function")
@@ -79,3 +80,11 @@ def assign_habit(habit_manager):
                 assert response.status_code == 201
 
     return _assign_habit
+
+@pytest.fixture
+def social_network_images_client(access_token):
+    """Fixture for social network images client"""
+    return SocialNetworkImagesClient(
+        base_url=Config.BASE_USER_API_URL,
+        access_token=access_token
+    )

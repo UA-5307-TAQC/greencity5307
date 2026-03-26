@@ -44,18 +44,29 @@ class FriendsPage(BasePage):
     @allure.step("Select tab: {tab_name}")
     def select_tab(self, tab_name: str):
         """Select tab"""
+        from pages.abstract_pages.friends_abstract.find_friend_page import FindFriendPage  # pylint: disable=import-outside-toplevel
+        from pages.abstract_pages.friends_abstract.friend_requests_page import FriendRequestsPage  # pylint: disable=import-outside-toplevel
         tab_name = tab_name.strip().lower()
+        page = None
 
         if tab_name in ("my friends", "мої друзі"):
-            self.tab_my_friends.click()
+            self.tab_my_friends.wait_and_click()
         elif tab_name in ("find a friend", "знайти друга"):
-            self.tab_find_friend.click()
+            self.tab_find_friend.wait_and_click()
+            page = FindFriendPage(self.driver)
         elif tab_name in ("friend requests", "запити в друзі"):
-            self.tab_friend_requests.click()
+            self.tab_friend_requests.wait_and_click()
+            page = FriendRequestsPage(self.driver)
         else:
             raise ValueError(f"Unknown tab: {tab_name}")
+        return page
 
     @allure.step("Get friend items")
     def get_friend_items(self) -> list[FriendItemComponent]:
         """Get friend items"""
         return self.friend_cards
+
+    @allure.step("Check My Friends page is loaded")
+    def is_page_loaded(self) -> bool:
+        """Checks if the 'My friends' page is loaded."""
+        return self._is_loaded_indicator(self.locators["search_input"][:2])
