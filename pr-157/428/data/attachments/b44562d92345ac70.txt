@@ -1,3 +1,0 @@
-2026-03-06 07:08:44,154 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
-2026-03-06 07:08:44,856 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
-2026-03-06 07:08:45,675 - GreenCityLogger - INFO - [ALLURE STEP] Click on Add friends button on Profile Banner component

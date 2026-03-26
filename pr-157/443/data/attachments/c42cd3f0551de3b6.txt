@@ -1,6 +1,0 @@
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Send 'POST' request to '/signIn'
-INFO     GreenCityLogger:base_client.py:58 Sending POST request to https://greencity-user.greencity.cx.ua/ownSecurity/signIn with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '61ab9c6a-8d49-46cf-8820-5e90c1ef2e0e'} and kwargs: {'json': {'email': 'greencitytest69@hotmail.com', 'password': 'asweQA5346!)', 'projectName': 'GREENCITY'}}
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Create Habit Assign client
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Assign to the habit and check that the response code is correct
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Send 'POST' request to '/1'
-INFO     GreenCityLogger:base_client.py:58 Sending POST request to https://greencity.greencity.cx.ua/habit/assign/1 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJncmVlbmNpdHl0ZXN0NjlAaG90bWFpbC5jb20iLCJyb2xlIjpbIlJPTEVfVVNFUiJdLCJleHAiOjE3NzI4MTU3NjQsInVzZXJJZCI6MTIwNSwiaWF0IjoxNzcyODA4NTY0fQ.zmEgnXfdUM_AlVkYtKc98AxIvPedosaMbqJQheJN_pc', 'X-Request-ID': '5277786c-fa0f-4a0a-a619-f8b5384ceef7'} and kwargs: {}

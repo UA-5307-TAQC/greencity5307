@@ -1,9 +1,0 @@
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 1: Open GreenCity website
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Precondition: Login
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 2: Open My Space
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 3: Navigate to Friends section
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 4: Open Requests tab
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Step 5: Verify at least one friend request card is shown
-WARNING  GreenCityLogger:logger.py:44 [ALLURE STEP FAILED] TimeoutException: Message:

@@ -1,6 +1,0 @@
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Logging in the user with email: greencitytest69@hotmail.com
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Go to My Space page
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Check if the current day on the calendar is correct
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Get current date on Calendar component

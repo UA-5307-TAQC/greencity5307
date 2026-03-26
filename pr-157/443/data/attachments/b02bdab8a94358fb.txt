@@ -1,4 +1,0 @@
-2026-03-06 14:49:25,656 - GreenCityLogger - INFO - [ALLURE STEP] Create Habit Assign client
-2026-03-06 14:49:25,656 - GreenCityLogger - INFO - [ALLURE STEP] Assign to the habit and check that the response code is correct
-2026-03-06 14:49:25,657 - GreenCityLogger - INFO - [ALLURE STEP] Send 'POST' request to '/27'
-2026-03-06 14:49:25,657 - GreenCityLogger - INFO - Sending POST request to https://greencity.greencity.cx.ua/habit/assign/27 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'eb003096-024c-45ef-b040-d8873602590d'} and kwargs: {}

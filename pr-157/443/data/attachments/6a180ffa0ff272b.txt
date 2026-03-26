@@ -1,3 +1,0 @@
-2026-03-06 14:53:21,985 - GreenCityLogger - INFO - [ALLURE STEP] Clicking signin button in the header
-2026-03-06 14:53:22,679 - GreenCityLogger - INFO - [ALLURE STEP] Sign in
-2026-03-06 14:53:23,478 - GreenCityLogger - INFO - [ALLURE STEP] Click on My events tab on My Space page

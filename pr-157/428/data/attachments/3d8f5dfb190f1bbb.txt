@@ -1,3 +1,0 @@
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking signin button in the header
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Sign in
-INFO     GreenCityLogger:logger.py:35 [ALLURE STEP] Clicking the saved link in the header

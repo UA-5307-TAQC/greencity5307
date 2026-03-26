@@ -1,7 +1,0 @@
-2026-03-06 14:49:27,266 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Find eco news by page with filters: tags=None, title=None, author_id=None, favorite=False, page=0, size=101, sort=None
-2026-03-06 14:49:27,266 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Send 'GET' request to ''
-2026-03-06 14:49:27,266 - GreenCityLogger - INFO - base_client.py  - _request - Sending GET request to https://greencity.greencity.cx.ua/eco-news with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': 'ea72ff23-6b85-4a27-b534-709df0b88545'} and kwargs: {'params': {'favorite': False, 'page': 0, 'size': 101}}
-2026-03-06 14:49:27,502 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Check status code
-2026-03-06 14:49:27,502 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request_with_invalid_query_params - 400
-2026-03-06 14:49:27,503 - GreenCityLogger - INFO - logger.py  - start_step - [ALLURE STEP] Validate proper response message
-2026-03-06 14:49:27,503 - GreenCityLogger - INFO - test_find_eco_news_by_page.py  - test_find_eco_news_by_page_request_with_invalid_query_params - {'message': 'Page size must be less than or equal to 100'}

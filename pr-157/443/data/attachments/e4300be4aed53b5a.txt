@@ -1,5 +1,0 @@
-2026-03-06 14:49:30,131 - GreenCityLogger - INFO - [ALLURE STEP] Find one eco news by 1 with filters: lang='en'
-2026-03-06 14:49:30,131 - GreenCityLogger - INFO - [ALLURE STEP] Send 'GET' request to '/1'
-2026-03-06 14:49:30,131 - GreenCityLogger - INFO - Sending GET request to https://greencity.greencity.cx.ua/eco-news/1 with headers: {'User-Agent': 'python-requests/2.32.5', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'X-Request-ID': '1ee21852-d5ad-4295-958e-ca9b5f734967'} and kwargs: {'params': {'lang': 'en'}}
-2026-03-06 14:49:30,193 - GreenCityLogger - INFO - 404
-2026-03-06 14:49:30,193 - GreenCityLogger - INFO - {'message': "Eco new doesn't exist by this id: 1"}
