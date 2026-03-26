@@ -83,8 +83,14 @@ class OneHabitPage(BasePage):
 
     @allure.step("Click To-Do List edit button")
     def press_to_do_list_edit_button(self):
-        """start edit to do list"""
+        """Click the edit link and wait until the custom-item input field is visible."""
         self.to_do_list_edit_button.wait_and_click()
+        # Wait explicitly for the edit form to become visible so callers do not
+        # need to use time.sleep() to compensate for the animation delay.
+        custom_input_locator = self.locators["custom_item_input"][:2]
+        self.get_wait().until(
+            EC.visibility_of_element_located(custom_input_locator)
+        )
         return self
 
     @allure.step("Enter and add item '{message}' to the list")
@@ -131,7 +137,7 @@ class OneHabitPage(BasePage):
             self.duration_day_slider.send_keys(Keys.ARROW_RIGHT)
         return self
     @allure.step("Move slider to the left")
-    def move_slider_left(self,value: int):
+    def move_slider_left(self, value: int):
         """Move slider using keyboard arrows"""
         for _ in range(value):
             self.duration_day_slider.send_keys(Keys.ARROW_LEFT)

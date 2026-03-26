@@ -22,27 +22,32 @@ def driver(request):
     headless_flag = Config.HEADLESS
 
     drv = None
-    match browser:
-        case "firefox":
-            opts = FirefoxOptions()
-            if headless_flag:
-                opts.headless = True
-            drv = webdriver.Firefox(options=opts)
-        case "chrome":
-            opts = ChromeOptions()
-            if headless_flag:
-                opts.add_argument("--headless=new")
-            opts.add_argument(f"--lang={Config.BROWSER_LANG}")
-            opts.add_argument("--no-sandbox")
-            opts.add_argument("--disable-gpu")
-            opts.add_argument("--window-size=1920,1080")
-            drv = webdriver.Chrome(options=opts)
-    drv.implicitly_wait(Config.IMPLICITLY_WAIT)
-    drv.get(Config.BASE_UI_URL)
+    try:
+        match browser:
+            case "firefox":
+                opts = FirefoxOptions()
+                if headless_flag:
+                    opts.headless = True
+                drv = webdriver.Firefox(options=opts)
+            case "chrome":
+                opts = ChromeOptions()
+                if headless_flag:
+                    opts.add_argument("--headless=new")
+                opts.add_argument(f"--lang={Config.BROWSER_LANG}")
+                opts.add_argument("--no-sandbox")
+                opts.add_argument("--disable-gpu")
+                opts.add_argument("--window-size=1920,1080")
+                drv = webdriver.Chrome(options=opts)
+        drv.implicitly_wait(Config.IMPLICITLY_WAIT)
+        drv.get(Config.BASE_UI_URL)
 
-    yield drv
-
-    drv.quit()
+        yield drv
+    finally:
+        if drv is not None:
+            try:
+                drv.quit()
+            except Exception:  # pylint: disable=broad-except
+                pass
 
 
 @pytest.fixture(scope="function")

@@ -1,7 +1,5 @@
 """Step definitions for adding a custom item to a habit's To-Do list."""
 
-import time
-
 # pylint: disable=not-callable
 
 from behave import then, when
@@ -16,7 +14,6 @@ def edit_to_do_list(context, item_name):
     one_habit_page = OneHabitPage(driver)
 
     one_habit_page.press_to_do_list_edit_button()
-    time.sleep(1)
 
     one_habit_page.add_element_into_list(item_name)
     one_habit_page.save_element()
