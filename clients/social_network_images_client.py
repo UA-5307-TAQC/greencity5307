@@ -19,3 +19,10 @@ class SocialNetworkImagesClient(BaseClient):
             endpoint="/delete",
             params={"id": image_id}
         )
+    def update_social_network_image(self, body):
+        """Update social network image"""
+        return self._request(
+            method="PUT",
+            endpoint="",
+            json=body
+        )
