@@ -8,7 +8,7 @@ Feature: Add Eco News to Favorites
     Given I am an authorized user
     When I send request to add eco news with id "<news_id>" to favorites
     Then the response status code should be <status_code>
-    And the response message post request should be "<message>"
+    And the response message should be <message>
 
     Examples:
       | news_id | status_code | message                                             |

@@ -8,7 +8,7 @@ Feature: Get Eco News Summary
     Given I am an authorized user
     When I send request to get summary of eco news with id "<news_id>"
     Then the response status code should be <status_code>
-    And the response message get/delete request should be "<message>"
+    And the response message should be <message>
 
     Examples:
       | news_id | status_code | message                                      |

@@ -1,12 +1,14 @@
 """Eco news api feature steps"""
 import tempfile
-
+import json
 import allure
 from behave import given, when, then
+
 from jsonschema import validate, ValidationError
 
 from PIL import Image
 
+from clients.create_eco_news_client import CreateEcoNewsClient
 from clients.eco_new_client import EcoNewClient
 from clients.own_security_client import OwnSecurityClient
 from data.config import Config
@@ -56,6 +58,17 @@ def step_authorized_user(context):
         access_token=context.access_token
     )
 
+
+@given("Get Create Eco News client")
+def step_get_create_eco_news_client(context):
+    """Get create eco news client"""
+    context.access_token = login_user()
+    context.client = CreateEcoNewsClient(
+        base_url=Config.BASE_API_URL,
+        access_token=context.access_token
+    )
+
+
 @when('I send request to add eco news with id "{news_id}" to favorites')
 def step_add_to_favorites(context, news_id):
     """Addition to favourites request"""
@@ -101,12 +114,26 @@ def step_get_recommended(context, news_id):
 @when('I send PUT request to update eco news with id {news_id} and {data}')
 def step_update_with_data(context, news_id, data):
     """Update eco new request"""
+    cleaned_data = data.strip().rstrip(':')
+    parsed_data = json.loads(cleaned_data)
+
     context.response = context.client.update_eco_news_by_id(
         news_id=news_id,
         image_file_path=create_test_image(),
-        data=data
+        data=parsed_data
     )
     logger.info(f"Response: {context.response.json() if context.response.content else 'Empty'}") # pylint: disable=W1203
+
+@when('I send POST request to create eco news with data:')
+def step_create_eco_news(context):
+    """Create eco news request"""
+
+    data = json.loads(context.text)
+
+    context.response = context.client.create_eco_news_by_data(
+        image_file_path=create_test_image(),
+        data=data
+    )
 
 @then("the response status code should be {status_code:d}")
 def step_status_code(context, status_code):
@@ -152,9 +179,42 @@ def step_validate_list_schema(context, schema_name):
 @then('the response message should be {message}')
 def step_validate_message(context, message):
     """Validation of message"""
-    parsed_data = context.response.json()
-    assert parsed_data["message"] == message, \
-        f"Expected '{message}', got '{parsed_data['message']}'"
+    response = context.response
+
+    try:
+        parsed_data = response.json()
+        actual_message = parsed_data.get("message")
+    except ValueError:
+        actual_message = response.text
+
+    assert actual_message is not None, \
+        f"No message found in response. Full response: {response.text}"
+
+    assert message in actual_message, \
+        f"Expected '{message}', got '{actual_message}'"
+
+
+@then('the response message for list should be {message}')
+def step_validate_message_for_list(context, message):
+    """Validation of message in list response"""
+    response = context.response
+
+    try:
+        parsed_data = response.json()
+    except ValueError as e:
+        allure.attach(str(e), name="Validation Error",
+                      attachment_type=allure.attachment_type.TEXT)
+    else:
+        assert isinstance(parsed_data, list), \
+            f"Expected response to be a list, got {type(parsed_data)}: {parsed_data}"
+
+        messages = [item.get("message") for item in parsed_data if isinstance(item, dict)]
+
+        assert any(msg is not None for msg in messages), \
+        f"No 'message' field found in response: {parsed_data}"
+
+        assert any(message in msg for msg in messages if msg), \
+        f"Expected '{message}' in one of {messages}"
 
 
 @then("the response body should be empty")

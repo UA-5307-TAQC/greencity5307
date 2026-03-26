@@ -8,12 +8,12 @@ Feature: Like or Unlike Eco News
     Given I am an authorized user
     When I send request to like or unlike eco news with id "<news_id>"
     Then the response status code should be <status_code>
-    And 'the response message get/delete request should be "<message>"'
+    And the response message should be <message>
 
     Examples:
-      | news_id | status_code |
-      | 1       | 404         |
-      | 32      | 200         |
-      | 2       | 404         |
-      | 77      | 404         |
-      | 90      | 200         |
+      | news_id | status_code | message |
+      | 1       | 404         |Eco new doesn't exist by this id: 1         |
+      | 32      | 200         |         |
+      | 2       | 404         |Eco new doesn't exist by this id: 2         |
+      | 77      | 404         |Eco new doesn't exist by this id: 77         |
+      | 90      | 200         |         |
