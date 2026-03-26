@@ -22,7 +22,7 @@ from utils.logger import logger
 )
 @allure.feature("SocialNetwork")
 @allure.title("Check user access to the deletion of social media.")
-def test_social_networks_delete_by_id(network_id,status_code,message,message_type, access_token):
+def test_social_networks_delete_by_id(network_id, status_code, message, message_type, access_token):
     """Test for deletion of social_network by id verification"""
     token = access_token
 
@@ -34,19 +34,19 @@ def test_social_networks_delete_by_id(network_id,status_code,message,message_typ
 
     response = client.delete_social_network_by_id(network_id=network_id)
 
-    if response.status_code == 200:
-        with allure.step("Validate proper response json format"):
-            parsed_data = response.json()
-            logger.info(parsed_data)
-            try:
-                validate(instance=parsed_data, schema=social_networks_schema)
-                logger.info("JSON validation passed")
-            except ValidationError as e:
-                allure.attach(str(e), name="Validation Error",
-                              attachment_type=allure.attachment_type.TEXT)
-                pytest.fail(f"Response JSON does not match schema: {e}")
-            else:
-                pytest.fail(f"Response JSON does not match schema: {status_code}")
+    assert response.status_code == 200, f"Expected status code {status_code}, got {status_code}"
+    with allure.step("Validate proper response json format"):
+        parsed_data = response.json()
+        logger.info(parsed_data)
+        try:
+            validate(instance=parsed_data, schema=social_networks_schema)
+            logger.info("JSON validation passed")
+        except ValidationError as e:
+            allure.attach(str(e), name="Validation Error",
+                          attachment_type=allure.attachment_type.TEXT)
+            pytest.fail(f"Response JSON does not match schema: {e}")
+        else:
+            pytest.fail(f"Response JSON does not match schema: {status_code}")
 
     assert response.status_code == status_code, \
         f"Expected status code {status_code}, got {response.status_code}"
