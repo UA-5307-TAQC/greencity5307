@@ -33,3 +33,9 @@ class SocialNetworkImagesClient(BaseClient):
             endpoint="/",
             json=body
         )
+    def get_all_social_network_images(self):
+        """Get all social network images"""
+        return self._request(
+            method="GET",
+            endpoint=""
+        )
