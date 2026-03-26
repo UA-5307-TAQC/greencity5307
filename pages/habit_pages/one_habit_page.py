@@ -86,6 +86,13 @@ class OneHabitPage(BasePage):
     def press_to_do_list_edit_button(self):
         """start edit to do list"""
         self.to_do_list_edit_button.wait_and_click()
+        # Wait explicitly for the custom-item input to appear so callers
+        # do not need a time.sleep() after this call.
+        # [:2] slices off the optional component-type element, leaving (By, value)
+        # as required by Selenium's expected_conditions helpers.
+        self.get_wait().until(
+            EC.visibility_of_element_located(self.locators["custom_item_input"][:2])
+        )
         return self
 
     @allure.step("Enter and add item '{message}' to the list")
