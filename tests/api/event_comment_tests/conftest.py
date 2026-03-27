@@ -29,7 +29,7 @@ def comment_factory(access_token, request):
     def _create_comment(event_id: int, text: str = None) -> int:
         """Inner function, that certain test will call."""
         if text is None:
-            text = f"AQA: {request.node.name_schema}"
+            text = f"AQA: {request.node.name}"
 
         with allure.step(f"Step 1: "
                          f"Send a POST request to create a new comment "
