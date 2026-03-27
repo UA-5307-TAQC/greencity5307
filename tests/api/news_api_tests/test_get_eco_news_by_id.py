@@ -54,10 +54,11 @@ languages = ('en', 'uk')
         (4044, 'not-exist'),
     ],
 )
+@allure.epic("Greencity API")
 @allure.feature("News")
-@allure.story("Get news")
+@allure.story("Get one news by id")
 @allure.title(
-    "Test eco news get request's response returns correct data format")
+    "Test eco news get by id request's response returns correct data format")
 def test_get_eco_news_by_id(news_id: int, lang: str):
     """Test like one news page like one news"""
 

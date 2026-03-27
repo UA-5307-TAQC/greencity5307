@@ -23,8 +23,9 @@ from utils.logger import logger
          400),
     ],
 )
+@allure.epic("Greencity API")
 @allure.feature("News")
-@allure.story("Get news")
+@allure.story("Get news page")
 @allure.title("Verify proper responses when use invalid query params")
 def test_find_eco_news_by_page_request_with_invalid_query_params(page: int,
                                                                  size: int,
@@ -68,8 +69,9 @@ def test_find_eco_news_by_page_request_with_invalid_query_params(page: int,
         (0, 20, None, 'Not-exist', 1000000, False),
     ],
 )
+@allure.epic("Greencity API")
 @allure.feature("News")
-@allure.story("Get news")
+@allure.story("Get news page")
 @allure.title(
     "Test eco news get request's response returns correct data format")
 def test_find_eco_news_by_page_request(page: int,

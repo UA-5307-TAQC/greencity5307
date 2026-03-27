@@ -2,7 +2,6 @@
 
 import json
 
-import allure
 from behave import given, when, then
 from jsonschema import validate
 
@@ -94,12 +93,11 @@ def step_filter_all_user_by_search_criteria_schema_validation(context):
     Validate response schema for successful user filtering request (HTTP 200 only).
     """
     if context.response.status_code == 200:
-        with allure.step("Validate successful response"):
-            parsed_data = context.response.json()
-            logger.info("RESPONSE DATA: %s", parsed_data)
+        parsed_data = context.response.json()
+        logger.info("RESPONSE DATA: %s", parsed_data)
 
-            validate(instance=parsed_data,
-                     schema=pageable_dto_user_for_list_schema)
+        validate(instance=parsed_data,
+                 schema=pageable_dto_user_for_list_schema)
 
 
 @then("validate schema for user dto by principal")
