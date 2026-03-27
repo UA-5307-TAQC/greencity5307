@@ -7,12 +7,11 @@ import json
 from collections import defaultdict
 
 import allure
+from behave import given, then
 from jsonschema import Draft7Validator
 
-from behave import given, then
-
-from data.config import Config
 from clients.own_security_client import OwnSecurityClient
+from data.config import Config
 
 
 def validate_json_schema(schema, data):
@@ -36,7 +35,8 @@ def validate_json_schema(schema, data):
             report_lines = []
             for i, err in enumerate(err_list, 1):
                 path = " -> ".join(map(str, list(err.path)[1:])) or "root"
-                report_lines.append(f"{i}. [{path}] -> {err.message} (Actual: {err.instance})")
+                report_lines.append(
+                    f"{i}. [{path}] -> {err.message} (Actual: {err.instance})")
 
             allure.attach(
                 "\n".join(report_lines),
@@ -44,7 +44,8 @@ def validate_json_schema(schema, data):
                 attachment_type=allure.attachment_type.TEXT
             )
 
-        raise AssertionError(f"JSON validation failed. Found {len(errors)} total schema errors.")
+        raise AssertionError(
+            f"JSON validation failed. Found {len(errors)} total schema errors.")
 
 
 @given('the user is authorized')
@@ -66,6 +67,12 @@ def login_user(context):
     context.auth_token = auth_token
 
 
+@given("I have invalid access token")
+def step_invalid_token(context):
+    """Create an invalid access token"""
+    context.auth_token = "not_access_token"
+
+
 @then('the response JSON should match the schema')
 def validate_json(context):
     """Validate response json schema"""
@@ -84,3 +91,28 @@ def step_empty_body(context):
     """Response body is empty"""
     content = context.response.text.strip()
     assert content == "", f"Content is empty. Response body: {content}"
+
+
+@then("validate if bad request")
+def step_validate_bad_request(context):
+    """Assert that the response status code is 400 Bad Request."""
+    assert context.response.status_code == 400, "Wrong bad request response"
+
+
+@then("validate if unauthorised")
+def step_validate_unauthorised(context):
+    """Assert that the response status code is 401 Unauthorized."""
+    assert context.response.status_code == 401, "Wrong unauthorised response"
+
+
+@then("response status code should be {status:d}")
+def step_status(context, status):
+    """
+    Assert that the response status code matches the expected value.
+
+    Args:
+        status (int): Expected HTTP status code.
+    """
+    assert context.response.status_code == status, (
+        f"Expected {status}, got {context.response.status_code}"
+    )
