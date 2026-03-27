@@ -53,6 +53,53 @@ class Factory(Generic[T]):
     def get_wait(self, timeout: int = Config.EXPLICITLY_WAIT) -> WebDriverWait:
         """Returns a WebDriverWait instance for the current driver."""
         return WebDriverWait(self.driver, timeout)
+
+    def _call_resolver(self, name: str) -> Any:
+        """Look up and invoke the lazy resolver registered under *name*.
+
+        Args:
+            name: The locator key as defined in the ``locators`` class dictionary.
+
+        Returns:
+            Whatever the resolver returns (element, component, or list thereof).
+
+        Raises:
+            AttributeError: If *name* is not a registered locator.
+        """
+        if name not in self._lazy_resolvers:
+            raise AttributeError(
+                f"'{type(self).__name__}' has no locator named '{name}'"
+            )
+        return self._lazy_resolvers[name]()
+
+    def resolve_element(self, name: str) -> Any:
+        """Public method to explicitly resolve a named locator that returns a single element.
+
+        Args:
+            name: The locator key as defined in the ``locators`` class dictionary.
+
+        Returns:
+            The resolved element or component instance.
+
+        Raises:
+            AttributeError: If ``name`` is not a registered locator.
+        """
+        return self._call_resolver(name)
+
+    def resolve_list(self, name: str) -> list[Any]:
+        """Public method to explicitly resolve a named locator that returns multiple elements.
+
+        Args:
+            name: The locator key as defined in the ``locators`` class dictionary.
+
+        Returns:
+            A list of resolved element or component instances.
+
+        Raises:
+            AttributeError: If ``name`` is not a registered locator.
+        """
+        return self._call_resolver(name)
+
     def _bind_locators(self) -> None:
         """
         Iterates through 'locators' dictionaries across the entire class hierarchy (MRO)

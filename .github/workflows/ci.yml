@@ -65,7 +65,7 @@ jobs:
           set +e
 
           if [ "${{ matrix.test_type }}" = "pytest" ]; then
-            pytest -v
+            pytest -n auto -v
           else
             behave
           fi
