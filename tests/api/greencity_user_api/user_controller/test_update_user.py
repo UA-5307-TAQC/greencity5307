@@ -8,78 +8,86 @@ valid_data = [
     (
         {
             "name": "Іван Петренко",
-            "email": "ivan@example.com",
-            "role": "ROLE_USER",
-            "userStatus": "VERIFIED"
+            "emailNotification": "IMMEDIATELY"
         },
         200
     ),
     (
         {
-            "name": "John-Doe",
-            "email": "john.doe@test.com",
-            "role": "ROLE_ADMIN",
-            "userStatus": "CREATED"
+            "name": "John Doe",
+            "emailNotification": "DAILY"
         },
         200
     ),
     (
         {
-            "name": "Марія",
-            "email": "maria@test.com",
-            "role": "ROLE_EMPLOYEE",
-            "userStatus": "VERIFIED"
+            "name": "Марія-Анна",
+            "emailNotification": "WEEKLY"
+        },
+        200
+    ),
+    (
+        {
+            "name": "Ivan O'Connor",
+            "emailNotification": "MONTHLY"
         },
         200
     ),
 ]
 invalid_data = [
-    # invalid name (double dots)
+    # double dot
     (
         {
             "name": "Іван..Петро",
-            "email": "ivan@test.com",
-            "role": "ROLE_USER",
-            "userStatus": "VERIFIED"
+            "emailNotification": "IMMEDIATELY"
         },
         400
     ),
-    # invalid name (ends with dot)
+    # ends with dot
     (
         {
             "name": "Іван.",
-            "email": "ivan@test.com",
-            "role": "ROLE_USER",
-            "userStatus": "VERIFIED"
+            "emailNotification": "IMMEDIATELY"
         },
         400
     ),
-    # invalid role
+    # double dash
     (
         {
-            "name": "Іван",
-            "email": "ivan@test.com",
-            "role": "ROLE_SUPER_ADMIN",
-            "userStatus": "VERIFIED"
+            "name": "Іван--Петро",
+            "emailNotification": "DAILY"
         },
         400
     ),
-    # invalid userStatus
+    # invalid symbols
     (
         {
-            "name": "Іван",
-            "email": "ivan@test.com",
-            "role": "ROLE_USER",
-            "userStatus": "DELETED"
+            "name": "Ivan@Petro!",
+            "emailNotification": "WEEKLY"
         },
         400
     ),
-    # missing required field (email)
+    # too long name (>30 chars conceptually)
     (
         {
-            "name": "Іван",
-            "role": "ROLE_USER",
-            "userStatus": "VERIFIED"
+            "name": "І" * 40,
+            "emailNotification": "MONTHLY"
+        },
+        400
+    ),
+    # invalid enum
+    (
+        {
+            "name": "Іван Петренко",
+            "emailNotification": "YEARLY"
+        },
+        400
+    ),
+    # missing required field
+    (
+        {
+            "name": "Іван Петренко",
+            "emailNotification": None
         },
         400
     ),
@@ -95,7 +103,7 @@ def test_update_user(payload, expected_status, access_token):
     """Test get user dto by principal from access token"""
 
     client = UserClient(access_token=access_token)
-    response = client.update_user_by_user_management(**payload)
+    response = client.update_user(**payload)
     status_code = response.status_code
     logger.info("STATUS CODE: %s", status_code)
     logger.info("DATA: %s", response.json())
@@ -106,13 +114,13 @@ def test_update_user(payload, expected_status, access_token):
 @allure.epic("GreencityUser API")
 @allure.feature("user-controller")
 @allure.story("Update user")
-@allure.title("Verify response with access token")
+@allure.title("Verify response without access token")
 @pytest.mark.parametrize("payload, expected_status", valid_data)
 def test_update_user_not_valid_access_token(payload, expected_status):
     """Test get user dto by principal from access token"""
 
     client = UserClient(access_token="not_access_token")
-    response = client.update_user_by_user_management(**payload)
+    response = client.update_user(**payload)
     status_code = response.status_code
     logger.info("STATUS CODE: %s", status_code)
     logger.info("DATA: %s", response.json())

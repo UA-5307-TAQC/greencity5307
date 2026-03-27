@@ -20,7 +20,6 @@ def test_get_user_dto_by_principal_from_access_token(access_token):
     status_code = response.status_code
     logger.info("STATUS CODE: %s", status_code)
 
-
     if status_code == 200:
         with allure.step("Validate successful response"):
             parsed_data = response.json()
@@ -51,12 +50,11 @@ def test_get_user_dto_by_principal_from_not_valid_access_token():
     status_code = response.status_code
     logger.info("STATUS CODE: %s", status_code)
 
-
     if status_code == 401:
         with allure.step("Validate unauthorized error"):
             parsed_error = response.json()
             logger.info('Error: %s', parsed_error)
             assert parsed_error[
-                       'error'] == "Unauthorized", "Wrong error message"
+                       'error'] == "Unauthorized", "Wrong unauthorized error message"
     else:
         pytest.fail(f"Unhandled error")

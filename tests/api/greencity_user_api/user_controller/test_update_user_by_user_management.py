@@ -78,6 +78,7 @@ invalid_data = [
     (
         {
             "name": "Іван",
+            "email": None,
             "role": "ROLE_USER",
             "userStatus": "VERIFIED"
         },
@@ -106,7 +107,7 @@ def test_update_user_by_user_management(payload, expected_status,
 @allure.epic("GreencityUser API")
 @allure.feature("user-controller")
 @allure.story("Update user by UserManagement")
-@allure.title("Verify response with access token")
+@allure.title("Verify response without access token")
 @pytest.mark.parametrize("payload, expected_status", valid_data)
 def test_update_user_by_user_management_not_valid_access_token(payload, expected_status):
     """Test get user dto by principal from access token"""
