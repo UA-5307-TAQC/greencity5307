@@ -6,8 +6,6 @@ from PIL import Image
 from behave import given, when, then
 from jsonschema import validate, ValidationError
 
-from PIL import Image
-
 from clients.create_eco_news_client import CreateEcoNewsClient
 from clients.eco_new_client import EcoNewClient
 from data.config import Config
