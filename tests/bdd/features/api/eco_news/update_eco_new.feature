@@ -5,7 +5,7 @@ Feature: Update Eco News
     And Get EcoNewsClient
     When I send PUT request to update eco news with id <news_id> and <data>
     Then the response status code should be 200
-    And the response should match schema eco_news
+    And the response should match schema one_eco_news
 
     Examples:
       | news_id | data | status_code | message |
