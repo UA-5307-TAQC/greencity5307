@@ -6,7 +6,6 @@ from requests import Response
 
 from clients.base_client import BaseClient
 
-
 class EcoNewClient(BaseClient):
     """Client for interacting with the Eco News API,
      extending BaseClient for common functionality."""

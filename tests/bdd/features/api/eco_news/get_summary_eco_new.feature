@@ -1,57 +1,20 @@
-@wip
-Feature: Get source and content of eco news by id
+Feature: Get Eco News Summary
 
-  As a client of the Eco News API
-  I want to retrieve the source and content of an eco news item by its ID
-  So that I can display the correct summary to users
+  As an authorized user
+  I want to retrieve eco news summary by id
+  So that I can view a short version of the article
 
-  Background:
-    Given the environment variable "BASE_API_URL" is configured
-    And EcoNewsClient is created using Config.BASE_API_URL
-
-  Scenario Outline: Retrieve eco news summary
-    When I send a GET request to "/<news_id>/summary"
-    Then the response status code should be captured
+  Scenario Outline: Get eco news summary by id
+    Given the user is authorized
+    And Get EcoNewsClient
+    When I send request to get summary of eco news with id "<news_id>"
+    Then the response status code should be <status_code>
+    And the response message should be <message>
 
     Examples:
-      | news_id |
-      | 1       |
-      | 32      |
-      | 2       |
-      | 77      |
-      | 90      |
-
-  Scenario: Successfully retrieve eco news summary
-    Given a valid news ID
-    When I send a GET request to "/<news_id>/summary"
-    And the response status code is 200
-    Then the response body should match "one_news_get_by_id_schema"
-
-  Scenario: User has no permission
-    Given a valid news ID
-    When I send a GET request to "/<news_id>/summary"
-    And the response status code is 400
-    Then the response body should contain message "Current user has no permission for this action"
-
-  Scenario: Eco news not found
-    Given a non-existing news ID
-    When I send a GET request to "/<news_id>/summary"
-    And the response status code is 404
-    Then the response body should contain message "Eco new doesn't exist by this id: {news_id}"
-
-  Scenario: Forbidden access
-    Given a request without proper authorization
-    When I send a GET request to "/<news_id>/summary"
-    And the response status code is 403
-    Then the response body should contain message "Forbidden access"
-
-  Scenario: Internal server error
-    Given the server encounters an unexpected condition
-    When I send a GET request to "/<news_id>/summary"
-    And the response status code is 500
-    Then the response body should contain message "Internal Server Error"
-
-  Scenario: Unexpected status code
-    When I send a GET request to "/<news_id>/summary"
-    And the response status code is not one of [200, 400, 403, 404, 500]
-    Then the test should fail with message "Other error"
+      | news_id | status_code | message                                      |
+      | 1       | 404         | Eco new doesn't exist by this id: 1          |
+      | 32      | 200         |                                              |
+      | 2       | 404         | Eco new doesn't exist by this id: 2          |
+      | 77      | 404         | Eco new doesn't exist by this id: 77         |
+      | 90      | 200         |                                              |

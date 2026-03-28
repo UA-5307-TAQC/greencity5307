@@ -1,57 +1,20 @@
-@wip
-Feature: Like or Unlike Eco News by ID
+Feature: Like or Unlike Eco News
 
-  As a user
-  I want to like or unlike an eco news item by its ID
-  So that I can express my reaction to the news
-
-  Background:
-    Given the environment variable "BASE_API_URL" is configured
-    And EcoNewsClient is created using Config.BASE_API_URL
+  As an authorized user
+  I want to like or remove like from eco news
+  So that I can manage my reactions
 
   Scenario Outline: Like or unlike eco news by id
-    When I send a POST request to "/<news_id>/like"
-    Then the response status code should be returned
+    Given the user is authorized
+    And Get EcoNewsClient
+    When I send request to like or unlike eco news with id "<news_id>"
+    Then the response status code should be <status_code>
+    And the response message should be <message>
 
     Examples:
-      | news_id |
-      | 1       |
-      | 32      |
-      | 2       |
-      | 77      |
-      | 90      |
-
-  Scenario: Successfully like or unlike eco news
-    Given a valid eco news id
-    When I send a POST request to "/<news_id>/like"
-    And the response status code is 201
-    Then the response body should match "one_news_get_by_id_schema"
-
-  Scenario: User has no permission to like or unlike eco news
-    Given a valid eco news id
-    When I send a POST request to "/<news_id>/like"
-    And the response status code is 400
-    Then the response body should contain message "Current user has no permission for this action"
-
-  Scenario: Eco news does not exist
-    Given a non-existing eco news id
-    When I send a POST request to "/<news_id>/like"
-    And the response status code is 404
-    Then the response body should contain message "Eco new doesn't exist by this id: {news_id}"
-
-  Scenario: Forbidden access
-    Given a request without proper authorization
-    When I send a POST request to "/<news_id>/like"
-    And the response status code is 403
-    Then the response body should contain message "Forbidden access"
-
-  Scenario: Internal server error
-    Given the server encounters an unexpected condition
-    When I send a POST request to "/<news_id>/like"
-    And the response status code is 500
-    Then the response body should contain message "Internal Server Error"
-
-  Scenario: Unexpected status code
-    When I send a POST request to "/<news_id>/like"
-    And the response status code is not one of [201, 400, 403, 404, 500]
-    Then the test should fail with message "Other error"
+      | news_id | status_code | message |
+      | 1       | 404         |Eco new doesn't exist by this id: 1         |
+      | 32      | 200         |         |
+      | 2       | 404         |Eco new doesn't exist by this id: 2         |
+      | 77      | 404         |Eco new doesn't exist by this id: 77         |
+      | 90      | 200         |         |

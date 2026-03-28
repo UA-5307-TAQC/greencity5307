@@ -32,3 +32,11 @@ class FriendsClient(BaseClient):
             "size": size
         }
         return self._request("GET", "/mutual-friends", params=params)
+
+    @allure.step("Delete user's request to friend")
+    def cancel_request(self, friend_id):
+        """Delete user's request to friend."""
+        return self._request(
+            method="DELETE",
+            endpoint=f"/{friend_id}/cancelRequest"
+        )

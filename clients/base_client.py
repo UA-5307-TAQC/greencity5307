@@ -21,7 +21,7 @@ class BaseClient:
         self.logger = logger
 
     @allure.step("Send {method} request to {endpoint}")
-    def _request(self, method, endpoint, headers=None, **kwargs):
+    def _request(self, method, endpoint='', headers=None, **kwargs):
         """Internal method to send HTTP requests with consistent logging and error handling."""
         url = f"{self.base_url}{endpoint}"
 
