@@ -1,46 +1,35 @@
-@wip
-@API @security @HighPriority
-Feature: API User Password Update Validation
-  As an authenticated user of GreenCity
-  I want to securely update my current password via the change-password API
-  So that I can maintain the security of my account
+Feature: User Password Update API
+  As a registered and authenticated user
+  I want to be able to update my account password
+  So that I can maintain my account security
 
-  @HappyPath
-  Scenario Outline: Successful password update with valid and matching inputs
-    Given the user is authenticated and has a valid access token
-    When a PUT request is sent to the "/ownSecurity/changePassword" endpoint with
-      | password    | confirm_password   |
-      | <password>  | <confirm_password> |
-    Then the API should respond with a 200 OK status code
-    And the response body should be an empty JSON or string
+  @positive @restore_password
+  Scenario: Successful password update with valid and matching inputs
+    Given the user is authenticated with a valid access token
+    When the user sends a PUT request to change the password with "NewstrongPassword1!" and confirm password "NewstrongPassword1!"
+    Then the response status code should be 200
+    And the response time should be less than 3000 ms
+    And the response body should be empty or "{}"
+    # Примітка: Відновлення пароля (teardown) зазвичай ховається у hooks (наприклад, @after_scenario), а не пишеться у BDD кроках.
 
-    Examples:
-      | password           | confirm_password   |
-      | NewstrongPassword1 | NewstrongPassword1 |
-
-
-  # --- NEGATIVE SCENARIOS ---
-
-  @Negative @Validation
-  Scenario Outline: Unsuccessful password update due to validation errors
-    Given the user is authenticated and has a valid access token
-    When a PUT request is sent to the "/ownSecurity/changePassword" endpoint with
-      | password   | confirmPassword    |
-      | <password> | <confirm_password> |
-    Then the API should respond with a <status_code> Bad Request status code
-    And the response error message should contain "<error_message>"
+  @negative @validation
+  Scenario Outline: Password update validation for invalid inputs: <scenario_name>
+    Given the user is authenticated with a valid access token
+    When the user sends a PUT request to change the password with new password "<new_password>" and confirm password "<confirm_password>"
+    Then the response status code should be <expected_status>
+    And the response matches the 400 Bad Request JSON schema
+    And the response error message should contain "<expected_error_text>"
 
     Examples:
-      | password            | confirm_password    | status_code | error_message                                     |
-      | StrongPass1!        | DifferentPass2@     | 400         | The passwords don't match                       |
-      | StrongPass1!        |                     | 400         | must not be blank                                 |
-      | 123                 | 123                 | 400         | password must be 8 or more characters in length   |
+      | scenario_name          | new_password | confirm_password | expected_status | expected_error_text                      |
+      | Mismatched passwords   | StrongPass1! | DifferentPass2@  | 400             | The passwords don't match                |
+      | Empty confirm password | StrongPass1! | [empty]          | 400             | must not be blank                        |
+      | Password too short     | 123          | 123              | 400             | password must be 8 or more characters in |
 
-  @Negative @Security @Unauthorized
+@negative @security
   Scenario: Unsuccessful password update attempt without authentication
-    Given the user is NOT authenticated (does not have a valid access token)
-    When a PUT request is sent to the "/ownSecurity/changePassword" endpoint with
-      | password        | StrongPass1! |
-      | confirmPassword | StrongPass1! |
-    Then the API should respond with a 401 Unauthorized status code
-    And the response error message should contain "Unauthorized"
+    Given the user is unauthenticated (no access token provided)
+    When the user sends a PUT request to change the password with new password "NewstrongPassword1!" and confirm password "NewstrongPassword1!"
+    Then the response status code should be 401
+    And the response matches the 401 Unauthorized JSON schema
+    And the response error message should contain "unauthorized"

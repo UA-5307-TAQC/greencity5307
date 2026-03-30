@@ -82,10 +82,8 @@ class SignInComponent(BaseComponent):
         self.password.wait_and_click()
         return self
 
-    @allure.step("Verify validation errors: "
-                 "Email='{error_email_text}',"
-                 "Password='{error_password_text}'")
-    def compare_error(self, error_email_text: str, error_password_text: str):
+    @allure.step("Verify email and password validation error messages (supports EN/UA)")
+    def compare_error(self):
         """
         Waits for error messages to be visible and matches their text content.
         """
@@ -98,9 +96,13 @@ class SignInComponent(BaseComponent):
         )
         actual_email_error = email_error_element.text.strip()
         actual_password_error = password_error_element.text.strip()
-        assert error_email_text.strip() == actual_email_error, (
-            f"Expected email error '{error_email_text}', but got '{actual_email_error}'"
+
+        valid_email_errors = ["Введіть пошту.", "Email is required."]
+        valid_password_errors = ["Це поле є обов'язковим",
+                                 "Password is required"]
+        assert actual_email_error in valid_email_errors, (
+            f"Expected email error to be one of {valid_email_errors}, but got '{actual_email_error}'"
         )
-        assert error_password_text.strip() == actual_password_error, (
-            f"Expected password error '{error_password_text}', but got '{actual_password_error}'"
+        assert actual_password_error in valid_password_errors, (
+            f"Expected password error to be one of {valid_password_errors}, but got '{actual_password_error}'"
         )
