@@ -1,0 +1,15 @@
+version: "3.9"
+
+services:
+  tests:
+    build: .
+    container_name: greencity-tests
+
+    volumes:
+      - .:/app
+      - ./allure-results:/app/allure-results
+
+    environment:
+      - PYTHONUNBUFFERED=1
+
+    command: pytest -v

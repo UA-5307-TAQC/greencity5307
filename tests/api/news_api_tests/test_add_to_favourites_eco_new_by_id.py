@@ -1,4 +1,5 @@
 """Validation of addition to favorites of eco new"""
+# pylint: disable=duplicate-code
 import allure
 import pytest
 from jsonschema import validate, ValidationError
@@ -12,10 +13,10 @@ from utils.logger import logger
 @pytest.mark.parametrize(
     "news_id, status_code, message", [
         ("1", 404, "Eco new doesn't exist by this id: 1"),
-        ("32", 400, "User has already added this eco new to favorites."),
+        ("60", 400, "User has already added this eco new to favorites."),
         ("2", 404, "Eco new doesn't exist by this id: 2"),
         ( "77", 404, "Eco new doesn't exist by this id: 77"),
-        ("90", 400, "User has already added this eco new to favorites.")
+        ("100", 400, "User has already added this eco new to favorites.")
     ]
 )
 
@@ -26,7 +27,7 @@ def test_add_to_favorites_by_id(news_id, status_code, message, access_token):
     """Test of addition to favorites of eco new"""
     client = EcoNewClient(base_url=Config.BASE_API_URL, access_token=access_token)
     response = client.add_to_favorites_eco_new_by_id(news_id=news_id)
-    if response.status_code == 201:
+    if response.status_code == 200:
         with allure.step("Validate proper response json format"):
             parsed_data = response.json()
             logger.info(parsed_data)
@@ -46,4 +47,4 @@ def test_add_to_favorites_by_id(news_id, status_code, message, access_token):
         parsed_data = response.json()
         logger.info(parsed_data)
         assert parsed_data["message"] == message, \
-            f"Expected message '{message}', got '{parsed_data["message"]}'"
+            f"Expected message '{message}', got '{parsed_data['message']}'"

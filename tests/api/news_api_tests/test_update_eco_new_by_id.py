@@ -174,4 +174,4 @@ def test_update_eco_news_put_request_with_invalid_data(news_id, data: dict,
     parsed_data = response.json()
     logger.info(parsed_data)
     assert parsed_data["message"] == message, \
-        f"Expected message '{message}', got '{parsed_data["message"]}'"
+        f"Expected message '{message}', got '{parsed_data['message']}'"
