@@ -27,18 +27,3 @@ Stop and remove containers:
 ```bash
 docker-compose down
 ```
-📂 Viewing Allure Report
-
-After tests finish, serve the Allure report directly from the volume:
-```bash
-docker run --rm -v $(pwd)/allure-results:/app/allure-results -p 8080:8080 allure/allure serve /app/allure-results
-```
-
-⚙️ Running specific tests
-
-Override the default command to run a specific test suite or file:
-```bash
-docker-compose run test pytest tests/ui -q
-docker-compose run test pytest tests/api/test_example.py -q
-docker-compose run test behave tests/bdd/features/ui -q
-```
