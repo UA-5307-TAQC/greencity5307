@@ -100,6 +100,22 @@ cd C:\data\github\UA5307TAQC\greencity5307
 behave
 ```
 
+Running Tests with Docker (Containerization)
+--------------------------
+
+This project is fully containerized, allowing you to run the entire test suite in an isolated environment without installing Python dependencies locally.
+
+### Prerequisites
+- [Docker](https://docs.docker.com/get-docker/) and Docker Compose installed.
+- Ensure your `.env` file is present in the root directory (if required for specific environment variables).
+
+### Quick Start
+
+To build the image, run all Behave BDD tests, and automatically generate Allure report files, run the following command in the root of the project:
+
+```bash
+docker-compose up --build
+
 # Linting and pre-commit hooks
 
 This repository includes:

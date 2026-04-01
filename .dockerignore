@@ -1,6 +1,7 @@
-.venv
-.git
-__pycache__
-.pytest_cache
-allure-results
+__pycache__/
+*.pyc
 .env
+.pytest_cache/
+allure-results/
+.git/
+venv/

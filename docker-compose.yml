@@ -1,14 +1,14 @@
-version: '3.8'
-
 services:
   taqc-tests:
     build: .
     container_name: greencity_tests
-    # Прокидаємо volume для збереження Allure-звітів на хост-машину (⭐)
+    env_file:
+      - .env
     volumes:
       - ./allure-results:/app/allure-results
     environment:
       - BROWSER=chrome
       - HEADLESS=true
-    # Запускаємо тести з генерацією Allure-репорту
-    command: behave -f allure_behave.formatter:AllureFormatter -o allure-results
+      - CHROME_OPTIONS=--no-sandbox,--disable-dev-shm-usage,--headless
+    command: >
+      sh -c "rm -rf allure-results/* && (behave -f allure_behave.formatter:AllureFormatter -o allure-results tests/bdd/features || true)"
