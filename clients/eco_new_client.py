@@ -1,7 +1,7 @@
 """Client for interacting with the Eco News API, extending BaseClient for common functionality."""
+import json
 
 import allure
-
 from requests import Response
 
 from clients.base_client import BaseClient
@@ -10,15 +10,19 @@ from clients.base_client import BaseClient
 class EcoNewClient(BaseClient):
     """Client for interacting with the Eco News API,
      extending BaseClient for common functionality."""
+
     def __init__(self, base_url, access_token=None):
         """Client for interacting with the Eco News API,
         extending BaseClient for common functionality."""
-        super().__init__(base_url=f"{base_url}/eco-news", access_token=access_token)
+        super().__init__(base_url=f"{base_url}/eco-news",
+                         access_token=access_token)
 
-    @allure.step("Find eco news by page with filters: tags={tags}, title={title}, "
-                 "author_id={author_id}, favorite={favorite}, page={page}, size={size}, "
-                 "sort={sort}")
-    def find_eco_news_by_page(self, # pylint: disable=too-many-arguments, too-many-positional-arguments
+    @allure.step(
+        "Find eco news by page with filters: tags={tags}, title={title}, "
+        "author_id={author_id}, favorite={favorite}, page={page}, size={size}, "
+        "sort={sort}")
+    def find_eco_news_by_page(self,
+                              # pylint: disable=too-many-arguments, too-many-positional-arguments
                               tags: list[str] = None,
                               title: str = None,
                               author_id: int = None,
@@ -42,3 +46,90 @@ class EcoNewClient(BaseClient):
             params["sort"] = ",".join(sort)
 
         return self._request("GET", "", params=params)
+
+    @allure.step("Find one eco news by {news_id} with filters: lang={lang}")
+    def find_eco_news_by_id(self, news_id: int, lang: str = None) -> Response:
+        """Find one eco news by id with optional filters."""
+        params = {}
+        if lang:
+            params["lang"] = lang
+
+        return self._request("GET", f"/{news_id}", params=params)
+
+    @allure.step("Get recommended eco news")
+    def get_recommended_eco_news(self, news_id: int) -> Response:
+        """Get recommended eco news request"""
+        params = {"newsId": news_id}
+        return self._request("GET", f"/{news_id}/recommended", params=params )
+
+    @allure.step("Get content and source of eco new by id ")
+    def get_summary_eco_new(self, news_id: int) -> Response:
+        """Get eco new content and source as a summary"""
+        params = {"ecoNewsId" : news_id}
+        return self._request("GET", f"/{news_id}/summary", params=params)
+
+    @allure.step("Dislike/remove dislike on eco news")
+    def dislike_eco_news_by_id(self, news_id: int) -> Response:
+        """Dislike/remove dislike on eco news"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/dislikes", params=params)
+
+    @allure.step("Deletion from favourites eco new by id")
+    def delete_from_favorites_eco_new_by_id(self, news_id: int) -> Response:
+        """Delete from favourites eco new by id"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("DELETE", f"/{news_id}/favorites", params=params)
+
+    @allure.step("Add eco new to favorites.")
+    def add_to_favorites_eco_new_by_id(self, news_id: int) -> Response:
+        """Add eco movie to favorites."""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/favorites", params=params)
+
+
+    @allure.step("Like/remove like at eco new by id.")
+    def like_remove_like_eco_new_by_id(self, news_id: int) -> Response:
+        """Check like or remove like for eco new by id"""
+        params = {
+            "ecoNewsId": news_id
+        }
+        return self._request("POST", f"/{news_id}/likes", params=params)
+
+
+    @allure.step("Update eco new with specified data")
+    def update_eco_news_by_id(self,
+                              news_id: int,
+                              data: dict,
+                              image_file_path: str) -> Response:
+        """Update eco new by id with specified data and image"""
+        with open(image_file_path, "rb") as img:
+            files = {
+                "image": ("image.jpg", img, "image/jpeg"),
+                "updateEcoNewsDto": (
+                    None,
+                    json.dumps(data),
+                    "application/json"
+                )
+            }
+
+            return self._request("PUT", f"/{news_id}", files=files)
+
+    @allure.step("Delete eco new by id.")
+    def delete_eco_news_by_id(self, news_id: int) -> Response:
+        """Delete eco new by id."""
+        return self._request("DELETE", f"/{news_id}")
+
+    @allure.step("Check if user liked eco new request")
+    def user_like_eco_news_by_id(self, news_id: int, user_id: int) -> Response:
+        """Check if user liked eco new"""
+        params = {
+            "ecoNewsId" : news_id,
+            "userId" : user_id
+        }
+        return self._request("GET", f"/{news_id}/likes/{user_id}", params=params)

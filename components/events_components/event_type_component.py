@@ -1,69 +1,59 @@
 """
 Component representing Event Type section.
 """
+import allure
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.remote.webelement import WebElement
-from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from components.base_component import BaseComponent
-from utils.types import Locators
+from utils.custom_web_element import CustomWebElement
 
 
 class EventTypeComponent(BaseComponent):
     """Component for Event Type and Invite selects."""
 
-    event_type_select: Locators = (
-        By.CSS_SELECTOR,
-        "mat-select[formcontrolname='open']"
-    )
+    locators = {
+        "event_type_select": (By.CSS_SELECTOR, "mat-select[formcontrolname='open']"),
+        "invite_select": (By.CSS_SELECTOR, "mat-select[formcontrolname='invite']"),
+        "dropdown_options": (By.XPATH, "//mat-option//span"),
+    }
 
-    invite_select: Locators = (
-        By.XPATH,
-        "//mat-label[text()='Invite']/ancestor::mat-form-field//mat-select"
-    )
+    event_type_select: CustomWebElement
+    invite_select: CustomWebElement
+    dropdown_options: CustomWebElement
 
-    dropdown_options: Locators = (
-        By.XPATH,
-        "//mat-option//span"
-    )
-
-    def __init__(self, root: WebElement, driver: WebDriver):
-        super().__init__(root)
-        self.driver = driver
-
+    @allure.step("Select event type: {value}")
     def select_event_type(self, value: str):
         """Select Event Type."""
-        select = self.root.find_element(*self.event_type_select)
-        select.click()
+        wait = WebDriverWait(self.root.parent, 5)
 
-        options = self.driver.find_elements(*self.dropdown_options)
-        for option in options:
-            if option.text.strip() == value:
-                option.click()
-                return
+        self.event_type_select.click()
 
-        raise ValueError(f"Option '{value}' not found.")
+        option = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, f"//mat-option//span[normalize-space()='{value}']"))
+        )
+        option.click()
 
+    @allure.step("Get selected event type")
     def get_event_type(self) -> str:
         """Get Event Type."""
-        select = self.root.find_element(*self.event_type_select)
-        return select.text.strip()
+        return self.event_type_select.text.strip()
 
+    @allure.step("Select invite option: {value}")
     def select_invite(self, value: str):
-        """Select Invite."""
-        select = self.root.find_element(*self.invite_select)
-        select.click()
+        """Select Invite option."""
+        wait = WebDriverWait(self.root.parent, 5)
 
-        options = self.driver.find_elements(*self.dropdown_options)
-        for option in options:
-            if option.text.strip() == value:
-                option.click()
-                return
+        self.invite_select.click()
 
-        raise ValueError(f"Option '{value}' not found.")
+        option = wait.until(EC.element_to_be_clickable(
+                (By.XPATH, f"//mat-option//span[normalize-space()='{value}']"))
+        )
+        option.click()
 
+    @allure.step("Get selected invite option")
     def get_invite(self) -> str:
-        """Get Invite."""
-        select = self.root.find_element(*self.invite_select)
-        return select.text.strip()
+        """Get Invite option."""
+        return self.invite_select.text.strip()
