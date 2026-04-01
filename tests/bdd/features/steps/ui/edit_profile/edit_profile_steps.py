@@ -15,6 +15,11 @@ def step_open_edit_profile(context):
     my_space_page.profile_banner.click_edit_btn()
     context.edit_page = ProfileEditPage(context.browser)
     context.personal_info = context.edit_page.personal_info
+    context.profile_privacy = context.edit_page.profile_privacy
+
+    WebDriverWait(context.browser, 5).until(
+        lambda d: context.personal_info.get_name_value() != ""
+    )
 
 
 @when('the user updates name to "{name}"')
@@ -66,6 +71,7 @@ def step_reopen_edit(context):
 
     context.edit_page = ProfileEditPage(context.browser)
     context.personal_info = context.edit_page.personal_info
+    context.profile_privacy = context.edit_page.profile_privacy
 
     WebDriverWait(context.browser, 5).until(
         lambda d: context.personal_info.get_name_value() != ""
