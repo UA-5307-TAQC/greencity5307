@@ -5,7 +5,6 @@ from datetime import datetime
 
 import allure
 from allure_commons.types import AttachmentType
-
 from pytest import fixture, hookimpl
 
 from utils.logger import logger
@@ -43,7 +42,8 @@ def capture_logs_to_allure():
     ch = logging.StreamHandler(log_capture_string)
     ch.setLevel(logging.DEBUG)
 
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    formatter = logging.Formatter(
+        '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     ch.setFormatter(formatter)
 
     logger.addHandler(ch)
@@ -53,7 +53,8 @@ def capture_logs_to_allure():
     log_contents = log_capture_string.getvalue()
 
     if log_contents:
-        allure.attach(log_contents, name='Test logs', attachment_type=allure.attachment_type.TEXT)
+        allure.attach(log_contents, name='Test logs',
+                      attachment_type=allure.attachment_type.TEXT)
 
     logger.removeHandler(ch)
     log_capture_string.close()

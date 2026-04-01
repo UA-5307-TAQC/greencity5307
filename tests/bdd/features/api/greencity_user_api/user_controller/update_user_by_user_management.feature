@@ -16,7 +16,7 @@ Feature: Update user by UserManagement
       | {"name":"Іван.","email":"ivan@test.com","role":"ROLE_USER","userStatus":"VERIFIED"}            | 400    |
       | {"name":"Іван","email":"ivan@test.com","role":"ROLE_SUPER_ADMIN","userStatus":"VERIFIED"}      | 400    |
       | {"name":"Іван","email":"ivan@test.com","role":"ROLE_USER","userStatus":"DELETED"}              | 400    |
-      | {"name":"Іван","email":null,"role":"ROLE_USER","userStatus":"VERIFIED"}                                     | 400    |
+      | {"name":"Іван","email":null,"role":"ROLE_USER","userStatus":"VERIFIED"}                        | 400    |
 
   Scenario Outline: Update user with invalid access token
     Given I have invalid access token
