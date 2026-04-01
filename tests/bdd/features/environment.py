@@ -48,7 +48,13 @@ def browser(context):
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-gpu")
     opts.add_argument("--window-size=1920,1080")
-    context.browser = webdriver.Chrome(options=opts)
+    if Config.SELENIUM_URL:
+        context.browser = webdriver.Remote(
+            command_executor=Config.SELENIUM_URL,
+            options=opts,
+        )
+    else:
+        context.browser = webdriver.Chrome(options=opts)
     context.browser.implicitly_wait(Config.IMPLICITLY_WAIT)
     context.browser.get(Config.BASE_UI_URL)
 

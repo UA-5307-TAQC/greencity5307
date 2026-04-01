@@ -2,19 +2,42 @@ services:
   # 1. Browser service (Selenium Grid Standalone)
   chrome:
     image: selenium/standalone-chrome:latest
+    container_name: chrome
     shm_size: 2gb
+    ports:
+        - "4444:4444"
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4444/status || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
-  # 2. Test service
-  tests:
+  # 2. Pytest service
+  pytest-tests:
     build: .
+    container_name: pytest-tests
     depends_on:
-      - chrome
+      chrome:
+        condition: service_healthy
     env_file:
       - ./data/.env
     environment:
       - SELENIUM_URL=http://chrome:4444/wd/hub
     volumes:
       - ./allure-results:/app/allure-results
+    command: pytest -v
 
-    command: pytest tests/ui/find_friend_page_tests/
-# sh -c "pytest ; behave"
+  # 3. Behave service
+  behave-tests:
+    build: .
+    container_name: behave-tests
+    depends_on:
+      chrome:
+        condition: service_healthy
+    env_file:
+      - ./data/.env
+    environment:
+        - SELENIUM_URL=http://chrome:4444/wd/hub
+    volumes:
+        - ./allure-results:/app/allure-results
+    command: behave

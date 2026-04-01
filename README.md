@@ -140,6 +140,43 @@ pytest --alluredir=reports/allure
 allure serve reports/allure
 ```
 
+## Running Tests with Docker
+
+This project is fully containerized, allowing you to run UI and API tests in an isolated, reproducible environment using Docker. It includes a standalone Selenium Chrome node and automatically generates Allure results locally.
+
+### Prerequisites
+- [Docker Desktop](https://www.docker.com/products/docker-desktop/) installed and running.
+- [Allure Commandline](https://docs.qameta.io/allure/#_installing_a_commandline) installed locally (for viewing reports).
+
+### 1. Environment Setup
+Before running the container, you must configure your environment variables.
+1. Navigate to the `data/` directory.
+2. Create a `.env` file (you can copy the variables from a `.env.example` if available).
+3. Ensure your `.env` contains all required credentials (BASE_URL, USER_EMAIL, etc.). *Note: Do not commit the `.env` file to version control.*
+
+### 2. Run All Tests (Pytest & Behave)
+To build the image and run the entire test suite, execute the following command in the root directory:
+
+```bash
+docker-compose up --build
+```
+*What this does: Builds the test runners, waits for the Chrome browser node to be fully ready (Healthcheck), and starts both `pytest-runner` and `behave-runner`.*
+
+### 3. View Allure Reports
+The test results are automatically synchronized to your local machine via Docker volumes. To view the HTML report, simply run:
+
+```bash
+allure serve allure-results
+```
+
+### 4. Cleanup
+After test execution, shut down the infrastructure and clean up any leftover containers by running:
+
+```bash
+docker-compose down
+```
+---
+
 If you don't have Allure CLI installed, you can install it by following instructions at https://docs.qameta.io/allure/
 
 Environment variables and configuration
