@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  tests:
+    build: .
+    container_name: greencity_tests
+    volumes:
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    command: pytest -v
