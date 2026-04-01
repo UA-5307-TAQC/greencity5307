@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  tests:
+    build: .
+    container_name: greencity-tests
+    volumes:
+      - ./allure-results:/app/allure-results
+    command: pytest -v --alluredir=allure-results

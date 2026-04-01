@@ -174,6 +174,17 @@ Notes & next steps (suggested improvements)
 - Add a basic `conftest.py` fixture set for browser/session management and for API client setup.
 - Add a `Makefile` or `invoke` tasks to simplify common commands.
 
+## Run tests in Docker
+
+1. Build and run:
+docker-compose up --build
+
+2. Results will be shown in console
+
+(Optional)
+Allure results:
+pytest --alluredir=allure-results
+
 License
 
 No license specified. Add a license file (e.g., MIT) if you intend to make this project public.
