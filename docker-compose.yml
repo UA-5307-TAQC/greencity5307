@@ -1,0 +1,20 @@
+services:
+  # 1. Browser service (Selenium Grid Standalone)
+  chrome:
+    image: selenium/standalone-chrome:latest
+    shm_size: 2gb
+
+  # 2. Test service
+  tests:
+    build: .
+    depends_on:
+      - chrome
+    env_file:
+      - ./data/.env
+    environment:
+      - SELENIUM_URL=http://chrome:4444/wd/hub
+    volumes:
+      - ./allure-results:/app/allure-results
+
+    command: pytest tests/ui/find_friend_page_tests/
+# sh -c "pytest ; behave"
