@@ -16,6 +16,7 @@ These helpers centralize browser setup and teardown and make test steps
 simpler by guaranteeing the presence of a configured WebDriver on the
 ``context`` object.
 """
+import os
 from behave import use_fixture
 from behave.fixture import fixture
 from selenium import webdriver
@@ -47,8 +48,17 @@ def browser(context):
     opts.add_argument(f"--lang={Config.BROWSER_LANG}")
     opts.add_argument("--no-sandbox")
     opts.add_argument("--disable-gpu")
+    opts.add_argument("--disable-dev-shm-usage")
     opts.add_argument("--window-size=1920,1080")
-    context.browser = webdriver.Chrome(options=opts)
+    selenium_url = os.getenv("SELENIUM_HUB_URL")
+
+    if selenium_url:
+        context.browser = webdriver.Remote(
+            command_executor=selenium_url,
+            options=opts
+        )
+    else:
+        context.browser = webdriver.Chrome(options=opts)
     context.browser.implicitly_wait(Config.IMPLICITLY_WAIT)
     context.browser.get(Config.BASE_UI_URL)
 

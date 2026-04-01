@@ -213,3 +213,9 @@ __marimo__/
 # Allur report
 allure-report/
 allure-results/
+
+# Chrome
+chrome/
+.cache/
+.wdm/
+chromedriver/
