@@ -45,4 +45,4 @@ def test_eco_new_summary(news_id,status_code, message, access_token):
         parsed_data = response.json()
         logger.info(parsed_data)
         assert parsed_data["message"] == message, \
-            f"Expected message '{message}', got '{parsed_data["message"]}"
+            f"Expected message '{message}', got '{parsed_data['message']}"

@@ -39,7 +39,7 @@ def test_verify_user_cannot_like_dislike_own_event_comment(comment_factory):
         validate(instance=response_data, schema=event_comment_schema)
 
         assert response_data.get("likes") == 0, \
-            f"Likes count was updated. Expected: 0, got: {response_data.get("likes")}"
+            f"Likes count was updated. Expected: 0, got: {response_data.get('likes')}"
 
     with allure.step("Step 4: "
                      "Send a POST request to dislike created previously comment."):
@@ -63,4 +63,4 @@ def test_verify_user_cannot_like_dislike_own_event_comment(comment_factory):
         validate(instance=response_data, schema=event_comment_schema)
 
         assert response_data.get("dislikes") == 0, \
-            f"Likes count was updated. Expected: 0, got: {response_data.get("dislikes")}"
+            f"Likes count was updated. Expected: 0, got: {response_data.get('dislikes')}"

@@ -50,4 +50,4 @@ def test_like_remove_like_eco_new_by_id(news_id, status_code, message, access_to
         parsed_data = response.json()
         logger.info(parsed_data)
         assert parsed_data["message"] == message, \
-            f"Expected message '{message}', got '{parsed_data["message"]}'"
+            f"Expected message '{message}', got '{parsed_data['message']}'"

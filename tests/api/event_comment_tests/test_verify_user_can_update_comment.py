@@ -53,5 +53,5 @@ def test_verify_user_can_update_own_event_comment(comment_factory):
         assert response_data.get("text") == TEXT, \
             (f"Updating the comment's text failed. "
              f"Expected text: {TEXT}, "
-             f"got: {response_data.get("text")}. "
+             f"got: {response_data.get('text')}. "
              f"Body: {response.text}")
