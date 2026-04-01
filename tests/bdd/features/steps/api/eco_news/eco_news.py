@@ -1,11 +1,12 @@
 """Eco news api feature steps"""
 import tempfile
-
+import json
 import allure
 from PIL import Image
 from behave import given, when, then
 from jsonschema import validate, ValidationError
 
+from clients.create_eco_news_client import CreateEcoNewsClient
 from clients.eco_new_client import EcoNewClient
 from data.config import Config
 from schemas.news.eco_news_response_schema import eco_news_response_schema
@@ -39,6 +40,71 @@ def step_get_eco_news_client(context):
         base_url=Config.BASE_API_URL,
         access_token=getattr(context, "access_token", None)
     )
+
+
+@given("Get Create Eco News client")
+def step_get_create_eco_news_client(context):
+    """Get create eco news client"""
+    data = {
+        "base_url": Config.BASE_API_URL,
+    }
+    if hasattr(context, "access_token"):
+        data["access_token"] = context.access_token
+    context.client = CreateEcoNewsClient(
+        base_url=Config.BASE_API_URL,
+        access_token=context.access_token
+    )
+@when(
+    'the client sends a request to get eco news with id {news_id} and language {lang}')
+def step_get_by_id(context, news_id, lang):
+    """Get one eco news by id"""
+    context.news_id = news_id
+    context.response = context.client.find_eco_news_by_id(news_id=news_id,
+                                                          lang=lang)
+
+
+@when("the client sends a request to retrieve eco news with parameters")
+def step_get_eco_news(context):
+    """
+    Sends a request to retrieve eco news using query parameters from a Gherkin table.
+
+    The step parses input values from the context.table and converts them into
+    appropriate Python types before sending the request:
+        - "null" → None
+        - "true"/"false" → boolean
+        - "[a, b]" → list of strings
+        - numeric strings → integers
+        - otherwise → string
+
+    The resulting parameters are passed as keyword arguments to the eco news
+    pagination endpoint.
+    """
+    params = {}
+
+    for row in context.table:
+        for key in row.headings:
+            value = row[key]
+
+            if value == "null":
+                params[key] = None
+
+            elif value.lower() in ["true", "false"]:
+                params[key] = value.lower() == "true"
+
+            elif value.startswith("[") and value.endswith("]"):
+                # [news, education]
+                inner = value[1:-1].strip()
+                params[key] = [x.strip() for x in inner.split(",") if
+                               x.strip()]
+
+            elif value.lstrip("-").isdigit():
+                params[key] = int(value)
+
+            else:
+                params[key] = value
+
+    context.response = context.client.find_eco_news_by_page(**params)
+
 
 
 @when(
@@ -141,8 +207,27 @@ def step_get_recommended(context, news_id):
 @when('I send PUT request to update eco news with id {news_id} and {data}')
 def step_update_with_data(context, news_id, data):
     """Update eco new request"""
+    cleaned_data = data.strip().rstrip(':')
+    parsed_data = json.loads(cleaned_data)
+
     context.response = context.client.update_eco_news_by_id(
         news_id=news_id,
+        image_file_path=create_test_image(),
+        data=parsed_data
+    )
+    logger.info(
+        "Response: %s",
+        context.response.json() if context.response.content else "Empty"
+    )
+
+
+@when('I send POST request to create eco news with data:')
+def step_create_eco_news(context):
+    """Create eco news request"""
+
+    data = json.loads(context.text)
+
+    context.response = context.client.create_eco_news_by_data(
         image_file_path=create_test_image(),
         data=data
     )
@@ -198,6 +283,42 @@ def step_validate_list_schema(context, schema_name):
 @then('the response message should be {message}')
 def step_validate_message(context, message):
     """Validation of message"""
+    response = context.response
+
+    try:
+        parsed_data = response.json()
+        actual_message = parsed_data.get("message")
+    except ValueError:
+        actual_message = response.text
+
+    assert actual_message is not None, \
+        f"No message found in response. Full response: {response.text}"
+
+    assert message in actual_message, \
+        f"Expected '{message}', got '{actual_message}'"
+
+
+@then('the response message for list should be {message}')
+def step_validate_message_for_list(context, message):
+    """Validation of message in list response"""
+    response = context.response
+
+    try:
+        parsed_data = response.json()
+    except ValueError as e:
+        allure.attach(str(e), name="Validation Error",
+                      attachment_type=allure.attachment_type.TEXT)
+    else:
+        assert isinstance(parsed_data, list), \
+            f"Expected response to be a list, got {type(parsed_data)}: {parsed_data}"
+
+        messages = [item.get("message") for item in parsed_data if isinstance(item, dict)]
+
+        assert any(msg is not None for msg in messages), \
+        f"No 'message' field found in response: {parsed_data}"
+
+        assert any(message in msg for msg in messages if msg), \
+        f"Expected '{message}' in one of {messages}"
     parsed_data = context.response.json()
     assert parsed_data["message"] == message, \
         f"Expected '{message}', got '{parsed_data['message']}'"

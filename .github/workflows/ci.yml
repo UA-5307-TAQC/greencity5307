@@ -110,7 +110,7 @@ jobs:
       - name: Merge Allure results
         run: |
           mkdir allure-results
-          find allure-results-merged -type f -name "*.json" -exec cp {} allure-results \;
+          find allure-results-merged -type f \( -name "*.json" -o -name "*.png" \) -exec cp {} allure-results \;
 
       - name: Get Allure history
         uses: actions/checkout@v4
