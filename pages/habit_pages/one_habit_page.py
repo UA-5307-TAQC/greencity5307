@@ -1,12 +1,15 @@
 """ OneHabitPage elements"""
 
 import allure
-
+from selenium.common.exceptions import (
+    TimeoutException,
+    StaleElementReferenceException,
+    NoSuchElementException
+)
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
-
 from pages.base_page import BasePage
 
 class OneHabitPage(BasePage):
@@ -25,6 +28,9 @@ class OneHabitPage(BasePage):
 
         # habit-info
         "calendar": (By.CSS_SELECTOR, ".calendar .calendar "),
+        "mark_as_done_button_undone": (By.CSS_SELECTOR, "div.mark-done button.undone"),
+        "mark_as_done_button_done": (By.CSS_SELECTOR, "div.mark-done button.done"),
+        "status_text": (By.XPATH, "//div[contains(@class, 'mark-done')]/div[contains(@class, 'ng-star-inserted')]"),
 
         # Duration
         "duration_day_slider": (By.CSS_SELECTOR, "mat-slider > input"),
@@ -73,6 +79,9 @@ class OneHabitPage(BasePage):
     delete_habit_button: WebElement
     add_habit_button: WebElement
     edit_habit_button: WebElement
+    mark_as_done_button_undone : WebElement
+    mark_as_done_button_done : WebElement
+    status_text: WebElement
 
     def get_tags_text(self) -> list[str]:
         """
@@ -150,3 +159,43 @@ class OneHabitPage(BasePage):
         """Returns the current numeric value of the slider"""
         value_str = self.duration_day_slider.get_attribute("aria-valuetext")
         return int(value_str)
+
+    @allure.step("Press 'Mark as done' button (undone state)")
+    def press_mark_as_done_button(self):
+        """Press button to mark as done"""
+        try:
+            self.mark_as_done_button_undone.wait_and_click()
+
+        except (TimeoutException, NoSuchElementException) as exception:
+            raise AssertionError(
+                "Failed to find or wait for the 'Mark as done' button. "
+                "The component might be missing, or the habit has already been completed."
+            ) from exception
+        except StaleElementReferenceException as exception:
+            raise AssertionError(
+                "The page structure was updated (DOM changed) while attempting to click "
+                "the 'Mark as done' button."
+            ) from exception
+        except Exception as e:
+            raise AssertionError(
+                f"An unknown error occurred while interacting with the 'Mark as done' button: {str(e)}"
+            ) from e
+
+    @allure.step("Check if habit is marked as done")
+    def is_habit_marked_as_done(self, timeout=5):
+        """Wait for habit is marked as done"""
+        try:
+            self.get_wait(timeout).until(
+                EC.visibility_of(self.mark_as_done_button_done)
+            )
+            return True
+        except TimeoutException:
+            return False
+
+    @allure.step("Get progress streak text next to the button")
+    def get_progress_text(self, timeout=5):
+        """Display text of progress streak"""
+        element = self.get_wait(timeout).until(
+            EC.visibility_of(self.status_text)
+        )
+        return element.text

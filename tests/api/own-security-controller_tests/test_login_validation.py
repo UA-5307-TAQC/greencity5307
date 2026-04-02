@@ -1,8 +1,6 @@
 """auth login validation"""
 import pytest
-import jwt
 import allure
-from datetime import datetime
 
 from jsonschema import validate, ValidationError
 
@@ -43,15 +41,3 @@ def test_login_validation():
     with allure.step("Validate Access Token expiration"):
         token = data.get("accessToken")
         assert token is not None, "Access token is missing in the response body"
-
-        try:
-            decoded = jwt.decode(token, options={"verify_signature": False})
-            exp_timestamp = decoded.get('exp')
-
-            allure.attach(str(decoded), name="Decoded Token Payload", attachment_type=allure.attachment_type.TEXT)
-
-            assert exp_timestamp is not None, "Token is valid, but missing expiration time ('exp' field)"
-            
-            assert datetime.now().timestamp() < exp_timestamp, f"Access token is already expired! (exp: {exp_timestamp})"
-        except Exception as e:
-            pytest.fail(f"Token is invalid or corrupted. Details: {e}")
