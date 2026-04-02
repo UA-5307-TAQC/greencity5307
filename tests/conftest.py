@@ -1,6 +1,7 @@
 """Pytest fixture for Selenium WebDriver setup and teardown."""
 import io
 import logging
+import os
 from datetime import datetime
 
 import allure
@@ -53,7 +54,12 @@ def capture_logs_to_allure():
     log_contents = log_capture_string.getvalue()
 
     if log_contents:
-        allure.attach(log_contents, name='Test logs', attachment_type=allure.attachment_type.TEXT)
+        worker_id = os.environ.get("PYTEST_XDIST_WORKER", "main")
+        allure.attach(
+            log_contents,
+            name=f'Test logs [{worker_id}]',
+            attachment_type=allure.attachment_type.TEXT
+        )
 
     logger.removeHandler(ch)
     log_capture_string.close()

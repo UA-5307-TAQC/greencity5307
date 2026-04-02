@@ -27,10 +27,12 @@ class BaseClient:
 
         request_id = str(uuid.uuid4())
 
+        # Build per-request headers without mutating the shared session headers.
+        # requests merges these with session-level headers (e.g. Authorization)
+        # for this individual request only.
+        per_request_headers = {"X-Request-ID": request_id}
         if headers:
-            self.session.headers.update(headers)
-
-        self.session.headers["X-Request-ID"] = request_id
+            per_request_headers.update(headers)
 
         self.logger.info( # pylint: disable=logging-fstring-interpolation
             f"Sending {method} request to {url}"
@@ -40,6 +42,7 @@ class BaseClient:
         response = self.session.request(
             method=method,
             url=url,
+            headers=per_request_headers,
             **kwargs
         )
         return response
