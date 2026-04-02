@@ -13,3 +13,4 @@ from . import create_update_eco_new
 from . import friends_abstract
 from . import saved_abstract
 from . import find_friend
+from . import edit_profile
