@@ -7,3 +7,4 @@ from . import greencity_user_api
 from . import own_security
 from . import google_security
 from . import social_networks
+from . import fact_of_the_day
