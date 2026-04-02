@@ -1,7 +1,6 @@
 """Module that contains UI test for verifying the event saving
 and unsaving functionality, including authorization flow."""
 import allure
-import pytest
 
 from pages.common_pages.main_page import MainPage
 from pages.abstract_pages.saved_abstract.news_saved_page import NewsPage
@@ -12,12 +11,8 @@ from components.common_components.auth_components.signin_modal_component \
 
 from data.config import Config
 
-from clients.event_client import EventClient
-
-from tests.api.conftest import access_token
 
 EVENT_CARD_NAME = "Some Event"
-EVENT_ID = 36
 
 
 @allure.title("Verify Event Saving Functionality and Saved Items Management")
@@ -115,20 +110,3 @@ def test_verify_event_saving_functionality_management(driver, precondition_if_ev
             "'Events' tab on the 'Saved' page was not loaded."
         assert not saved_events_page.is_event_card_present(EVENT_CARD_NAME), \
             "Event card should be unsaved."
-
-
-@pytest.fixture
-def precondition_if_event_saved(access_token):
-    """API precondition to ensure the target event is not in the user's saved list.
-    Removes the event from favorites before the test execution."""
-    event_client = EventClient(
-        base_url=Config.BASE_API_URL,
-        access_token=access_token
-    )
-
-    with allure.step("Precondition:"
-                     "Target event has not to be saved on the user account."):
-        response = event_client.remove_event_from_favorites(EVENT_ID)
-        status_code = response.status_code
-        assert status_code in {200, 400}, \
-            f"Failed to prep state. Status: {response.status_code}, Body: {response.text}"
