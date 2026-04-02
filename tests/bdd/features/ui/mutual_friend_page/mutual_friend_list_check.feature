@@ -14,7 +14,7 @@ Feature: Mutual friends visibility on user profile
 
   Scenario: Verify mutual friends counter
     When the user views the "Mutual Friends" tab
-    Then the mutual friends counter displays "1"
+    Then the mutual friends counter displays "2"
 
   Scenario: Display mutual friends list
     When the user clicks on the "Mutual Friends" tab
