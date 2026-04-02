@@ -1,53 +1,31 @@
-@wip
-Feature: Get social network image by URL
+Feature: Social Network Image
 
-  As a client of the Social Network API
-  I want to retrieve an image using its URL
-  So that the image can be displayed in the application
+  As a user
+  I want to retrieve social network images
+  So that I can validate access and responses
 
-  Background:
-    Given the environment variable "BASE_API_URL" is configured
-    And SocialNetworkClient is created using Config.BASE_API_URL
+  Scenario Outline: Get social network image with valid URL
+    Given the user is authorized
+    And I have SocialNetworkClient
+    When I send GET request to social network image with url "<image_url>"
+    Then the response status code should be <status_code>
+    And the response should match social network image schema
 
-  Scenario Outline: Get social network image
-    When I send a GET request to "/image" with image "<image_url>"
-    Then the response status code should be captured
+  Examples:
+    | image_url                  | status_code |
+    | https://picsum.photos/200 | 200         |
 
-    Examples:
-      | image_url                   |
-      | https://picsum.photos/200   |
 
-  Scenario: Successfully retrieve social network image
-    Given a valid image URL
-    When I send a GET request to "/image" with image "<image_url>"
-    And the response status code is 200
-    Then the response body should match "one_news_get_by_id_schema"
+  Scenario Outline: Get social network image with invalid URL
+    Given the user is authorized
+    And I have SocialNetworkClient
+    When I send GET request to social network image with url "<image_url>"
+    Then the response status code should be <status_code>
+    And the response should contain "<message_type>" with value "<message>"
 
-  Scenario: User has no permission to access the image
-    Given a valid image URL
-    When I send a GET request to "/image" with image "<image_url>"
-    And the response status code is 400
-    Then the response body should contain message "Current user has no permission for this action"
-
-  Scenario: Image page not found
-    Given an invalid image URL
-    When I send a GET request to "/image" with image "<image_url>"
-    And the response status code is 404
-    Then the response body should contain message "Page is not found"
-
-  Scenario: Forbidden access
-    Given a request without proper authorization
-    When I send a GET request to "/image" with image "<image_url>"
-    And the response status code is 403
-    Then the response body should contain message "Forbidden access"
-
-  Scenario: Internal server error
-    Given the server encounters an unexpected condition
-    When I send a GET request to "/image" with image "<image_url>"
-    And the response status code is 500
-    Then the response body should contain message "Internal Server Error"
-
-  Scenario: Unexpected status code
-    When I send a GET request to "/image" with image "<image_url>"
-    And the response status code is not one of [200, 400, 403, 404, 500]
-    Then the test should fail with message "Other error"
+  Examples:
+    | image_url                  | status_code | message_type | message                                             |
+    | https://picsum.photos/400 | 400         | message      | Current user has no permission for this action      |
+    | https://picsum.photos/404 | 404         | message      | Page is not found                                  |
+    | https://picsum.photos/403 | 403         | error        | Forbidden                                          |
+    | https://picsum.photos/500 | 500         | error        | Internal Server Error                              |
