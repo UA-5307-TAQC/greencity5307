@@ -18,10 +18,12 @@ simpler by guaranteeing the presence of a configured WebDriver on the
 """
 from behave import use_fixture
 from behave.fixture import fixture
+from mailosaur import MailosaurClient
 from selenium import webdriver
 from selenium.common import WebDriverException
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
+from clients.own_security_client import OwnSecurityClient
 from data.config import Config
 
 
@@ -85,3 +87,25 @@ def before_scenario(context, scenario):  # pylint: disable=unused-argument
         except AttributeError:
             pass
     use_fixture(browser, context)
+
+    if "security_api" in scenario.tags:
+        context.api_settings = Config
+        context.client = OwnSecurityClient(Config.BASE_USER_API_URL)
+        context.mailosaur = MailosaurClient(Config.MAILOSAUR_API_KEY)
+        context.user_password = Config.USER_PASSWORD
+
+def after_scenario(context, scenario):
+    """Hook executed after each scenario."""
+
+    if "restore_password" in scenario.tags:
+        if hasattr(context, 'client') and context.client.access_token:
+            restore_response = context.client.change_password(
+                password=Config.USER_PASSWORD,
+                confirm_password=Config.USER_PASSWORD
+            )
+            if restore_response.status_code != 200:
+                print(f"\n[CRITICAL] Failed to restore original password! "
+                      f"Status: {restore_response.status_code}. "
+                      f"Response: {restore_response.text}")
+        else:
+            print("\n[WARNING] Could not restore password: API client or access token not found in context.")
