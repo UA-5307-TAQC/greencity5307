@@ -3,9 +3,9 @@ import pytest
 
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
-@allure.title("Check that user is redirected to Friends page")
+@allure.title("Check that user is redirected to My Friends page")
 def test_navigation_to_friends_page(driver_with_login):
-    """Test correct navigation to Find Friend page."""
+    """Test correct navigation to My Friends page."""
 
     with allure.step("Go to My Space page"):
         driver = driver_with_login
