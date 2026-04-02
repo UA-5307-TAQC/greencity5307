@@ -1,0 +1,12 @@
+{
+  "id": 2389,
+  "status": "INPROGRESS",
+  "createDateTime": "2026-04-02T10:20:51.161898984Z",
+  "habitId": 1,
+  "userId": 1205,
+  "duration": 14,
+  "workingDays": 0,
+  "habitStreak": 0,
+  "lastEnrollment": "2026-04-02T10:20:51.161899884Z",
+  "progressNotificationHasDisplayed": false
+}
