@@ -1,54 +1,19 @@
-@wip
-Feature: Get Google Security configuration
+Feature: Google Security Authentication
 
-  As a client of the Google Security API
-  I want to retrieve Google Security configuration by project name and language
-  So that the correct security settings are returned
+  As a user
+  I want to validate Google security endpoint
+  So that authentication works correctly
 
-  Background:
-    Given the environment variable "BASE_API_URL" is configured
-    And SocialNetworkClient is created using Config.BASE_API_URL
+  Scenario Outline: Validate Google security with different parameters
+    Given the user is authorized
+    And I have GoogleSecurityClient
+    When I send GET request to google security with project "<project_name>" and lang "<lang>"
+    Then the response status code should be <status_code>
+    And the response should match google security schema if status is 200
+    And the response should contain "<message_type>" with value "<message>"
 
-  Scenario Outline: Get Google Security configuration
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    Then the response status code should be captured
-
-    Examples:
-      | project_name | lang |
-      | GREENCITY    | en   |
-      | GREENCITY    | uk   |
-
-  Scenario: Successfully retrieve Google Security configuration
-    Given a valid project name and language
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    And the response status code is 200
-    Then the response body should match "one_news_get_by_id_schema"
-
-  Scenario: User has no permission
-    Given a valid project name and language
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    And the response status code is 400
-    Then the response body should contain message "Current user has no permission for this action"
-
-  Scenario: Page not found
-    Given an invalid project name or language
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    And the response status code is 404
-    Then the response body should contain message "Page is not found"
-
-  Scenario: Forbidden access
-    Given a request without proper authorization
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    And the response status code is 403
-    Then the response body should contain message "Forbidden access"
-
-  Scenario: Internal server error
-    Given the server encounters an unexpected condition
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    And the response status code is 500
-    Then the response body should contain message "Internal Server Error"
-
-  Scenario: Unexpected status code
-    When I send a GET request to "/googleSecurity" with project "<project_name>" and language "<lang>"
-    And the response status code is not one of [200, 400, 403, 404, 500]
-    Then the test should fail with message "Other error"
+  Examples:
+    | project_name | lang | status_code | message_type | message             |
+    | GREENCITY   | en   | 200         |              |                     |
+    | GREENCITY   | uk   | 200         |              |                     |
+    |             | uk   | 404         | message      | Page is not found   |

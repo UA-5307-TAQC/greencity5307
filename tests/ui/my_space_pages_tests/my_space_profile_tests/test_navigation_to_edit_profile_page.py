@@ -17,4 +17,4 @@ def test_navigation_to_edit_profile_page(driver_with_login):
 
     with allure.step("Check if user is redirected to Edit Profile page"):
         url = driver.current_url
-        assert "/edit" in url, f"Expected to be on friends page, but was at: {url}"
+        assert "/edit" in url, f"Expected to be on Edit Profile page, but was at: {url}"
