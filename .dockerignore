@@ -1,0 +1,84 @@
+# ==========================================
+# 1. Secret data and configurations
+# ==========================================
+# Never copy local environment variables into the image.
+# This is for security: passwords and tokens should be passed to the container at runtime (e.g., via env_file in docker-compose).
+data/.env
+data/.env.*
+
+# ==========================================
+# 2. Python Virtual Environments
+# ==========================================
+# Local packages from your PC. They are very heavy (hundreds of MBs) and built for your specific OS.
+# In Docker, we install dependencies cleanly using requirements.txt.
+.venv/
+venv/
+
+# ==========================================
+# 3. Python Cache
+# ==========================================
+# Compiled Python bytecode. Moving bytecode from Windows/Mac to a Linux container can cause errors.
+# Docker will generate its own bytecode during runtime.
+__pycache__/
+*.py[cod]
+*.pyo
+
+# ==========================================
+# 4. Selenium and Browser Caches (Crucial for UI tests!)
+# ==========================================
+# Locally downloaded Chrome and ChromeDriver binaries (via Selenium Manager).
+# These take up a massive amount of space. We use a separate selenium/standalone-chrome container for this.
+chrome/
+.cache/
+.wdm/
+chromedriver/
+
+# ==========================================
+# 5. Testing, Reports, and Logs
+# ==========================================
+# Results from previous test runs. We don't want old reports from your PC
+# to get into the image and mix with the new container results.
+.pytest_cache/
+allure-results/
+.coverage
+htmlcov/
+*.log
+
+# ==========================================
+# 6. IDE and Editor Settings
+# ==========================================
+# Local settings for PyCharm, VS Code, etc. These are only needed for your local development
+# and are completely unnecessary for the code to run.
+.idea/
+.vscode/
+
+# ==========================================
+# 7. Git and Version Control
+# ==========================================
+# Your entire commit history. The .git folder can weigh gigabytes,
+# and it is absolutely unnecessary inside the container.
+.git/
+.gitignore
+
+# ==========================================
+# 8. Python Build Artifacts
+# ==========================================
+# Leftovers from creating Python packages (if you use setup.py or similar tools).
+dist/
+build/
+*.egg-info/
+
+# ==========================================
+# 9. OS System Files
+# ==========================================
+# Hidden macOS and Windows files that store folder display settings (icons, thumbnails).
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# 10. Docker Files
+# ==========================================
+# The container doesn't need to know how it was built.
+# These files are only needed by the Docker engine during the build stage.
+Dockerfile
+.dockerignore

@@ -60,17 +60,17 @@ def login_user(context):
     assert response.status_code == 200, \
         f"Login failed. Status: {response.status_code}. Response body: {response.text}"
 
-    auth_token = response.json().get("accessToken")
-    assert auth_token, \
+    token = response.json().get("accessToken")
+    assert token, \
         f"Login response does not contain access token. Response body: {response.text}"
 
-    context.auth_token = auth_token
+    context.access_token = token
 
 
 @given("I have invalid access token")
 def step_invalid_token(context):
     """Create an invalid access token"""
-    context.auth_token = "not_access_token"
+    context.access_token = "not_access_token"
 
 
 @then('the response JSON should match the schema')

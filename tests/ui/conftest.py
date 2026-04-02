@@ -1,3 +1,4 @@
+import os
 import pytest
 import allure
 
@@ -21,13 +22,20 @@ def driver(request):
     browser = request.param
     headless_flag = Config.HEADLESS
 
+    selenium_url = os.getenv("SELENIUM_HUB_URL")
+
     drv = None
     match browser:
         case "firefox":
             opts = FirefoxOptions()
             if headless_flag:
                 opts.headless = True
-            drv = webdriver.Firefox(options=opts)
+
+            if selenium_url:
+                drv = webdriver.Remote(command_executor=selenium_url, options=opts)
+            else:
+                drv = webdriver.Firefox(options=opts)
+
         case "chrome":
             opts = ChromeOptions()
             if headless_flag:
@@ -36,7 +44,14 @@ def driver(request):
             opts.add_argument("--no-sandbox")
             opts.add_argument("--disable-gpu")
             opts.add_argument("--window-size=1920,1080")
-            drv = webdriver.Chrome(options=opts)
+
+            opts.add_argument("--disable-dev-shm-usage")
+
+            if selenium_url:
+                drv = webdriver.Remote(command_executor=selenium_url, options=opts)
+            else:
+                drv = webdriver.Chrome(options=opts)
+
     drv.implicitly_wait(Config.IMPLICITLY_WAIT)
     drv.get(Config.BASE_UI_URL)
 

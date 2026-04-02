@@ -32,7 +32,7 @@ def create_habit_assign_client_without_token(context):
 @given('habit assign client is created')
 def create_habit_assign_client(context):
     """Initializes a habit assigned client with authorization"""
-    access_token = context.auth_token
+    access_token = context.access_token
     context.client = HabitAssignClient(base_url=Config.BASE_API_URL, access_token=access_token)
 
 
