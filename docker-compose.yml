@@ -1,0 +1,58 @@
+services:
+  chrome-browser:
+    image: selenium/standalone-chrome:latest
+    container_name: chrome-browser
+    ports:
+      - "4444:4444"
+      - "7900:7900"
+    shm_size: 2gb
+
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 3G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:4444/status || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  pytest_tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: pytest_runner
+    env_file:
+      - data/.env
+    environment:
+      - SELENIUM_HUB_URL=http://chrome-browser:4444/wd/hub
+    command: ["pytest", "-v"]
+    volumes:
+      - ./allure-results/pytest:/app/allure-results
+    depends_on:
+      chrome-browser:
+        condition: service_healthy
+    restart: "no"
+
+  behave_tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: behave_runner
+    env_file:
+      - data/.env
+    environment:
+      - SELENIUM_HUB_URL=http://chrome-browser:4444/wd/hub
+    command: [ "behave" ]
+    volumes:
+      - ./allure-results/behave:/app/allure-results
+    depends_on:
+      chrome-browser:
+        condition: service_healthy
+    restart: "no"

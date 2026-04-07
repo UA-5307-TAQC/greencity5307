@@ -20,7 +20,7 @@ from utils.logger import logger
 @given("created UserClient")
 def step_create_user_client(context):
     """Create UserClient instance using authentication token stored in context."""
-    context.client = UserClient(access_token=context.auth_token)
+    context.client = UserClient(access_token=context.access_token)
 
 
 # =========================
