@@ -11,12 +11,14 @@ from components.events_components.quill_editor_component import QuillEditorCompo
 from components.events_components.data_time_component import DateTimeComponent
 from components.events_components.location_component import LocationComponent
 from components.events_components.link_component import OnlineLinkComponent
+from utils.custom_web_element import CustomWebElement
 
 
 class CreateEventPage(BasePage):
     """Create event page."""
 
     locators = {
+        "page_header": (By.CSS_SELECTOR, ".event-header-items > h3"),
         "header_root": (By.CSS_SELECTOR, "div.header-container", EventHeaderComponent),
         "chip_set": (By.CSS_SELECTOR, "div.mdc-evolution-chip-set__chips", ChipSetComponent),
         "event_type": (By.CSS_SELECTOR, "div.event-type-wrapper", EventTypeComponent),
@@ -33,6 +35,7 @@ class CreateEventPage(BasePage):
             OnlineLinkComponent),
     }
 
+    page_header: CustomWebElement
     header_root: EventHeaderComponent
     chip_set: ChipSetComponent
     event_type: EventTypeComponent

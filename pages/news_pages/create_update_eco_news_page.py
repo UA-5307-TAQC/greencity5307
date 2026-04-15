@@ -13,7 +13,7 @@ from pages.base_page import BasePage
 class CreateUpdateEcoNewsPage(BasePage):
     """Page object for the create_update_eco_news page."""
     locators = {
-        "page_title": (By.XPATH, "//*[@id='main-content']/div/div[1]/h2"),
+        "page_title": (By.CSS_SELECTOR, "h2.title-header"),
         "form": (By.XPATH, "//*[@id='main-content']//form"),
 
         "cancel_button": (By.XPATH, "//button[contains(text(),'Cancel')]"),
@@ -44,7 +44,7 @@ class CreateUpdateEcoNewsPage(BasePage):
     @allure.step("Check if CreateUpdateEcoNewsPage is opened")
     def is_page_opened(self) -> bool:
         """Check if the page is opened."""
-        return self.page_title.is_displayed()
+        return self.page_title.root.is_displayed()
 
     @allure.step("Getting the form component")
     def get_form(self) -> CreateUpdateEcoNewsFormComponent:
