@@ -1,0 +1,116 @@
+[
+  {
+    "createDateTime": "2026-04-15T20:38:13.946146Z",
+    "duration": 37,
+    "habit": {
+      "defaultDuration": 37,
+      "amountAcquiredUsers": null,
+      "habitTranslation": {
+        "name": "\u0456\u0432\u0430\u0446\u0443\u043a\u0435",
+        "description": "dfghyjukiolp;['p;lokjnhbgvfcdxzxsdcfvgbhnj",
+        "habitItem": "Item",
+        "languageCode": "en"
+      },
+      "id": 794,
+      "image": "img/habit-default.png",
+      "complexity": 2,
+      "tags": [
+        "Testing"
+      ],
+      "toDoListItems": [],
+      "customToDoListItems": null,
+      "isCustomHabit": null,
+      "usersIdWhoCreatedCustomHabit": null,
+      "habitAssignStatus": null,
+      "isAssigned": null,
+      "isFavorite": null,
+      "likes": 0,
+      "dislikes": 0
+    },
+    "userToDoListItems": null,
+    "habitStatusCalendarDtoList": [
+      {
+        "enrollDate": "2026-04-15",
+        "id": 85
+      }
+    ],
+    "habitStreak": 1,
+    "id": 2460,
+    "lastEnrollmentDate": "2026-04-15T21:42:59.957268Z",
+    "status": "INPROGRESS",
+    "userId": 1205,
+    "workingDays": 1,
+    "progressNotificationHasDisplayed": null,
+    "friendsIdsTrackingHabit": []
+  },
+  {
+    "createDateTime": "2026-04-15T21:45:06.53936Z",
+    "duration": 14,
+    "habit": {
+      "defaultDuration": 14,
+      "amountAcquiredUsers": null,
+      "habitTranslation": {
+        "name": "Sorting out rubbish",
+        "description": "Description",
+        "habitItem": "Item",
+        "languageCode": "en"
+      },
+      "id": 25,
+      "image": "https://csb10032000a548f571.blob.core.windows.net/allfiles/photo_2021-06-01_15-39-56.jpg",
+      "complexity": 3,
+      "tags": [
+        "Recycling/Waste sorting"
+      ],
+      "toDoListItems": [
+        {
+          "id": 14699,
+          "text": "Waste systems for pull-out fronts",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 14700,
+          "text": "Waste systems for hinged doors",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 14701,
+          "text": "Double Recycling Pedal Bin",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 14702,
+          "text": "3 Section Recycling Pedal Bin",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 14703,
+          "text": "Totem Waste & Recycling Bins",
+          "status": "ACTIVE"
+        },
+        {
+          "id": 14704,
+          "text": "Food Waste Caddy",
+          "status": "ACTIVE"
+        }
+      ],
+      "customToDoListItems": null,
+      "isCustomHabit": null,
+      "usersIdWhoCreatedCustomHabit": null,
+      "habitAssignStatus": null,
+      "isAssigned": null,
+      "isFavorite": null,
+      "likes": 0,
+      "dislikes": 0
+    },
+    "userToDoListItems": null,
+    "habitStatusCalendarDtoList": [],
+    "habitStreak": 0,
+    "id": 2477,
+    "lastEnrollmentDate": "2026-04-15T21:45:06.539364Z",
+    "status": "INPROGRESS",
+    "userId": 1205,
+    "workingDays": 0,
+    "progressNotificationHasDisplayed": null,
+    "friendsIdsTrackingHabit": []
+  }
+]
