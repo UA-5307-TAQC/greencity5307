@@ -17,7 +17,7 @@ class MyHabitPage(MySpaceAbstractPage):
         "habit_cards_list": (By.TAG_NAME, "app-one-habit", UserHabitCardComponent),
 
         "add_new_habit_button": (By.XPATH, ".//span[text()='Add New Habit']/.."),
-        "my_habits_tab": (By.XPATH, ".//div[contains(@class, 'my-habits-tab')]")
+        "my_habits_tab": (By.CSS_SELECTOR, "#mat-tab-label-4-0 > span.mdc-tab__content > span")
     }
 
     first_habit_card: UserHabitCardComponent

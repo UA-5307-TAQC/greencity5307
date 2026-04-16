@@ -69,7 +69,7 @@ def test_open_eco_news_article_and_verify_details(driver_with_login: WebDriver) 
         assert title_text.strip(), "News title is not displayed or empty."
 
     with allure.step("Step 8: Verify the news main content/body text is displayed"):
-        main_text = one_news_page.get_main_text()
+        main_text = one_news_page.main_text.root.text
         allure.attach(
             main_text,
             name="News main text",
@@ -78,7 +78,7 @@ def test_open_eco_news_article_and_verify_details(driver_with_login: WebDriver) 
         assert main_text.strip(), "News main content is not displayed or empty."
 
     with allure.step("Step 9: Verify the publication date is displayed"):
-        creation_date = one_news_page.get_creation_date()
+        creation_date = one_news_page.creation_date.root.text
         allure.attach(
             creation_date,
             name="Publication date",
