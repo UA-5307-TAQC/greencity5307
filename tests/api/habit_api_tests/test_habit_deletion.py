@@ -10,7 +10,11 @@ CORRECT_HABIT_IDS = [30, 31]
 CORRECT_HABIT_ID = 26
 
 
-@allure.title("Test habit deletion with correct habit assigned id")
+@allure.title("Delete habit with id=({habit_id})")
+@allure.description("Test habit deletion with correct habit assigned id")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/239", "TC-API-005")
 @pytest.mark.parametrize("habit_id", CORRECT_HABIT_IDS)
 def test_habit_deletion_with_correct_assigned_id(habit_manager, assign_habit, habit_id):
     """Test habit deletion by habit assigned id"""
@@ -32,7 +36,11 @@ def test_habit_deletion_with_correct_assigned_id(habit_manager, assign_habit, ha
         assert response.text == ""
 
 
-@allure.title("Test habit deletion without logging and correct assigned id")
+@allure.title("Delete habit without access token")
+@allure.description("Test habit deletion without logging and correct assigned id")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/241", "TC-API-007")
 def test_habit_deletion_without_loging(assign_habit, clean_habit):
     """Test habit deletion without logging"""
     with allure.step("Create Habit Assign client"):
@@ -59,7 +67,11 @@ def test_habit_deletion_without_loging(assign_habit, clean_habit):
         habits_to_delete.append(habit_assign_id)
 
 
-@allure.title("Test habit deletion with incorrect data")
+@allure.title("Delete habit with incorrect id=({incorrect_data})")
+@allure.description("Test habit deletion with incorrect data")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/240", "TC-API-006")
 @pytest.mark.parametrize("incorrect_data, status_code",
                          [
                             pytest.param(0, 404, id="incorrect habit assigned id"),

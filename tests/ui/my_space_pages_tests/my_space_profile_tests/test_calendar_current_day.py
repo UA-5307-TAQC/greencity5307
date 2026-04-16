@@ -1,10 +1,13 @@
 from datetime import datetime
-
 import allure
 
 from pages.abstract_pages.my_space_abstract.my_habit_page import MyHabitPage
 
-@allure.title("Check that calendar highlights current system date on My Space page")
+@allure.title("Calendar Current Date")
+@allure.description("Check that calendar highlights current system date on My Space page")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/31", "TC-006")
 def test_calendar_current_day(driver_with_login):
     """Test that calendar highlights current system date."""
 

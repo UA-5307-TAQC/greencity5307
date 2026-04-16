@@ -12,8 +12,11 @@ SUPPORTED_LANG_CODE = ["en", "uk"]
 INCORRECT_LANG_CODE = "test"
 CORRECT_HABIT_ID = 25
 
-
-@allure.title("Test user can retrieve habit assignments with supported language codes")
+@allure.title("Retrieve habit assignments with ({lang}) language code")
+@allure.description("Test user can retrieve habit assignments with supported language code")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/250", "TC-API-008")
 @pytest.mark.parametrize("lang", SUPPORTED_LANG_CODE)
 def test_get_all_habit_assignments_success(
     assign_habit,
@@ -41,8 +44,11 @@ def test_get_all_habit_assignments_success(
         validate_json(all_habit_assignments_schema, parsed_data)
 
 
-
-@allure.title("Test user can't retrieve habit assignments with incorrect language code")
+@allure.title(f"Retrieve habit assignments with ({INCORRECT_LANG_CODE}) language code")
+@allure.description("Test user can't retrieve habit assignments with incorrect language code")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/251", "TC-API-009")
 def test_get_all_habit_assignments_with_incorrect_lang_code(habit_assign_client):
     """Test get habit assignments for current user with incorrect language code"""
 
@@ -53,7 +59,11 @@ def test_get_all_habit_assignments_with_incorrect_lang_code(habit_assign_client)
         assert response.status_code == 400
 
 
-@allure.title("Test user can't retrieve habit assignments without access token")
+@allure.title("Retrieve habit assignments without access token")
+@allure.description("Test user can't retrieve habit assignments without access token")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/252", "TC-API-010")
 def test_get_all_habit_assignments_without_login():
     """Test get habit assignments for current user without access token"""
 
