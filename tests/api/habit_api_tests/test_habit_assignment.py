@@ -12,8 +12,11 @@ HABIT_ID = 21
 INCORRECT_HABIT_ID = -3
 HABIT_ID_TO_ASSIGN = 24
 
-
-@allure.title("Test habit assignment with login and correct id")
+@allure.title("Assign habit with id=({habit_id})")
+@allure.description("Test habit assignment with correct id")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/235", "TC-API-001")
 @pytest.mark.parametrize("habit_id", CORRECT_HABIT_IDS)
 def test_habit_assignment_with_correct_id(clean_habit, habit_id, validate_json):
     """Test habit assignment with correct id"""
@@ -39,7 +42,11 @@ def test_habit_assignment_with_correct_id(clean_habit, habit_id, validate_json):
         validate_json(assigned_habit_schema, habit_data)
 
 
-@allure.title("Test habit assignment without login and correct id")
+@allure.title("Assign habit without access token")
+@allure.description("Test habit assignment without login and correct id")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/238", "TC-API-004")
 def test_habit_assignment_without_login():
     """Test habit assignment without login"""
     with allure.step("Pre-condition: Create Habit Assign client without access token"):
@@ -50,7 +57,11 @@ def test_habit_assignment_without_login():
         assert response.status_code == 401
 
 
-@allure.title("Test habit assignment with already assigned habit id")
+@allure.title(f"Assign already assigned habit with id=({HABIT_ID_TO_ASSIGN})")
+@allure.description("Test habit assignment with already assigned habit id")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/237", "TC-API-003")
 def test_pre_assigned_habit_assignment(assign_habit, clean_habit):
     """Test habit assignment with already assigned habit id"""
     client = clean_habit.client
@@ -70,7 +81,11 @@ def test_pre_assigned_habit_assignment(assign_habit, clean_habit):
         habits_to_delete.append(assigned_id)
 
 
-@allure.title("Test habit assignment with login and incorrect id")
+@allure.title(f"Assign habit with incorrect id=({HABIT_ID_TO_ASSIGN})")
+@allure.description("Test habit assignment with incorrect id")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/236", "TC-API-002")
 def test_habit_assignment_with_incorrect_id(habit_assign_client):
     """Test habit assignment with incorrect id"""
     client = habit_assign_client

@@ -1,7 +1,11 @@
 import allure
 
-@allure.title("Check that user is able to create a new habit card by "
+@allure.title("Successful Habit Creation ")
+@allure.description("Check that user is able to create a new habit card by "
               "filling in all required fields on the Create habit page")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/25", "TC-001")
 def test_successful_habit_creation(delete_habit_after):
     """Test for successful habit creation."""
 

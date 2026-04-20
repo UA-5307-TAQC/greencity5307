@@ -1,7 +1,11 @@
 import allure
 
-@allure.title("Check that user is not able to submit a form "
+@allure.title("Empty Title Field")
+@allure.description("Check that user is not able to submit a form "
               "on the Create Habit page after leaving the 'Title' field empty")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/26", "TC-002")
 def test_title_is_required(create_habit_page_context):
     """Test that 'Habit title' field is required."""
 

@@ -1,6 +1,11 @@
 import allure
 
-@allure.title("Check that a user is redirected to another Friend page after clicking on a friend card on the 'All friends' tab on the Friend page")
+@allure.title("Click Friend Card")
+@allure.description("Check that a user is redirected to another Friend page after "
+                    "clicking on a friend card on the 'All friends' tab on the Friend page")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/34", "TC-009")
 def test_user_page_navigation_after_clicking_on_card(page_of_user_with_friends):
     """Check a user is redirected to another Friend page after clicking a friend card"""
     all_friends_page = page_of_user_with_friends

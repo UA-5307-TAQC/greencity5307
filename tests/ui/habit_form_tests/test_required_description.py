@@ -1,7 +1,11 @@
 import allure
 
-@allure.title("Check that user is not able to submit a form on the Create Habit page "
+@allure.title("Empty Description Textarea")
+@allure.description("Check that user is not able to submit a form on the Create Habit page "
               "after leaving the 'Habit description' textarea empty")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("owner", "Liubov Titova")
+@allure.testcase("https://github.com/UA-5307-TAQC/greencity5307/issues/27", "TC-003")
 def test_description_is_required(create_habit_page_context):
     """Test that 'Habit description' textarea is required."""
 
